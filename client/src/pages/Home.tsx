@@ -1,13 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
-import { ProductCard } from "@/components/ProductCard";
-import { ChevronDown } from "lucide-react";
+import { AnimatedProductCard } from "@/components/AnimatedProductCard";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 
 export default function Home() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 400;
+      const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
+      scrollContainerRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -78,10 +92,14 @@ export default function Home() {
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="aspect-[4/5] bg-muted rounded geometric-panel animate-pulse" />
-              ))}
+            <div className="relative">
+              <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="shrink-0 w-80 snap-center">
+                    <div className="aspect-[4/5] bg-muted rounded geometric-panel animate-pulse" />
+                  </div>
+                ))}
+              </div>
             </div>
           ) : isError ? (
             <div className="text-center py-16 geometric-panel bg-card p-12 max-w-2xl mx-auto">
@@ -92,10 +110,58 @@ export default function Home() {
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-testid="grid-products">
-              {products?.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            <div className="relative">
+              {/* Scroll Navigation Buttons */}
+              <div className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => scroll('left')}
+                  className="h-12 w-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-primary shadow-lg"
+                  data-testid="button-scroll-left"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </Button>
+              </div>
+              <div className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => scroll('right')}
+                  className="h-12 w-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-primary shadow-lg"
+                  data-testid="button-scroll-right"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </Button>
+              </div>
+
+              {/* Horizontal Scroll Container */}
+              <div
+                ref={scrollContainerRef}
+                className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide px-4 md:px-0"
+                style={{
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                }}
+                data-testid="container-horizontal-scroll"
+              >
+                {products?.map((product, index) => (
+                  <AnimatedProductCard
+                    key={product.id}
+                    product={product}
+                    delay={index * 100}
+                  />
+                ))}
+              </div>
+
+              {/* Scroll Indicator */}
+              <div className="text-center mt-4 text-sm text-muted-foreground">
+                <p className="flex items-center justify-center gap-2">
+                  <ChevronLeft className="w-4 h-4" />
+                  Scroll to explore
+                  <ChevronRight className="w-4 h-4" />
+                </p>
+              </div>
             </div>
           )}
         </div>
