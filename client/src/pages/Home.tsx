@@ -12,21 +12,26 @@ export default function Home() {
 
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  // Convert vertical scroll to horizontal scroll - attach to window to catch all wheel events
+  // Convert vertical scroll to horizontal scroll for the timeline
   useEffect(() => {
+    const timeline = timelineRef.current;
+    if (!timeline) return;
+
     const handleWheel = (e: WheelEvent) => {
-      if (timelineRef.current) {
-        e.preventDefault();
-        // Convert vertical scroll to horizontal
-        timelineRef.current.scrollLeft += e.deltaY;
-      }
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Use deltaY primarily (vertical scroll), but also check deltaX for trackpads
+      const scrollAmount = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      
+      // Convert vertical scroll to horizontal movement
+      timeline.scrollBy({ left: scrollAmount, behavior: 'auto' });
     };
 
-    // Attach to window to catch all wheel events on the page
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    timeline.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
-      window.removeEventListener('wheel', handleWheel);
+      timeline.removeEventListener('wheel', handleWheel);
     };
   }, []);
 
