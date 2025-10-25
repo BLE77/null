@@ -1,7 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { dbStorage } from "./db-storage";
-import { insertProductSchema, insertOrderSchema } from "@shared/schema";
+import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
+import passport from "passport";
+import { requireAuth, requireAdmin } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/products", async (req, res) => {
@@ -80,6 +82,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch orders" });
     }
+  });
+
+  // Auth routes
+  app.post("/api/auth/register", async (req, res) => {
+    try {
+      const { username, email, password } = insertUserSchema.parse(req.body);
+      
+      const existingUser = await dbStorage.getUserByUsername(username);
+      if (existingUser) {
+        return res.status(400).json({ message: "Username already exists" });
+      }
+
+      const existingEmail = await dbStorage.getUserByEmail(email);
+      if (existingEmail) {
+        return res.status(400).json({ message: "Email already registered" });
+      }
+
+      const user = await dbStorage.createUser({ username, email, password });
+      
+      req.login(user, (err) => {
+        if (err) {
+          return res.status(500).json({ message: "Login after registration failed" });
+        }
+        const { password: _, ...userWithoutPassword } = user;
+        res.status(201).json(userWithoutPassword);
+      });
+    } catch (error) {
+      res.status(400).json({ message: "Invalid registration data" });
+    }
+  });
+
+  app.post("/api/auth/login", passport.authenticate("local"), (req, res) => {
+    const user = req.user as User;
+    const { password: _, ...userWithoutPassword } = user;
+    res.json(userWithoutPassword);
+  });
+
+  app.post("/api/auth/logout", (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Logout failed" });
+      }
+      res.json({ message: "Logged out successfully" });
+    });
+  });
+
+  app.get("/api/auth/me", (req, res) => {
+    if (req.isAuthenticated()) {
+      const user = req.user as User;
+      const { password: _, ...userWithoutPassword } = user;
+      return res.json(userWithoutPassword);
+    }
+    res.status(401).json({ message: "Not authenticated" });
   });
 
   const httpServer = createServer(app);

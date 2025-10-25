@@ -1,12 +1,14 @@
 import { Link } from "wouter";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
+import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
 export function Navigation() {
   const { getTotalItems, setIsCartOpen } = useCart();
+  const { user, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const totalItems = getTotalItems();
 
@@ -33,7 +35,30 @@ export function Navigation() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {user ? (
+              <>
+                <span className="hidden md:block text-sm text-muted-foreground mr-2" data-testid="text-username">
+                  {user.username}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => logout()}
+                  title="Logout"
+                  data-testid="button-logout"
+                >
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </>
+            ) : (
+              <Link href="/login">
+                <Button variant="ghost" size="icon" title="Login" data-testid="button-login-nav">
+                  <User className="w-4 h-4" />
+                </Button>
+              </Link>
+            )}
+
             <Button
               variant="ghost"
               size="icon"
