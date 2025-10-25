@@ -17,21 +17,33 @@ export default function Home() {
     const timeline = timelineRef.current;
     if (!timeline) return;
 
+    let scrollTimeout: NodeJS.Timeout;
+
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       e.stopPropagation();
       
+      // Temporarily disable snap scrolling during active scrolling
+      timeline.style.scrollSnapType = 'none';
+      
       // Use deltaY primarily (vertical scroll), but also check deltaX for trackpads
       const scrollAmount = e.deltaY !== 0 ? e.deltaY : e.deltaX;
       
-      // Convert vertical scroll to horizontal movement
+      // Convert vertical scroll to horizontal movement with smooth behavior
       timeline.scrollBy({ left: scrollAmount, behavior: 'auto' });
+      
+      // Re-enable snap scrolling after user stops scrolling
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        timeline.style.scrollSnapType = 'x mandatory';
+      }, 150);
     };
 
     timeline.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
       timeline.removeEventListener('wheel', handleWheel);
+      clearTimeout(scrollTimeout);
     };
   }, []);
 
