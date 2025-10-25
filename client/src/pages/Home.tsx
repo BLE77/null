@@ -14,9 +14,14 @@ export default function Home() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 400;
-      const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
-      scrollContainerRef.current.scrollTo({
+      const container = scrollContainerRef.current;
+      const scrollAmount = 350; // Width of one card + gap
+      const currentScroll = container.scrollLeft;
+      const newScrollLeft = direction === 'left' 
+        ? Math.max(0, currentScroll - scrollAmount)
+        : currentScroll + scrollAmount;
+      
+      container.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
       });

@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { type Product, getProductSizes } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useEffect, useState } from "react";
 
 interface AnimatedProductCardProps {
   product: Product;
@@ -10,17 +10,25 @@ interface AnimatedProductCardProps {
 }
 
 export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardProps) {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 });
   const sizes = getProductSizes(product);
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    // Trigger animation after mount with delay
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+    
+    return () => clearTimeout(timer);
+  }, [delay]);
   
   return (
     <div
-      ref={ref}
       className="shrink-0 w-80 snap-center"
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'scale(1) translateY(0)' : 'scale(0.9) translateY(20px)',
-        transition: `all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms`,
+        transition: `all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)`,
       }}
     >
       <Link href={`/product/${product.id}`}>
