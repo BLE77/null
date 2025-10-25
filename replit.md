@@ -10,22 +10,22 @@ An early 2000s Flash-inspired e-commerce clothing brand website with cryptocurre
 - **Styling**: Tailwind CSS with custom Y2K/retro theme
 
 ## Key Features
-1. **Full-screen immersive hero section** with Y2K aesthetic
-2. **Product catalog** with asymmetric grid layout
-3. **Product detail pages** with image galleries and size selection
-4. **Shopping cart** with slide-in sidebar interface
-5. **Cryptocurrency checkout** via x402 protocol (USDC on Base)
-6. **Responsive design** maintaining nostalgic vibe across devices
-7. **VHS scan-line effects** and grain overlays for authentic retro feel
-8. **Distressed typography** using Bebas Neue and Teko fonts
+1. **Horizontal timeline layout** - Entire website scrolls left-to-right like an early 2000s Flash site
+2. **Mouse wheel hijacking** - Vertical scroll converts to horizontal navigation
+3. **Product animations** - Items pop up with scale/fade effects as they scroll into view
+4. **Full-screen immersive sections** - Hero, products, crypto, footer snap to viewport
+5. **Product detail pages** with image galleries and size selection
+6. **Shopping cart** with slide-in sidebar interface
+7. **Cryptocurrency checkout** via x402 protocol (USDC on Base)
+8. **Clean geometric Y2K aesthetic** - Light blue, black, white palette with subtle effects
 
 ## Design System
-- **Colors**: Dark background (#0F0F0F), neon pink primary (#FF2E63), cyan accent (#2AC3BC)
+- **Colors**: Light blue primary (#87CEEB/sky blue), black, white - clean professional palette
 - **Typography**: 
-  - Display: Bebas Neue (uppercase headers)
-  - Headings: Teko (condensed secondary)
+  - Display: Space Grotesk (geometric headings)
   - Body: Inter (clean, readable)
-- **Effects**: VHS scanlines, grain overlays, glitch animations
+- **Effects**: Subtle 3% texture overlay, clean geometric panels, minimal shadows
+- **Layout**: Horizontal timeline with snap scrolling
 - **Spacing**: 4, 8, 12, 16, 24, 32 (Tailwind units)
 
 ## Asset Replacement Guide
@@ -41,10 +41,25 @@ Replace these placeholders with your actual brand assets while maintaining:
 - Dark, moody lighting for consistency
 
 ## Pages
-1. **Home** (`/`) - Hero + product grid + footer
+1. **Home** (`/`) - Horizontal timeline: Hero → Products (3) → More Products (3) → Crypto → Footer
 2. **Product Detail** (`/product/:id`) - Individual product with size selector
 3. **Checkout** (`/checkout`) - Shipping info + crypto payment
 4. **About** (`/about`) - Brand story and mission
+
+## Horizontal Timeline Structure
+The homepage uses a unique horizontal scrolling timeline layout:
+- **Section 1 (0vw)**: Hero with "CYBER VOID" branding and CTA
+- **Section 2 (100vw)**: First 3 products with "Latest Collection"
+- **Section 3 (200vw)**: Next 3 products (if available)
+- **Section 4 (300vw)**: Crypto payment information with X402 integration
+- **Section 5 (400vw)**: Footer with links and contact info
+
+### Technical Implementation
+- Mouse wheel events convert vertical scroll to horizontal movement
+- Each section uses `flex-none` and `minWidth: '100vw'` to prevent shrinking
+- CSS snap scrolling (`snap-x snap-mandatory`) aligns sections to viewport
+- Intersection Observer triggers product animations as they scroll into view
+- Total timeline width: ~500vw (5 sections × 100vw each)
 
 ## Data Models
 - **Product**: name, description, price, category, imageUrl, images[], sizes[], inStock
@@ -59,20 +74,24 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
-- Initial project setup with dark Y2K theme
-- Complete frontend with all pages and components
-- In-memory storage with sample products
-- Cart management with robust localStorage persistence (SSR-safe)
-- Responsive navigation and mobile menu
-- VHS/retro visual effects system
+- Complete redesign from neon cyberpunk to clean geometric Y2K aesthetic
+- Implemented full horizontal timeline layout (entire site scrolls left-to-right)
+- Mouse wheel hijacking for horizontal navigation
+- Product pop-up animations using Intersection Observer
+- Light blue/black/white color palette (Theory7 2001 inspired)
+- Clean geometric panels with subtle texture overlays
+- Removed heavy VHS/glitch effects for minimal professional look
+- Inter & Space Grotesk typography
+- Snap scrolling between full-screen sections
 - Backend API routes for products and orders
-- Order creation with backend integration
-- Comprehensive error handling across all pages
-- Loading states with skeleton screens
-- Fixed Link component nesting issues
+- Cart management with localStorage persistence
+- Authentication system with Passport.js
+- PostgreSQL database with size-specific inventory
 
 ## User Preferences
-- Early 2000s Flash website aesthetic (Donnie Darko inspiration)
-- Cryptocurrency-first payment approach
-- Dark, grungy, experimental design
-- Clear asset replacement system for brand customization
+- Early 2000s Flash website aesthetic with horizontal timeline
+- Clean, professional Y2K geometric design (NOT neon cyberpunk)
+- Light sky blue, black, white color scheme
+- Horizontal scroll experience where mouse wheel controls left/right navigation
+- Products should pop up as users scroll through timeline
+- Cryptocurrency-first payment approach via x402 protocol

@@ -42,7 +42,7 @@ export default function Home() {
     >
       <div className="flex h-full">
         {/* Section 1: Hero */}
-        <section className="min-w-screen h-screen flex items-center justify-center snap-center relative overflow-hidden bg-gradient-to-br from-primary/20 via-background to-accent/20">
+        <section className="flex-none h-screen flex items-center justify-center snap-center relative overflow-hidden bg-gradient-to-br from-primary/20 via-background to-accent/20" style={{ minWidth: '100vw' }}>
           <div className="absolute inset-0 texture-overlay" />
           
           {/* Clean geometric grid overlay */}
@@ -82,7 +82,7 @@ export default function Home() {
         </section>
 
         {/* Section 2: Products Timeline */}
-        <section className="min-w-screen h-screen snap-center relative bg-background flex items-center" id="products">
+        <section className="flex-none h-screen snap-center relative bg-background flex items-center" style={{ minWidth: '100vw' }} id="products">
           <div className="w-full px-8 md:px-16">
             <div className="mb-12 text-center">
               <h2 
@@ -130,7 +130,7 @@ export default function Home() {
 
         {/* Section 3: More Products */}
         {!isLoading && !isError && products && products.length > 3 && (
-          <section className="min-w-screen h-screen snap-center relative bg-accent/10 flex items-center">
+          <section className="flex-none h-screen snap-center relative bg-accent/10 flex items-center" style={{ minWidth: '100vw' }}>
             <div className="w-full px-8 md:px-16">
               <div className="flex gap-6 justify-center overflow-x-visible px-4">
                 {products.slice(3, 6).map((product, index) => (
@@ -146,7 +146,7 @@ export default function Home() {
         )}
 
         {/* Section 4: Crypto Payment */}
-        <section className="min-w-screen h-screen snap-center bg-accent/30 flex items-center">
+        <section className="flex-none h-screen snap-center bg-accent/30 flex items-center" style={{ minWidth: '100vw' }}>
           <div className="container mx-auto px-8 md:px-16 max-w-6xl">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div className="geometric-panel bg-white p-10 corner-lines">
@@ -190,7 +190,7 @@ export default function Home() {
         </section>
 
         {/* Section 5: Footer / Contact */}
-        <section className="min-w-screen h-screen snap-center bg-secondary flex items-center border-l-2 border-primary">
+        <section className="flex-none h-screen snap-center bg-secondary flex items-center border-l-2 border-primary" style={{ minWidth: '100vw' }}>
           <div className="container mx-auto px-8 md:px-16 max-w-7xl w-full">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
               <div>
