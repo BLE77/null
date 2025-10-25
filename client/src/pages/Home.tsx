@@ -12,24 +12,21 @@ export default function Home() {
 
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  // Convert vertical scroll to horizontal scroll
+  // Convert vertical scroll to horizontal scroll - attach to window to catch all wheel events
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (timelineRef.current) {
         e.preventDefault();
+        // Convert vertical scroll to horizontal
         timelineRef.current.scrollLeft += e.deltaY;
       }
     };
 
-    const timeline = timelineRef.current;
-    if (timeline) {
-      timeline.addEventListener('wheel', handleWheel, { passive: false });
-    }
+    // Attach to window to catch all wheel events on the page
+    window.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
-      if (timeline) {
-        timeline.removeEventListener('wheel', handleWheel);
-      }
+      window.removeEventListener('wheel', handleWheel);
     };
   }, []);
 
