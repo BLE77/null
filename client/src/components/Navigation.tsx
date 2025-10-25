@@ -13,23 +13,23 @@ export function Navigation() {
   const totalItems = getTotalItems();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b-2 border-primary shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/">
-            <span className="text-2xl font-bold tracking-wider uppercase hover-elevate active-elevate-2 px-3 py-1 rounded-md cursor-pointer inline-block" style={{ fontFamily: "'Bebas Neue', sans-serif" }} data-testid="link-home">
-              <span className="text-primary">YOUR-BRAND</span>
+            <span className="text-2xl font-bold tracking-tight cursor-pointer inline-block text-foreground" style={{ fontFamily: "var(--font-display)" }} data-testid="link-home">
+              CYBER VOID
             </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
             <Link href="/">
-              <span className="text-sm uppercase tracking-wider hover:text-primary transition-colors hover-elevate px-3 py-2 rounded-md cursor-pointer inline-block" data-testid="link-shop">
+              <span className="text-sm uppercase tracking-wider hover:text-primary transition-colors font-semibold cursor-pointer inline-block" data-testid="link-shop">
                 Shop
               </span>
             </Link>
             <Link href="/about">
-              <span className="text-sm uppercase tracking-wider hover:text-primary transition-colors hover-elevate px-3 py-2 rounded-md cursor-pointer inline-block" data-testid="link-about">
+              <span className="text-sm uppercase tracking-wider hover:text-primary transition-colors font-semibold cursor-pointer inline-block" data-testid="link-about">
                 About
               </span>
             </Link>
@@ -38,7 +38,7 @@ export function Navigation() {
           <div className="flex items-center gap-2">
             {user ? (
               <>
-                <span className="hidden md:block text-sm text-muted-foreground mr-2" data-testid="text-username">
+                <span className="hidden md:block text-sm text-muted-foreground mr-2 font-medium" data-testid="text-username">
                   {user.username}
                 </span>
                 <Button
@@ -69,8 +69,7 @@ export function Navigation() {
               <ShoppingCart className="w-5 h-5" />
               {totalItems > 0 && (
                 <Badge 
-                  variant="destructive" 
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs rounded-full"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs rounded-full bg-primary text-primary-foreground font-bold"
                   data-testid="badge-cart-count"
                 >
                   {totalItems}
@@ -95,7 +94,7 @@ export function Navigation() {
             <div className="flex flex-col gap-4">
               <Link href="/">
                 <span 
-                  className="text-sm uppercase tracking-wider hover:text-primary transition-colors block py-2 cursor-pointer"
+                  className="text-sm uppercase tracking-wider hover:text-primary transition-colors block py-2 cursor-pointer font-semibold"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-shop-mobile"
                 >
@@ -104,7 +103,7 @@ export function Navigation() {
               </Link>
               <Link href="/about">
                 <span 
-                  className="text-sm uppercase tracking-wider hover:text-primary transition-colors block py-2 cursor-pointer"
+                  className="text-sm uppercase tracking-wider hover:text-primary transition-colors block py-2 cursor-pointer font-semibold"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-about-mobile"
                 >

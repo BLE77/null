@@ -11,78 +11,88 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <section className="relative h-screen flex items-center justify-center overflow-hidden grain-overlay">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-background z-10" />
+      {/* Hero Section - Clean geometric */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-accent/20">
+        <div className="absolute inset-0 texture-overlay" />
         
-        <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground bg-muted">
-          HERO-IMAGE-VIDEO
-        </div>
+        {/* Clean geometric grid overlay */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)',
+          backgroundSize: '80px 80px'
+        }} />
 
         <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
-          <h1 
-            className="text-6xl md:text-8xl lg:text-9xl font-bold uppercase tracking-wider mb-6 text-primary"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-            data-testid="text-hero-title"
-          >
-            Your Brand
-          </h1>
-          <p className="text-xl md:text-2xl text-foreground mb-8 tracking-wide uppercase" style={{ fontFamily: "'Teko', sans-serif" }}>
-            Y2K Streetwear / Crypto Native
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button 
-              size="lg" 
-              className="uppercase tracking-wider text-base px-8 backdrop-blur-sm"
-              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-              data-testid="button-shop-now"
+          <div className="geometric-panel bg-white/90 backdrop-blur-md p-12 md:p-16 corner-lines">
+            <h1 
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground"
+              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+              data-testid="text-hero-title"
             >
-              Shop Now
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="uppercase tracking-wider text-base px-8 backdrop-blur-sm bg-background/20"
-              data-testid="button-learn-more"
-            >
-              Learn More
-            </Button>
+              CYBER VOID
+            </h1>
+            <div className="h-1 w-24 bg-primary mx-auto mb-6" />
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 font-medium">
+              Digital Streetwear for 2025
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button 
+                size="lg" 
+                className="uppercase tracking-wider text-base px-10 font-semibold"
+                onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+                data-testid="button-shop-now"
+              >
+                Shop Collection
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="uppercase tracking-wider text-base px-10 font-semibold border-2"
+                data-testid="button-learn-more"
+              >
+                Learn More
+              </Button>
+            </div>
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-primary" style={{ animation: 'scroll-prompt 2s infinite' }} />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+          <ChevronDown className="w-8 h-8 text-primary animate-bounce" />
         </div>
       </section>
 
-      <section id="products" className="py-16 md:py-24">
+      {/* Products Section */}
+      <section id="products" className="py-20 md:py-32 bg-background">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-12">
+          <div className="mb-16 text-center">
             <h2 
-              className="text-4xl md:text-6xl font-bold uppercase tracking-wider mb-4"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              className="text-4xl md:text-6xl font-bold mb-4 text-foreground"
+              style={{ fontFamily: "var(--font-display)" }}
               data-testid="text-collection-title"
             >
-              Latest Drop
+              Latest Collection
             </h2>
-            <div className="h-1 w-24 bg-primary" />
+            <div className="h-1 w-20 bg-primary mx-auto mb-6" />
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our curated selection of premium streetwear pieces
+            </p>
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="aspect-[4/5] bg-muted rounded-md animate-pulse" />
+                <div key={i} className="aspect-[4/5] bg-muted rounded geometric-panel animate-pulse" />
               ))}
             </div>
           ) : isError ? (
-            <div className="text-center py-12">
+            <div className="text-center py-16 geometric-panel bg-card p-12 max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold mb-4">Failed to load products</h3>
-              <p className="text-muted-foreground mb-6">There was an error loading the product catalog. Please try again later.</p>
+              <p className="text-muted-foreground mb-6">Please try again later</p>
               <Button onClick={() => window.location.reload()} data-testid="button-reload">
                 Reload Page
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="grid-products">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-testid="grid-products">
               {products?.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -91,91 +101,104 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-card border-y border-border">
+      {/* Crypto Payment Section */}
+      <section className="py-20 md:py-32 bg-accent/30">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="geometric-panel bg-white p-10 corner-lines">
               <h2 
-                className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className="text-4xl md:text-5xl font-bold mb-6 text-foreground"
+                style={{ fontFamily: "var(--font-display)" }}
               >
-                Crypto Native
+                Crypto Payments
               </h2>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                We accept cryptocurrency payments via x402 protocol. Pay with USDC on Base network for instant, secure checkout. No accounts required.
+              <div className="h-1 w-16 bg-primary mb-6" />
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Fast, secure cryptocurrency payments powered by <span className="font-bold text-foreground">x402 protocol</span>. Pay with USDC on Base network.
               </p>
-              <div className="flex gap-4 flex-wrap">
-                <div className="bg-muted px-4 py-2 rounded-md">
-                  <span className="text-sm font-semibold">USDC</span>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span className="text-base">Instant settlement (~200ms)</span>
                 </div>
-                <div className="bg-muted px-4 py-2 rounded-md">
-                  <span className="text-sm font-semibold">Base Network</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span className="text-base">No signup required</span>
                 </div>
-                <div className="bg-muted px-4 py-2 rounded-md">
-                  <span className="text-sm font-semibold">Instant Settlement</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                  <span className="text-base">Secure on-chain transactions</span>
                 </div>
               </div>
             </div>
-            <div className="aspect-video bg-muted rounded-md flex items-center justify-center text-xs text-muted-foreground">
-              BRAND-STORY-IMG-1
+            <div className="geometric-panel bg-white aspect-square flex items-center justify-center p-16">
+              <div className="text-center">
+                <div className="text-7xl font-black mb-4 text-primary" style={{ fontFamily: "var(--font-display)" }}>
+                  X402
+                </div>
+                <p className="text-sm uppercase tracking-wider text-muted-foreground font-semibold">
+                  Protocol Integration
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-background border-t border-border py-12">
+      {/* Footer */}
+      <footer className="bg-secondary border-t-2 border-primary py-16">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div>
-              <h3 className="font-bold uppercase tracking-wider mb-4" style={{ fontFamily: "'Teko', sans-serif" }}>
+              <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
                 About
               </h3>
-              <p className="text-sm text-muted-foreground">
-                Y2K inspired streetwear brand built for the crypto generation.
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Modern streetwear for the digital generation. Built for the future.
               </p>
             </div>
             
             <div>
-              <h3 className="font-bold uppercase tracking-wider mb-4" style={{ fontFamily: "'Teko', sans-serif" }}>
+              <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
                 Shop
               </h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">All Products</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">New Arrivals</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Sale</a></li>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">All Products</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">New Arrivals</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Sale</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-bold uppercase tracking-wider mb-4" style={{ fontFamily: "'Teko', sans-serif" }}>
+              <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
                 Support
               </h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Shipping</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Returns</a></li>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Shipping</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Returns</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-bold uppercase tracking-wider mb-4" style={{ fontFamily: "'Teko', sans-serif" }}>
+              <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
                 Connect
               </h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Discord</a></li>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Twitter</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Instagram</a></li>
+                <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Discord</a></li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © 2024 Your Brand. All rights reserved.
+              © 2025 Cyber Void. All rights reserved.
             </p>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <span>Powered by</span>
-              <span className="font-semibold text-accent">x402</span>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-muted-foreground">Powered by</span>
+              <span className="font-bold text-primary">x402</span>
             </div>
           </div>
         </div>
