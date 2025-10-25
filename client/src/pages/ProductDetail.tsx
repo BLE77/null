@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute } from "wouter";
-import type { Product } from "@shared/schema";
+import { type Product, getProductSizes, getProductStock } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/lib/cart-context";
@@ -114,6 +114,7 @@ export default function ProductDetail() {
   }
 
   const allImages = [product.imageUrl, ...product.images];
+  const sizes = getProductSizes(product);
 
   return (
     <div className="min-h-screen pt-24 pb-12">
@@ -175,18 +176,23 @@ export default function ProductDetail() {
                 Select Size
               </h3>
               <div className="flex flex-wrap gap-2">
-                {product.sizes.map((size) => (
-                  <Button
-                    key={size}
-                    variant={selectedSize === size ? "default" : "outline"}
-                    className="min-w-[60px]"
-                    onClick={() => setSelectedSize(size)}
-                    data-testid={`button-size-${size}`}
-                  >
-                    {selectedSize === size && <Check className="w-4 h-4 mr-1" />}
-                    {size}
-                  </Button>
-                ))}
+                {sizes.map((size) => {
+                  const stock = getProductStock(product, size);
+                  return (
+                    <Button
+                      key={size}
+                      variant={selectedSize === size ? "default" : "outline"}
+                      className="min-w-[60px]"
+                      onClick={() => setSelectedSize(size)}
+                      disabled={stock === 0}
+                      data-testid={`button-size-${size}`}
+                    >
+                      {selectedSize === size && <Check className="w-4 h-4 mr-1" />}
+                      {size}
+                      {stock === 0 && <span className="ml-1 text-xs">(Out)</span>}
+                    </Button>
+                  );
+                })}
               </div>
             </div>
 

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, decimal, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, decimal, integer, boolean, timestamp, json } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -7,6 +7,9 @@ export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  email: text("email").notNull().unique(),
+  isAdmin: boolean("is_admin").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const products = pgTable("products", {
@@ -17,27 +20,30 @@ export const products = pgTable("products", {
   category: text("category").notNull(),
   imageUrl: text("image_url").notNull(),
   images: text("images").array().notNull(),
-  sizes: text("sizes").array().notNull(),
-  inStock: integer("in_stock").notNull().default(1),
+  inventory: json("inventory").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const orders = pgTable("orders", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id"),
   customerEmail: text("customer_email").notNull(),
   items: text("items").notNull(),
   totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
   transactionHash: text("transaction_hash"),
   status: text("status").notNull().default("pending"),
-  createdAt: text("created_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+  isAdmin: true,
 });
 
 export const insertProductSchema = createInsertSchema(products).omit({
   id: true,
+  createdAt: true,
 });
 
 export const insertOrderSchema = createInsertSchema(orders).omit({
@@ -52,8 +58,27 @@ export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
 
+export interface ProductInventory {
+  [size: string]: number;
+}
+
 export interface CartItem {
   product: Product;
   size: string;
   quantity: number;
+}
+
+export function getProductSizes(product: Product): string[] {
+  const inventory = product.inventory as ProductInventory;
+  return Object.keys(inventory);
+}
+
+export function getProductStock(product: Product, size: string): number {
+  const inventory = product.inventory as ProductInventory;
+  return inventory[size] || 0;
+}
+
+export function isProductInStock(product: Product): boolean {
+  const inventory = product.inventory as ProductInventory;
+  return Object.values(inventory).some(stock => stock > 0);
 }

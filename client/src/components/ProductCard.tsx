@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import type { Product } from "@shared/schema";
+import { type Product, getProductSizes } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -8,6 +8,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const sizes = getProductSizes(product);
+  
   return (
     <Link href={`/product/${product.id}`}>
       <div className="group relative overflow-hidden rounded-md border border-border bg-card hover-elevate transition-all duration-300 cursor-pointer" data-testid={`card-product-${product.id}`}>
@@ -51,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 ${product.price}
               </span>
               <span className="text-xs text-muted-foreground">
-                {product.sizes.length} sizes
+                {sizes.length} sizes
               </span>
             </div>
           </div>
