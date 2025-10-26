@@ -1,4 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+/* NCLRekron Custom Font - TTF versions */
+@font-face {
+  font-family: 'NCLRekron';
+  src: url('/attached_assets/NCLRekron-Regular_1761515496376.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NCLRekron';
+  src: url('/attached_assets/NCLRekron-Slant_1761515496376.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NCLRekron Outline';
+  src: url('/attached_assets/NCLRekron-Outline_1761515496375.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NCLRekron Outline';
+  src: url('/attached_assets/NCLRekron-OutlineSlant_1761515496376.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
@@ -55,8 +88,8 @@
   --sidebar-accent-foreground: 0 0% 10%;
   --sidebar-ring: 200 80% 70%;
   
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Orbitron", "Inter", sans-serif;
+  --font-sans: "Orbitron", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "NCLRekron", "Orbitron", sans-serif;
   --radius: .25rem;
   
   --shadow-2xs: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
