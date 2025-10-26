@@ -3,6 +3,7 @@ import { type Product, getProductSizes } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
+import { getProductImage } from "@/lib/product-images";
 
 interface AnimatedProductCardProps {
   product: Product;
@@ -52,9 +53,18 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
       <Link href={`/product/${product.id}`}>
         <div className="group geometric-panel bg-card hover:shadow-xl transition-all duration-300 cursor-pointer lift-on-hover h-full">
           <div className="aspect-[4/5] bg-muted relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
-              {product.imageUrl}
-            </div>
+            {getProductImage(product.imageUrl) ? (
+              <img 
+                src={getProductImage(product.imageUrl)} 
+                alt={product.name}
+                className="absolute inset-0 w-full h-full object-cover object-center"
+                data-testid={`img-product-${product.id}`}
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
+                {product.name}
+              </div>
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             <div className="absolute bottom-6 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
