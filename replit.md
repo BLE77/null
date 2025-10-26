@@ -39,10 +39,10 @@ The store now features 6 authentic X402-themed streetwear designs:
 6. **CYBER ARMS LONGSLEEVE** ($85) - Geometric robotic arms on long sleeve premium cotton
 
 All product images are imported from `attached_assets/` and mapped via `client/src/lib/product-images.ts`. Each product includes:
-- Full descriptions and pricing
+- Full descriptions and pricing (shown on detail pages only)
 - Size-specific inventory (S, M, L, XL, XXL)
 - Multiple angles/images for detail pages
-- Clickable cards that navigate to product detail pages
+- Clickable transparent PNG images on timeline that reveal pricing on detail pages
 
 ## Pages
 1. **Home** (`/`) - Horizontal timeline: Hero → Products (3) → More Products (3) → Crypto → Footer
@@ -78,6 +78,7 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Clean product cards** - Timeline now shows only shirt images as transparent PNGs (no pricing), click to reveal details
 - **NCLRekron custom font** - Integrated Y2K-style NCLRekron font for all headings with font-display: swap
 - **Real product integration** - Replaced placeholder data with 6 authentic X402 shirt designs
 - **Product image mapping system** - Images imported from attached_assets and mapped via helper
