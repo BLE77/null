@@ -22,7 +22,7 @@ An early 2000s Flash-inspired e-commerce clothing brand website with cryptocurre
 ## Design System
 - **Colors**: Light blue primary (#87CEEB/sky blue), black, white - clean professional palette
 - **Typography**: 
-  - Display: NCLRekron (custom Y2K font for headings, with 4 variants: Regular, Slant, Outline, OutlineSlant)
+  - Display: Orbitron (bold geometric futuristic font from Google Fonts)
   - Body: Inter (clean, readable)
 - **Effects**: Subtle 3% texture overlay, clean geometric panels, minimal shadows
 - **Layout**: Horizontal timeline with snap scrolling
@@ -78,8 +78,8 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Orbitron futuristic font** - Bold geometric font loaded from Google Fonts for reliable rendering
 - **Clean product cards** - Timeline now shows only shirt images as transparent PNGs (no pricing), click to reveal details
-- **NCLRekron custom font** - Integrated Y2K-style NCLRekron font for all headings with font-display: swap
 - **Real product integration** - Replaced placeholder data with 6 authentic X402 shirt designs
 - **Product image mapping system** - Images imported from attached_assets and mapped via helper
 - Complete redesign from neon cyberpunk to clean geometric Y2K aesthetic
