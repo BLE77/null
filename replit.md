@@ -25,9 +25,10 @@ An early 2000s Flash-inspired e-commerce clothing brand website with cryptocurre
   - Headers: NCLRekron (custom Y2K font with 4 TTF variants: Regular, Slant, Outline, OutlineSlant)
   - Body: Orbitron (bold geometric futuristic font from Google Fonts)
   - All text: White (`text-white`) with dark drop shadows (`drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]`) for readability over cityscape
-- **Background**: Full-viewport looping futuristic cityscape (background-size: cover, repeats horizontally)
+- **Background**: Futuristic city street with modern buildings and wet pavement (background-size: cover, repeats horizontally)
+- **Product Sizing**: Fixed 240px × 300px dimensions for uniform robot figures
 - **Effects**: Transparent sections, cityscape visible throughout, no opaque panels
-- **Layout**: Horizontal timeline with snap scrolling
+- **Layout**: Horizontal timeline with smooth continuous scrolling
 - **Spacing**: 4, 8, 12, 16, 24, 32 (Tailwind units)
 
 ## Real Product Catalog
@@ -82,6 +83,9 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Smaller uniform product PNGs** - Robot figures now use fixed 240px × 300px dimensions for consistent sizing
+- **Fixed-dimension layout** - Text elements no longer affect product card sizing using inline styles
+- **Updated background** - New futuristic city street background with modern buildings and wet pavement
 - **Smooth scrolling** - Changed from snap scrolling to continuous smooth horizontal scrolling for natural feel
 - **Seamless cityscape design** - Cityscape background now covers full viewport (background-size: cover), visible across all sections with no opaque panels blocking the view
 - **White text with drop shadows** - All text styled as `text-white` with `drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]` for maximum readability over dark cityscape
