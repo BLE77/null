@@ -55,10 +55,11 @@ Products display as robot/human figure PNGs showing the clothing on models, crea
 - Clickable robot figures navigate to product detail pages
 
 ## Pages
-1. **Home** (`/`) - Horizontal timeline: Hero → Products (3) → More Products (3) → Crypto → Footer
-2. **Product Detail** (`/product/:id`) - Individual product with size selector
-3. **Checkout** (`/checkout`) - Shipping info + crypto payment
-4. **About** (`/about`) - Brand story and mission
+1. **Home** (`/`) - Vertical scrolling: Hero → Products (3) → More Products (3) → Crypto → Footer
+2. **Shop** (`/shop`) - Grid layout showing all products with images, prices, and available sizes
+3. **Product Detail** (`/product/:id`) - Individual product with size selector
+4. **Checkout** (`/checkout`) - Shipping info + crypto payment
+5. **About** (`/about`) - Brand story focused on "clankers" and sustainability
 
 ## Page Structure
 The homepage uses a traditional vertical scrolling layout:
@@ -88,14 +89,17 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Shop page created** - New /shop route with grid layout showing all products (images, prices, sizes) matching landing page design
+- **About page redesign** - Updated with "clankers" messaging and sustainability focus (3D objects, fair labor, carbon-neutral, zero waste)
+- **Footer updates** - Instagram/Discord show "Coming Soon!" on hover, Twitter links to https://x.com/off__human
+- **Reduced spacing** - Removed min-h-screen from second product row and crypto section for tighter layout
+- **Text updates** - "LATEST COLLECTION" centered and higher, button says "Explore ↓", About text shortened
 - **Vertical scrolling** - Converted from horizontal timeline to traditional up/down scrolling for better usability
 - **LATEST COLLECTION background text** - Repositioned behind robots (z-0) as subtle background element with 40% opacity, single line (whitespace-nowrap), and larger text (text-6xl md:text-8xl)
 - **Enhanced CRYPTO PAYMENTS header** - Larger Orbitron uppercase typography (text-5xl md:text-6xl) with darker shadows for visibility
 - **Metallic green chrome navigation** - Navigation bar and CTA button feature chrome-like metallic green gradient with shine effects
 - **Lighter neon green accents** - Updated from HSL(123, 100%, 50%) to HSL(140, 90%, 65%) for better logo cohesion
 - **Transparent logo with dark shadow** - OFF HUMAN logo now uses transparent background with enhanced dark shadow/glow for visibility
-- **Orbitron headers** - Collection titles use Orbitron font for clearer readability while maintaining digital aesthetic
-- **Removed divider** - Removed divider beneath "LATEST COLLECTION" to prevent overlap with robot figures
 - **Black digital background** - Replaced cityscape with Matrix-style black pattern featuring green grid lines and dots
 - **Larger robot sizing** - Increased from 240px × 300px to 280px × 380px so heads aren't cut off
 - **Glitchy logo integration** - Replaced text with animated OFF HUMAN logo featuring RGB split, scan lines, and Y2K glitch effects  

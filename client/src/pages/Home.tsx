@@ -166,7 +166,7 @@ export default function Home() {
                 Shop
               </h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">All Products</a></li>
+                <li><a href="/shop" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">All Products</a></li>
               </ul>
             </div>
 

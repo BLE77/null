@@ -28,7 +28,7 @@ export function Navigation() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/">
+            <Link href="/shop">
               <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-shop">
                 Shop
               </span>
