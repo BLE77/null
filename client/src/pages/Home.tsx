@@ -77,16 +77,15 @@ export default function Home() {
 
         {/* Section 2: Products Timeline */}
         <section className="flex-none h-screen relative flex items-center justify-center" style={{ minWidth: '100vw' }} id="products">
-          {/* Heading positioned absolutely at top */}
-          <div className="absolute top-24 left-0 right-0 text-center px-8 md:px-16 z-10">
+          {/* Heading positioned absolutely behind robots */}
+          <div className="absolute top-32 left-0 right-0 text-center px-8 md:px-16 z-0">
             <h2 
-              className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,1)]"
-              style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
+              className="text-6xl md:text-8xl font-bold mb-6 text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)] whitespace-nowrap"
+              style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.1em' }}
               data-testid="text-collection-title"
             >
               LATEST COLLECTION
             </h2>
-            <div className="h-1 w-24 bg-primary mx-auto drop-shadow-[0_0_8px_rgba(95,255,175,0.8)]" />
           </div>
 
           {/* Products centered vertically */}
@@ -144,12 +143,12 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div className="p-10">
                 <h2 
-                  className="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "var(--font-display)" }}
+                  className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
                 >
-                  Crypto Payments
+                  CRYPTO PAYMENTS
                 </h2>
-                <div className="h-1 w-16 bg-primary mb-6" />
+                <div className="h-1 w-20 bg-primary mb-6 drop-shadow-[0_0_8px_rgba(95,255,175,0.8)]" />
                 <p className="text-lg text-white mb-8 leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                   Fast, secure cryptocurrency payments powered by <span className="font-bold">x402 protocol</span>. Pay with USDC on Base network.
                 </p>
