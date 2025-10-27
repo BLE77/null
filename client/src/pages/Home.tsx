@@ -36,7 +36,7 @@ export default function Home() {
               className="metallic-nav px-10 py-3 rounded-md uppercase tracking-wider text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
               data-testid="button-shop-now"
             >
-              Explore Collection ↓
+              Explore ↓
             </button>
           </div>
         </div>
@@ -45,9 +45,9 @@ export default function Home() {
       {/* Section 2: Products Timeline */}
       <section className="min-h-screen relative flex items-center justify-center py-16" id="products">
         {/* Heading positioned absolutely behind robots */}
-        <div className="absolute top-32 left-0 right-0 text-center px-8 md:px-16 z-0">
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center z-0">
           <h2 
-            className="text-6xl md:text-8xl font-bold mb-6 text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)] whitespace-nowrap"
+            className="text-6xl md:text-8xl font-bold text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)] whitespace-nowrap"
             style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.1em' }}
             data-testid="text-collection-title"
           >
@@ -89,7 +89,7 @@ export default function Home() {
 
       {/* Section 3: More Products */}
       {!isLoading && !isError && products && products.length > 3 && (
-        <section className="min-h-screen relative flex items-center justify-center py-16">
+        <section className="relative flex items-center justify-center py-16">
           <div className="w-full px-8 md:px-16">
             <div className="flex gap-6 justify-center items-start overflow-x-visible px-4">
               {products.slice(3, 6).map((product, index) => (
@@ -105,7 +105,7 @@ export default function Home() {
       )}
 
       {/* Section 4: Crypto Payment */}
-      <section className="min-h-screen flex items-center py-16">
+      <section className="flex items-center py-16">
         <div className="container mx-auto px-8 md:px-16 max-w-6xl">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="p-10">
@@ -157,7 +157,7 @@ export default function Home() {
                 About
               </h3>
               <p className="text-sm text-white leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-                Modern streetwear for the digital generation. Built for the future.
+                Modern streetwear for the digital. Built for the future.
               </p>
             </div>
             
@@ -176,8 +176,22 @@ export default function Home() {
               </h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="https://x.com/off__human" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Twitter</a></li>
-                <li><span className="text-white/60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Instagram - Coming Soon!</span></li>
-                <li><span className="text-white/60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Discord - Coming Soon!</span></li>
+                <li>
+                  <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] relative group cursor-default">
+                    Instagram
+                    <span className="absolute left-0 top-full mt-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                      Coming Soon!
+                    </span>
+                  </span>
+                </li>
+                <li>
+                  <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] relative group cursor-default">
+                    Discord
+                    <span className="absolute left-0 top-full mt-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                      Coming Soon!
+                    </span>
+                  </span>
+                </li>
               </ul>
             </div>
           </div>
