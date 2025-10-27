@@ -4,7 +4,7 @@ import { AnimatedProductCard } from "@/components/AnimatedProductCard";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
-import cityscapeBg from "@assets/8CE3D8E3-9990-4C59-BB03-BB82D8825C43_1761538013813.png";
+import cityscapeBg from "@assets/bDxvsHI8e4FxekjgoPWbu 2_1761540742831.png";
 
 export default function Home() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
@@ -102,8 +102,8 @@ export default function Home() {
             {isLoading ? (
               <div className="flex gap-6 justify-center">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="w-80">
-                    <div className="aspect-[4/5] border-2 border-primary/30 rounded animate-pulse" />
+                  <div key={i} style={{ width: '240px', height: '300px' }}>
+                    <div className="w-full h-full border-2 border-primary/30 rounded animate-pulse" />
                   </div>
                 ))}
               </div>

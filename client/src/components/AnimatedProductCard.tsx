@@ -42,17 +42,19 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
   return (
     <div
       ref={cardRef}
-      className="w-80 shrink-0"
+      className="shrink-0"
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'scale(1) translateX(0)' : 'scale(0.8) translateX(-30px)',
         transition: `all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)`,
+        width: '240px',
+        height: '300px',
       }}
       data-testid={`card-product-${product.id}`}
     >
       <Link href={`/product/${product.id}`}>
-        <div className="group cursor-pointer transition-all duration-300 hover-elevate">
-          <div className="aspect-[4/5] relative">
+        <div className="group cursor-pointer transition-all duration-300 hover-elevate w-full h-full">
+          <div className="w-full h-full relative">
             {getRobotImage(product.name) ? (
               <img 
                 src={getRobotImage(product.name)} 
