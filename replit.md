@@ -25,6 +25,10 @@ OFF HUMAN — streetwear for the singularity. An early 2000s Flash-inspired e-co
   - Headers: NCLRekron (custom Y2K font with 4 TTF variants: Regular, Slant, Outline, OutlineSlant)
   - Body: Orbitron (bold geometric futuristic font from Google Fonts)
   - All text: White (`text-white`) with dark drop shadows (`drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]`) for readability over cityscape
+- **Logo**: Glitchy OFF HUMAN logo with scan line effect
+  - Hero: Large animated logo with RGB split, horizontal jitter, and scrolling scan lines (3s cycle)
+  - Nav: Compact logo with subtle glow on hover
+  - Accessibility: Animations disabled for users with reduced motion preference
 - **Background**: Futuristic city street with modern buildings and wet pavement (background-size: cover, repeats horizontally)
 - **Product Sizing**: Fixed 240px × 300px dimensions for uniform robot figures
 - **Effects**: Transparent sections, cityscape visible throughout, no opaque panels
@@ -83,6 +87,7 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Glitchy logo integration** - Replaced text with animated OFF HUMAN logo featuring RGB split, scan lines, and Y2K glitch effects
 - **Brand refresh** - Changed name from "CYBER VOID" to "OFF HUMAN" with singularity-focused messaging
 - **Perfect vertical alignment** - All robot figures now align from the same top position using items-start and object-cover
 - **Smaller uniform product PNGs** - Robot figures now use fixed 240px × 300px dimensions for consistent sizing
