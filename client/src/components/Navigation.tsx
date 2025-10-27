@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/Logo";
 import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
@@ -17,9 +18,9 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/">
-            <span className="text-2xl font-bold tracking-tight cursor-pointer inline-block text-foreground" style={{ fontFamily: "var(--font-display)" }} data-testid="link-home">
-              OFF HUMAN
-            </span>
+            <div className="cursor-pointer inline-block" data-testid="link-home">
+              <Logo variant="nav" />
+            </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

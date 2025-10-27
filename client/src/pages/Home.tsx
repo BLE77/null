@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { AnimatedProductCard } from "@/components/AnimatedProductCard";
+import { Logo } from "@/components/Logo";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
@@ -55,13 +56,9 @@ export default function Home() {
         {/* Section 1: Hero */}
         <section className="flex-none h-screen flex items-center justify-center relative overflow-hidden" style={{ minWidth: '100vw' }}>
           <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
-            <h1 
-              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-              data-testid="text-hero-title"
-            >
-              OFF HUMAN
-            </h1>
+            <div className="mb-6 flex justify-center" data-testid="hero-logo-container">
+              <Logo variant="hero" />
+            </div>
             <div className="h-1 w-24 bg-primary mx-auto mb-6" />
             <p className="text-xl md:text-2xl text-white mb-10 font-medium drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
               Streetwear for the Singularity
