@@ -18,40 +18,28 @@ export default function Home() {
     const timeline = timelineRef.current;
     if (!timeline) return;
 
-    let scrollTimeout: NodeJS.Timeout;
-
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       e.stopPropagation();
       
-      // Temporarily disable snap scrolling during active scrolling
-      timeline.style.scrollSnapType = 'none';
-      
       // Use deltaY primarily (vertical scroll), but also check deltaX for trackpads
       const scrollAmount = e.deltaY !== 0 ? e.deltaY : e.deltaX;
       
-      // Convert vertical scroll to horizontal movement with smooth behavior
+      // Convert vertical scroll to horizontal movement with smooth scrolling
       timeline.scrollBy({ left: scrollAmount, behavior: 'auto' });
-      
-      // Re-enable snap scrolling after user stops scrolling
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        timeline.style.scrollSnapType = 'x mandatory';
-      }, 150);
     };
 
     timeline.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
       timeline.removeEventListener('wheel', handleWheel);
-      clearTimeout(scrollTimeout);
     };
   }, []);
 
   return (
     <div 
       ref={timelineRef}
-      className="h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide"
+      className="h-screen overflow-x-auto overflow-y-hidden scrollbar-hide"
       style={{ 
         scrollbarWidth: 'none', 
         msOverflowStyle: 'none',
@@ -65,7 +53,7 @@ export default function Home() {
     >
       <div className="flex h-full">
         {/* Section 1: Hero */}
-        <section className="flex-none h-screen flex items-center justify-center snap-center relative overflow-hidden" style={{ minWidth: '100vw' }}>
+        <section className="flex-none h-screen flex items-center justify-center relative overflow-hidden" style={{ minWidth: '100vw' }}>
           <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
             <h1 
               className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
@@ -95,7 +83,7 @@ export default function Home() {
         </section>
 
         {/* Section 2: Products Timeline */}
-        <section className="flex-none h-screen snap-center relative flex items-center" style={{ minWidth: '100vw' }} id="products">
+        <section className="flex-none h-screen relative flex items-center" style={{ minWidth: '100vw' }} id="products">
           <div className="w-full px-8 md:px-16">
             <div className="mb-12 text-center">
               <h2 
@@ -143,7 +131,7 @@ export default function Home() {
 
         {/* Section 3: More Products */}
         {!isLoading && !isError && products && products.length > 3 && (
-          <section className="flex-none h-screen snap-center relative flex items-center" style={{ minWidth: '100vw' }}>
+          <section className="flex-none h-screen relative flex items-center" style={{ minWidth: '100vw' }}>
             <div className="w-full px-8 md:px-16">
               <div className="flex gap-6 justify-center overflow-x-visible px-4">
                 {products.slice(3, 6).map((product, index) => (
@@ -159,7 +147,7 @@ export default function Home() {
         )}
 
         {/* Section 4: Crypto Payment */}
-        <section className="flex-none h-screen snap-center flex items-center" style={{ minWidth: '100vw' }}>
+        <section className="flex-none h-screen flex items-center" style={{ minWidth: '100vw' }}>
           <div className="container mx-auto px-8 md:px-16 max-w-6xl">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div className="p-10">
@@ -203,7 +191,7 @@ export default function Home() {
         </section>
 
         {/* Section 5: Footer / Contact */}
-        <section className="flex-none h-screen snap-center flex items-center border-l-2 border-primary" style={{ minWidth: '100vw' }}>
+        <section className="flex-none h-screen flex items-center border-l-2 border-primary" style={{ minWidth: '100vw' }}>
           <div className="container mx-auto px-8 md:px-16 max-w-7xl w-full">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
               <div>
