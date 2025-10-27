@@ -89,9 +89,14 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Metallic green chrome navigation** - Navigation bar and SCROLL RIGHT button now feature chrome-like metallic green gradient with shine effects
+- **Lighter neon green accents** - Updated from HSL(123, 100%, 50%) to HSL(140, 90%, 65%) for better logo cohesion
+- **Transparent logo with dark shadow** - OFF HUMAN logo now uses transparent background with enhanced dark shadow/glow for visibility
+- **Orbitron headers** - Collection titles use Orbitron font for clearer readability while maintaining digital aesthetic
+- **Text positioning fix** - "LATEST COLLECTION" moved to top-24 to prevent overlap with robot figures
+- **Removed subtitle** - Cleaned up product section by removing "Explore our curated selection..." text
 - **Black digital background** - Replaced cityscape with Matrix-style black pattern featuring green grid lines and dots
 - **Larger robot sizing** - Increased from 240px × 300px to 280px × 380px so heads aren't cut off
-- **Neon green Matrix color** - Changed from light blue to electric neon green (#00FF41) for all accents
 - **Glitchy logo integration** - Replaced text with animated OFF HUMAN logo featuring RGB split, scan lines, and Y2K glitch effects  
 - **Brand refresh** - Changed name from "CYBER VOID" to "OFF HUMAN" with singularity-focused messaging
 - **Perfect vertical alignment** - All robot figures now align from the same top position using items-start and object-cover
@@ -101,7 +106,7 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - **Robot figure products** - Robot/human figure PNGs showing products on models with transparent backgrounds
 - **Transparent sections** - Removed all opaque backgrounds for unified visual continuity
 - **Robot image mapping** - Created `robot-images.ts` helper with case-insensitive product name lookups
-- **Custom typography** - NCLRekron OTF font for headers, Orbitron for all body text
+- **Custom typography** - NCLRekron OTF font for hero logo, Orbitron for all body text and headers
 - **Real product integration** - 6 authentic X402 streetwear designs with robot model imagery
 
 ## User Preferences

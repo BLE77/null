@@ -19,10 +19,10 @@ export function Navigation() {
           <Link href="/">
             <div className="cursor-pointer inline-block" data-testid="link-home">
               <img 
-                src="/attached_assets/off human logo white_1761603683427.png" 
+                src="/attached_assets/off human transparent white_1761604456550.png" 
                 alt="OFF HUMAN"
                 className="h-10 transition-all duration-300 hover:scale-105"
-                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
+                style={{ filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(0,0,0,0.5))' }}
               />
             </div>
           </Link>
