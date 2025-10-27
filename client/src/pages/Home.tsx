@@ -151,7 +151,7 @@ export default function Home() {
       {/* Section 5: Footer / Contact */}
       <section className="min-h-screen flex items-center border-t-2 border-primary py-16">
         <div className="container mx-auto px-8 md:px-16 max-w-7xl w-full">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
               <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                 About
@@ -167,19 +167,6 @@ export default function Home() {
               </h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">All Products</a></li>
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">New Arrivals</a></li>
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Sale</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
-                Support
-              </h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Contact</a></li>
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Shipping</a></li>
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Returns</a></li>
               </ul>
             </div>
 
@@ -188,9 +175,9 @@ export default function Home() {
                 Connect
               </h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Twitter</a></li>
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Instagram</a></li>
-                <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Discord</a></li>
+                <li><a href="https://x.com/off__human" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Twitter</a></li>
+                <li><span className="text-white/60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Instagram - Coming Soon!</span></li>
+                <li><span className="text-white/60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Discord - Coming Soon!</span></li>
               </ul>
             </div>
           </div>
