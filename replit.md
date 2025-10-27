@@ -17,10 +17,12 @@ OFF HUMAN — streetwear for the singularity. An early 2000s Flash-inspired e-co
 5. **Product detail pages** with image galleries and size selection
 6. **Shopping cart** with slide-in sidebar interface
 7. **Cryptocurrency checkout** via x402 protocol (USDC on Base)
-8. **Clean geometric Y2K aesthetic** - Light blue, black, white palette with subtle effects
+8. **Clean geometric Y2K aesthetic** - Neon green (Matrix), black, white palette with glitch effects
 
 ## Design System
-- **Colors**: Light blue primary (#87CEEB/sky blue), white text throughout for readability
+- **Colors**: Neon green primary (#00FF41/Matrix green) for accents, white text for readability
+  - Green accents: buttons, borders, dividers, logo glow, focus rings
+  - White text: all copy for maximum readability over dark cityscape background
 - **Typography**: 
   - Headers: NCLRekron (custom Y2K font with 4 TTF variants: Regular, Slant, Outline, OutlineSlant)
   - Body: Orbitron (bold geometric futuristic font from Google Fonts)
@@ -87,7 +89,8 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
-- **Glitchy logo integration** - Replaced text with animated OFF HUMAN logo featuring RGB split, scan lines, and Y2K glitch effects
+- **Neon green Matrix color** - Changed from light blue to electric neon green (#00FF41) for all accents
+- **Glitchy logo integration** - Replaced text with animated OFF HUMAN logo featuring RGB split, scan lines, and Y2K glitch effects  
 - **Brand refresh** - Changed name from "CYBER VOID" to "OFF HUMAN" with singularity-focused messaging
 - **Perfect vertical alignment** - All robot figures now align from the same top position using items-start and object-cover
 - **Smaller uniform product PNGs** - Robot figures now use fixed 240px × 300px dimensions for consistent sizing
