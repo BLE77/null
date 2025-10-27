@@ -61,13 +61,12 @@ export default function Home() {
               Built at the edge of human and machine. Made for what comes next.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button 
-                size="lg" 
-                className="uppercase tracking-wider text-base px-10 font-semibold text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+              <button 
+                className="metallic-nav px-10 py-3 rounded-md uppercase tracking-wider text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
                 data-testid="button-shop-now"
               >
                 Scroll Right →
-              </Button>
+              </button>
             </div>
           </div>
 
@@ -79,18 +78,15 @@ export default function Home() {
         {/* Section 2: Products Timeline */}
         <section className="flex-none h-screen relative flex items-center justify-center" style={{ minWidth: '100vw' }} id="products">
           {/* Heading positioned absolutely at top */}
-          <div className="absolute top-12 left-0 right-0 text-center px-8 md:px-16">
+          <div className="absolute top-24 left-0 right-0 text-center px-8 md:px-16 z-10">
             <h2 
-              className="text-4xl md:text-6xl font-bold mb-4 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-              style={{ fontFamily: "var(--font-display)" }}
+              className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,1)]"
+              style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
               data-testid="text-collection-title"
             >
-              Latest Collection
+              LATEST COLLECTION
             </h2>
-            <div className="h-1 w-20 bg-primary mx-auto mb-6" />
-            <p className="text-lg text-white max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-              Explore our curated selection of premium streetwear pieces
-            </p>
+            <div className="h-1 w-24 bg-primary mx-auto drop-shadow-[0_0_8px_rgba(95,255,175,0.8)]" />
           </div>
 
           {/* Products centered vertically */}

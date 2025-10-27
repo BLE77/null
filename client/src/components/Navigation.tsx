@@ -1,7 +1,6 @@
 import { Link } from "wouter";
 import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/Logo";
 import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
@@ -14,23 +13,28 @@ export function Navigation() {
   const totalItems = getTotalItems();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b-2 border-primary shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 metallic-nav">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/">
             <div className="cursor-pointer inline-block" data-testid="link-home">
-              <Logo variant="nav" />
+              <img 
+                src="/attached_assets/off human logo white_1761603683427.png" 
+                alt="OFF HUMAN"
+                className="h-10 transition-all duration-300 hover:scale-105"
+                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
+              />
             </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
             <Link href="/">
-              <span className="text-sm uppercase tracking-wider hover:text-primary transition-colors font-semibold cursor-pointer inline-block" data-testid="link-shop">
+              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-shop">
                 Shop
               </span>
             </Link>
             <Link href="/about">
-              <span className="text-sm uppercase tracking-wider hover:text-primary transition-colors font-semibold cursor-pointer inline-block" data-testid="link-about">
+              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-about">
                 About
               </span>
             </Link>
@@ -39,7 +43,7 @@ export function Navigation() {
           <div className="flex items-center gap-2">
             {user ? (
               <>
-                <span className="hidden md:block text-sm text-muted-foreground mr-2 font-medium" data-testid="text-username">
+                <span className="hidden md:block text-sm text-white mr-2 font-medium drop-shadow-md" data-testid="text-username">
                   {user.username}
                 </span>
                 <Button
@@ -47,6 +51,7 @@ export function Navigation() {
                   size="icon"
                   onClick={() => logout()}
                   title="Logout"
+                  className="text-white hover:bg-white/20"
                   data-testid="button-logout"
                 >
                   <LogOut className="w-4 h-4" />
@@ -54,7 +59,7 @@ export function Navigation() {
               </>
             ) : (
               <Link href="/login">
-                <Button variant="ghost" size="icon" title="Login" data-testid="button-login-nav">
+                <Button variant="ghost" size="icon" title="Login" className="text-white hover:bg-white/20" data-testid="button-login-nav">
                   <User className="w-4 h-4" />
                 </Button>
               </Link>
@@ -64,13 +69,13 @@ export function Navigation() {
               variant="ghost"
               size="icon"
               onClick={() => setIsCartOpen(true)}
-              className="relative"
+              className="relative text-white hover:bg-white/20"
               data-testid="button-cart"
             >
               <ShoppingCart className="w-5 h-5" />
               {totalItems > 0 && (
                 <Badge 
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs rounded-full bg-primary text-primary-foreground font-bold"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs rounded-full bg-white/30 text-white font-bold backdrop-blur-sm"
                   data-testid="badge-cart-count"
                 >
                   {totalItems}
@@ -81,7 +86,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="md:hidden text-white hover:bg-white/20"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               data-testid="button-mobile-menu"
             >
@@ -91,11 +96,11 @@ export function Navigation() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border py-4">
+          <div className="md:hidden border-t border-white/30 py-4">
             <div className="flex flex-col gap-4">
               <Link href="/">
                 <span 
-                  className="text-sm uppercase tracking-wider hover:text-primary transition-colors block py-2 cursor-pointer font-semibold"
+                  className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-shop-mobile"
                 >
@@ -104,7 +109,7 @@ export function Navigation() {
               </Link>
               <Link href="/about">
                 <span 
-                  className="text-sm uppercase tracking-wider hover:text-primary transition-colors block py-2 cursor-pointer font-semibold"
+                  className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-about-mobile"
                 >
