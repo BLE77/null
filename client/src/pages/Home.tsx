@@ -47,7 +47,7 @@ export default function Home() {
         {/* Heading positioned absolutely behind robots */}
         <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center z-0">
           <h2 
-            className="text-6xl md:text-8xl font-bold text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)] whitespace-nowrap"
+            className="text-4xl md:text-5xl font-bold text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)] whitespace-nowrap"
             style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.1em' }}
             data-testid="text-collection-title"
           >
@@ -89,7 +89,7 @@ export default function Home() {
 
       {/* Section 3: More Products */}
       {!isLoading && !isError && products && products.length > 3 && (
-        <section className="relative flex items-center justify-center py-16">
+        <section className="relative flex items-center justify-center py-8">
           <div className="w-full px-8 md:px-16">
             <div className="flex gap-6 justify-center items-start overflow-x-visible px-4">
               {products.slice(3, 6).map((product, index) => (
