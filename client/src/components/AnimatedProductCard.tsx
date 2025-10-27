@@ -3,7 +3,7 @@ import { type Product, getProductSizes } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
-import { getProductImage } from "@/lib/product-images";
+import { getRobotImage } from "@/lib/robot-images";
 
 interface AnimatedProductCardProps {
   product: Product;
@@ -53,15 +53,15 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
       <Link href={`/product/${product.id}`}>
         <div className="group cursor-pointer transition-all duration-300 hover-elevate">
           <div className="aspect-[4/5] relative">
-            {getProductImage(product.imageUrl) ? (
+            {getRobotImage(product.name) ? (
               <img 
-                src={getProductImage(product.imageUrl)} 
-                alt={product.name}
+                src={getRobotImage(product.name)} 
+                alt={`${product.name} on robot model`}
                 className="w-full h-full object-contain object-center transition-transform duration-300 group-hover:scale-105"
                 data-testid={`img-product-${product.id}`}
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
+              <div className="absolute inset-0 flex items-center justify-center text-xs text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] p-4 text-center">
                 {product.name}
               </div>
             )}

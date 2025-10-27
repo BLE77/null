@@ -57,45 +57,35 @@ export default function Home() {
         msOverflowStyle: 'none',
         backgroundImage: `url(${cityscapeBg})`,
         backgroundRepeat: 'repeat-x',
-        backgroundPosition: 'bottom center',
-        backgroundSize: 'auto 40%',
+        backgroundPosition: 'center center',
+        backgroundSize: 'cover',
         backgroundAttachment: 'scroll'
       }}
       data-testid="timeline-container"
     >
       <div className="flex h-full">
         {/* Section 1: Hero */}
-        <section className="flex-none h-screen flex items-center justify-center snap-center relative overflow-hidden bg-gradient-to-br from-primary/20 via-background to-accent/20" style={{ minWidth: '100vw' }}>
-          <div className="absolute inset-0 texture-overlay" />
-          
-          {/* Clean geometric grid overlay */}
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)',
-            backgroundSize: '80px 80px'
-          }} />
-
+        <section className="flex-none h-screen flex items-center justify-center snap-center relative overflow-hidden" style={{ minWidth: '100vw' }}>
           <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
-            <div className="geometric-panel bg-white/90 backdrop-blur-md p-12 md:p-16 corner-lines">
-              <h1 
-                className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground"
-                style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-                data-testid="text-hero-title"
+            <h1 
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+              data-testid="text-hero-title"
+            >
+              CYBER VOID
+            </h1>
+            <div className="h-1 w-24 bg-primary mx-auto mb-6" />
+            <p className="text-xl md:text-2xl text-white mb-10 font-medium drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              Digital Streetwear for 2025
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button 
+                size="lg" 
+                className="uppercase tracking-wider text-base px-10 font-semibold text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                data-testid="button-shop-now"
               >
-                CYBER VOID
-              </h1>
-              <div className="h-1 w-24 bg-primary mx-auto mb-6" />
-              <p className="text-xl md:text-2xl text-muted-foreground mb-10 font-medium">
-                Digital Streetwear for 2025
-              </p>
-              <div className="flex gap-4 justify-center flex-wrap">
-                <Button 
-                  size="lg" 
-                  className="uppercase tracking-wider text-base px-10 font-semibold"
-                  data-testid="button-shop-now"
-                >
-                  Scroll Right →
-                </Button>
-              </div>
+                Scroll Right →
+              </Button>
             </div>
           </div>
 
@@ -105,18 +95,18 @@ export default function Home() {
         </section>
 
         {/* Section 2: Products Timeline */}
-        <section className="flex-none h-screen snap-center relative bg-background flex items-center" style={{ minWidth: '100vw' }} id="products">
+        <section className="flex-none h-screen snap-center relative flex items-center" style={{ minWidth: '100vw' }} id="products">
           <div className="w-full px-8 md:px-16">
             <div className="mb-12 text-center">
               <h2 
-                className="text-4xl md:text-6xl font-bold mb-4 text-foreground"
+                className="text-4xl md:text-6xl font-bold mb-4 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
                 style={{ fontFamily: "var(--font-display)" }}
                 data-testid="text-collection-title"
               >
                 Latest Collection
               </h2>
               <div className="h-1 w-20 bg-primary mx-auto mb-6" />
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-white max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                 Explore our curated selection of premium streetwear pieces
               </p>
             </div>
@@ -125,15 +115,15 @@ export default function Home() {
               <div className="flex gap-6 justify-center">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="w-80">
-                    <div className="aspect-[4/5] bg-muted rounded geometric-panel animate-pulse" />
+                    <div className="aspect-[4/5] border-2 border-primary/30 rounded animate-pulse" />
                   </div>
                 ))}
               </div>
             ) : isError ? (
-              <div className="text-center py-16 geometric-panel bg-card p-12 max-w-2xl mx-auto">
-                <h3 className="text-2xl font-bold mb-4">Failed to load products</h3>
-                <p className="text-muted-foreground mb-6">Please try again later</p>
-                <Button onClick={() => window.location.reload()} data-testid="button-reload">
+              <div className="text-center py-16 p-12 max-w-2xl mx-auto">
+                <h3 className="text-2xl font-bold mb-4 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Failed to load products</h3>
+                <p className="text-white mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Please try again later</p>
+                <Button onClick={() => window.location.reload()} className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" data-testid="button-reload">
                   Reload Page
                 </Button>
               </div>
@@ -153,7 +143,7 @@ export default function Home() {
 
         {/* Section 3: More Products */}
         {!isLoading && !isError && products && products.length > 3 && (
-          <section className="flex-none h-screen snap-center relative bg-accent/10 flex items-center" style={{ minWidth: '100vw' }}>
+          <section className="flex-none h-screen snap-center relative flex items-center" style={{ minWidth: '100vw' }}>
             <div className="w-full px-8 md:px-16">
               <div className="flex gap-6 justify-center overflow-x-visible px-4">
                 {products.slice(3, 6).map((product, index) => (
@@ -169,41 +159,41 @@ export default function Home() {
         )}
 
         {/* Section 4: Crypto Payment */}
-        <section className="flex-none h-screen snap-center bg-accent/30 flex items-center" style={{ minWidth: '100vw' }}>
+        <section className="flex-none h-screen snap-center flex items-center" style={{ minWidth: '100vw' }}>
           <div className="container mx-auto px-8 md:px-16 max-w-6xl">
             <div className="grid md:grid-cols-2 gap-16 items-center">
-              <div className="geometric-panel bg-white p-10 corner-lines">
+              <div className="p-10">
                 <h2 
-                  className="text-4xl md:text-5xl font-bold mb-6 text-foreground"
+                  className="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   Crypto Payments
                 </h2>
                 <div className="h-1 w-16 bg-primary mb-6" />
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                  Fast, secure cryptocurrency payments powered by <span className="font-bold text-foreground">x402 protocol</span>. Pay with USDC on Base network.
+                <p className="text-lg text-white mb-8 leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+                  Fast, secure cryptocurrency payments powered by <span className="font-bold">x402 protocol</span>. Pay with USDC on Base network.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-base">Instant settlement (~200ms)</span>
+                    <span className="text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Instant settlement (~200ms)</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-base">No signup required</span>
+                    <span className="text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">No signup required</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-base">Secure on-chain transactions</span>
+                    <span className="text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Secure on-chain transactions</span>
                   </div>
                 </div>
               </div>
-              <div className="geometric-panel bg-white aspect-square flex items-center justify-center p-16">
+              <div className="aspect-square flex items-center justify-center p-16">
                 <div className="text-center">
-                  <div className="text-7xl font-black mb-4 text-primary" style={{ fontFamily: "var(--font-display)" }}>
+                  <div className="text-7xl font-black mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                     X402
                   </div>
-                  <p className="text-sm uppercase tracking-wider text-muted-foreground font-semibold">
+                  <p className="text-sm uppercase tracking-wider text-white font-semibold drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                     Protocol Integration
                   </p>
                 </div>
@@ -213,59 +203,59 @@ export default function Home() {
         </section>
 
         {/* Section 5: Footer / Contact */}
-        <section className="flex-none h-screen snap-center bg-secondary flex items-center border-l-2 border-primary" style={{ minWidth: '100vw' }}>
+        <section className="flex-none h-screen snap-center flex items-center border-l-2 border-primary" style={{ minWidth: '100vw' }}>
           <div className="container mx-auto px-8 md:px-16 max-w-7xl w-full">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
               <div>
-                <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
+                <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                   About
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-white leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                   Modern streetwear for the digital generation. Built for the future.
                 </p>
               </div>
               
               <div>
-                <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
+                <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                   Shop
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">All Products</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">New Arrivals</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Sale</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">All Products</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">New Arrivals</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Sale</a></li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
+                <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                   Support
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Shipping</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Returns</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Contact</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Shipping</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Returns</a></li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="font-bold uppercase tracking-wider mb-4 text-base" style={{ fontFamily: "var(--font-display)" }}>
+                <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                   Connect
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Twitter</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Instagram</a></li>
-                  <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Discord</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Twitter</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Instagram</a></li>
+                  <li><a href="#" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Discord</a></li>
                 </ul>
               </div>
             </div>
 
-            <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-sm text-muted-foreground">
+            <div className="border-t border-primary/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-sm text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                 © 2025 Cyber Void. All rights reserved.
               </p>
               <div className="flex items-center gap-2 text-sm">
-                <span className="text-muted-foreground">Powered by</span>
-                <span className="font-bold text-primary">x402</span>
+                <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Powered by</span>
+                <span className="font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">x402</span>
               </div>
             </div>
           </div>
