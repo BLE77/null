@@ -47,8 +47,8 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'scale(1) translateX(0)' : 'scale(0.8) translateX(-30px)',
         transition: `all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)`,
-        width: '240px',
-        height: '300px',
+        width: '280px',
+        height: '380px',
       }}
       data-testid={`card-product-${product.id}`}
     >

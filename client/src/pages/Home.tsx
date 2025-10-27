@@ -5,7 +5,6 @@ import { Logo } from "@/components/Logo";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
-import cityscapeBg from "@assets/bDxvsHI8e4FxekjgoPWbu 2_1761540742831.png";
 
 export default function Home() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
@@ -40,15 +39,10 @@ export default function Home() {
   return (
     <div 
       ref={timelineRef}
-      className="h-screen overflow-x-auto overflow-y-hidden scrollbar-hide"
+      className="h-screen overflow-x-auto overflow-y-hidden scrollbar-hide digital-matrix-bg"
       style={{ 
         scrollbarWidth: 'none', 
-        msOverflowStyle: 'none',
-        backgroundImage: `url(${cityscapeBg})`,
-        backgroundRepeat: 'repeat-x',
-        backgroundPosition: 'center center',
-        backgroundSize: 'cover',
-        backgroundAttachment: 'scroll'
+        msOverflowStyle: 'none'
       }}
       data-testid="timeline-container"
     >
@@ -104,7 +98,7 @@ export default function Home() {
             {isLoading ? (
               <div className="flex gap-6 justify-center">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} style={{ width: '240px', height: '300px' }}>
+                  <div key={i} style={{ width: '280px', height: '380px' }}>
                     <div className="w-full h-full border-2 border-primary/30 rounded animate-pulse" />
                   </div>
                 ))}
