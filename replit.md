@@ -10,14 +10,13 @@ OFF HUMAN — streetwear for the singularity. An early 2000s Flash-inspired e-co
 - **Styling**: Tailwind CSS with custom Y2K/retro theme
 
 ## Key Features
-1. **Horizontal timeline layout** - Entire website scrolls left-to-right like an early 2000s Flash site
-2. **Mouse wheel hijacking** - Vertical scroll converts to horizontal navigation
-3. **Product animations** - Items pop up with scale/fade effects as they scroll into view
-4. **Full-screen immersive sections** - Hero, products, crypto, footer snap to viewport
-5. **Product detail pages** with image galleries and size selection
-6. **Shopping cart** with slide-in sidebar interface
-7. **Cryptocurrency checkout** via x402 protocol (USDC on Base)
-8. **Clean geometric Y2K aesthetic** - Neon green (Matrix), black, white palette with glitch effects
+1. **Vertical scrolling layout** - Traditional up/down scrolling for intuitive navigation
+2. **Product animations** - Items pop up with scale/fade effects as they scroll into view
+3. **Full-screen immersive sections** - Hero, products, crypto, footer use min-h-screen
+4. **Product detail pages** with image galleries and size selection
+5. **Shopping cart** with slide-in sidebar interface
+6. **Cryptocurrency checkout** via x402 protocol (USDC on Base)
+7. **Clean geometric Y2K aesthetic** - Neon green (Matrix), black, white palette with glitch effects
 
 ## Design System
 - **Colors**: Neon green primary (#00FF41/Matrix green) for accents, white text for readability
@@ -61,20 +60,20 @@ Products display as robot/human figure PNGs showing the clothing on models, crea
 3. **Checkout** (`/checkout`) - Shipping info + crypto payment
 4. **About** (`/about`) - Brand story and mission
 
-## Horizontal Timeline Structure
-The homepage uses a unique horizontal scrolling timeline layout:
-- **Section 1 (0vw)**: Hero with "OFF HUMAN" branding and CTA
-- **Section 2 (100vw)**: First 3 products with "Latest Collection"
-- **Section 3 (200vw)**: Next 3 products (if available)
-- **Section 4 (300vw)**: Crypto payment information with X402 integration
-- **Section 5 (400vw)**: Footer with links and contact info
+## Page Structure
+The homepage uses a traditional vertical scrolling layout:
+- **Section 1**: Hero with "OFF HUMAN" branding and CTA
+- **Section 2**: First 3 products with "Latest Collection" background text
+- **Section 3**: Next 3 products (if available)
+- **Section 4**: Crypto payment information with X402 integration
+- **Section 5**: Footer with links and contact info
 
 ### Technical Implementation
-- Mouse wheel events convert vertical scroll to horizontal movement
-- Each section uses `flex-none` and `minWidth: '100vw'` to prevent shrinking
-- Smooth continuous scrolling (no snap points) for natural flow
+- Normal vertical scrolling (up/down)
+- Each section uses `min-h-screen` for full viewport height
+- Smooth scroll behavior for anchor navigation
 - Intersection Observer triggers product animations as they scroll into view
-- Total timeline width: ~500vw (5 sections × 100vw each)
+- Sections stack vertically in natural reading order
 
 ## Data Models
 - **Product**: name, description, price, category, imageUrl, images[], sizes[], inStock
@@ -89,12 +88,14 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
-- **Metallic green chrome navigation** - Navigation bar and SCROLL RIGHT button now feature chrome-like metallic green gradient with shine effects
+- **Vertical scrolling** - Converted from horizontal timeline to traditional up/down scrolling for better usability
+- **LATEST COLLECTION background text** - Repositioned behind robots (z-0) as subtle background element with 40% opacity, single line (whitespace-nowrap), and larger text (text-6xl md:text-8xl)
+- **Enhanced CRYPTO PAYMENTS header** - Larger Orbitron uppercase typography (text-5xl md:text-6xl) with darker shadows for visibility
+- **Metallic green chrome navigation** - Navigation bar and CTA button feature chrome-like metallic green gradient with shine effects
 - **Lighter neon green accents** - Updated from HSL(123, 100%, 50%) to HSL(140, 90%, 65%) for better logo cohesion
 - **Transparent logo with dark shadow** - OFF HUMAN logo now uses transparent background with enhanced dark shadow/glow for visibility
 - **Orbitron headers** - Collection titles use Orbitron font for clearer readability while maintaining digital aesthetic
-- **Text positioning fix** - "LATEST COLLECTION" moved to top-24 to prevent overlap with robot figures
-- **Removed subtitle** - Cleaned up product section by removing "Explore our curated selection..." text
+- **Removed divider** - Removed divider beneath "LATEST COLLECTION" to prevent overlap with robot figures
 - **Black digital background** - Replaced cityscape with Matrix-style black pattern featuring green grid lines and dots
 - **Larger robot sizing** - Increased from 240px × 300px to 280px × 380px so heads aren't cut off
 - **Glitchy logo integration** - Replaced text with animated OFF HUMAN logo featuring RGB split, scan lines, and Y2K glitch effects  
@@ -110,11 +111,11 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - **Real product integration** - 6 authentic X402 streetwear designs with robot model imagery
 
 ## User Preferences
-- Early 2000s Flash website aesthetic with horizontal timeline
+- Early 2000s Flash website aesthetic with Y2K design
 - Seamless digital Matrix design - black background with green grid pattern visible throughout entire site
 - All text white with dark drop shadows for readability over dark background
 - No opaque panels or backgrounds blocking the background view
 - Robot/human figure product images overlaid on black digital background
-- Horizontal scroll experience where mouse wheel controls left/right navigation
-- Products pop up with animations as users scroll through timeline
+- Normal vertical scrolling (up/down) for intuitive navigation
+- Products pop up with animations as users scroll through the page
 - Cryptocurrency-first payment approach via x402 protocol
