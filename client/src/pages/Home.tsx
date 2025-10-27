@@ -83,22 +83,24 @@ export default function Home() {
         </section>
 
         {/* Section 2: Products Timeline */}
-        <section className="flex-none h-screen relative flex items-center" style={{ minWidth: '100vw' }} id="products">
-          <div className="w-full px-8 md:px-16">
-            <div className="mb-12 text-center">
-              <h2 
-                className="text-4xl md:text-6xl font-bold mb-4 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                style={{ fontFamily: "var(--font-display)" }}
-                data-testid="text-collection-title"
-              >
-                Latest Collection
-              </h2>
-              <div className="h-1 w-20 bg-primary mx-auto mb-6" />
-              <p className="text-lg text-white max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-                Explore our curated selection of premium streetwear pieces
-              </p>
-            </div>
+        <section className="flex-none h-screen relative flex items-center justify-center" style={{ minWidth: '100vw' }} id="products">
+          {/* Heading positioned absolutely at top */}
+          <div className="absolute top-12 left-0 right-0 text-center px-8 md:px-16">
+            <h2 
+              className="text-4xl md:text-6xl font-bold mb-4 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+              style={{ fontFamily: "var(--font-display)" }}
+              data-testid="text-collection-title"
+            >
+              Latest Collection
+            </h2>
+            <div className="h-1 w-20 bg-primary mx-auto mb-6" />
+            <p className="text-lg text-white max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              Explore our curated selection of premium streetwear pieces
+            </p>
+          </div>
 
+          {/* Products centered vertically */}
+          <div className="w-full px-8 md:px-16">
             {isLoading ? (
               <div className="flex gap-6 justify-center">
                 {[1, 2, 3].map((i) => (
@@ -131,7 +133,7 @@ export default function Home() {
 
         {/* Section 3: More Products */}
         {!isLoading && !isError && products && products.length > 3 && (
-          <section className="flex-none h-screen relative flex items-center" style={{ minWidth: '100vw' }}>
+          <section className="flex-none h-screen relative flex items-center justify-center" style={{ minWidth: '100vw' }}>
             <div className="w-full px-8 md:px-16">
               <div className="flex gap-6 justify-center overflow-x-visible px-4">
                 {products.slice(3, 6).map((product, index) => (
