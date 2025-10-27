@@ -4,6 +4,7 @@ import { AnimatedProductCard } from "@/components/AnimatedProductCard";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
+import cityscapeBg from "@assets/8CE3D8E3-9990-4C59-BB03-BB82D8825C43_1761538013813.png";
 
 export default function Home() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
@@ -51,7 +52,15 @@ export default function Home() {
     <div 
       ref={timelineRef}
       className="h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide"
-      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      style={{ 
+        scrollbarWidth: 'none', 
+        msOverflowStyle: 'none',
+        backgroundImage: `url(${cityscapeBg})`,
+        backgroundRepeat: 'repeat-x',
+        backgroundPosition: 'bottom center',
+        backgroundSize: 'auto 40%',
+        backgroundAttachment: 'scroll'
+      }}
       data-testid="timeline-container"
     >
       <div className="flex h-full">
