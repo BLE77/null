@@ -78,6 +78,7 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Cityscape background** - Added looping futuristic skyline as horizontal repeating background across timeline
 - **Fixed NCLRekron font loading** - Configured Express to serve font files with proper MIME types (font/otf)
 - **Custom NCLRekron + Orbitron typography** - NCLRekron OTF font for headers, Orbitron for all body text
 - **Clean product cards** - Timeline now shows only shirt images as transparent PNGs (no pricing), click to reveal details
