@@ -52,14 +52,15 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
       }}
       data-testid={`card-product-${product.id}`}
     >
-      <Link href={`/product/${product.id}`}>
-        <div className="group cursor-pointer transition-all duration-300 hover-elevate w-full h-full">
-          <div className="w-full h-full relative">
+      <Link href={`/product/${product.id}`} style={{ display: 'block', width: '280px', height: '380px' }}>
+        <div className="group cursor-pointer transition-all duration-300 hover-elevate" style={{ width: '280px', height: '380px' }}>
+          <div style={{ width: '280px', height: '380px', position: 'relative' }}>
             {getRobotImage(product.name) ? (
               <img 
                 src={getRobotImage(product.name)} 
                 alt={`${product.name} on robot model`}
-                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                style={{ width: '280px', height: '380px' }}
                 data-testid={`img-product-${product.id}`}
               />
             ) : (
