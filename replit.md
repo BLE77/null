@@ -1,7 +1,7 @@
-# Y2K E-Commerce Clothing Brand
+# OFF HUMAN - E-Commerce Clothing Brand
 
 ## Project Overview
-An early 2000s Flash-inspired e-commerce clothing brand website with cryptocurrency payment integration via x402 protocol. Features dark, grungy Y2K aesthetics with modern React functionality.
+OFF HUMAN — streetwear for the singularity. An early 2000s Flash-inspired e-commerce clothing brand website with cryptocurrency payment integration via x402 protocol. Built at the edge of human and machine, fusing analog imperfection with digital precision. Features dark, grungy Y2K aesthetics with modern React functionality.
 
 ## Architecture
 - **Frontend**: React SPA with Wouter routing, TanStack Query for data fetching
@@ -57,7 +57,7 @@ Products display as robot/human figure PNGs showing the clothing on models, crea
 
 ## Horizontal Timeline Structure
 The homepage uses a unique horizontal scrolling timeline layout:
-- **Section 1 (0vw)**: Hero with "CYBER VOID" branding and CTA
+- **Section 1 (0vw)**: Hero with "OFF HUMAN" branding and CTA
 - **Section 2 (100vw)**: First 3 products with "Latest Collection"
 - **Section 3 (200vw)**: Next 3 products (if available)
 - **Section 4 (300vw)**: Crypto payment information with X402 integration
@@ -83,6 +83,8 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Brand refresh** - Changed name from "CYBER VOID" to "OFF HUMAN" with singularity-focused messaging
+- **Perfect vertical alignment** - All robot figures now align from the same top position using items-start and object-cover
 - **Smaller uniform product PNGs** - Robot figures now use fixed 240px × 300px dimensions for consistent sizing
 - **Fixed-dimension layout** - Text elements no longer affect product card sizing using inline styles
 - **Updated background** - New futuristic city street background with modern buildings and wet pavement

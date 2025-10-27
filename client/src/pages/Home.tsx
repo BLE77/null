@@ -60,11 +60,14 @@ export default function Home() {
               style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
               data-testid="text-hero-title"
             >
-              CYBER VOID
+              OFF HUMAN
             </h1>
             <div className="h-1 w-24 bg-primary mx-auto mb-6" />
             <p className="text-xl md:text-2xl text-white mb-10 font-medium drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-              Digital Streetwear for 2025
+              Streetwear for the Singularity
+            </p>
+            <p className="text-base md:text-lg text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              Built at the edge of human and machine. Made for what comes next.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Button 
@@ -118,7 +121,7 @@ export default function Home() {
                 </Button>
               </div>
             ) : (
-              <div className="flex gap-6 justify-center overflow-x-visible px-4" data-testid="grid-products">
+              <div className="flex gap-6 justify-center items-start overflow-x-visible px-4" data-testid="grid-products">
                 {products?.slice(0, 3).map((product, index) => (
                   <AnimatedProductCard
                     key={product.id}
@@ -135,7 +138,7 @@ export default function Home() {
         {!isLoading && !isError && products && products.length > 3 && (
           <section className="flex-none h-screen relative flex items-center justify-center" style={{ minWidth: '100vw' }}>
             <div className="w-full px-8 md:px-16">
-              <div className="flex gap-6 justify-center overflow-x-visible px-4">
+              <div className="flex gap-6 justify-center items-start overflow-x-visible px-4">
                 {products.slice(3, 6).map((product, index) => (
                   <AnimatedProductCard
                     key={product.id}

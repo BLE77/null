@@ -18,7 +18,7 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           <Link href="/">
             <span className="text-2xl font-bold tracking-tight cursor-pointer inline-block text-foreground" style={{ fontFamily: "var(--font-display)" }} data-testid="link-home">
-              CYBER VOID
+              OFF HUMAN
             </span>
           </Link>
 

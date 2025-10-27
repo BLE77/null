@@ -59,7 +59,7 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
               <img 
                 src={getRobotImage(product.name)} 
                 alt={`${product.name} on robot model`}
-                className="w-full h-full object-contain object-center transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                 data-testid={`img-product-${product.id}`}
               />
             ) : (
