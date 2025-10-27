@@ -65,7 +65,7 @@ The homepage uses a unique horizontal scrolling timeline layout:
 ### Technical Implementation
 - Mouse wheel events convert vertical scroll to horizontal movement
 - Each section uses `flex-none` and `minWidth: '100vw'` to prevent shrinking
-- CSS snap scrolling (`snap-x snap-mandatory`) aligns sections to viewport
+- Smooth continuous scrolling (no snap points) for natural flow
 - Intersection Observer triggers product animations as they scroll into view
 - Total timeline width: ~500vw (5 sections × 100vw each)
 
@@ -82,6 +82,7 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Smooth scrolling** - Changed from snap scrolling to continuous smooth horizontal scrolling for natural feel
 - **Seamless cityscape design** - Cityscape background now covers full viewport (background-size: cover), visible across all sections with no opaque panels blocking the view
 - **White text with drop shadows** - All text styled as `text-white` with `drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]` for maximum readability over dark cityscape
 - **Robot figure products** - Replaced shirt PNGs with robot/human figure PNGs showing products on models, seamlessly overlaid on cityscape
@@ -93,7 +94,6 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Implemented full horizontal timeline layout (entire site scrolls left-to-right)
 - Mouse wheel hijacking for horizontal navigation
 - Product pop-up animations using Intersection Observer
-- Snap scrolling between full-screen sections
 - Backend API routes for products and orders
 - Cart management with localStorage persistence
 - Authentication system with Passport.js
