@@ -1,0 +1,54 @@
+injected.js:204  POST https://afa42c80-b2ce-4259-83ca-003bf6a3a8cc-00-15es718ftmzcp.picard.replit.dev/api/checkout/pay/solana 402 (Payment Required)
+apply @ injected.js:204
+(anonymous) @ x402-solana_client.js?v=08f8c57a:15089
+await in (anonymous)
+fetch @ x402-solana_client.js?v=08f8c57a:15107
+handleSubmit @ Checkout.tsx:227
+callCallback2 @ chunk-Z2GUPSCO.js?v=08f8c57a:3674
+invokeGuardedCallbackDev @ chunk-Z2GUPSCO.js?v=08f8c57a:3699
+invokeGuardedCallback @ chunk-Z2GUPSCO.js?v=08f8c57a:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-Z2GUPSCO.js?v=08f8c57a:3736
+executeDispatch @ chunk-Z2GUPSCO.js?v=08f8c57a:7014
+processDispatchQueueItemsInOrder @ chunk-Z2GUPSCO.js?v=08f8c57a:7034
+processDispatchQueue @ chunk-Z2GUPSCO.js?v=08f8c57a:7043
+dispatchEventsForPlugins @ chunk-Z2GUPSCO.js?v=08f8c57a:7051
+(anonymous) @ chunk-Z2GUPSCO.js?v=08f8c57a:7174
+batchedUpdates$1 @ chunk-Z2GUPSCO.js?v=08f8c57a:18913
+batchedUpdates @ chunk-Z2GUPSCO.js?v=08f8c57a:3579
+dispatchEventForPluginEventSystem @ chunk-Z2GUPSCO.js?v=08f8c57a:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-Z2GUPSCO.js?v=08f8c57a:5478
+dispatchEvent @ chunk-Z2GUPSCO.js?v=08f8c57a:5472
+dispatchDiscreteEvent @ chunk-Z2GUPSCO.js?v=08f8c57a:5449
+injected.js:27 [Solana Payment] Payment response received: 402
+injected.js:27 Payment error (full details): {message: 'Invalid request', stack: 'Error: Invalid request\n    at handleSubmit (https:….picard.replit.dev/src/pages/Checkout.tsx:240:17)', error: Error: Invalid request
+    at handleSubmit (https://afa42c80-b2ce-4259-83ca-003bf6a3a8cc-00-15es718…}
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+(anonymous) @ injected.js:27
+handleSubmit @ Checkout.tsx:251
+await in handleSubmit
+callCallback2 @ chunk-Z2GUPSCO.js?v=08f8c57a:3674
+invokeGuardedCallbackDev @ chunk-Z2GUPSCO.js?v=08f8c57a:3699
+invokeGuardedCallback @ chunk-Z2GUPSCO.js?v=08f8c57a:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-Z2GUPSCO.js?v=08f8c57a:3736
+executeDispatch @ chunk-Z2GUPSCO.js?v=08f8c57a:7014
+processDispatchQueueItemsInOrder @ chunk-Z2GUPSCO.js?v=08f8c57a:7034
+processDispatchQueue @ chunk-Z2GUPSCO.js?v=08f8c57a:7043
+dispatchEventsForPlugins @ chunk-Z2GUPSCO.js?v=08f8c57a:7051
+(anonymous) @ chunk-Z2GUPSCO.js?v=08f8c57a:7174
+batchedUpdates$1 @ chunk-Z2GUPSCO.js?v=08f8c57a:18913
+batchedUpdates @ chunk-Z2GUPSCO.js?v=08f8c57a:3579
+dispatchEventForPluginEventSystem @ chunk-Z2GUPSCO.js?v=08f8c57a:7173
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-Z2GUPSCO.js?v=08f8c57a:5478
+dispatchEvent @ chunk-Z2GUPSCO.js?v=08f8c57a:5472
+dispatchDiscreteEvent @ chunk-Z2GUPSCO.js?v=08f8c57a:5449
+2injected.js:27 [Network Switch] Switching to Solana mode

@@ -191,43 +191,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(response.status).json(response.body);
       }
 
-      // Step 1: Verify payment signature
+      // Step 1: Verify payment signature using library
       console.log("[Solana Payment] Step 1: Verifying payment signature...");
       console.log("[Solana Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
+      
+      // Decode payment header to see what's inside
+      try {
+        const decodedPayment = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        console.log("[Solana Payment] Decoded payment header:", JSON.stringify(decodedPayment, null, 2));
+      } catch (e) {
+        console.log("[Solana Payment] Could not decode payment header");
+      }
+      
       console.log("[Solana Payment] Payment requirements:", JSON.stringify(paymentRequirements, null, 2));
       
-      // Call facilitator /verify endpoint directly to see detailed error
-      try {
-        const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            payment: paymentHeader,
-            requirements: paymentRequirements,
-          }),
-        });
+      // Use library's verifyPayment method (handles facilitator communication)
+      const verificationResult = await x402.verifyPayment(paymentHeader, paymentRequirements);
+      console.log("[Solana Payment] Library verification result:", verificationResult);
+      
+      if (!verificationResult) {
+        console.log("[Solana Payment] ❌ Payment verification FAILED");
+        console.log("[Solana Payment] This usually means:");
+        console.log("  1. Facilitator rejected the signature");
+        console.log("  2. Transaction doesn't match requirements");
+        console.log("  3. Network mismatch (mainnet vs devnet)");
         
-        const verifyData = await verifyResponse.json();
-        console.log("[Solana Payment] Facilitator /verify response:", JSON.stringify(verifyData, null, 2));
-        
-        if (!verifyResponse.ok || !verifyData.valid) {
-          console.log("[Solana Payment] Facilitator REJECTED payment");
-          console.log("[Solana Payment] Rejection reason:", verifyData.error || verifyData.message || 'Unknown');
-          return res.status(402).json({
-            error: "Payment verification failed",
-            message: verifyData.error || verifyData.message || "Facilitator rejected payment",
-            details: verifyData,
-          });
-        }
-        
-        console.log("[Solana Payment] ✅ Facilitator ACCEPTED payment");
-      } catch (error) {
-        console.error("[Solana Payment] Error calling facilitator:", error);
-        return res.status(500).json({
-          error: "Facilitator communication error",
-          message: error instanceof Error ? error.message : "Unknown error",
+        return res.status(402).json({
+          error: "Payment verification failed",
+          message: "Facilitator rejected payment signature - this may be a mainnet compatibility issue",
         });
       }
+      
+      console.log("[Solana Payment] ✅ Payment signature VERIFIED by facilitator");
 
       // Extract transaction info from payment header
       let txSignature = 'solana-pending';
