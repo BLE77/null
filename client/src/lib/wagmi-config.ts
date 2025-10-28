@@ -4,7 +4,7 @@ import { base, baseSepolia } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
 // WalletConnect Project ID - get from https://cloud.walletconnect.com
-const projectId = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
+export const projectId = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
 
 const metadata = {
   name: 'OFF HUMAN',
@@ -52,16 +52,28 @@ export const config = createConfig({
   ],
 });
 
-// Create Web3Modal instance
-if (typeof window !== 'undefined') {
-  createWeb3Modal({
-    wagmiConfig: config,
-    projectId,
-    enableAnalytics: false,
-    themeMode: 'dark',
-    themeVariables: {
-      '--w3m-accent': '#00FF41', // Matrix green
-      '--w3m-border-radius-master': '4px',
-    },
-  });
+// Lazy initialization function for Web3Modal
+let web3ModalInstance: ReturnType<typeof createWeb3Modal> | null = null;
+
+export function ensureWeb3ModalInitialized() {
+  if (typeof window === 'undefined') return;
+  
+  if (!web3ModalInstance) {
+    try {
+      web3ModalInstance = createWeb3Modal({
+        wagmiConfig: config,
+        projectId,
+        enableAnalytics: false,
+        themeMode: 'dark',
+        themeVariables: {
+          '--w3m-accent': '#00FF41', // Matrix green
+          '--w3m-border-radius-master': '4px',
+        },
+      });
+    } catch (error) {
+      console.error('Failed to initialize Web3Modal:', error);
+    }
+  }
+  
+  return web3ModalInstance;
 }
