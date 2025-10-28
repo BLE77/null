@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { AnimatedProductCard } from "@/components/AnimatedProductCard";
-import { Logo } from "@/components/Logo";
+import { CharacterController } from "@/components/CharacterController";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -14,32 +14,9 @@ export default function Home() {
       className="min-h-screen overflow-y-auto digital-matrix-bg"
       data-testid="timeline-container"
     >
-      {/* Section 1: Hero */}
+      {/* Section 1: Hero - 3D Character Controller */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-6 flex justify-center" data-testid="hero-logo-container">
-            <Logo variant="hero" />
-          </div>
-          <div className="h-1 w-24 bg-primary mx-auto mb-6" />
-          <p className="text-xl md:text-2xl text-white mb-10 font-medium drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-            Streetwear for the Singularity
-          </p>
-          <p className="text-base md:text-lg text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-            Built at the edge of human and machine. Made for what comes next.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <button 
-              onClick={() => {
-                const productsSection = document.getElementById('products');
-                productsSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="metallic-nav px-10 py-3 rounded-md uppercase tracking-wider text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
-              data-testid="button-shop-now"
-            >
-              Explore ↓
-            </button>
-          </div>
-        </div>
+        <CharacterController />
       </section>
 
       {/* Section 2: Products Timeline */}
