@@ -149,9 +149,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const paymentHeader = req.headers['x-payment'] as string;
       const { customerEmail, items, totalAmount } = req.body;
 
-      // USDC mint address on Solana Devnet
-      const USDC_MINT_DEVNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
-      // const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // Same for mainnet
+      // USDC mint addresses on Solana
+      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"; // Devnet USDC
+      const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // Mainnet USDC
 
       // If no payment header, return 402 with payment requirements
       // Format matches x402-solana client expectations (NO recipient in 402 response)
