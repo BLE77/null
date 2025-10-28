@@ -27,7 +27,11 @@ function isWebGLAvailable(): boolean {
 
 export function CharacterController() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    // Check if user has seen splash before
+    const hasSeenSplash = localStorage.getItem('hasSeenSplash');
+    return !hasSeenSplash;
+  });
   const [splashGlitching, setSplashGlitching] = useState(false);
   const [splashFade, setSplashFade] = useState(false);
   const [webGLSupported, setWebGLSupported] = useState(true);
@@ -75,6 +79,9 @@ export function CharacterController() {
     if (introStarted) return;
     setIntroStarted(true);
     setSplashGlitching(true);
+    
+    // Mark splash as seen in localStorage
+    localStorage.setItem('hasSeenSplash', 'true');
     
     // Play intro audio
     if (sceneRef.current.introAudio) {
@@ -606,11 +613,15 @@ export function CharacterController() {
           
           {/* Skip Button - Outside splash div for proper z-index */}
           <button
-            onClick={handleSplashClick}
-            className="absolute bottom-16 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-primary bg-black/50 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] z-50"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleSplashClick();
+            }}
+            className="fixed bottom-16 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-primary bg-black/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
             data-testid="button-skip-splash"
             aria-label="Skip intro"
-            style={{ pointerEvents: 'auto' }}
+            style={{ zIndex: 10000, pointerEvents: 'auto', cursor: 'pointer' }}
           >
             <X className="w-4 h-4 text-primary" strokeWidth={3} />
           </button>

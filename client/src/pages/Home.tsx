@@ -3,6 +3,7 @@ import type { Product } from "@shared/schema";
 import { AnimatedProductCard } from "@/components/AnimatedProductCard";
 import { CharacterController } from "@/components/CharacterController";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 export default function Home() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
@@ -82,12 +83,12 @@ export default function Home() {
       )}
 
       {/* Section 4: Crypto Payment */}
-      <section className="flex items-center py-16">
-        <div className="container mx-auto px-8 md:px-16 max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="p-10">
+      <section className="flex items-center py-16 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-8 md:px-16 max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="p-4 sm:p-10">
               <h2 
-                className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
+                className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
                 style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
               >
                 CRYPTO PAYMENTS
@@ -111,9 +112,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="aspect-square flex items-center justify-center p-16">
+            <div className="aspect-square flex items-center justify-center p-8 sm:p-16">
               <div className="text-center">
-                <div className="text-7xl font-black mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
+                <div className="text-5xl sm:text-7xl font-black mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
                   X402
                 </div>
                 <p className="text-sm uppercase tracking-wider text-white font-semibold drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
@@ -126,8 +127,8 @@ export default function Home() {
       </section>
 
       {/* Section 5: Footer / Contact */}
-      <section className="min-h-screen flex items-center border-t-2 border-primary py-16">
-        <div className="container mx-auto px-8 md:px-16 max-w-7xl w-full">
+      <section className="min-h-screen flex items-center border-t-2 border-primary py-16 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-8 md:px-16 max-w-7xl w-full">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
               <h3 className="font-bold uppercase tracking-wider mb-4 text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" style={{ fontFamily: "var(--font-display)" }}>
@@ -143,7 +144,7 @@ export default function Home() {
                 Shop
               </h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/shop" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">All Products</a></li>
+                <li><Link href="/shop" className="text-white hover:opacity-80 transition-opacity drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">All Products</Link></li>
               </ul>
             </div>
 
