@@ -3,6 +3,7 @@ import { type Product } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Plus, Pencil, Trash2, Upload, X } from "lucide-react";
+import { getProductImage } from "@/lib/product-images";
 import {
   Dialog,
   DialogContent,
@@ -295,10 +296,19 @@ export default function AdminDashboard() {
                 className="border-2 border-primary/30 rounded-md p-6 backdrop-blur-sm hover-elevate"
                 data-testid={`card-product-${product.id}`}
               >
-                <div className="aspect-[3/4] rounded-md mb-4 overflow-hidden border border-primary/20">
-                  <div className="w-full h-full flex items-center justify-center text-xs text-white/60">
-                    {product.imageUrl}
-                  </div>
+                <div className="aspect-[3/4] rounded-md mb-4 overflow-hidden border border-primary/20 bg-black/50">
+                  {product.imageUrl && (
+                    <img 
+                      src={getProductImage(product.imageUrl) || product.imageUrl} 
+                      alt={product.name}
+                      className="w-full h-full object-contain"
+                    />
+                  )}
+                  {!product.imageUrl && (
+                    <div className="w-full h-full flex items-center justify-center text-xs text-white/60 p-2">
+                      No image
+                    </div>
+                  )}
                 </div>
                 <h3 
                   className="text-lg font-bold text-white mb-2 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
@@ -440,11 +450,13 @@ export default function AdminDashboard() {
                       {formData.images.map((imageUrl, index) => (
                         <div
                           key={index}
-                          className="relative group border border-border rounded-md overflow-hidden aspect-square"
+                          className="relative group border border-border rounded-md overflow-hidden aspect-square bg-muted"
                         >
-                          <div className="w-full h-full flex items-center justify-center bg-muted p-2">
-                            <p className="text-xs text-center break-all line-clamp-3">{imageUrl.split('/').pop()}</p>
-                          </div>
+                          <img 
+                            src={getProductImage(imageUrl) || imageUrl} 
+                            alt={`Gallery ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
                           <button
                             type="button"
                             onClick={() => handleRemoveGalleryImage(imageUrl)}
@@ -470,7 +482,46 @@ export default function AdminDashboard() {
                   data-testid="input-product-model"
                 />
                 {formData.modelUrl && !modelFile && (
-                  <p className="text-xs text-muted-foreground mt-1">Current: {formData.modelUrl}</p>
+                  <div className="mt-2 flex items-center justify-between p-2 border border-border rounded-md">
+                    <p className="text-xs text-muted-foreground">Current: {formData.modelUrl.split('/').pop()}</p>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={async () => {
+                        if (!editingProduct) {
+                          setFormData({ ...formData, modelUrl: null });
+                          return;
+                        }
+                        
+                        try {
+                          await apiRequest("PATCH", `/api/admin/products/${editingProduct.id}`, {
+                            modelUrl: null
+                          });
+                          
+                          setFormData({ ...formData, modelUrl: null });
+                          queryClient.invalidateQueries({ queryKey: ["/api/admin/products"] });
+                          queryClient.invalidateQueries({ queryKey: ["/api/products"] });
+                          
+                          toast({
+                            title: "3D Model removed",
+                            description: "3D model has been removed successfully",
+                          });
+                        } catch (error: any) {
+                          toast({
+                            title: "Error",
+                            description: error.message || "Failed to remove 3D model",
+                            variant: "destructive",
+                          });
+                        }
+                      }}
+                      className="text-destructive hover:text-destructive"
+                      data-testid="button-remove-model"
+                    >
+                      <X className="w-4 h-4" />
+                      Remove
+                    </Button>
+                  </div>
                 )}
               </div>
 
