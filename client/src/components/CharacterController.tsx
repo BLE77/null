@@ -143,6 +143,7 @@ export function CharacterController() {
     controls.enableDamping = true;
     controls.dampingFactor = 0.1;
     controls.enablePan = false;
+    controls.enableZoom = false;
     controls.target.set(0, 1.2, 0);
     controls.minDistance = 1.5;
     controls.maxDistance = 10;
@@ -600,7 +601,7 @@ export function CharacterController() {
       {!showSplash && webGLSupported && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
           <p className="text-white/60 text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" data-testid="instructions">
-            W/↑: Move • Shift: Run • J: Punch • K: Kick • Space: Jump • U: Aura
+            Click and drag to rotate • W/↑: Move • Shift: Run • J: Punch • K: Kick • Space: Jump • U: Aura
           </p>
         </div>
       )}
