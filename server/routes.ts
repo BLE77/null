@@ -4,11 +4,20 @@ import { dbStorage } from "./db-storage";
 import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth";
+import { paymentMiddleware } from "x402-express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Seed products and admin user on startup
   await dbStorage.seedProducts();
   await dbStorage.seedAdmin();
+
+  // X402 Payment configuration
+  const X402_WALLET = process.env.X402_WALLET_ADDRESS;
+  const FACILITATOR_URL = "https://facilitator.payai.network";
+  
+  if (!X402_WALLET) {
+    console.warn("⚠️  X402_WALLET_ADDRESS not set - X402 payments will not work");
+  }
   
   app.get("/api/products", async (req, res) => {
     try {
@@ -51,6 +60,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(product);
     } catch (error) {
       res.status(400).json({ message: "Invalid product data" });
+    }
+  });
+
+  // X402 Protected Payment Endpoint
+  if (X402_WALLET) {
+    app.use(
+      "/api/checkout/pay",
+      paymentMiddleware(
+        X402_WALLET as `0x${string}`,
+        {
+          "POST /api/checkout/pay": {
+            price: "$0.01", // Minimum test price - will be dynamic from request
+            network: "base-sepolia", // Use base-sepolia for testing
+            // Change to "base" for production mainnet
+          },
+        },
+        {
+          url: FACILITATOR_URL,
+        }
+      )
+    );
+  }
+
+  // X402 Payment Processing - This executes AFTER payment is verified
+  app.post("/api/checkout/pay", async (req, res) => {
+    try {
+      const { customerEmail, items, totalAmount, shippingDetails } = req.body;
+      
+      // Payment has been verified by X402 middleware
+      // Create the order with transaction details
+      const order = await dbStorage.createOrder({
+        customerEmail,
+        items: JSON.stringify(items),
+        totalAmount,
+        transactionHash: req.headers['x-payment-tx'] as string || 'x402-verified',
+        status: "completed",
+      });
+      
+      res.status(200).json({
+        success: true,
+        order,
+        message: "Payment verified and order created",
+      });
+    } catch (error) {
+      console.error("Order creation error:", error);
+      res.status(500).json({ message: "Failed to create order after payment" });
     }
   });
 

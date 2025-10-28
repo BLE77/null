@@ -33,6 +33,18 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
 
 ## External Dependencies
 - **x402 protocol**: For USDC cryptocurrency payments on the Base network.
+  - **Implementation**: X402 Express middleware integrated on `/api/checkout/pay` endpoint
+  - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
+  - **Facilitator**: https://facilitator.payai.network
+  - **Packages**: `x402-express`, `x402-fetch`, `viem`
+  - **Wallet**: X402_WALLET_ADDRESS environment variable (your payment receiving address)
+  - **Payment Flow**: 
+    1. Client requests payment endpoint without payment → 402 Payment Required
+    2. X402 middleware returns payment requirements (USDC amount, network, wallet)
+    3. Client signs transaction with crypto wallet
+    4. Client resubmits with X-PAYMENT header containing signed authorization
+    5. X402 middleware verifies payment via facilitator
+    6. Payment settled on-chain, order created
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.
