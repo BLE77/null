@@ -150,31 +150,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { X402PaymentHandler } = await import('x402-solana/server');
 
       // Create payment handler with proper configuration
-      // Use devnet for testing - upgrade to mainnet with Helius/QuickNode RPC for production
+      // MAINNET with Helius RPC for production
+      const HELIUS_API_KEY = process.env.HELIUS_API_KEY;
+      const HELIUS_RPC = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
+      
       const x402 = new X402PaymentHandler({
-        network: 'solana-devnet',
+        network: 'solana', // MAINNET
         treasuryAddress: X402_SOLANA_WALLET,
         facilitatorUrl: FACILITATOR_URL,
-        rpcUrl: 'https://api.devnet.solana.com', // Free devnet RPC
+        rpcUrl: HELIUS_RPC, // Helius mainnet RPC
       });
 
       const paymentHeader = x402.extractPayment(req.headers);
       const { customerEmail, items, totalAmount } = req.body;
 
-      // USDC mint address on Solana DEVNET
-      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+      // USDC mint address on Solana MAINNET
+      const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
       // Create payment requirements using library format
       const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
-          amount: "2500000", // $2.50 USDC (6 decimals)
+          amount: "2500000", // $2.50 USDC (6 decimals) - REAL MONEY
           asset: { 
-            address: USDC_MINT_DEVNET,
+            address: USDC_MINT_MAINNET,
             decimals: 6, // USDC has 6 decimals
           },
         },
-        network: "solana-devnet",
+        network: "solana", // MAINNET
         config: {
           description: "OFF HUMAN Streetwear Order",
           resource: `${baseUrl}/api/checkout/pay/solana`,
