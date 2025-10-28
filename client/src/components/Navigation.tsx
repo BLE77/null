@@ -5,7 +5,7 @@ import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { WalletConnect } from "@/components/WalletConnect";
+import { UniversalWalletConnect } from "@/components/UniversalWalletConnect";
 
 export function Navigation() {
   const { getTotalItems, setIsCartOpen } = useCart();
@@ -54,7 +54,7 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-2">
-            <WalletConnect />
+            <UniversalWalletConnect />
             {user ? (
               <>
                 <span className="hidden md:block text-sm text-white mr-2 font-medium drop-shadow-md" data-testid="text-username">
