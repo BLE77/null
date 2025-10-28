@@ -63,7 +63,11 @@ Products display as robot/human figure PNGs showing the clothing on models, crea
 
 ## Page Structure
 The homepage uses a traditional vertical scrolling layout:
-- **Section 1**: Hero with "OFF HUMAN" branding and CTA
+- **Section 1**: Hero with interactive 3D character controller scene
+  - Splash screen with OFF HUMAN logo (dismissible on click)
+  - Three.js WebGL scene with animated character model
+  - OrbitControls for camera manipulation (drag to rotate, scroll to zoom)
+  - WebGL fallback UI for browsers without WebGL support
 - **Section 2**: First 3 products with "Latest Collection" background text
 - **Section 3**: Next 3 products (if available)
 - **Section 4**: Crypto payment information with X402 integration
@@ -75,6 +79,8 @@ The homepage uses a traditional vertical scrolling layout:
 - Smooth scroll behavior for anchor navigation
 - Intersection Observer triggers product animations as they scroll into view
 - Sections stack vertically in natural reading order
+- Three.js character controller with WebGL detection and fallback
+- Proper cleanup of Three.js resources to prevent memory leaks
 
 ## Data Models
 - **Product**: name, description, price, category, imageUrl (legacy), homePageImageUrl, shopImageUrl, images[] (supports images & videos), inventory (S/M/L/XL), modelUrl, inStock
@@ -127,6 +133,14 @@ The site now includes a full admin dashboard for managing products:
 - Files stored in `/uploads` directory
 
 ## Recent Changes
+- **3D Character Controller Hero Section** - Replaced static logo with interactive Three.js scene
+  - Full-screen 3D character model (THG.glb) with idle/walk/run animations
+  - OrbitControls for camera manipulation (drag to rotate, scroll to zoom)
+  - Splash screen with OFF HUMAN logo and fade animation
+  - WebGL detection with graceful fallback for headless/testing environments
+  - Fallback UI displays branded messaging and CTA when WebGL unavailable
+  - Component: `client/src/components/CharacterController.tsx`
+  - Dependencies: three, @types/three, GLTFLoader, OrbitControls
 - **Separate thumbnails for home/shop** - Added homePageImageUrl and shopImageUrl fields to products schema
   - Home page uses homePageImageUrl for "Latest Collection" display
   - Shop page uses shopImageUrl for product cards
