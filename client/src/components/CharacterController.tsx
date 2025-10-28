@@ -2,7 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import splashLogo from "@assets/off human simple_1761649401547.png";
+import introAudioFile from "@assets/OFF!_1761649401549.mp3";
+import themeAudioFile from "@assets/2hollis - jeans (instrumental) [prod. 2hollis]_1761649401547.mp3";
+import auraFont from "@assets/Electroharmonix_1761649401549.otf";
 
 // Check for WebGL support
 function isWebGLAvailable(): boolean {
@@ -22,6 +29,8 @@ export function CharacterController() {
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
   const [webGLSupported, setWebGLSupported] = useState(true);
+  const [introStarted, setIntroStarted] = useState(false);
+  
   const sceneRef = useRef<{
     renderer?: THREE.WebGLRenderer;
     scene?: THREE.Scene;
@@ -32,12 +41,44 @@ export function CharacterController() {
     activeAction?: THREE.AnimationAction;
     modelRoot?: THREE.Object3D;
     animationId?: number;
-  }>({});
+    introAudio?: HTMLAudioElement;
+    themeAudio?: HTMLAudioElement;
+    locomotionState?: string;
+    oneShotPlaying?: boolean;
+    keys?: { w: boolean; ArrowUp: boolean; Shift: boolean };
+    auraTextMesh?: THREE.Mesh;
+    auraTextScaleTarget?: number;
+    auraHideTimeout?: number;
+    auraVisibilityTimeout?: number;
+  }>({
+    locomotionState: 'idle',
+    oneShotPlaying: false,
+    keys: { w: false, ArrowUp: false, Shift: false },
+    auraTextScaleTarget: 0.2
+  });
 
-  // Splash screen handler
+  // Splash screen handler with intro music
   const handleSplashClick = () => {
+    if (introStarted) return;
+    setIntroStarted(true);
     setSplashFade(true);
-    setTimeout(() => setShowSplash(false), 1600);
+    
+    // Play intro audio
+    if (sceneRef.current.introAudio) {
+      sceneRef.current.introAudio.currentTime = 0;
+      sceneRef.current.introAudio.play().catch(() => {});
+      
+      // Wait for intro to finish, then load model and play theme
+      const introDuration = sceneRef.current.introAudio.duration || 7;
+      setTimeout(() => {
+        setShowSplash(false);
+        // Start theme music after intro
+        if (sceneRef.current.themeAudio) {
+          sceneRef.current.themeAudio.currentTime = 0;
+          sceneRef.current.themeAudio.play().catch(() => {});
+        }
+      }, introDuration * 1000);
+    }
   };
 
   useEffect(() => {
@@ -50,6 +91,20 @@ export function CharacterController() {
     }
 
     if (!containerRef.current) return;
+
+    // Setup audio
+    const introAudio = new Audio(introAudioFile);
+    introAudio.preload = 'auto';
+    introAudio.loop = false;
+    introAudio.volume = 0.9;
+    
+    const themeAudio = new Audio(themeAudioFile);
+    themeAudio.preload = 'auto';
+    themeAudio.loop = true;
+    themeAudio.volume = 0.85;
+
+    sceneRef.current.introAudio = introAudio;
+    sceneRef.current.themeAudio = themeAudio;
 
     const container = containerRef.current;
     const width = container.clientWidth;
@@ -74,6 +129,10 @@ export function CharacterController() {
     const scene = new THREE.Scene();
     scene.background = null;
 
+    // Env lighting
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment()).texture;
+
     // Setup camera
     const camera = new THREE.PerspectiveCamera(50, width / height, 0.01, 5000);
     camera.position.set(0, 1.8, -4.5);
@@ -89,20 +148,225 @@ export function CharacterController() {
     controls.maxDistance = 10;
     controls.maxPolarAngle = Math.PI * 0.49;
 
-    // Add lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 10, 5);
-    scene.add(directionalLight);
-
     // Store refs
     sceneRef.current = {
+      ...sceneRef.current,
       renderer,
       scene,
       camera,
       controls,
+    };
+
+    // Helper functions
+    const findClipByNameLike = (animations: any[], nameLike: string) => {
+      const target = nameLike.toLowerCase();
+      let match = animations.find((c: any) => (c.name || '').toLowerCase().includes(target));
+      if (match) return match;
+      
+      const aliases: Record<string, string[]> = {
+        idle: ['idle', 'stand', 'breath', 'rest'],
+        walk: ['walk', 'walking'],
+        run: ['run', 'running', 'sprint'],
+        punch: ['punch', 'jab', 'attack', 'hit'],
+        kick: ['kick', 'attack_kick', 'roundhouse'],
+        jump: ['jump', 'hop', 'leap'],
+        aura: ['aura', 'aura1', 'aura 1', 'power', 'charge']
+      };
+      
+      for (const alt of (aliases[nameLike] || [])) {
+        match = animations.find((c: any) => (c.name || '').toLowerCase().includes(alt));
+        if (match) return match;
+      }
+      return null;
+    };
+
+    const makeAction = (clip: any, mixer: THREE.AnimationMixer) => {
+      const act = mixer.clipAction(clip);
+      if (clip && /(punch|kick|attack|jump|aura)/i.test(clip.name || '')) {
+        act.clampWhenFinished = true;
+        act.setLoop(THREE.LoopOnce, 1);
+      } else {
+        act.setLoop(THREE.LoopRepeat, Infinity);
+      }
+      return act;
+    };
+
+    const crossFade = (toAction: THREE.AnimationAction, duration = 0.25) => {
+      if (!toAction || sceneRef.current.activeAction === toAction) return;
+      toAction.reset().fadeIn(duration).play();
+      if (sceneRef.current.activeAction) {
+        sceneRef.current.activeAction.fadeOut(duration);
+      }
+      sceneRef.current.activeAction = toAction;
+    };
+
+    const getLocomotionAction = () => {
+      const { actions, locomotionState } = sceneRef.current;
+      if (!actions) return null;
+      if (locomotionState === 'run' && actions.run) return actions.run;
+      if (locomotionState === 'walk' && actions.walk) return actions.walk;
+      return actions.idle || Object.values(actions).find(Boolean) || null;
+    };
+
+    const setLocomotion = (state: string) => {
+      if (sceneRef.current.oneShotPlaying || state === sceneRef.current.locomotionState) return;
+      sceneRef.current.locomotionState = state;
+      const target = getLocomotionAction();
+      if (target) crossFade(target, 0.2);
+    };
+
+    const playOneShot = (kind: string) => {
+      const { actions, mixer } = sceneRef.current;
+      const act = actions?.[kind];
+      if (!act || sceneRef.current.oneShotPlaying || !mixer) return false;
+      
+      sceneRef.current.oneShotPlaying = true;
+      const baseAction = getLocomotionAction();
+      
+      act.reset();
+      act.setLoop(THREE.LoopOnce, 1);
+      act.clampWhenFinished = true;
+      act.enabled = true;
+      act.play();
+      
+      if (baseAction && baseAction !== act) {
+        baseAction.crossFadeTo(act, 0.12, false);
+      }
+      sceneRef.current.activeAction = act;
+      
+      if (kind === 'aura') {
+        revealAuraText();
+        scheduleAuraTextHide();
+      }
+
+      const onFinished = (e: any) => {
+        if (e.action !== act) return;
+        mixer.removeEventListener('finished', onFinished);
+        sceneRef.current.oneShotPlaying = false;
+        const target = getLocomotionAction();
+        if (target && target !== act) {
+          crossFade(target, 0.15);
+        }
+      };
+      mixer.addEventListener('finished', onFinished);
+      return true;
+    };
+
+    const ensureAuraText = async () => {
+      if (sceneRef.current.auraTextMesh) return sceneRef.current.auraTextMesh;
+      
+      try {
+        const ttfLoader = new TTFLoader();
+        const fontLoader = new FontLoader();
+        
+        return new Promise<THREE.Mesh>((resolve) => {
+          ttfLoader.load(auraFont, (data: any) => {
+            const font = fontLoader.parse(data);
+            const textGeo = new TextGeometry('+100 Aura!!', {
+              font,
+              size: 0.6,
+              depth: 0.08,
+              curveSegments: 10,
+              bevelEnabled: true,
+              bevelThickness: 0.02,
+              bevelSize: 0.015,
+              bevelSegments: 2
+            });
+            textGeo.computeBoundingBox();
+            textGeo.center();
+            
+            const textMat = new THREE.MeshStandardMaterial({
+              color: 0x00CC7B,
+              emissive: 0x00CC7B,
+              emissiveIntensity: 1.4,
+              metalness: 0.25,
+              roughness: 0.25
+            });
+            
+            const mesh = new THREE.Mesh(textGeo, textMat);
+            mesh.visible = false;
+            mesh.position.set(0, 2.4, 0);
+            mesh.scale.setScalar(0.2);
+            scene.add(mesh);
+            sceneRef.current.auraTextMesh = mesh;
+            resolve(mesh);
+          });
+        });
+      } catch (err) {
+        console.warn('Failed to load aura font', err);
+        return null;
+      }
+    };
+
+    const revealAuraText = () => {
+      ensureAuraText().then((mesh) => {
+        if (!mesh) return;
+        mesh.visible = true;
+        mesh.scale.setScalar(0.2);
+        sceneRef.current.auraTextScaleTarget = 0.6;
+      });
+    };
+
+    const scheduleAuraTextHide = (delay = 1800) => {
+      if (sceneRef.current.auraHideTimeout) {
+        clearTimeout(sceneRef.current.auraHideTimeout);
+      }
+      if (sceneRef.current.auraVisibilityTimeout) {
+        clearTimeout(sceneRef.current.auraVisibilityTimeout);
+      }
+      
+      sceneRef.current.auraHideTimeout = window.setTimeout(() => {
+        sceneRef.current.auraTextScaleTarget = 0.2;
+        sceneRef.current.auraVisibilityTimeout = window.setTimeout(() => {
+          if (sceneRef.current.auraTextMesh && sceneRef.current.auraTextMesh.scale.x <= 0.24) {
+            sceneRef.current.auraTextMesh.visible = false;
+          }
+        }, 800);
+      }, delay);
+    };
+
+    // Keyboard controls
+    const normalizeKey = (key: string) => {
+      if (key === 'Shift') return 'Shift';
+      if (key && key.startsWith('Arrow')) return key;
+      return key ? key.toLowerCase() : key;
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = normalizeKey(e.key);
+      if (sceneRef.current.keys && key in sceneRef.current.keys) {
+        sceneRef.current.keys[key as keyof typeof sceneRef.current.keys] = true;
+      }
+      
+      const lower = e.key.toLowerCase();
+      if (lower === 'j') playOneShot('punch');
+      if (lower === 'k') playOneShot('kick');
+      if (lower === 'u') playOneShot('aura');
+      if (e.code === 'Space') {
+        e.preventDefault();
+        playOneShot('jump');
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      const key = normalizeKey(e.key);
+      if (sceneRef.current.keys && key in sceneRef.current.keys) {
+        sceneRef.current.keys[key as keyof typeof sceneRef.current.keys] = false;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
+    const updateLocomotionFromInput = () => {
+      const keys = sceneRef.current.keys;
+      if (!keys) return;
+      const forward = keys.w || keys.ArrowUp;
+      if (!forward) {
+        setLocomotion('idle');
+        return;
+      }
+      setLocomotion(keys.Shift ? 'run' : 'walk');
     };
 
     // Load GLB model
@@ -111,6 +375,7 @@ export function CharacterController() {
       '/attached_assets/THG_1761649401547.glb',
       (gltf: any) => {
         const model = gltf.scene;
+        model.scale.setScalar(0.6); // Scale down to fit in viewport
         scene.add(model);
 
         // Center model
@@ -128,29 +393,28 @@ export function CharacterController() {
           sceneRef.current.mixer = mixer;
           sceneRef.current.actions = {};
 
-          // Find and setup animations
-          const idleClip = gltf.animations.find((clip: any) => 
-            (clip.name || '').toLowerCase().includes('idle')
-          );
-          const walkClip = gltf.animations.find((clip: any) => 
-            (clip.name || '').toLowerCase().includes('walk')
-          );
-          const runClip = gltf.animations.find((clip: any) => 
-            (clip.name || '').toLowerCase().includes('run')
-          );
+          const prioritized = ['idle', 'walk', 'run', 'punch', 'kick', 'jump', 'aura'];
+          const matched = new Set();
 
-          if (idleClip) {
-            sceneRef.current.actions.idle = mixer.clipAction(idleClip);
-            sceneRef.current.actions.idle.play();
-            sceneRef.current.activeAction = sceneRef.current.actions.idle;
+          for (const key of prioritized) {
+            const clip = findClipByNameLike(gltf.animations, key);
+            if (clip && !matched.has(clip)) {
+              sceneRef.current.actions[key] = makeAction(clip, mixer);
+              matched.add(clip);
+            }
           }
-          if (walkClip) {
-            sceneRef.current.actions.walk = mixer.clipAction(walkClip);
-          }
-          if (runClip) {
-            sceneRef.current.actions.run = mixer.clipAction(runClip);
+
+          const defaultAction = sceneRef.current.actions.idle || 
+                               sceneRef.current.actions.walk || 
+                               Object.values(sceneRef.current.actions)[0];
+          if (defaultAction) {
+            sceneRef.current.activeAction = defaultAction;
+            defaultAction.play();
           }
         }
+
+        // Preload aura text
+        ensureAuraText();
       },
       undefined,
       (error: any) => {
@@ -160,13 +424,30 @@ export function CharacterController() {
 
     // Animation loop
     const clock = new THREE.Clock();
+    let last = performance.now();
+    
     const animate = () => {
       sceneRef.current.animationId = requestAnimationFrame(animate);
 
+      const now = performance.now();
       const delta = clock.getDelta();
       
       if (sceneRef.current.mixer) {
         sceneRef.current.mixer.update(delta);
+      }
+
+      updateLocomotionFromInput();
+
+      // Update aura text
+      if (sceneRef.current.auraTextMesh && sceneRef.current.auraTextMesh.visible) {
+        sceneRef.current.auraTextMesh.position.y = 2.5 + Math.sin(now * 0.002) * 0.1;
+        const nextScale = THREE.MathUtils.lerp(
+          sceneRef.current.auraTextMesh.scale.x,
+          sceneRef.current.auraTextScaleTarget || 0.2,
+          Math.min(1, delta * 6)
+        );
+        sceneRef.current.auraTextMesh.scale.setScalar(nextScale);
+        sceneRef.current.auraTextMesh.lookAt(camera.position.x, sceneRef.current.auraTextMesh.position.y, camera.position.z);
       }
 
       if (sceneRef.current.controls) {
@@ -200,6 +481,24 @@ export function CharacterController() {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      
+      if (sceneRef.current.introAudio) {
+        sceneRef.current.introAudio.pause();
+        sceneRef.current.introAudio.src = '';
+      }
+      if (sceneRef.current.themeAudio) {
+        sceneRef.current.themeAudio.pause();
+        sceneRef.current.themeAudio.src = '';
+      }
+      
+      if (sceneRef.current.auraHideTimeout) {
+        clearTimeout(sceneRef.current.auraHideTimeout);
+      }
+      if (sceneRef.current.auraVisibilityTimeout) {
+        clearTimeout(sceneRef.current.auraVisibilityTimeout);
+      }
       
       if (sceneRef.current.animationId) {
         cancelAnimationFrame(sceneRef.current.animationId);
@@ -301,7 +600,7 @@ export function CharacterController() {
       {!showSplash && webGLSupported && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
           <p className="text-white/60 text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" data-testid="instructions">
-            Click and drag to rotate • Scroll to zoom
+            W/↑: Move • Shift: Run • J: Punch • K: Kick • Space: Jump • U: Aura
           </p>
         </div>
       )}
