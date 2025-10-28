@@ -47,8 +47,6 @@ export function ModelViewer({ src, alt = "3D Model", className = "", poster }: M
       auto-rotate
       shadow-intensity="1"
       exposure="1"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
       className={className}
       style={{
         width: "100%",

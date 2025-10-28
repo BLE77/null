@@ -9,7 +9,7 @@ import { ChevronLeft, Check } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { getAISizeInfo } from "@shared/ai-sizes";
-import { ModelViewer } from "@/components/ModelViewer";
+import { ThreeModelViewer } from "@/components/ThreeModelViewer";
 import {
   Accordion,
   AccordionContent,
@@ -136,9 +136,8 @@ export default function ProductDetail() {
           <div className="space-y-4">
             <div className="aspect-[4/5] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
               {isClankerTokyo && selectedImage === 0 ? (
-                <ModelViewer 
+                <ThreeModelViewer 
                   src="/attached_assets/Clanker Tokyo_1761610501240.glb"
-                  alt="Clanker Tokyo 3D Model"
                   className="w-full h-full"
                 />
               ) : (

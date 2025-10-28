@@ -1,0 +1,192 @@
+import { useEffect, useRef, useState } from "react";
+// @ts-ignore
+import * as THREE from "three";
+// @ts-ignore
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+// @ts-ignore
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
+interface ThreeModelViewerProps {
+  src: string;
+  className?: string;
+}
+
+export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+  const modelRef = useRef<THREE.Group | null>(null);
+  const [webGLSupported, setWebGLSupported] = useState(true);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const container = containerRef.current;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    // Scene
+    const scene = new THREE.Scene();
+    scene.background = null; // Transparent background
+    sceneRef.current = scene;
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(0, 0, 5);
+    cameraRef.current = camera;
+
+    // Renderer - with WebGL fallback
+    let renderer: any;
+    try {
+      renderer = new THREE.WebGLRenderer({ 
+        antialias: true, 
+        alpha: true,
+        preserveDrawingBuffer: true 
+      });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(renderer.domElement);
+      rendererRef.current = renderer;
+    } catch (error) {
+      console.log("WebGL not supported, 3D viewer disabled");
+      setWebGLSupported(false);
+      return;
+    }
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+    scene.add(ambientLight);
+
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+    directionalLight1.position.set(5, 5, 5);
+    directionalLight1.castShadow = true;
+    scene.add(directionalLight1);
+
+    const directionalLight2 = new THREE.DirectionalLight(0x5fff5f, 0.8);
+    directionalLight2.position.set(-3, 3, -3);
+    scene.add(directionalLight2);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 2.0;
+    controls.minDistance = 2;
+    controls.maxDistance = 10;
+    controlsRef.current = controls;
+
+    // Load model
+    const loader = new GLTFLoader();
+    loader.load(
+      src,
+      (gltf: any) => {
+        const model = gltf.scene;
+        modelRef.current = model;
+        
+        // Center and scale the model
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+        
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 3 / maxDim;
+        model.scale.multiplyScalar(scale);
+        
+        model.position.sub(center.multiplyScalar(scale));
+        
+        // Enable shadows
+        model.traverse((child: any) => {
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+        
+        scene.add(model);
+      },
+      (progress: any) => {
+        console.log("Loading model:", (progress.loaded / progress.total) * 100, "%");
+      },
+      (error: any) => {
+        console.error("Error loading model:", error);
+      }
+    );
+
+    // Animation loop
+    const animate = () => {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+      if (!container || !camera || !renderer) return;
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      
+      if (container && rendererRef.current) {
+        container.removeChild(rendererRef.current.domElement);
+      }
+      
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
+      
+      if (controlsRef.current) {
+        controlsRef.current.dispose();
+      }
+      
+      if (sceneRef.current && modelRef.current) {
+        sceneRef.current.remove(modelRef.current);
+      }
+    };
+  }, [src]);
+
+  if (!webGLSupported) {
+    return (
+      <div 
+        className={`${className} flex items-center justify-center`}
+        style={{ width: "100%", height: "100%" }}
+        data-testid="three-model-viewer-fallback"
+      >
+        <div className="text-center p-8">
+          <p className="text-white/70 mb-2" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+            3D Viewer requires WebGL
+          </p>
+          <p className="text-sm text-white/50">
+            Your browser or environment doesn't support 3D graphics
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div 
+      ref={containerRef} 
+      className={className}
+      style={{ width: "100%", height: "100%" }}
+      data-testid="three-model-viewer"
+    />
+  );
+}

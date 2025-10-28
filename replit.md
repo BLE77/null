@@ -89,6 +89,8 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **3D Model Viewer for Clanker Tokyo** - Added interactive Three.js-based 3D viewer for the Clanker Tokyo product with rotation, zoom, and auto-rotate
+- **WebGL Fallback** - Graceful degradation when WebGL isn't available (headless browsers, unsupported environments)
 - **AI model sizing system** - Replaced traditional sizes (S/M/L/XL/XXL) with AI model sizes (GPT-5/2T Parameters, Claude 3.5 Opus/1T Parameters, etc.) with witty taglines
 - **Product rename** - Changed "CLANKERS SKULL TEE" to "CLANKERS TOKYO"
 - **Orbitron font for sizes** - Size displays now use Orbitron font to match shirt title aesthetic
