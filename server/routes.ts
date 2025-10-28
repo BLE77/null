@@ -86,13 +86,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         X402_WALLET as `0x${string}`,
         {
           "POST /api/checkout/pay": {
-            price: "0.001", // Price in ETH (not $ prefix for ETH)
-            network: "base-sepolia", // Use base-sepolia for testing
+            price: "$2.50", // Price in USD - facilitator converts to USDC
+            network: "base-sepolia", // Use base-sepolia for testing, change to "base" for mainnet
             asset: {
-              address: "0x0000000000000000000000000000000000000000" as `0x${string}`, // ETH (zero address = native token)
-              decimals: 18, // ETH has 18 decimals
+              address: "0x036CbD53842c5426634e7929541eC2318f3dCF7e" as `0x${string}`, // USDC on Base Sepolia
+              decimals: 6, // USDC has 6 decimals
             },
-            // Change network to "base" for production mainnet
+            // For mainnet, use: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
           },
         },
         {

@@ -30,30 +30,34 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
 - **Shopping Cart**: Implemented with a slide-in sidebar interface.
 - **Pages**: Home (`/`), Shop (`/shop`), Product Detail (`/product/:id`), Checkout (`/checkout`), and About (`/about`).
 - **Data Models**: Defined for Product (name, description, price, media, inventory, modelUrl), CartItem, and Order (customerEmail, items, totalAmount, transactionHash, status).
-- **Payment System**: Currently configured for **ETH payments** (0.001 ETH fixed test price) instead of USDC. Uses 18 decimal places for wei conversion. The system can be switched back to USDC or made dynamic based on cart totals in the future.
+- **Payment System**: Currently configured for **USDC payments** ($2.50 fixed test price) on the Base network. Uses 6 decimal places for USDC micro-units. The system can be made dynamic based on cart totals in the future.
+- **Checkout Flow**: Email-only requirement (no shipping address). Users connect wallet, enter email, and complete payment.
 
 ## External Dependencies
-- **x402 protocol**: For ETH cryptocurrency payments on the Base network.
+- **x402 protocol**: For USDC cryptocurrency payments on the Base network.
   - **Implementation**: X402 Express middleware integrated on `/api/checkout/pay` endpoint
-  - **Currency**: **ETH** (native token, 18 decimals) with 0.001 ETH fixed test price (~$2.50)
-  - **Asset Address**: `0x0000000000000000000000000000000000000000` (zero address for native ETH)
+  - **Currency**: **USDC** (stablecoin, 6 decimals) with $2.50 fixed test price
+  - **Asset Addresses**: 
+    - Base Sepolia (testnet): `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
+    - Base Mainnet: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
   - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
   - **Facilitator**: https://facilitator.payai.network
   - **Packages**: `x402-express`, `x402-fetch`, `viem`, `wagmi`, `@web3modal/wagmi`
-  - **Wallet**: X402_WALLET_ADDRESS environment variable (your payment receiving address)
+  - **Wallet**: X402_WALLET_ADDRESS environment variable (your payment receiving address on Base network)
   - **Wallet Connect Integration**:
-    - Multi-wallet support: MetaMask, Phantom (EVM mode), Coinbase Wallet, WalletConnect (300+ wallets)
+    - Multi-wallet support: MetaMask, Coinbase Wallet, WalletConnect (300+ wallets), Phantom (EVM mode)
     - Web3Modal UI for wallet selection
     - Wallet status displayed in navigation bar
     - Required for checkout payment flow
   - **Payment Flow**: 
-    1. User connects crypto wallet (MetaMask/Phantom/etc)
+    1. User connects EVM wallet (MetaMask, Coinbase Wallet, etc.)
     2. Client requests payment endpoint → 402 Payment Required
-    3. X402 middleware returns payment requirements (ETH amount, network, wallet)
+    3. X402 middleware returns payment requirements (USDC amount, network, wallet)
     4. User signs transaction with connected wallet
     5. Client resubmits with X-PAYMENT header containing signed authorization
     6. X402 middleware verifies payment via facilitator
     7. Payment settled on-chain, order created with transaction hash
+  - **Future Enhancement**: Solana payment support is planned using `@payai/x402-solana` package to enable USDC payments on Solana network with Phantom and Backpack wallets
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.

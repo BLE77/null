@@ -79,13 +79,13 @@ export default function Checkout() {
         totalAmount: totalPrice.toFixed(2),
       };
 
-      // FIXED TEST PRICE: 0.001 ETH (~$2.50 at current rates)
-      // TODO: Make this dynamic based on cart total and real ETH/USD price
-      const ethAmount = 0.001; // Must match server price in routes.ts
+      // FIXED TEST PRICE: $2.50 USDC
+      // TODO: Make this dynamic based on cart total
+      const usdcAmount = 2.50; // Must match server price in routes.ts
       
       toast({
         title: "Preparing payment",
-        description: `Processing test payment of ${ethAmount} ETH (fixed test price)...`,
+        description: `Processing test payment of $${usdcAmount.toFixed(2)} USDC (fixed test price)...`,
       });
 
       // Wrap fetch with X402 payment capabilities
@@ -93,9 +93,9 @@ export default function Checkout() {
       const fetchWithPayment = wrapFetchWithPayment(
         fetch, 
         walletClient as any, // WalletClient from wagmi is compatible but types differ
-        // Max payment in ETH (18 decimals) - convert to wei
-        // Using 0.01 ETH as max to allow headroom above the 0.001 ETH charge
-        BigInt(Math.floor(0.01 * 1_000_000_000_000_000_000))
+        // Max payment in USDC (6 decimals) - convert to micro-units
+        // Using $10 USDC as max to allow headroom above the $2.50 USDC charge
+        BigInt(Math.floor(10 * 1_000_000))
       );
 
       const response = await fetchWithPayment('/api/checkout/pay', {
@@ -115,7 +115,7 @@ export default function Checkout() {
         setIsProcessing(false);
         toast({
           title: "Payment successful!",
-          description: "Your X402 ETH payment has been verified on-chain",
+          description: "Your X402 USDC payment has been verified on-chain",
         });
       } else {
         const error = await response.json();
@@ -175,7 +175,7 @@ export default function Checkout() {
                   Payment Method
                 </p>
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline">ETH</Badge>
+                  <Badge variant="outline">USDC</Badge>
                   <Badge variant="outline">Base Network</Badge>
                 </div>
               </div>
@@ -275,12 +275,12 @@ export default function Checkout() {
               <CardContent>
                 <div className="bg-muted p-4 rounded-md">
                   <div className="flex items-center gap-3 mb-3">
-                    <Badge variant="default">ETH</Badge>
+                    <Badge variant="default">USDC</Badge>
                     <Badge variant="outline">Base Network</Badge>
                     <Badge variant="outline" className="bg-primary/10 border-primary text-primary">X402</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">
-                    Pay securely with ETH via x402 protocol. Instant settlement, no accounts required.
+                    Pay securely with USDC via x402 protocol. Instant settlement, no accounts required.
                   </p>
                   <ul className="text-xs text-muted-foreground space-y-1">
                     <li>✓ Settlement in &lt;1 second</li>
@@ -313,7 +313,7 @@ export default function Checkout() {
               ) : !isConnected ? (
                 'Connect Wallet to Pay'
               ) : (
-                'Pay 0.001 ETH (Test Payment)'
+                'Pay $2.50 USDC (Test Payment)'
               )}
             </Button>
           </form>
