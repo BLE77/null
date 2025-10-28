@@ -1,14 +1,26 @@
+import brandImage from "@assets/9a2da2ac-bcdf-4064-81e8-606508945db1_1761639029145.png";
+
 export default function About() {
   return (
     <div className="min-h-screen digital-matrix-bg pt-24 pb-16">
       <div className="container mx-auto px-8 md:px-16 max-w-5xl">
         <h1 
-          className="text-5xl md:text-7xl font-bold uppercase tracking-wider mb-16 text-center text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
+          className="text-5xl md:text-7xl font-bold uppercase tracking-wider mb-12 text-center text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
           style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
           data-testid="text-about-title"
         >
           ABOUT OFF HUMAN
         </h1>
+
+        {/* Brand Image */}
+        <div className="mb-16 flex justify-center">
+          <img 
+            src={brandImage} 
+            alt="OFF HUMAN Brand" 
+            className="w-full max-w-3xl rounded-md border-2 border-primary/30 drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]"
+            data-testid="img-brand"
+          />
+        </div>
 
         <div className="space-y-16">
           {/* Hero Statement */}
