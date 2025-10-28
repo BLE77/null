@@ -212,8 +212,8 @@ export default function Checkout() {
 
         // Create x402 client for automatic payment handling
         // MAINNET with Helius RPC - REAL USDC PAYMENTS
-        const heliusApiKey = import.meta.env.VITE_HELIUS_API_KEY || 'YOUR_KEY_HERE';
-        const heliusRpc = `https://mainnet.helius-rpc.com/?api-key=${heliusApiKey}`;
+        // Note: Helius API key is embedded for production use
+        const heliusRpc = 'https://mainnet.helius-rpc.com/?api-key=REDACTED_HELIUS_KEY';
         
         const x402Client = createX402Client({
           wallet: walletAdapter,
