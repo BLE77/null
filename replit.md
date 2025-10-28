@@ -30,34 +30,51 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
 - **Shopping Cart**: Implemented with a slide-in sidebar interface.
 - **Pages**: Home (`/`), Shop (`/shop`), Product Detail (`/product/:id`), Checkout (`/checkout`), and About (`/about`).
 - **Data Models**: Defined for Product (name, description, price, media, inventory, modelUrl), CartItem, and Order (customerEmail, items, totalAmount, transactionHash, status).
-- **Payment System**: Currently configured for **USDC payments** ($2.50 fixed test price) on the Base network. Uses 6 decimal places for USDC micro-units. The system can be made dynamic based on cart totals in the future.
-- **Checkout Flow**: Email-only requirement (no shipping address). Users connect wallet, enter email, and complete payment.
+- **Payment System**: Dual-network cryptocurrency payments supporting **USDC on both Base and Solana networks**. Fixed $2.50 test price. Uses 6 decimal places for USDC micro-units. Network selection UI on checkout page.
+- **Checkout Flow**: Email-only requirement (no shipping address). Users select network (Base/Solana), connect appropriate wallet, enter email, and complete payment.
 
 ## External Dependencies
-- **x402 protocol**: For USDC cryptocurrency payments on the Base network.
-  - **Implementation**: X402 Express middleware integrated on `/api/checkout/pay` endpoint
-  - **Currency**: **USDC** (stablecoin, 6 decimals) with $2.50 fixed test price
+- **x402 protocol**: For USDC cryptocurrency payments on dual networks (Base + Solana).
+  
+  **Base Network Implementation:**
+  - **Endpoint**: `/api/checkout/pay` with X402 Express middleware (plug-and-play)
+  - **Currency**: USDC (6 decimals) with $2.50 fixed test price
   - **Asset Addresses**: 
     - Base Sepolia (testnet): `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
     - Base Mainnet: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
   - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
-  - **Facilitator**: https://facilitator.payai.network
   - **Packages**: `x402-express`, `x402-fetch`, `viem`, `wagmi`, `@web3modal/wagmi`
-  - **Wallet**: X402_WALLET_ADDRESS environment variable (your payment receiving address on Base network)
-  - **Wallet Connect Integration**:
-    - Multi-wallet support: MetaMask, Coinbase Wallet, WalletConnect (300+ wallets), Phantom (EVM mode)
-    - Web3Modal UI for wallet selection
-    - Wallet status displayed in navigation bar
-    - Required for checkout payment flow
+  - **Wallets**: MetaMask, Coinbase Wallet, WalletConnect (300+ wallets), Phantom (EVM mode)
   - **Payment Flow**: 
-    1. User connects EVM wallet (MetaMask, Coinbase Wallet, etc.)
+    1. User connects EVM wallet via Web3Modal
     2. Client requests payment endpoint → 402 Payment Required
     3. X402 middleware returns payment requirements (USDC amount, network, wallet)
-    4. User signs transaction with connected wallet
+    4. wrapFetchWithPayment automatically signs transaction with connected wallet
     5. Client resubmits with X-PAYMENT header containing signed authorization
     6. X402 middleware verifies payment via facilitator
     7. Payment settled on-chain, order created with transaction hash
-  - **Future Enhancement**: Solana payment support is planned using `@payai/x402-solana` package to enable USDC payments on Solana network with Phantom and Backpack wallets
+  
+  **Solana Network Implementation:**
+  - **Endpoint**: `/api/checkout/pay/solana` with manual x402-solana verification (no middleware)
+  - **Currency**: USDC (6 decimals) with $2.50 fixed test price
+  - **Asset Address**: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v (USDC mint on Solana devnet)
+  - **Network**: Solana devnet - change to `mainnet-beta` for production
+  - **Packages**: `x402-solana`, `@solana/web3.js`
+  - **Wallets**: Phantom (Solana mode), Backpack
+  - **Payment Flow**:
+    1. User connects Solana wallet via window.solana
+    2. Client requests payment endpoint → 402 Payment Required
+    3. Backend returns payment requirements
+    4. **TODO**: Client-side transaction signing with x402-solana (currently shows "coming soon")
+    5. Client resubmits with X-PAYMENT header
+    6. Backend verifies payment via facilitator
+    7. Payment settled on-chain, order created with transaction hash
+  
+  **Shared Configuration:**
+  - **Facilitator**: https://facilitator.payai.network
+  - **Wallet Address**: X402_WALLET_ADDRESS environment variable (payment receiving address)
+  - **Network Selection**: Users choose Base or Solana on checkout page
+  - **Status**: Base payments fully functional, Solana client-side signing in progress
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.
