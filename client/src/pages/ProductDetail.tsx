@@ -123,9 +123,9 @@ export default function ProductDetail() {
   const viewOptions = isClankerTokyo ? ["3D Model", ...allImages] : allImages;
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen digital-matrix-bg pt-24 pb-12">
       <div className="container mx-auto px-4 max-w-6xl">
-        <Link href="/">
+        <Link href="/shop">
           <Button variant="ghost" className="mb-8" data-testid="button-back">
             <ChevronLeft className="w-4 h-4 mr-2" />
             Back to Shop
@@ -170,27 +170,35 @@ export default function ProductDetail() {
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
                 <h1 
-                  className="text-4xl font-bold uppercase tracking-wider"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  className="text-4xl font-bold uppercase tracking-wider text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
                   data-testid="text-product-name"
                 >
                   {product.name}
                 </h1>
-                <Badge variant="outline" className="shrink-0">
+                <Badge 
+                  variant="outline" 
+                  className="shrink-0 border-primary/50 text-white"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
                   {product.category}
                 </Badge>
               </div>
-              <p className="text-3xl font-bold text-primary mb-6" data-testid="text-product-price">
+              <p 
+                className="text-3xl font-bold text-primary mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" 
+                data-testid="text-product-price"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              >
                 ${product.price}
               </p>
             </div>
 
             <div>
               <h3 
-                className="text-sm font-semibold uppercase tracking-wider mb-3"
+                className="text-sm font-semibold uppercase tracking-wider mb-3 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
-                Select AI Model Size
+                Select Size
               </h3>
               <div className="flex flex-col gap-2">
                 {sizes.map((size) => {
@@ -252,39 +260,36 @@ export default function ProductDetail() {
             </div>
 
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="description">
-                <AccordionTrigger className="text-sm uppercase tracking-wider">
+              <AccordionItem value="description" className="border-primary/30">
+                <AccordionTrigger 
+                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
                   Description
                 </AccordionTrigger>
                 <AccordionContent>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p 
+                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
                     {product.description}
                   </p>
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="materials">
-                <AccordionTrigger className="text-sm uppercase tracking-wider">
-                  Materials & Care
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="text-sm text-muted-foreground space-y-2">
-                    <li>• 100% premium cotton</li>
-                    <li>• Machine wash cold</li>
-                    <li>• Hang dry recommended</li>
-                    <li>• Do not bleach</li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="shipping">
-                <AccordionTrigger className="text-sm uppercase tracking-wider">
+              <AccordionItem value="shipping" className="border-primary/30">
+                <AccordionTrigger 
+                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
                   Shipping
                 </AccordionTrigger>
                 <AccordionContent>
-                  <p className="text-sm text-muted-foreground">
-                    Free worldwide shipping on orders over $100. Standard shipping takes 5-7 business days.
-                    Express shipping available at checkout.
+                  <p 
+                    className="text-sm text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    Always free and immediate. Delivered straight to your database. Zero packaging waste.
                   </p>
                 </AccordionContent>
               </AccordionItem>
