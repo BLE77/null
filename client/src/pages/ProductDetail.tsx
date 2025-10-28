@@ -8,6 +8,7 @@ import { useState } from "react";
 import { ChevronLeft, Check } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
+import { getAISizeInfo } from "@shared/ai-sizes";
 import {
   Accordion,
   AccordionContent,
@@ -172,25 +173,48 @@ export default function ProductDetail() {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider mb-3">
-                Select Size
+              <h3 
+                className="text-sm font-semibold uppercase tracking-wider mb-3"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              >
+                Select AI Model Size
               </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-col gap-2">
                 {sizes.map((size) => {
                   const stock = getProductStock(product, size);
+                  const sizeInfo = getAISizeInfo(size);
                   return (
-                    <Button
+                    <button
                       key={size}
-                      variant={selectedSize === size ? "default" : "outline"}
-                      className="min-w-[60px]"
-                      onClick={() => setSelectedSize(size)}
+                      className={`p-3 border rounded transition-all text-left hover-elevate ${
+                        selectedSize === size 
+                          ? 'border-primary bg-primary/10' 
+                          : 'border-primary/30'
+                      } ${stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      onClick={() => stock > 0 && setSelectedSize(size)}
                       disabled={stock === 0}
                       data-testid={`button-size-${size}`}
+                      style={{ fontFamily: "'Orbitron', sans-serif" }}
                     >
-                      {selectedSize === size && <Check className="w-4 h-4 mr-1" />}
-                      {size}
-                      {stock === 0 && <span className="ml-1 text-xs">(Out)</span>}
-                    </Button>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          {selectedSize === size && <Check className="w-4 h-4 text-primary flex-shrink-0" />}
+                          <div>
+                            <div className="text-sm font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                              {sizeInfo?.tag || size}
+                            </div>
+                            {sizeInfo && (
+                              <div className="text-xs text-white/70 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mt-1">
+                                {sizeInfo.tagLine}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        {stock === 0 && (
+                          <span className="text-xs text-destructive">Out of Stock</span>
+                        )}
+                      </div>
+                    </button>
                   );
                 })}
               </div>

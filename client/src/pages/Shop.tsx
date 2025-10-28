@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import type { Product } from "@shared/schema";
 import { getProductSizes } from "@shared/schema";
+import { getAISizeInfo } from "@shared/ai-sizes";
 
 export default function Shop() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
@@ -63,14 +64,18 @@ export default function Shop() {
                     </p>
                     
                     <div className="flex gap-2 flex-wrap">
-                      {getProductSizes(product).map((size: string) => (
-                        <span 
-                          key={size}
-                          className="px-2 py-1 text-xs border border-primary/50 rounded text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                        >
-                          {size}
-                        </span>
-                      ))}
+                      {getProductSizes(product).map((size: string) => {
+                        const sizeInfo = getAISizeInfo(size);
+                        return (
+                          <span 
+                            key={size}
+                            className="px-2 py-1 text-xs border border-primary/50 rounded text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                            style={{ fontFamily: "'Orbitron', sans-serif" }}
+                          >
+                            {sizeInfo?.tag || size}
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
