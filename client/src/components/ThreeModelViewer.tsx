@@ -18,9 +18,19 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
   const modelRef = useRef<THREE.Group | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const [webGLSupported, setWebGLSupported] = useState(true);
 
   useEffect(() => {
+    // Proactively check WebGL support before creating anything
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) {
+      console.log("WebGL not supported, 3D viewer disabled");
+      setWebGLSupported(false);
+      return;
+    }
+
     if (!containerRef.current) return;
 
     const container = containerRef.current;
@@ -37,7 +47,7 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
     camera.position.set(0, 0, 5);
     cameraRef.current = camera;
 
-    // Renderer - with WebGL fallback
+    // Renderer - wrapped in try-catch for additional safety
     let renderer: any;
     try {
       renderer = new THREE.WebGLRenderer({ 
@@ -53,7 +63,7 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
       container.appendChild(renderer.domElement);
       rendererRef.current = renderer;
     } catch (error) {
-      console.log("WebGL not supported, 3D viewer disabled");
+      console.log("WebGL renderer creation failed, 3D viewer disabled");
       setWebGLSupported(false);
       return;
     }
@@ -120,7 +130,7 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
 
     // Animation loop
     const animate = () => {
-      requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
     };
@@ -144,6 +154,50 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
     return () => {
       window.removeEventListener("resize", handleResize);
       
+      // Cancel animation loop
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+      
+      // Dispose of loaded model resources
+      if (modelRef.current) {
+        modelRef.current.traverse((child: any) => {
+          if (child.isMesh) {
+            if (child.geometry) {
+              child.geometry.dispose();
+            }
+            if (child.material) {
+              const materials = Array.isArray(child.material) ? child.material : [child.material];
+              materials.forEach((material: any) => {
+                // Dispose all textures by iterating over material properties
+                Object.keys(material).forEach((prop) => {
+                  const value = material[prop];
+                  // Check if property is a Texture or an array of Textures
+                  if (value && typeof value === 'object') {
+                    if (value.isTexture) {
+                      value.dispose();
+                    } else if (Array.isArray(value)) {
+                      value.forEach((item) => {
+                        if (item && item.isTexture) {
+                          item.dispose();
+                        }
+                      });
+                    }
+                  }
+                });
+                // Dispose material itself
+                material.dispose();
+              });
+            }
+          }
+        });
+        if (sceneRef.current) {
+          sceneRef.current.remove(modelRef.current);
+        }
+      }
+      
+      // Dispose renderer and controls
       if (container && rendererRef.current) {
         container.removeChild(rendererRef.current.domElement);
       }
@@ -154,10 +208,6 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
       
       if (controlsRef.current) {
         controlsRef.current.dispose();
-      }
-      
-      if (sceneRef.current && modelRef.current) {
-        sceneRef.current.remove(modelRef.current);
       }
     };
   }, [src]);
