@@ -19,8 +19,9 @@ export const products = pgTable("products", {
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
   category: text("category").notNull(),
   imageUrl: text("image_url").notNull(),
-  images: text("images").array().notNull(),
+  images: text("images").array().notNull().default(sql`ARRAY[]::text[]`),
   inventory: json("inventory").notNull(),
+  modelUrl: text("model_url"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
