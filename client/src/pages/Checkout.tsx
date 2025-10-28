@@ -210,6 +210,8 @@ export default function Checkout() {
         const x402Client = createX402Client({
           wallet: walletAdapter,
           network: 'solana-devnet', // Change to 'solana' for mainnet
+          rpcEndpoint: 'https://api.devnet.solana.com', // Solana devnet RPC
+          facilitatorUrl: 'https://facilitator.payai.network', // x402 facilitator
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
 
