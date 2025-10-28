@@ -42,7 +42,10 @@ export default function Shop() {
                   className="group cursor-pointer transition-transform duration-300 hover:scale-105"
                   data-testid={`product-card-${product.id}`}
                 >
-                  <div className="aspect-[3/4] mb-3 overflow-hidden rounded-md border-2 border-transparent hover:border-primary/50 transition-colors duration-300">
+                  <div 
+                    className="aspect-[3/4] mb-3 overflow-hidden rounded-md border-2 border-transparent hover:border-primary/50 transition-colors duration-300 flex items-center justify-center"
+                    style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,20,10,0.98) 100%)' }}
+                  >
                     <img 
                       src={
                         product.shopImageUrl 
@@ -50,7 +53,7 @@ export default function Shop() {
                           : (getProductImage(product.imageUrl) || product.imageUrl)
                       } 
                       alt={product.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain p-4"
                     />
                   </div>
                   

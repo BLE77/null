@@ -606,25 +606,10 @@ export function CharacterController() {
           >
             <img 
               src={splashLogo} 
-              alt="Off Human" 
+              alt="Off Human - Click to enter" 
               className={`${splashGlitching ? 'splash-glitching' : ''} ${splashFade ? 'splash-fade' : ''}`}
             />
           </div>
-          
-          {/* Skip Button - Outside splash div for proper z-index */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleSplashClick();
-            }}
-            className="fixed bottom-16 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-primary bg-black/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
-            data-testid="button-skip-splash"
-            aria-label="Skip intro"
-            style={{ zIndex: 10000, pointerEvents: 'auto', cursor: 'pointer' }}
-          >
-            <X className="w-4 h-4 text-primary" strokeWidth={3} />
-          </button>
         </>
       )}
 

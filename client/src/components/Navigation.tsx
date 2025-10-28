@@ -28,6 +28,11 @@ export function Navigation() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
+            <Link href="/">
+              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-home">
+                Home
+              </span>
+            </Link>
             <Link href="/shop">
               <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-shop">
                 Shop
@@ -106,6 +111,15 @@ export function Navigation() {
           <div className="md:hidden border-t border-white/30 py-4">
             <div className="flex flex-col gap-4">
               <Link href="/">
+                <span 
+                  className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  data-testid="link-home-mobile"
+                >
+                  Home
+                </span>
+              </Link>
+              <Link href="/shop">
                 <span 
                   className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
                   onClick={() => setIsMobileMenuOpen(false)}
