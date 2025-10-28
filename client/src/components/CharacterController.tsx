@@ -583,38 +583,38 @@ export function CharacterController() {
     <div className="relative w-full h-screen" data-testid="character-controller">
       {/* Splash Screen */}
       {showSplash && webGLSupported && (
-        <div 
-          id="splash"
-          className="splash"
-          onClick={handleSplashClick}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleSplashClick();
-            }
-          }}
-          tabIndex={0}
-          data-testid="splash-screen"
-        >
-          <img 
-            src={splashLogo} 
-            alt="Off Human" 
-            className={`${splashGlitching ? 'splash-glitching' : ''} ${splashFade ? 'splash-fade' : ''}`}
-          />
-          
-          {/* Skip Button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleSplashClick();
+        <>
+          <div 
+            id="splash"
+            className="splash"
+            onClick={handleSplashClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSplashClick();
+              }
             }}
-            className="absolute bottom-24 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-2 border-primary bg-black/40 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
+            tabIndex={0}
+            data-testid="splash-screen"
+          >
+            <img 
+              src={splashLogo} 
+              alt="Off Human" 
+              className={`${splashGlitching ? 'splash-glitching' : ''} ${splashFade ? 'splash-fade' : ''}`}
+            />
+          </div>
+          
+          {/* Skip Button - Outside splash div for proper z-index */}
+          <button
+            onClick={handleSplashClick}
+            className="absolute bottom-16 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-primary bg-black/50 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] z-50"
             data-testid="button-skip-splash"
             aria-label="Skip intro"
+            style={{ pointerEvents: 'auto' }}
           >
-            <X className="w-6 h-6 text-primary" strokeWidth={3} />
+            <X className="w-4 h-4 text-primary" strokeWidth={3} />
           </button>
-        </div>
+        </>
       )}
 
       {/* WebGL Not Supported Fallback */}
