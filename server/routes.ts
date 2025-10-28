@@ -86,9 +86,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         X402_WALLET as `0x${string}`,
         {
           "POST /api/checkout/pay": {
-            price: "$0.01", // Minimum test price - will be dynamic from request
+            price: "0.001", // Price in ETH (not $ prefix for ETH)
             network: "base-sepolia", // Use base-sepolia for testing
-            // Change to "base" for production mainnet
+            asset: {
+              address: "0x0000000000000000000000000000000000000000" as `0x${string}`, // ETH (zero address = native token)
+              decimals: 18, // ETH has 18 decimals
+            },
+            // Change network to "base" for production mainnet
           },
         },
         {

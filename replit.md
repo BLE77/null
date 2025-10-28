@@ -30,10 +30,13 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
 - **Shopping Cart**: Implemented with a slide-in sidebar interface.
 - **Pages**: Home (`/`), Shop (`/shop`), Product Detail (`/product/:id`), Checkout (`/checkout`), and About (`/about`).
 - **Data Models**: Defined for Product (name, description, price, media, inventory, modelUrl), CartItem, and Order (customerEmail, items, totalAmount, transactionHash, status).
+- **Payment System**: Currently configured for **ETH payments** (0.001 ETH fixed test price) instead of USDC. Uses 18 decimal places for wei conversion. The system can be switched back to USDC or made dynamic based on cart totals in the future.
 
 ## External Dependencies
-- **x402 protocol**: For USDC cryptocurrency payments on the Base network.
+- **x402 protocol**: For ETH cryptocurrency payments on the Base network.
   - **Implementation**: X402 Express middleware integrated on `/api/checkout/pay` endpoint
+  - **Currency**: **ETH** (native token, 18 decimals) with 0.001 ETH fixed test price (~$2.50)
+  - **Asset Address**: `0x0000000000000000000000000000000000000000` (zero address for native ETH)
   - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
   - **Facilitator**: https://facilitator.payai.network
   - **Packages**: `x402-express`, `x402-fetch`, `viem`, `wagmi`, `@web3modal/wagmi`
@@ -46,7 +49,7 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   - **Payment Flow**: 
     1. User connects crypto wallet (MetaMask/Phantom/etc)
     2. Client requests payment endpoint → 402 Payment Required
-    3. X402 middleware returns payment requirements (USDC amount, network, wallet)
+    3. X402 middleware returns payment requirements (ETH amount, network, wallet)
     4. User signs transaction with connected wallet
     5. Client resubmits with X-PAYMENT header containing signed authorization
     6. X402 middleware verifies payment via facilitator
