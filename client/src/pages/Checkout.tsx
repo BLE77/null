@@ -10,6 +10,7 @@ import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { getProductImage } from "@/lib/product-images";
 import { useAccount, useWalletClient, useDisconnect } from 'wagmi';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
 import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
@@ -24,6 +25,7 @@ export default function Checkout() {
   const { address: walletAddress, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
   const { disconnect } = useDisconnect();
+  const { close } = useWeb3Modal();
   const [email, setEmail] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
@@ -35,13 +37,18 @@ export default function Checkout() {
 
   const totalPrice = getTotalPrice();
 
-  // Auto-disconnect EVM wallet when switching to Solana
+  // Auto-disconnect EVM wallet and close Web3Modal when switching to Solana
   useEffect(() => {
-    if (selectedNetwork === 'solana' && isConnected) {
-      console.log('[Network Switch] Disconnecting EVM wallet for Solana mode');
-      disconnect();
+    if (selectedNetwork === 'solana') {
+      console.log('[Network Switch] Switching to Solana mode');
+      if (isConnected) {
+        console.log('[Network Switch] Disconnecting EVM wallet');
+        disconnect();
+      }
+      // Force close Web3Modal if it's open
+      close();
     }
-  }, [selectedNetwork, isConnected, disconnect]);
+  }, [selectedNetwork, isConnected, disconnect, close]);
 
   // Detect and connect Solana wallet (Phantom/Backpack)
   useEffect(() => {
