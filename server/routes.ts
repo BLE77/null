@@ -6,8 +6,9 @@ import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Seed products on startup
+  // Seed products and admin user on startup
   await dbStorage.seedProducts();
+  await dbStorage.seedAdmin();
   
   app.get("/api/products", async (req, res) => {
     try {

@@ -183,6 +183,57 @@ export class DbStorage {
 
     await db.insert(products).values(sampleProducts);
   }
+
+  async seedAdmin(): Promise<void> {
+    // Fail fast if SEED_ADMIN is enabled in non-development environment
+    if (process.env.SEED_ADMIN === "true" && process.env.NODE_ENV !== "development") {
+      throw new Error("CRITICAL: SEED_ADMIN cannot be enabled in production! This is a security risk.");
+    }
+
+    // Only seed admin in development mode and if explicitly enabled
+    if (process.env.NODE_ENV !== "development" || process.env.SEED_ADMIN !== "true") {
+      return;
+    }
+
+    const adminUsername = process.env.ADMIN_USERNAME || "admin";
+    if (existingAdmin) return;
+
+    // Using environment variables for credentials (or defaults in development)
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@offhuman.store";
+    const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+
+    await this.createUser({
+      username: adminUsername,
+      email: adminEmail,
+      password: adminPassword,
+    });
+
+    // Update the user to be an admin
+    const adminUser = await this.getUserByUsername(adminUsername);
+    if (adminUser) {
+      await db.update(users)
+        .set({ isAdmin: true })
+        .where(eq(users.id, adminUser.id));
+    }
+
+    console.log(`[Security Warning] Admin user seeded with default credentials. Please change password immediately!`);
+  }
+
+  async createAdminUser(username: string, email: string, password: string): Promise<void> {
+    const existingUser = await this.getUserByUsername(username);
+    if (existingUser) {
+      throw new Error("Username already exists");
+    }
+
+    await this.createUser({ username, email, password });
+
+    const adminUser = await this.getUserByUsername(username);
+    if (adminUser) {
+      await db.update(users)
+        .set({ isAdmin: true })
+        .where(eq(users.id, adminUser.id));
+    }
+  }
 }
 
 export const dbStorage = new DbStorage();

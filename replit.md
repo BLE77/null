@@ -95,6 +95,34 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - No accounts or subscriptions required
 - Currently mocked for development (ready for x402-express integration)
 
+## Admin Product Management System
+The site now includes a full admin dashboard for managing products:
+
+**Features:**
+- Create, edit, and delete products
+- Upload thumbnail images, gallery images, and .glb 3D models
+- Manage product inventory (S/M/L/XL sizes)
+- Protected admin-only access
+
+**Admin Access:**
+1. **For Development**: Set environment variable `SEED_ADMIN=true` to auto-create admin user
+   - Username: `admin` (or set `ADMIN_USERNAME`)
+   - Password: `admin123` (or set `ADMIN_PASSWORD`)
+   - Email: `admin@offhuman.store` (or set `ADMIN_EMAIL`)
+   - **⚠️ SECURITY: Change password immediately after first login!**
+
+2. **For Production**: Manually create an admin user:
+   - Register a normal account
+   - Access database and run: `UPDATE users SET is_admin = true WHERE username = 'your-username';`
+
+3. **Access Admin Dashboard**: Navigate to `/admin` after logging in as an admin user
+
+**File Uploads:**
+- Thumbnail: Main product image (displayed on shop pages)
+- Gallery: Additional product images
+- .glb Model: 3D model file for products (like Clankers Tokyo)
+- Files stored in `/uploads` directory
+
 ## Recent Changes
 - **Updated pricing** - All products now priced $1-5 for accessibility (Protocol/BMX/Cyber Arms: $5, Tokyo/Call: $4, Prove: $3)
 - **Simplified sizing system** - Changed from AI model names to traditional S/M/L/XL with parameter ranges (S: 100B-300B, M: 70B-2T, L: 400B-670B, XL: 1T-2T)

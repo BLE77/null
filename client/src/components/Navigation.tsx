@@ -38,6 +38,13 @@ export function Navigation() {
                 About
               </span>
             </Link>
+            {user?.isAdmin && (
+              <Link href="/admin">
+                <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-primary drop-shadow-md" data-testid="link-admin">
+                  Admin
+                </span>
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
@@ -116,6 +123,17 @@ export function Navigation() {
                   About
                 </span>
               </Link>
+              {user?.isAdmin && (
+                <Link href="/admin">
+                  <span 
+                    className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-primary drop-shadow-md"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    data-testid="link-admin-mobile"
+                  >
+                    Admin
+                  </span>
+                </Link>
+              )}
             </div>
           </div>
         )}

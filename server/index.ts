@@ -1,5 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
+import { registerAdminRoutes } from "./admin-routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { setupAuth } from "./auth";
 import path from "path";
@@ -17,6 +18,14 @@ app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_as
       res.setHeader('Content-Type', 'font/woff');
     } else if (filePath.endsWith('.woff2')) {
       res.setHeader('Content-Type', 'font/woff2');
+    }
+  }
+}));
+
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.glb')) {
+      res.setHeader('Content-Type', 'model/gltf-binary');
     }
   }
 }));
@@ -65,6 +74,7 @@ app.use((req, res, next) => {
 
 (async () => {
   const server = await registerRoutes(app);
+  registerAdminRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

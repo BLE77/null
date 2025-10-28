@@ -7,6 +7,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
 import { Navigation } from "@/components/Navigation";
 import { CartSidebar } from "@/components/CartSidebar";
+import { AdminGuard } from "@/components/AdminGuard";
 import Home from "@/pages/Home";
 import Shop from "@/pages/Shop";
 import ProductDetail from "@/pages/ProductDetail";
@@ -14,6 +15,7 @@ import Checkout from "@/pages/Checkout";
 import About from "@/pages/About";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import AdminDashboard from "@/pages/AdminDashboard";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -29,6 +31,11 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/admin">
+          <AdminGuard>
+            <AdminDashboard />
+          </AdminGuard>
+        </Route>
         <Route component={NotFound} />
       </Switch>
     </>
