@@ -9,6 +9,7 @@ import { ChevronLeft, Check } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { getAISizeInfo } from "@shared/ai-sizes";
+import { ModelViewer } from "@/components/ModelViewer";
 import {
   Accordion,
   AccordionContent,
@@ -116,6 +117,10 @@ export default function ProductDetail() {
 
   const allImages = [product.imageUrl, ...product.images];
   const sizes = getProductSizes(product);
+  const isClankerTokyo = product.name.toUpperCase().includes("CLANKERS TOKYO");
+  
+  // Add 3D model as first option for Clanker Tokyo
+  const viewOptions = isClankerTokyo ? ["3D Model", ...allImages] : allImages;
 
   return (
     <div className="min-h-screen pt-24 pb-12">
@@ -129,24 +134,33 @@ export default function ProductDetail() {
 
         <div className="grid md:grid-cols-[60%_40%] gap-12">
           <div className="space-y-4">
-            <div className="aspect-[4/5] bg-muted rounded-md overflow-hidden relative grain-overlay border border-border">
-              <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
-                {allImages[selectedImage]}
-              </div>
+            <div className="aspect-[4/5] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
+              {isClankerTokyo && selectedImage === 0 ? (
+                <ModelViewer 
+                  src="/attached_assets/Clanker Tokyo_1761610501240.glb"
+                  alt="Clanker Tokyo 3D Model"
+                  className="w-full h-full"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
+                  {isClankerTokyo && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage]}
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-4 gap-4">
-              {allImages.map((img, idx) => (
+              {viewOptions.map((option, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`aspect-square bg-muted rounded-md overflow-hidden border-2 transition-all hover-elevate ${
-                    selectedImage === idx ? 'border-primary' : 'border-border'
+                  className={`aspect-square rounded-md overflow-hidden border-2 transition-all hover-elevate ${
+                    selectedImage === idx ? 'border-primary' : 'border-primary/30'
                   }`}
+                  style={{ background: selectedImage === idx ? 'rgba(95, 255, 175, 0.1)' : 'rgba(0,0,0,0.5)' }}
                   data-testid={`button-image-${idx}`}
                 >
-                  <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground p-2 text-center">
-                    {img}
+                  <div className="w-full h-full flex items-center justify-center text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] p-2 text-center font-bold" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    {option === "3D Model" ? "3D VIEW" : option}
                   </div>
                 </button>
               ))}
