@@ -64,8 +64,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // X402 Protected Payment Endpoint
-  if (X402_WALLET) {
-    app.use(
+  // The middleware MUST be applied in a way that blocks all requests without valid payment
+  if (!X402_WALLET) {
+    // Disable endpoint entirely if wallet not configured
+    app.post("/api/checkout/pay", (req, res) => {
+      res.status(503).json({
+        error: "Service Unavailable",
+        message: "Payment system not configured",
+      });
+    });
+  } else {
+    // Apply X402 middleware - this handles payment verification with the facilitator
+    // The middleware will:
+    // 1. Check for X-PAYMENT header
+    // 2. Verify cryptographic signature with facilitator
+    // 3. Only call next() if payment is valid
+    // 4. Return 402 if payment missing/invalid
+    app.post(
       "/api/checkout/pay",
       paymentMiddleware(
         X402_WALLET as `0x${string}`,
@@ -79,45 +94,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           url: FACILITATOR_URL,
         }
-      )
+      ),
+      // This route handler ONLY executes if middleware verified payment
+      async (req, res) => {
+        try {
+          const { customerEmail, items, totalAmount, shippingDetails } = req.body;
+          
+          // At this point, payment has been cryptographically verified by X402 middleware
+          // The facilitator has confirmed the EIP-712 signature and blockchain transaction
+          const paymentTxHash = req.headers['x-payment-tx'] as string || 'x402-verified';
+          
+          // Create the order with verified transaction details
+          const order = await dbStorage.createOrder({
+            customerEmail,
+            items: JSON.stringify(items),
+            totalAmount,
+            transactionHash: paymentTxHash,
+            status: "completed",
+          });
+          
+          res.status(200).json({
+            success: true,
+            order,
+            message: "Payment verified and order created",
+          });
+        } catch (error) {
+          console.error("Order creation error:", error);
+          res.status(500).json({ message: "Failed to create order after payment" });
+        }
+      }
     );
   }
 
-  // X402 Payment Processing - This executes AFTER payment is verified
-  app.post("/api/checkout/pay", async (req, res) => {
-    try {
-      const { customerEmail, items, totalAmount, shippingDetails } = req.body;
-      
-      // Payment has been verified by X402 middleware
-      // Create the order with transaction details
-      const order = await dbStorage.createOrder({
-        customerEmail,
-        items: JSON.stringify(items),
-        totalAmount,
-        transactionHash: req.headers['x-payment-tx'] as string || 'x402-verified',
-        status: "completed",
-      });
-      
-      res.status(200).json({
-        success: true,
-        order,
-        message: "Payment verified and order created",
-      });
-    } catch (error) {
-      console.error("Order creation error:", error);
-      res.status(500).json({ message: "Failed to create order after payment" });
-    }
-  });
-
-  app.post("/api/orders", async (req, res) => {
-    try {
-      const validatedOrder = insertOrderSchema.parse(req.body);
-      const order = await dbStorage.createOrder(validatedOrder);
-      res.status(201).json(order);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid order data" });
-    }
-  });
+  // REMOVED: Public order creation endpoint
+  // Orders can ONLY be created through the X402-protected /api/checkout/pay endpoint
+  // This prevents bypassing payment verification
 
   app.get("/api/orders/:id", async (req, res) => {
     try {

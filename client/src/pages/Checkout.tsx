@@ -8,18 +8,17 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import type { Order } from "@shared/schema";
 import { getProductImage } from "@/lib/product-images";
-import { useAccount } from 'wagmi';
+import { useAccount, useWalletClient } from 'wagmi';
 import { WalletConnect } from '@/components/WalletConnect';
+import { wrapFetchWithPayment } from 'x402-fetch';
 
 export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const { address: walletAddress, isConnected } = useAccount();
+  const { data: walletClient } = useWalletClient();
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -29,31 +28,6 @@ export default function Checkout() {
   const [transactionHash, setTransactionHash] = useState("");
 
   const totalPrice = getTotalPrice();
-
-  const createOrderMutation = useMutation({
-    mutationFn: async (orderData: { customerEmail: string; items: string; totalAmount: string; transactionHash: string; status: string }) => {
-      const res = await apiRequest("POST", "/api/orders", orderData);
-      return await res.json() as Order;
-    },
-    onSuccess: (order) => {
-      setTransactionHash(order.transactionHash || `0x${Math.random().toString(16).substring(2, 66)}`);
-      setOrderComplete(true);
-      clearCart();
-      setIsProcessing(false);
-      toast({
-        title: "Payment successful!",
-        description: "Your order has been confirmed",
-      });
-    },
-    onError: () => {
-      setIsProcessing(false);
-      toast({
-        title: "Payment failed",
-        description: "There was an error processing your payment. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
 
   if (cart.length === 0 && !orderComplete) {
     return (
@@ -80,29 +54,50 @@ export default function Checkout() {
       return;
     }
 
+    if (!isConnected || !walletAddress) {
+      toast({
+        title: "Wallet not connected",
+        description: "Please connect your crypto wallet to complete payment",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsProcessing(true);
 
     try {
-      // X402 Payment Flow
-      // In production, this would use wallet connect to sign the payment
-      // For now, we'll use the standard order creation endpoint
-      
+      if (!walletClient) {
+        throw new Error("Wallet client not available");
+      }
+
       const orderData = {
         customerEmail: email,
-        items: JSON.stringify(cart.map(item => ({
+        items: cart.map(item => ({
           productId: item.product.id,
           name: item.product.name,
           size: item.size,
           quantity: item.quantity,
           price: item.product.price,
-        }))),
+        })),
         totalAmount: totalPrice.toFixed(2),
-        shippingDetails: JSON.stringify({ address, city, postalCode }),
+        shippingDetails: { address, city, postalCode },
       };
 
-      // X402 Protected endpoint would verify crypto payment here
-      // The payment middleware checks for X-PAYMENT header with signed transaction
-      const response = await fetch('/api/checkout/pay', {
+      toast({
+        title: "Preparing payment",
+        description: `Processing payment of $${totalPrice.toFixed(2)} USDC...`,
+      });
+
+      // Wrap fetch with X402 payment capabilities
+      // This automatically handles 402 responses, signs the payment, and retries
+      const fetchWithPayment = wrapFetchWithPayment(
+        fetch, 
+        walletClient as any, // WalletClient from wagmi is compatible but types differ
+        // Max payment in USDC (6 decimals) - convert dollars to smallest unit
+        BigInt(Math.floor(totalPrice * 1_000_000))
+      );
+
+      const response = await fetchWithPayment('/api/checkout/pay', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,54 +105,28 @@ export default function Checkout() {
         body: JSON.stringify(orderData),
       });
 
-      if (response.status === 402) {
-        // Payment required - X402 protocol response
-        const paymentReq = await response.json();
-        
-        toast({
-          title: "X402 Payment Setup",
-          description: "Connect your crypto wallet to complete payment with USDC on Base network",
-          variant: "default",
-        });
-        
-        // In production: trigger wallet connect and payment signing flow
-        // For demo: fall back to standard order creation
-        createOrderMutation.mutate({
-          ...orderData,
-          transactionHash: `x402-demo-${Date.now()}`,
-          status: "pending_payment",
-        });
-      } else if (response.ok) {
-        // Payment verified by X402
+      if (response.ok) {
+        // Payment verified and order created
         const result = await response.json();
-        setTransactionHash(result.order.transactionHash || `x402-${Date.now()}`);
+        setTransactionHash(result.order.transactionHash);
         setOrderComplete(true);
         clearCart();
         setIsProcessing(false);
         toast({
           title: "Payment successful!",
-          description: "Your X402 crypto payment has been verified",
+          description: "Your X402 crypto payment has been verified on-chain",
         });
       } else {
-        throw new Error('Payment failed');
+        const error = await response.json();
+        throw new Error(error.message || 'Payment failed');
       }
     } catch (error) {
       console.error('Payment error:', error);
-      // Fallback to standard order creation for demo
-      const mockTxHash = `demo-${Math.random().toString(16).substring(2, 66)}`;
-      
-      createOrderMutation.mutate({
-        customerEmail: email,
-        items: JSON.stringify(cart.map(item => ({
-          productId: item.product.id,
-          name: item.product.name,
-          size: item.size,
-          quantity: item.quantity,
-          price: item.product.price,
-        }))),
-        totalAmount: totalPrice.toFixed(2),
-        transactionHash: mockTxHash,
-        status: "completed",
+      setIsProcessing(false);
+      toast({
+        title: "Payment failed",
+        description: error instanceof Error ? error.message : "Unable to process payment. Please try again.",
+        variant: "destructive",
       });
     }
   };
