@@ -295,7 +295,7 @@ export function CharacterController() {
             
             const mesh = new THREE.Mesh(textGeo, textMat);
             mesh.visible = false;
-            mesh.position.set(0, 2.4, 0);
+            mesh.position.set(-1.5, 2.4, 0);
             mesh.scale.setScalar(0.2);
             scene.add(mesh);
             sceneRef.current.auraTextMesh = mesh;
@@ -311,6 +311,10 @@ export function CharacterController() {
     const revealAuraText = () => {
       ensureAuraText().then((mesh) => {
         if (!mesh) return;
+        // Randomize position each time
+        const randomX = -2 + Math.random() * 1.5; // Random between -2 and -0.5 (left side)
+        const randomZ = -0.5 + Math.random() * 1; // Random between -0.5 and 0.5 (slight depth variation)
+        mesh.position.set(randomX, 2.4, randomZ);
         mesh.visible = true;
         mesh.scale.setScalar(0.2);
         sceneRef.current.auraTextScaleTarget = 0.6;
