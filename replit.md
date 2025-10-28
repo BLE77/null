@@ -40,17 +40,17 @@ OFF HUMAN — streetwear for the singularity. An early 2000s Flash-inspired e-co
 The store now features 6 authentic X402-themed streetwear designs:
 
 1. **X402 PROTOCOL TEE** ($75) - Cybernetic hands exchanging encrypted data with airbrushed gradient graphics
-2. **CLANKERS SKULL TEE** ($70) - Neon green skull with Japanese text, dark distressed aesthetic
+2. **CLANKERS TOKYO** ($70) - Neon green skull with Japanese text, dark distressed aesthetic
 3. **PROVE YOU'RE NOT HUMAN** ($68) - Green glitch verification graphic with Y2K tech vibes
 4. **X402 CALL TEE** ($72) - Retro phone with robotic hand, nostalgic tech design
 5. **CLANKERS BMX HOODIE** ($125) - Robot on BMX bike, premium heavyweight hoodie
 6. **CYBER ARMS LONGSLEEVE** ($85) - Geometric robotic arms on long sleeve premium cotton
 
-Products display as robot/human figure PNGs showing the clothing on models, creating a seamless overlay on the cityscape background:
+Products display as robot/human figure PNGs showing the clothing on models, creating a seamless overlay on the digital background:
 - Robot images imported from `attached_assets/` and mapped via `client/src/lib/robot-images.ts`
-- Transparent PNG backgrounds blend seamlessly with cityscape
+- Transparent PNG backgrounds blend seamlessly with black digital Matrix background
 - Full descriptions and pricing (shown on detail pages only)
-- Size-specific inventory (S, M, L, XL, XXL)
+- AI model-based sizing system with taglines (GPT-5, Claude 3.5 Opus, DeepSeek-V2, Mistral Large, Grok, LLaMA 3, Pi)
 - Multiple angles/images for detail pages
 - Clickable robot figures navigate to product detail pages
 
@@ -89,7 +89,11 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
-- **Shop page created** - New /shop route with grid layout showing all products (images, prices, sizes) matching landing page design
+- **AI model sizing system** - Replaced traditional sizes (S/M/L/XL/XXL) with AI model sizes (GPT-5/2T Parameters, Claude 3.5 Opus/1T Parameters, etc.) with witty taglines
+- **Product rename** - Changed "CLANKERS SKULL TEE" to "CLANKERS TOKYO"
+- **Orbitron font for sizes** - Size displays now use Orbitron font to match shirt title aesthetic
+- **Enhanced size selector** - Product detail page shows AI model sizes with full taglines and descriptions
+- **Shop page created** - New /shop route with grid layout showing all products (images, prices, AI sizes) matching landing page design
 - **About page redesign** - Updated with "clankers" messaging and sustainability focus (3D objects, fair labor, carbon-neutral, zero waste)
 - **Footer updates** - Instagram/Discord show "Coming Soon!" on hover, Twitter links to https://x.com/off__human
 - **Reduced spacing** - Removed min-h-screen from second product row and crypto section for tighter layout
