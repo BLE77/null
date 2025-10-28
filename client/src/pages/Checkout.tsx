@@ -219,7 +219,7 @@ export default function Checkout() {
 
   if (orderComplete) {
     return (
-      <div className="min-h-screen pt-24 pb-12">
+      <div className="min-h-screen pt-24 pb-12 digital-matrix-bg">
         <div className="container mx-auto px-4 max-w-2xl">
           <Card className="border-primary/50">
             <CardHeader className="text-center">
@@ -278,7 +278,7 @@ export default function Checkout() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12">
+    <div className="min-h-screen pt-24 pb-12 digital-matrix-bg">
       <div className="container mx-auto px-4 max-w-6xl">
         <h1 
           className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-8"
