@@ -57,8 +57,9 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   **Solana Network Implementation:**
   - **Endpoint**: `/api/checkout/pay/solana` with manual x402-solana verification (no middleware)
   - **Currency**: USDC (6 decimals) with $2.50 fixed test price
-  - **Asset Address**: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v (USDC mint on Solana devnet)
-  - **Network**: Solana devnet - change to `mainnet-beta` for production
+  - **Asset Address**: 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU (USDC mint on Solana devnet)
+  - **Network**: Solana devnet
+  - **CRITICAL ISSUE**: Solana **mainnet does NOT work** with x402 PayAI facilitator despite documentation claiming "drop-in setup". Facilitator rejects all mainnet verification attempts with "Invalid request". See `SOLANA_MAINNET_ISSUE.md` for full details.
   - **Packages**: `x402-solana`, `@solana/web3.js`
   - **Wallets**: Phantom (Solana mode), Backpack
   - **Payment Flow**:
@@ -77,7 +78,10 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   - **Facilitator**: https://facilitator.payai.network
   - **Wallet Address**: X402_WALLET_ADDRESS environment variable (payment receiving address)
   - **Network Selection**: Users choose Base or Solana on checkout page
-  - **Status**: Both Base and Solana payments fully functional and production-ready
+  - **Status**: 
+    - ✅ Base mainnet payments: **Fully functional and production-ready**
+    - ✅ Solana devnet payments: **Fully functional for testing**
+    - ❌ Solana mainnet payments: **Broken** - facilitator rejects all verification attempts (see `SOLANA_MAINNET_ISSUE.md`)
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.

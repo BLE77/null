@@ -211,13 +211,11 @@ export default function Checkout() {
         };
 
         // Create x402 client for automatic payment handling  
-        // MAINNET - Per docs, should be drop-in with facilitator
-        const heliusRpc = 'https://mainnet.helius-rpc.com/?api-key=REDACTED_HELIUS_KEY';
-        
+        // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana', // MAINNET per docs
-          rpcUrl: heliusRpc,
+          network: 'solana-devnet',
+          rpcUrl: 'https://api.devnet.solana.com',
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
         
