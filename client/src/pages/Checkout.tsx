@@ -335,6 +335,55 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                  Select Network
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNetwork('base')}
+                    className={`p-4 rounded-md border-2 transition-all ${
+                      selectedNetwork === 'base'
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                    data-testid="button-select-base"
+                  >
+                    <div className="text-center">
+                      <p className="font-semibold mb-1">Base Network</p>
+                      <Badge variant="outline" className="text-xs">EVM</Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        MetaMask, Coinbase Wallet
+                      </p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNetwork('solana')}
+                    className={`p-4 rounded-md border-2 transition-all ${
+                      selectedNetwork === 'solana'
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                    data-testid="button-select-solana"
+                  >
+                    <div className="text-center">
+                      <p className="font-semibold mb-1">Solana Network</p>
+                      <Badge variant="outline" className="text-xs">SOL</Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Phantom, Backpack
+                      </p>
+                    </div>
+                  </button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
                   Crypto Wallet
                 </CardTitle>
               </CardHeader>
@@ -401,55 +450,6 @@ export default function Checkout() {
                     </div>
                   )
                 )}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
-                  Select Network
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedNetwork('base')}
-                    className={`p-4 rounded-md border-2 transition-all ${
-                      selectedNetwork === 'base'
-                        ? 'border-primary bg-primary/10'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                    data-testid="button-select-base"
-                  >
-                    <div className="text-center">
-                      <p className="font-semibold mb-1">Base Network</p>
-                      <Badge variant="outline" className="text-xs">EVM</Badge>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        MetaMask, Coinbase Wallet
-                      </p>
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedNetwork('solana')}
-                    className={`p-4 rounded-md border-2 transition-all ${
-                      selectedNetwork === 'solana'
-                        ? 'border-primary bg-primary/10'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                    data-testid="button-select-solana"
-                  >
-                    <div className="text-center">
-                      <p className="font-semibold mb-1">Solana Network</p>
-                      <Badge variant="outline" className="text-xs">SOL</Badge>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Phantom, Backpack
-                      </p>
-                    </div>
-                  </button>
-                </div>
               </CardContent>
             </Card>
 
