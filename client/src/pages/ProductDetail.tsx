@@ -152,18 +152,18 @@ export default function ProductDetail() {
   const viewOptions = has3DModel ? ["3D Model", ...allImages] : allImages;
 
   return (
-    <div className="min-h-screen digital-matrix-bg pt-24 pb-12">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <div className="min-h-screen digital-matrix-bg pt-20 pb-12">
+      <div className="container mx-auto px-4 max-w-5xl">
         <Link href="/shop">
-          <Button variant="ghost" className="mb-8" data-testid="button-back">
+          <Button variant="ghost" className="mb-6" data-testid="button-back">
             <ChevronLeft className="w-4 h-4 mr-2" />
             Back to Shop
           </Button>
         </Link>
 
-        <div className="grid md:grid-cols-[60%_40%] gap-12">
-          <div className="space-y-4">
-            <div className="aspect-[4/5] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-3">
+            <div className="aspect-[3/4] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
               {has3DModel && selectedImage === 0 ? (
                 <ThreeModelViewer 
                   src={product.modelUrl!}
@@ -194,7 +194,7 @@ export default function ProductDetail() {
               })()}
             </div>
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-3">
               {viewOptions.map((option, idx) => {
                 const thumbnailUrl = typeof option === 'string' ? (getProductImage(option) || option) : '';
                 // Check for video extension in both original and resolved URL
@@ -243,11 +243,11 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-5">
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
                 <h1 
-                  className="text-4xl font-bold uppercase tracking-wider text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
+                  className="text-3xl font-bold uppercase tracking-wider text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                   data-testid="text-product-name"
                 >
@@ -255,14 +255,14 @@ export default function ProductDetail() {
                 </h1>
                 <Badge 
                   variant="outline" 
-                  className="shrink-0 border-primary/50 text-white"
+                  className="shrink-0 border-primary/50 text-white text-xs"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
                   {product.category}
                 </Badge>
               </div>
               <p 
-                className="text-3xl font-bold text-primary mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" 
+                className="text-2xl font-bold text-primary mb-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" 
                 data-testid="text-product-price"
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
               >
@@ -284,7 +284,7 @@ export default function ProductDetail() {
                   return (
                     <button
                       key={size}
-                      className={`p-3 border rounded transition-all text-left hover-elevate ${
+                      className={`p-2.5 border rounded transition-all text-left hover-elevate ${
                         selectedSize === size 
                           ? 'border-primary bg-primary/10' 
                           : 'border-primary/30'
@@ -318,9 +318,9 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               <Button
-                className="w-full uppercase tracking-wider h-12 text-base"
+                className="w-full uppercase tracking-wider h-11 text-sm"
                 onClick={handleBuyNow}
                 data-testid="button-buy-now"
               >
@@ -328,7 +328,7 @@ export default function ProductDetail() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full uppercase tracking-wider h-12 text-base"
+                className="w-full uppercase tracking-wider h-11 text-sm"
                 onClick={handleAddToCart}
                 data-testid="button-add-to-cart"
               >

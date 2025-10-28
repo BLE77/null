@@ -9,10 +9,10 @@ export default function Shop() {
   });
 
   return (
-    <div className="min-h-screen digital-matrix-bg pt-24 pb-16">
-      <div className="container mx-auto px-8 md:px-16">
+    <div className="min-h-screen digital-matrix-bg pt-20 pb-16">
+      <div className="container mx-auto px-4 sm:px-8 md:px-16 max-w-6xl">
         <h1 
-          className="text-5xl md:text-7xl font-bold uppercase tracking-wider mb-12 text-center text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
+          className="text-4xl md:text-6xl font-bold uppercase tracking-wider mb-10 text-center text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
           style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
           data-testid="text-shop-title"
         >
@@ -20,7 +20,7 @@ export default function Shop() {
         </h1>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="aspect-[3/4] border-2 border-primary/30 rounded animate-pulse" />
             ))}
@@ -35,14 +35,14 @@ export default function Shop() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {products?.map((product) => (
               <Link key={product.id} href={`/product/${product.id}`}>
                 <div 
                   className="group cursor-pointer transition-transform duration-300 hover:scale-105"
                   data-testid={`product-card-${product.id}`}
                 >
-                  <div className="aspect-[3/4] mb-4 overflow-hidden rounded-md border-2 border-transparent hover:border-primary/50 transition-colors duration-300">
+                  <div className="aspect-[3/4] mb-3 overflow-hidden rounded-md border-2 border-transparent hover:border-primary/50 transition-colors duration-300">
                     <img 
                       src={
                         product.shopImageUrl 
@@ -54,15 +54,15 @@ export default function Shop() {
                     />
                   </div>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <h3 
-                      className="text-xl font-bold uppercase text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] group-hover:text-primary transition-colors duration-300"
+                      className="text-lg font-bold uppercase text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] group-hover:text-primary transition-colors duration-300"
                       style={{ fontFamily: "'Orbitron', sans-serif" }}
                     >
                       {product.name}
                     </h3>
                     
-                    <p className="text-2xl font-bold text-primary drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+                    <p className="text-xl font-bold text-primary drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                       ${product.price}
                     </p>
                   </div>
