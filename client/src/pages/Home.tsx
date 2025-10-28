@@ -179,7 +179,7 @@ export default function Home() {
                 <li>
                   <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] relative group cursor-default">
                     Instagram
-                    <span className="absolute left-0 top-full mt-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    <span className="absolute right-0 top-full mt-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                       Coming Soon!
                     </span>
                   </span>
@@ -187,7 +187,7 @@ export default function Home() {
                 <li>
                   <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] relative group cursor-default">
                     Discord
-                    <span className="absolute left-0 top-full mt-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    <span className="absolute right-0 top-full mt-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                       Coming Soon!
                     </span>
                   </span>
