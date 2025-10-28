@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { getProductImage } from "@/lib/product-images";
-import { useAccount, useWalletClient } from 'wagmi';
+import { useAccount, useWalletClient, useDisconnect } from 'wagmi';
 import { WalletConnect } from '@/components/WalletConnect';
 import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
@@ -23,6 +23,7 @@ export default function Checkout() {
   const [, setLocation] = useLocation();
   const { address: walletAddress, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
+  const { disconnect } = useDisconnect();
   const [email, setEmail] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
@@ -33,6 +34,14 @@ export default function Checkout() {
   const [solanaConnected, setSolanaConnected] = useState(false);
 
   const totalPrice = getTotalPrice();
+
+  // Auto-disconnect EVM wallet when switching to Solana
+  useEffect(() => {
+    if (selectedNetwork === 'solana' && isConnected) {
+      console.log('[Network Switch] Disconnecting EVM wallet for Solana mode');
+      disconnect();
+    }
+  }, [selectedNetwork, isConnected, disconnect]);
 
   // Detect and connect Solana wallet (Phantom/Backpack)
   useEffect(() => {
