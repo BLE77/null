@@ -204,17 +204,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Get transaction hash from payment header
-      const paymentTxHash = paymentHeader || 'solana-x402-verified';
-      console.log("[Solana Payment] Payment VERIFIED - Transaction hash:", paymentTxHash);
-      console.log("[Solana Payment] Check transaction on Solana Explorer: https://explorer.solana.com/tx/" + paymentTxHash);
+      // Extract and submit the transaction to Solana
+      // The payment header is base64-encoded JSON containing the signed transaction
+      let txSignature = 'pending';
+      try {
+        const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        console.log("[Solana Payment] Decoded header:", JSON.stringify(decodedHeader, null, 2));
+        
+        const signedTxBase64 = decodedHeader.payload?.transaction;
+        if (signedTxBase64) {
+          // Import Solana web3 to submit transaction
+          const { Connection, VersionedTransaction } = await import('@solana/web3.js');
+          const connection = new Connection(HELIUS_RPC, 'confirmed');
+          
+          // Decode the transaction
+          const txBuffer = Buffer.from(signedTxBase64, 'base64');
+          const transaction = VersionedTransaction.deserialize(txBuffer);
+          
+          console.log("[Solana Payment] Submitting transaction to blockchain...");
+          
+          // Send the transaction to Solana
+          txSignature = await connection.sendRawTransaction(transaction.serialize(), {
+            skipPreflight: false,
+            maxRetries: 3,
+          });
+          
+          console.log("[Solana Payment] Transaction submitted! Signature:", txSignature);
+          console.log("[Solana Payment] Confirming transaction...");
+          
+          // Wait for confirmation
+          const confirmation = await connection.confirmTransaction(txSignature, 'confirmed');
+          
+          if (confirmation.value.err) {
+            throw new Error(`Transaction failed: ${JSON.stringify(confirmation.value.err)}`);
+          }
+          
+          console.log("[Solana Payment] Transaction CONFIRMED on-chain!");
+          console.log("[Solana Payment] Explorer: https://explorer.solana.com/tx/" + txSignature);
+        } else {
+          console.error("[Solana Payment] No transaction found in payment header");
+        }
+      } catch (txError) {
+        console.error("[Solana Payment] Transaction submission error:", txError);
+        return res.status(500).json({
+          error: "Transaction submission failed",
+          message: txError instanceof Error ? txError.message : "Unknown error",
+        });
+      }
 
       // Create the order with verified transaction details
       const order = await dbStorage.createOrder({
         customerEmail,
         items: JSON.stringify(items),
         totalAmount,
-        transactionHash: paymentTxHash,
+        transactionHash: txSignature,
         status: "completed",
       });
 
@@ -223,7 +266,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: true,
         order,
         message: "Solana payment verified and order created",
-        explorerUrl: `https://explorer.solana.com/tx/${paymentTxHash}`,
+        explorerUrl: `https://explorer.solana.com/tx/${txSignature}`,
       });
     } catch (error) {
       console.error("Solana payment error:", error);
