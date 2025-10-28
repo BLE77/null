@@ -12,6 +12,8 @@ import { getProductImage } from "@/lib/product-images";
 import { useAccount, useWalletClient } from 'wagmi';
 import { WalletConnect } from '@/components/WalletConnect';
 import { wrapFetchWithPayment } from 'x402-fetch';
+import { createX402Client } from 'x402-solana/client';
+import type { VersionedTransaction } from '@solana/web3.js';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -159,14 +161,46 @@ export default function Checkout() {
         }
       } else {
         // Solana Network Payment
-        // TODO: Implement full Solana payment signing with x402-solana client
-        setIsProcessing(false);
-        toast({
-          title: "Solana payment coming soon",
-          description: "Solana payment integration is in progress. Please use Base network for now.",
-          variant: "destructive",
+        if (!solanaWallet?.publicKey) {
+          throw new Error("Solana wallet not connected");
+        }
+
+        // Create wallet adapter for x402-solana
+        const walletAdapter = {
+          address: solanaWallet.publicKey.toString(),
+          signTransaction: async (tx: VersionedTransaction): Promise<VersionedTransaction> => {
+            const signedTx = await solanaWallet.signTransaction(tx);
+            return signedTx;
+          }
+        };
+
+        // Create x402 client for automatic payment handling
+        const x402Client = createX402Client({
+          wallet: walletAdapter,
+          network: 'solana-devnet', // Change to 'solana' for mainnet
+          maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
-        return;
+
+        const response = await x402Client.fetch('/api/checkout/pay/solana', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          setTransactionHash(result.order.transactionHash);
+          setOrderComplete(true);
+          clearCart();
+          setIsProcessing(false);
+          toast({
+            title: "Payment successful!",
+            description: "Your USDC payment on Solana has been verified",
+          });
+        } else {
+          const error = await response.json();
+          throw new Error(error.message || 'Payment failed');
+        }
       }
     } catch (error) {
       console.error('Payment error (full details):', {
