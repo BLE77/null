@@ -13,10 +13,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // X402 Payment configuration
   const X402_WALLET = process.env.X402_WALLET_ADDRESS;
+  const X402_SOLANA_WALLET = process.env.X402_SOLANA_WALLET_ADDRESS || X402_WALLET; // Can use same wallet or separate Solana wallet
   const FACILITATOR_URL = "https://facilitator.payai.network";
   
   if (!X402_WALLET) {
     console.warn("⚠️  X402_WALLET_ADDRESS not set - X402 payments will not work");
+  }
+  
+  if (!X402_SOLANA_WALLET) {
+    console.warn("⚠️  X402_SOLANA_WALLET_ADDRESS not set - Solana payments will not work");
   }
   
   app.get("/api/products", async (req, res) => {
@@ -130,8 +135,91 @@ export async function registerRoutes(app: Express): Promise<Server> {
     );
   }
 
+  // Solana X402 Payment Endpoint
+  // Manual payment verification (x402-solana doesn't have middleware like x402-express)
+  app.post("/api/checkout/pay/solana", async (req, res) => {
+    try {
+      if (!X402_SOLANA_WALLET) {
+        return res.status(503).json({
+          error: "Service Unavailable",
+          message: "Solana payment system not configured",
+        });
+      }
+
+      const paymentHeader = req.headers['x-payment'] as string;
+      const { customerEmail, items, totalAmount } = req.body;
+
+      // USDC mint address on Solana Devnet
+      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+      // const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // For production
+
+      // If no payment header, return 402 with payment requirements
+      if (!paymentHeader) {
+        return res.status(402).json({
+          error: "Payment Required",
+          paymentRequirements: {
+            price: {
+              amount: "2500000", // $2.50 USDC (6 decimals)
+              asset: { address: USDC_MINT_DEVNET },
+            },
+            network: "solana-devnet", // Use "solana" for mainnet
+            recipient: X402_SOLANA_WALLET,
+            description: "OFF HUMAN Streetwear Order",
+            resource: "/api/checkout/pay/solana",
+          },
+        });
+      }
+
+      // Verify payment with facilitator
+      const verificationResponse = await fetch(`${FACILITATOR_URL}/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentHeader,
+          recipient: X402_SOLANA_WALLET,
+          amount: "2500000",
+          token: USDC_MINT_DEVNET,
+          network: "solana-devnet",
+        }),
+      });
+
+      if (!verificationResponse.ok) {
+        return res.status(402).json({
+          error: "Payment verification failed",
+          message: "Invalid or unverified payment",
+        });
+      }
+
+      const verificationResult = await verificationResponse.json();
+      const paymentTxHash = verificationResult.transactionHash || 'solana-x402-verified';
+
+      // Create the order with verified transaction details
+      const order = await dbStorage.createOrder({
+        customerEmail,
+        items: JSON.stringify(items),
+        totalAmount,
+        transactionHash: paymentTxHash,
+        status: "completed",
+      });
+
+      res.status(200).json({
+        success: true,
+        order,
+        message: "Solana payment verified and order created",
+      });
+    } catch (error) {
+      console.error("Solana payment error:", error);
+      res.status(500).json({ 
+        message: "Failed to process Solana payment",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // REMOVED: Public order creation endpoint
-  // Orders can ONLY be created through the X402-protected /api/checkout/pay endpoint
+  // Orders can ONLY be created through the X402-protected payment endpoints
   // This prevents bypassing payment verification
 
   app.get("/api/orders/:id", async (req, res) => {

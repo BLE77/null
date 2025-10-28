@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
@@ -12,6 +12,8 @@ import { getProductImage } from "@/lib/product-images";
 import { useAccount, useWalletClient } from 'wagmi';
 import { WalletConnect } from '@/components/WalletConnect';
 import { wrapFetchWithPayment } from 'x402-fetch';
+
+type PaymentNetwork = 'base' | 'solana';
 
 export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
@@ -23,8 +25,49 @@ export default function Checkout() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [transactionHash, setTransactionHash] = useState("");
+  const [selectedNetwork, setSelectedNetwork] = useState<PaymentNetwork>('base');
+  const [solanaWallet, setSolanaWallet] = useState<any>(null);
 
   const totalPrice = getTotalPrice();
+
+  // Detect and connect Solana wallet (Phantom/Backpack)
+  useEffect(() => {
+    const checkSolanaWallet = async () => {
+      if (typeof window !== 'undefined' && 'solana' in window) {
+        const provider = (window as any).solana;
+        if (provider?.isPhantom || provider?.isBackpack) {
+          setSolanaWallet(provider);
+        }
+      }
+    };
+    checkSolanaWallet();
+  }, []);
+
+  const connectSolanaWallet = async () => {
+    try {
+      if (!solanaWallet) {
+        toast({
+          title: "Solana wallet not found",
+          description: "Please install Phantom or Backpack wallet",
+          variant: "destructive",
+        });
+        return;
+      }
+      await solanaWallet.connect();
+      toast({
+        title: "Solana wallet connected",
+        description: `Connected: ${solanaWallet.publicKey.toString().slice(0, 8)}...`,
+      });
+    } catch (error) {
+      toast({
+        title: "Connection failed",
+        description: "Failed to connect Solana wallet",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const isWalletConnected = selectedNetwork === 'base' ? isConnected : solanaWallet?.isConnected;
 
   if (cart.length === 0 && !orderComplete) {
     return (
@@ -51,10 +94,10 @@ export default function Checkout() {
       return;
     }
 
-    if (!isConnected || !walletAddress) {
+    if (!isWalletConnected) {
       toast({
         title: "Wallet not connected",
-        description: "Please connect your crypto wallet to complete payment",
+        description: `Please connect your ${selectedNetwork === 'base' ? 'EVM' : 'Solana'} wallet to complete payment`,
         variant: "destructive",
       });
       return;
@@ -63,10 +106,6 @@ export default function Checkout() {
     setIsProcessing(true);
 
     try {
-      if (!walletClient) {
-        throw new Error("Wallet client not available");
-      }
-
       const orderData = {
         customerEmail: email,
         items: cart.map(item => ({
@@ -79,47 +118,55 @@ export default function Checkout() {
         totalAmount: totalPrice.toFixed(2),
       };
 
-      // FIXED TEST PRICE: $2.50 USDC
-      // TODO: Make this dynamic based on cart total
-      const usdcAmount = 2.50; // Must match server price in routes.ts
+      const usdcAmount = 2.50;
       
       toast({
         title: "Preparing payment",
-        description: `Processing test payment of $${usdcAmount.toFixed(2)} USDC (fixed test price)...`,
+        description: `Processing payment of $${usdcAmount.toFixed(2)} USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}...`,
       });
 
-      // Wrap fetch with X402 payment capabilities
-      // This automatically handles 402 responses, signs the payment, and retries
-      const fetchWithPayment = wrapFetchWithPayment(
-        fetch, 
-        walletClient as any, // WalletClient from wagmi is compatible but types differ
-        // Max payment in USDC (6 decimals) - convert to micro-units
-        // Using $10 USDC as max to allow headroom above the $2.50 USDC charge
-        BigInt(Math.floor(10 * 1_000_000))
-      );
+      if (selectedNetwork === 'base') {
+        // Base Network Payment (EVM)
+        if (!walletClient) {
+          throw new Error("EVM wallet client not available");
+        }
 
-      const response = await fetchWithPayment('/api/checkout/pay', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(orderData),
-      });
+        const fetchWithPayment = wrapFetchWithPayment(
+          fetch, 
+          walletClient as any,
+          BigInt(Math.floor(10 * 1_000_000)) // $10 USDC max
+        );
 
-      if (response.ok) {
-        // Payment verified and order created
-        const result = await response.json();
-        setTransactionHash(result.order.transactionHash);
-        setOrderComplete(true);
-        clearCart();
+        const response = await fetchWithPayment('/api/checkout/pay', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          setTransactionHash(result.order.transactionHash);
+          setOrderComplete(true);
+          clearCart();
+          setIsProcessing(false);
+          toast({
+            title: "Payment successful!",
+            description: "Your USDC payment on Base has been verified",
+          });
+        } else {
+          const error = await response.json();
+          throw new Error(error.message || 'Payment failed');
+        }
+      } else {
+        // Solana Network Payment
+        // TODO: Implement full Solana payment signing with x402-solana client
         setIsProcessing(false);
         toast({
-          title: "Payment successful!",
-          description: "Your X402 USDC payment has been verified on-chain",
+          title: "Solana payment coming soon",
+          description: "Solana payment integration is in progress. Please use Base network for now.",
+          variant: "destructive",
         });
-      } else {
-        const error = await response.json();
-        throw new Error(error.message || 'Payment failed');
+        return;
       }
     } catch (error) {
       console.error('Payment error (full details):', {
@@ -241,27 +288,60 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {!isConnected ? (
-                  <div className="bg-muted p-4 rounded-md">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Wallet className="w-5 h-5 text-primary" />
-                      <p className="text-sm font-medium">Connect your wallet to pay</p>
+                {selectedNetwork === 'base' ? (
+                  !isConnected ? (
+                    <div className="bg-muted p-4 rounded-md">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Wallet className="w-5 h-5 text-primary" />
+                        <p className="text-sm font-medium">Connect EVM Wallet</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground mb-4">
+                        MetaMask, Coinbase Wallet, WalletConnect, Phantom (EVM mode)
+                      </p>
+                      <WalletConnect />
                     </div>
-                    <p className="text-xs text-muted-foreground mb-4">
-                      Supports MetaMask, Phantom, Coinbase Wallet, WalletConnect and 300+ wallets
-                    </p>
-                    <WalletConnect />
-                  </div>
+                  ) : (
+                    <div className="bg-primary/10 border border-primary/20 p-4 rounded-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Wallet className="w-5 h-5 text-primary" />
+                        <p className="text-sm font-medium text-primary">EVM Wallet Connected</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground font-mono" data-testid="text-wallet-address">
+                        {walletAddress}
+                      </p>
+                    </div>
+                  )
                 ) : (
-                  <div className="bg-primary/10 border border-primary/20 p-4 rounded-md">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Wallet className="w-5 h-5 text-primary" />
-                      <p className="text-sm font-medium text-primary">Wallet Connected</p>
+                  !solanaWallet?.isConnected ? (
+                    <div className="bg-muted p-4 rounded-md">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Wallet className="w-5 h-5 text-primary" />
+                        <p className="text-sm font-medium">Connect Solana Wallet</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground mb-4">
+                        Phantom or Backpack wallet required
+                      </p>
+                      {solanaWallet ? (
+                        <Button onClick={connectSolanaWallet} className="w-full" data-testid="button-connect-solana">
+                          Connect Phantom/Backpack
+                        </Button>
+                      ) : (
+                        <div className="text-sm text-destructive">
+                          No Solana wallet detected. Please install Phantom or Backpack.
+                        </div>
+                      )}
                     </div>
-                    <p className="text-xs text-muted-foreground font-mono" data-testid="text-wallet-address">
-                      {walletAddress}
-                    </p>
-                  </div>
+                  ) : (
+                    <div className="bg-primary/10 border border-primary/20 p-4 rounded-md">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Wallet className="w-5 h-5 text-primary" />
+                        <p className="text-sm font-medium text-primary">Solana Wallet Connected</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground font-mono" data-testid="text-solana-wallet-address">
+                        {solanaWallet?.publicKey?.toString().slice(0, 20)}...
+                      </p>
+                    </div>
+                  )
                 )}
               </CardContent>
             </Card>
@@ -269,32 +349,81 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
-                  Payment Method
+                  Select Network
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNetwork('base')}
+                    className={`p-4 rounded-md border-2 transition-all ${
+                      selectedNetwork === 'base'
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                    data-testid="button-select-base"
+                  >
+                    <div className="text-center">
+                      <p className="font-semibold mb-1">Base Network</p>
+                      <Badge variant="outline" className="text-xs">EVM</Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        MetaMask, Coinbase Wallet
+                      </p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNetwork('solana')}
+                    className={`p-4 rounded-md border-2 transition-all ${
+                      selectedNetwork === 'solana'
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                    data-testid="button-select-solana"
+                  >
+                    <div className="text-center">
+                      <p className="font-semibold mb-1">Solana Network</p>
+                      <Badge variant="outline" className="text-xs">SOL</Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Phantom, Backpack
+                      </p>
+                    </div>
+                  </button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                  Payment Details
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="bg-muted p-4 rounded-md">
                   <div className="flex items-center gap-3 mb-3">
                     <Badge variant="default">USDC</Badge>
-                    <Badge variant="outline">Base Network</Badge>
+                    <Badge variant="outline">{selectedNetwork === 'base' ? 'Base' : 'Solana'}</Badge>
                     <Badge variant="outline" className="bg-primary/10 border-primary text-primary">X402</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">
-                    Pay securely with USDC via x402 protocol. Instant settlement, no accounts required.
+                    Pay securely with USDC via x402 protocol on {selectedNetwork === 'base' ? 'Base' : 'Solana'}. Instant settlement, no accounts required.
                   </p>
                   <ul className="text-xs text-muted-foreground space-y-1">
                     <li>✓ Settlement in &lt;1 second</li>
                     <li>✓ No network fees for you</li>
-                    <li>✓ Powered by Base blockchain</li>
+                    <li>✓ Powered by {selectedNetwork === 'base' ? 'Base blockchain' : 'Solana blockchain'}</li>
                   </ul>
                 </div>
               </CardContent>
             </Card>
 
-            {!isConnected && (
+            {!isWalletConnected && (
               <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-md mb-4">
                 <p className="text-sm text-destructive font-medium">
-                  ⚠️ Connect your wallet to enable crypto payments
+                  ⚠️ Connect your {selectedNetwork === 'base' ? 'EVM' : 'Solana'} wallet to enable crypto payments
                 </p>
               </div>
             )}
@@ -310,10 +439,10 @@ export default function Checkout() {
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Processing Payment...
                 </>
-              ) : !isConnected ? (
+              ) : !isWalletConnected ? (
                 'Connect Wallet to Pay'
               ) : (
-                'Pay $2.50 USDC (Test Payment)'
+                `Pay $2.50 USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}`
               )}
             </Button>
           </form>
