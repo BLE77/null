@@ -73,6 +73,11 @@ export default function AdminDashboard() {
   });
 
   const handleOpenDialog = (product?: Product) => {
+    // Always reset file inputs to prevent stale file uploads
+    setThumbnailFile(null);
+    setGalleryFiles([]);
+    setModelFile(null);
+
     if (product) {
       setEditingProduct(product);
       setFormData({
@@ -97,9 +102,6 @@ export default function AdminDashboard() {
         modelUrl: null,
         inventory: { S: 10, M: 15, L: 12, XL: 8 },
       });
-      setThumbnailFile(null);
-      setGalleryFiles([]);
-      setModelFile(null);
     }
     setIsDialogOpen(true);
   };
@@ -192,6 +194,12 @@ export default function AdminDashboard() {
 
       queryClient.invalidateQueries({ queryKey: ["/api/admin/products"] });
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
+      
+      // Clear file inputs after successful submit
+      setThumbnailFile(null);
+      setGalleryFiles([]);
+      setModelFile(null);
+      
       setIsDialogOpen(false);
     } catch (error: any) {
       toast({
