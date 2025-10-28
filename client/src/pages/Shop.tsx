@@ -44,7 +44,11 @@ export default function Shop() {
                 >
                   <div className="aspect-[3/4] mb-4 overflow-hidden rounded-md border-2 border-transparent hover:border-primary/50 transition-colors duration-300">
                     <img 
-                      src={getProductImage(product.imageUrl) || product.imageUrl} 
+                      src={
+                        product.shopImageUrl 
+                          ? (getProductImage(product.shopImageUrl) || product.shopImageUrl)
+                          : (getProductImage(product.imageUrl) || product.imageUrl)
+                      } 
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />

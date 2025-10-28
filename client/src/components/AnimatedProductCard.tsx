@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
 import { getRobotImage } from "@/lib/robot-images";
+import { getProductImage } from "@/lib/product-images";
 
 interface AnimatedProductCardProps {
   product: Product;
@@ -55,19 +56,30 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
       <Link href={`/product/${product.id}`} style={{ display: 'block', width: '280px', height: '380px' }}>
         <div className="group cursor-pointer transition-all duration-300 hover-elevate" style={{ width: '280px', height: '380px' }}>
           <div style={{ width: '280px', height: '380px', position: 'relative' }}>
-            {getRobotImage(product.name) ? (
-              <img 
-                src={getRobotImage(product.name)} 
-                alt={`${product.name} on robot model`}
-                className="object-contain object-top transition-transform duration-300 group-hover:scale-105"
-                style={{ width: '280px', height: '380px' }}
-                data-testid={`img-product-${product.id}`}
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-xs text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] p-4 text-center">
-                {product.name}
-              </div>
-            )}
+            {(() => {
+              // Priority: homePageImageUrl > robot image mapping > product name
+              const homePageImage = product.homePageImageUrl ? (getProductImage(product.homePageImageUrl) || product.homePageImageUrl) : null;
+              const robotImage = getRobotImage(product.name);
+              const displayImage = homePageImage || robotImage;
+
+              if (displayImage) {
+                return (
+                  <img 
+                    src={displayImage} 
+                    alt={`${product.name} on robot model`}
+                    className="object-contain object-top transition-transform duration-300 group-hover:scale-105"
+                    style={{ width: '280px', height: '380px' }}
+                    data-testid={`img-product-${product.id}`}
+                  />
+                );
+              }
+
+              return (
+                <div className="absolute inset-0 flex items-center justify-center text-xs text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] p-4 text-center">
+                  {product.name}
+                </div>
+              );
+            })()}
           </div>
         </div>
       </Link>

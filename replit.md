@@ -77,7 +77,7 @@ The homepage uses a traditional vertical scrolling layout:
 - Sections stack vertically in natural reading order
 
 ## Data Models
-- **Product**: name, description, price, category, imageUrl, images[], inventory (S/M/L/XL), inStock
+- **Product**: name, description, price, category, imageUrl (legacy), homePageImageUrl, shopImageUrl, images[] (supports images & videos), inventory (S/M/L/XL), modelUrl, inStock
 - **CartItem**: product, size, quantity
 - **Order**: customerEmail, items, totalAmount, transactionHash, status
 
@@ -100,9 +100,12 @@ The site now includes a full admin dashboard for managing products:
 
 **Features:**
 - Create, edit, and delete products
-- Upload thumbnail images, gallery images, and .glb 3D models
+- Upload separate thumbnails for home page ("Latest Collection") and shop page
+- Upload gallery media (images and videos - .jpg, .png, .gif, .mp4, .webm)
+- Upload .glb 3D models for any product (automatically displays in product detail viewer)
 - Manage product inventory (S/M/L/XL sizes)
 - Protected admin-only access
+- Image previews in admin dashboard for all uploaded media
 
 **Admin Access:**
 1. **For Development**: Set environment variable `SEED_ADMIN=true` to auto-create admin user
@@ -124,6 +127,23 @@ The site now includes a full admin dashboard for managing products:
 - Files stored in `/uploads` directory
 
 ## Recent Changes
+- **Separate thumbnails for home/shop** - Added homePageImageUrl and shopImageUrl fields to products schema
+  - Home page uses homePageImageUrl for "Latest Collection" display
+  - Shop page uses shopImageUrl for product cards
+  - Falls back to legacy imageUrl for backwards compatibility
+- **Video gallery support** - Gallery now accepts both images and videos (.mp4, .webm, .mov, .avi)
+  - Increased file upload limit from 50MB to 100MB for video support
+  - Admin dashboard updated to support video uploads in product galleries
+- **Universal 3D model viewer** - Fixed GLB viewer to work with ANY product that has a modelUrl
+  - Removed hardcoded "CLANKERS TOKYO" restriction
+  - 3D view automatically appears as first gallery option when modelUrl exists
+  - Fixed issue where newly uploaded GLB files didn't show in product viewer
+- **Admin dashboard improvements** - Dual thumbnail upload fields with clear labeling
+  - "Home Page Thumbnail" for Latest Collection section
+  - "Shop Thumbnail" for shop page product cards
+  - Both optional with helpful descriptions
+
+## Previous Changes
 - **Updated pricing** - All products now priced $1-5 for accessibility (Protocol/BMX/Cyber Arms: $5, Tokyo/Call: $4, Prove: $3)
 - **Simplified sizing system** - Changed from AI model names to traditional S/M/L/XL with parameter ranges (S: 100B-300B, M: 70B-2T, L: 400B-670B, XL: 1T-2T)
 - **Product detail redesign** - Black digital Matrix background matching homepage, Orbitron fonts throughout, removed Materials & Care section

@@ -30,7 +30,9 @@ interface ProductFormData {
   description: string;
   price: string;
   category: string;
-  imageUrl: string;
+  imageUrl: string; // Legacy field
+  homePageImageUrl: string | null; // Home page thumbnail
+  shopImageUrl: string | null; // Shop page thumbnail
   images: string[];
   modelUrl: string | null;
   inventory: { [key: string]: number };
@@ -46,11 +48,14 @@ export default function AdminDashboard() {
     price: "",
     category: "tees",
     imageUrl: "",
+    homePageImageUrl: null,
+    shopImageUrl: null,
     images: [],
     modelUrl: null,
     inventory: { S: 10, M: 15, L: 12, XL: 8 },
   });
-  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [homePageThumbnailFile, setHomePageThumbnailFile] = useState<File | null>(null);
+  const [shopThumbnailFile, setShopThumbnailFile] = useState<File | null>(null);
   const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
   const [modelFile, setModelFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -75,7 +80,8 @@ export default function AdminDashboard() {
 
   const handleOpenDialog = (product?: Product) => {
     // Always reset file inputs to prevent stale file uploads
-    setThumbnailFile(null);
+    setHomePageThumbnailFile(null);
+    setShopThumbnailFile(null);
     setGalleryFiles([]);
     setModelFile(null);
 
@@ -87,6 +93,8 @@ export default function AdminDashboard() {
         price: product.price,
         category: product.category,
         imageUrl: product.imageUrl,
+        homePageImageUrl: product.homePageImageUrl || null,
+        shopImageUrl: product.shopImageUrl || null,
         images: product.images || [],
         modelUrl: product.modelUrl || null,
         inventory: product.inventory as { [key: string]: number },
@@ -99,6 +107,8 @@ export default function AdminDashboard() {
         price: "",
         category: "tees",
         imageUrl: "",
+        homePageImageUrl: null,
+        shopImageUrl: null,
         images: [],
         modelUrl: null,
         inventory: { S: 10, M: 15, L: 12, XL: 8 },
@@ -151,13 +161,28 @@ export default function AdminDashboard() {
     setIsSubmitting(true);
 
     try {
-      let thumbnailUrl = formData.imageUrl;
+      let legacyThumbnailUrl = formData.imageUrl;
+      let homePageThumbnailUrl = formData.homePageImageUrl;
+      let shopThumbnailUrl = formData.shopImageUrl;
       let galleryUrls = formData.images;
       let modelUrl = formData.modelUrl;
 
-      // Upload thumbnail if new file selected
-      if (thumbnailFile) {
-        thumbnailUrl = await uploadFile(thumbnailFile, 'image');
+      // Upload home page thumbnail if new file selected
+      if (homePageThumbnailFile) {
+        homePageThumbnailUrl = await uploadFile(homePageThumbnailFile, 'image');
+        // Also set legacy imageUrl if not already set
+        if (!legacyThumbnailUrl) {
+          legacyThumbnailUrl = homePageThumbnailUrl;
+        }
+      }
+
+      // Upload shop thumbnail if new file selected
+      if (shopThumbnailFile) {
+        shopThumbnailUrl = await uploadFile(shopThumbnailFile, 'image');
+        // Also set legacy imageUrl if not already set
+        if (!legacyThumbnailUrl) {
+          legacyThumbnailUrl = shopThumbnailUrl;
+        }
       }
 
       // Upload gallery images if new files selected - APPEND to existing
@@ -173,7 +198,9 @@ export default function AdminDashboard() {
 
       const productData = {
         ...formData,
-        imageUrl: thumbnailUrl,
+        imageUrl: legacyThumbnailUrl,
+        homePageImageUrl: homePageThumbnailUrl,
+        shopImageUrl: shopThumbnailUrl,
         images: galleryUrls,
         modelUrl: modelUrl,
         price: formData.price,
@@ -197,7 +224,8 @@ export default function AdminDashboard() {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
       
       // Clear file inputs after successful submit
-      setThumbnailFile(null);
+      setHomePageThumbnailFile(null);
+      setShopThumbnailFile(null);
       setGalleryFiles([]);
       setModelFile(null);
       
@@ -415,32 +443,50 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="thumbnail">Thumbnail Image</Label>
-                <Input
-                  id="thumbnail"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setThumbnailFile(e.target.files?.[0] || null)}
-                  data-testid="input-product-thumbnail"
-                />
-                {formData.imageUrl && !thumbnailFile && (
-                  <p className="text-xs text-muted-foreground mt-1">Current: {formData.imageUrl}</p>
-                )}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="homePageThumbnail">Home Page Thumbnail</Label>
+                  <Input
+                    id="homePageThumbnail"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setHomePageThumbnailFile(e.target.files?.[0] || null)}
+                    data-testid="input-home-page-thumbnail"
+                  />
+                  {formData.homePageImageUrl && !homePageThumbnailFile && (
+                    <p className="text-xs text-muted-foreground mt-1">Current: {formData.homePageImageUrl.split('/').pop()}</p>
+                  )}
+                  <p className="text-xs text-muted-foreground mt-1">For "Latest Collection" section</p>
+                </div>
+
+                <div>
+                  <Label htmlFor="shopThumbnail">Shop Thumbnail</Label>
+                  <Input
+                    id="shopThumbnail"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setShopThumbnailFile(e.target.files?.[0] || null)}
+                    data-testid="input-shop-thumbnail"
+                  />
+                  {formData.shopImageUrl && !shopThumbnailFile && (
+                    <p className="text-xs text-muted-foreground mt-1">Current: {formData.shopImageUrl.split('/').pop()}</p>
+                  )}
+                  <p className="text-xs text-muted-foreground mt-1">For shop page product cards</p>
+                </div>
               </div>
 
               <div>
-                <Label htmlFor="gallery">Add Gallery Images</Label>
+                <Label htmlFor="gallery">Add Gallery Media (Images & Videos)</Label>
                 <Input
                   id="gallery"
                   type="file"
-                  accept="image/*"
+                  accept="image/*,video/*"
                   multiple
                   onChange={(e) => setGalleryFiles(Array.from(e.target.files || []))}
                   data-testid="input-product-gallery"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Select one or multiple images to add to gallery
+                  Select images or videos to add to gallery (supports .jpg, .png, .gif, .mp4, .webm)
                 </p>
                 
                 {formData.images.length > 0 && (

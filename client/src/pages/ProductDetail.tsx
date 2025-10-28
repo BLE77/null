@@ -116,12 +116,21 @@ export default function ProductDetail() {
     return null;
   }
 
-  const allImages = [product.imageUrl, ...product.images];
+  // Filter out empty values and prioritize specific thumbnail fields
+  const imageList = [
+    product.shopImageUrl,
+    product.homePageImageUrl,
+    product.imageUrl,
+    ...product.images
+  ].filter(Boolean); // Remove falsy values
+  
+  // Use first available image if none of the above exist
+  const allImages = imageList.length > 0 ? imageList : [];
   const sizes = getProductSizes(product);
-  const isClankerTokyo = product.name.toUpperCase().includes("CLANKERS TOKYO");
+  const has3DModel = !!product.modelUrl;
   
   // Add 3D model as first option if product has a model
-  const viewOptions = (product.modelUrl) ? ["3D Model", ...allImages] : allImages;
+  const viewOptions = has3DModel ? ["3D Model", ...allImages] : allImages;
 
   return (
     <div className="min-h-screen digital-matrix-bg pt-24 pb-12">
@@ -136,44 +145,82 @@ export default function ProductDetail() {
         <div className="grid md:grid-cols-[60%_40%] gap-12">
           <div className="space-y-4">
             <div className="aspect-[4/5] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
-              {isClankerTokyo && selectedImage === 0 && product.modelUrl ? (
+              {has3DModel && selectedImage === 0 ? (
                 <ThreeModelViewer 
-                  src={product.modelUrl}
+                  src={product.modelUrl!}
                   className="w-full h-full"
                 />
-              ) : (
-                <img 
-                  src={getProductImage(isClankerTokyo && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage]) || (isClankerTokyo && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage])} 
-                  alt={product.name}
-                  className="w-full h-full object-contain"
-                />
-              )}
+              ) : (() => {
+                const mediaUrl = has3DModel && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage];
+                const displayUrl = getProductImage(mediaUrl) || mediaUrl;
+                const isVideo = /\.(mp4|webm|mov|avi)$/i.test(displayUrl);
+                
+                return isVideo ? (
+                  <video 
+                    src={displayUrl}
+                    controls
+                    loop
+                    className="w-full h-full object-contain"
+                    data-testid="video-product"
+                  >
+                    Your browser does not support video playback.
+                  </video>
+                ) : (
+                  <img 
+                    src={displayUrl} 
+                    alt={product.name}
+                    className="w-full h-full object-contain"
+                  />
+                );
+              })()}
             </div>
 
             <div className="grid grid-cols-4 gap-4">
-              {viewOptions.map((option, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImage(idx)}
-                  className={`aspect-square rounded-md overflow-hidden border-2 transition-all hover-elevate ${
-                    selectedImage === idx ? 'border-primary' : 'border-primary/30'
-                  }`}
-                  style={{ background: selectedImage === idx ? 'rgba(95, 255, 175, 0.1)' : 'rgba(0,0,0,0.5)' }}
-                  data-testid={`button-image-${idx}`}
-                >
-                  {option === "3D Model" ? (
-                    <div className="w-full h-full flex items-center justify-center text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] p-2 text-center font-bold" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                      3D VIEW
-                    </div>
-                  ) : (
-                    <img 
-                      src={getProductImage(option) || option} 
-                      alt={`View ${idx}`}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                </button>
-              ))}
+              {viewOptions.map((option, idx) => {
+                const thumbnailUrl = typeof option === 'string' ? (getProductImage(option) || option) : '';
+                // Check for video extension in both original and resolved URL
+                const isVideo = typeof option === 'string' && (
+                  /\.(mp4|webm|mov|avi)$/i.test(option) || 
+                  /\.(mp4|webm|mov|avi)$/i.test(thumbnailUrl)
+                );
+                
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedImage(idx)}
+                    className={`aspect-square rounded-md overflow-hidden border-2 transition-all hover-elevate ${
+                      selectedImage === idx ? 'border-primary' : 'border-primary/30'
+                    }`}
+                    style={{ background: selectedImage === idx ? 'rgba(95, 255, 175, 0.1)' : 'rgba(0,0,0,0.5)' }}
+                    data-testid={`button-image-${idx}`}
+                  >
+                    {option === "3D Model" ? (
+                      <div className="w-full h-full flex items-center justify-center text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] p-2 text-center font-bold" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                        3D VIEW
+                      </div>
+                    ) : isVideo ? (
+                      <div className="w-full h-full relative">
+                        <video 
+                          src={thumbnailUrl}
+                          className="w-full h-full object-cover"
+                          muted
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                            <div className="w-0 h-0 border-l-8 border-l-white border-y-4 border-y-transparent ml-1" />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <img 
+                        src={thumbnailUrl} 
+                        alt={`View ${idx}`}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

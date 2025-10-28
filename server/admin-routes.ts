@@ -26,19 +26,22 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
-    // Accept images and .glb files
-    const allowedTypes = /jpeg|jpg|png|gif|glb/;
+    // Accept images, videos, and .glb files
+    const allowedTypes = /jpeg|jpg|png|gif|glb|mp4|webm|mov|avi/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = file.mimetype.startsWith('image/') || file.mimetype === 'model/gltf-binary' || file.originalname.endsWith('.glb');
+    const mimetype = file.mimetype.startsWith('image/') || 
+                     file.mimetype.startsWith('video/') || 
+                     file.mimetype === 'model/gltf-binary' || 
+                     file.originalname.endsWith('.glb');
     
     if (extname && mimetype) {
       return cb(null, true);
     } else {
-      cb(new Error('Only images and .glb files are allowed'));
+      cb(new Error('Only images, videos, and .glb files are allowed'));
     }
   },
   limits: {
-    fileSize: 50 * 1024 * 1024 // 50MB limit
+    fileSize: 100 * 1024 * 1024 // 100MB limit for videos
   }
 });
 
