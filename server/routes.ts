@@ -191,9 +191,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(response.status).json(response.body);
       }
 
-      // Verify payment using library method
-      // The x402 facilitator handles on-chain settlement and verification
-      console.log("[Solana Payment] Verifying payment with header:", paymentHeader);
+      // Step 1: Verify payment signature
+      console.log("[Solana Payment] Step 1: Verifying payment signature...");
       const verificationResult = await x402.verifyPayment(paymentHeader, paymentRequirements);
       console.log("[Solana Payment] Verification result:", verificationResult);
       
@@ -201,51 +200,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log("[Solana Payment] Payment verification FAILED");
         return res.status(402).json({
           error: "Payment verification failed",
-          message: "Invalid or unverified payment - facilitator rejected",
+          message: "Invalid payment signature",
         });
       }
 
-      // The facilitator has verified and settled the payment on-chain
-      // Extract transaction info from the payment header for record-keeping
-      let txInfo = 'solana-x402-verified';
+      // Extract transaction info from payment header
+      let txSignature = 'solana-pending';
       try {
         const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
-        console.log("[Solana Payment] Decoded payment proof:", {
-          version: decodedHeader.x402Version,
-          network: decodedHeader.network,
-          scheme: decodedHeader.scheme,
-        });
+        const signedTxBase64 = decodedHeader.payload?.transaction;
         
-        // The payment is verified and settled by the facilitator
-        // Store the payment proof as the transaction reference
-        txInfo = paymentHeader.substring(0, 64); // First 64 chars as reference
+        if (signedTxBase64) {
+          // Decode the transaction to get its signature
+          const { VersionedTransaction } = await import('@solana/web3.js');
+          const txBuffer = Buffer.from(signedTxBase64, 'base64');
+          const transaction = VersionedTransaction.deserialize(txBuffer);
+          
+          // Get the transaction signature (first signature in signatures array)
+          const signature = transaction.signatures[0];
+          if (signature) {
+            // Convert signature bytes to base58 string
+            const bs58 = await import('bs58');
+            txSignature = bs58.default.encode(signature);
+            console.log("[Solana Payment] Extracted transaction signature:", txSignature);
+          }
+        }
       } catch (error) {
-        console.log("[Solana Payment] Could not decode header, using default reference");
+        console.log("[Solana Payment] Could not extract transaction signature:", error);
       }
 
-      console.log("[Solana Payment] Payment VERIFIED and SETTLED by x402 facilitator");
-      console.log("[Solana Payment] Funds sent to:", X402_SOLANA_WALLET);
+      // Step 2: Settle payment on-chain
+      console.log("[Solana Payment] Step 2: Submitting transaction to blockchain...");
+      const settlementResult = await x402.settlePayment(paymentHeader, paymentRequirements);
+      console.log("[Solana Payment] Settlement result:", settlementResult);
+      
+      if (!settlementResult) {
+        console.log("[Solana Payment] Payment settlement FAILED");
+        return res.status(500).json({
+          error: "Payment settlement failed",
+          message: "Transaction could not be submitted to blockchain",
+        });
+      }
 
-      // Create the order with verified payment
+      console.log("[Solana Payment] ✅ Payment VERIFIED and SETTLED on blockchain!");
+      console.log("[Solana Payment] Transaction signature:", txSignature);
+      console.log("[Solana Payment] Explorer:", `https://explorer.solana.com/tx/${txSignature}`);
+      console.log("[Solana Payment] 💰 USDC received at:", X402_SOLANA_WALLET);
+
+      // Create the order with verified and settled payment
       const order = await dbStorage.createOrder({
         customerEmail,
         items: JSON.stringify(items),
         totalAmount,
-        transactionHash: txInfo,
+        transactionHash: txSignature,
         status: "completed",
       });
 
-      console.log("[Solana Payment] Order created:", order.id);
-      console.log("[Solana Payment] Payment completed - USDC received at:", X402_SOLANA_WALLET);
+      console.log("[Solana Payment] ✅ Order created:", order.id);
       
       res.status(200).json({
         success: true,
         order,
-        message: "Solana payment verified and order created",
-        paymentInfo: {
+        message: "Payment successful - USDC transferred on Solana!",
+        transaction: {
+          signature: txSignature,
+          explorer: `https://explorer.solana.com/tx/${txSignature}`,
           network: "Solana Mainnet",
+          amount: "$2.50 USDC",
           receivedAt: X402_SOLANA_WALLET,
-          verifiedBy: "x402 PayAI facilitator",
         },
       });
     } catch (error) {
