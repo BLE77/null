@@ -39,12 +39,12 @@ OFF HUMAN — streetwear for the singularity. An early 2000s Flash-inspired e-co
 ## Real Product Catalog
 The store now features 6 authentic X402-themed streetwear designs:
 
-1. **X402 PROTOCOL TEE** ($75) - Cybernetic hands exchanging encrypted data with airbrushed gradient graphics
-2. **CLANKERS TOKYO** ($70) - Neon green skull with Japanese text, dark distressed aesthetic
-3. **PROVE YOU'RE NOT HUMAN** ($68) - Green glitch verification graphic with Y2K tech vibes
-4. **X402 CALL TEE** ($72) - Retro phone with robotic hand, nostalgic tech design
-5. **CLANKERS BMX HOODIE** ($125) - Robot on BMX bike, premium heavyweight hoodie
-6. **CYBER ARMS LONGSLEEVE** ($85) - Geometric robotic arms on long sleeve premium cotton
+1. **X402 PROTOCOL TEE** ($5) - Cybernetic hands exchanging encrypted data with airbrushed gradient graphics
+2. **CLANKERS TOKYO** ($4) - Neon green skull with Japanese text, dark distressed aesthetic
+3. **PROVE YOU'RE NOT HUMAN** ($3) - Green glitch verification graphic with Y2K tech vibes
+4. **X402 CALL TEE** ($4) - Retro phone with robotic hand, nostalgic tech design
+5. **CLANKERS BMX HOODIE** ($5) - Robot on BMX bike, premium heavyweight hoodie
+6. **CYBER ARMS LONGSLEEVE** ($5) - Geometric robotic arms on long sleeve premium cotton
 
 Products display as robot/human figure PNGs showing the clothing on models, creating a seamless overlay on the digital background:
 - Robot images imported from `attached_assets/` and mapped via `client/src/lib/robot-images.ts`
@@ -96,6 +96,7 @@ The site is designed to integrate with x402 protocol for cryptocurrency payments
 - Currently mocked for development (ready for x402-express integration)
 
 ## Recent Changes
+- **Updated pricing** - All products now priced $1-5 for accessibility (Protocol/BMX/Cyber Arms: $5, Tokyo/Call: $4, Prove: $3)
 - **Simplified sizing system** - Changed from AI model names to traditional S/M/L/XL with parameter ranges (S: 100B-300B, M: 70B-2T, L: 400B-670B, XL: 1T-2T)
 - **Product detail redesign** - Black digital Matrix background matching homepage, Orbitron fonts throughout, removed Materials & Care section
 - **Updated shipping message** - "Always free and immediate. Delivered straight to your database. Zero packaging waste."
