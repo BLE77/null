@@ -150,31 +150,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { X402PaymentHandler } = await import('x402-solana/server');
 
       // Create payment handler with proper configuration
-      // DEVNET - Using devnet for testing (mainnet has fee payer issues)
+      // MAINNET - Per docs, should be drop-in with facilitator
+      const HELIUS_API_KEY = process.env.HELIUS_API_KEY;
+      const HELIUS_RPC = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
+      
       const x402 = new X402PaymentHandler({
-        network: 'solana-devnet', // DEVNET
+        network: 'solana', // MAINNET per docs
         treasuryAddress: X402_SOLANA_WALLET,
         facilitatorUrl: FACILITATOR_URL,
-        rpcUrl: 'https://api.devnet.solana.com',
+        rpcUrl: HELIUS_RPC,
       });
 
       const paymentHeader = x402.extractPayment(req.headers);
       const { customerEmail, items, totalAmount } = req.body;
 
-      // USDC mint address on Solana DEVNET
-      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+      // USDC mint address on Solana MAINNET
+      const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
       // Create payment requirements using library format
       const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
-          amount: "2500000", // $2.50 USDC (6 decimals) - TEST USDC
+          amount: "2500000", // $2.50 USDC (6 decimals)
           asset: { 
-            address: USDC_MINT_DEVNET,
+            address: USDC_MINT_MAINNET,
             decimals: 6, // USDC has 6 decimals
           },
         },
-        network: "solana-devnet", // DEVNET
+        network: "solana", // MAINNET per docs
         config: {
           description: "OFF HUMAN Streetwear Order",
           resource: `${baseUrl}/api/checkout/pay/solana`,
@@ -190,14 +193,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Step 1: Verify payment signature
       console.log("[Solana Payment] Step 1: Verifying payment signature...");
-      const verificationResult = await x402.verifyPayment(paymentHeader, paymentRequirements);
-      console.log("[Solana Payment] Verification result:", verificationResult);
+      console.log("[Solana Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
+      console.log("[Solana Payment] Payment requirements:", JSON.stringify(paymentRequirements, null, 2));
       
-      if (!verificationResult) {
-        console.log("[Solana Payment] Payment verification FAILED");
-        return res.status(402).json({
-          error: "Payment verification failed",
-          message: "Invalid payment signature",
+      // Call facilitator /verify endpoint directly to see detailed error
+      try {
+        const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            payment: paymentHeader,
+            requirements: paymentRequirements,
+          }),
+        });
+        
+        const verifyData = await verifyResponse.json();
+        console.log("[Solana Payment] Facilitator /verify response:", JSON.stringify(verifyData, null, 2));
+        
+        if (!verifyResponse.ok || !verifyData.valid) {
+          console.log("[Solana Payment] Facilitator REJECTED payment");
+          console.log("[Solana Payment] Rejection reason:", verifyData.error || verifyData.message || 'Unknown');
+          return res.status(402).json({
+            error: "Payment verification failed",
+            message: verifyData.error || verifyData.message || "Facilitator rejected payment",
+            details: verifyData,
+          });
+        }
+        
+        console.log("[Solana Payment] ✅ Facilitator ACCEPTED payment");
+      } catch (error) {
+        console.error("[Solana Payment] Error calling facilitator:", error);
+        return res.status(500).json({
+          error: "Facilitator communication error",
+          message: error instanceof Error ? error.message : "Unknown error",
         });
       }
 
