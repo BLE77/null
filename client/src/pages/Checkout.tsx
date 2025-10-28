@@ -211,9 +211,11 @@ export default function Checkout() {
         };
 
         // Create x402 client for automatic payment handling
+        // Using devnet - switch to 'solana' for mainnet with proper RPC
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana', // MAINNET - real USDC payments
+          network: 'solana-devnet',
+          rpcUrl: 'https://api.devnet.solana.com',
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
         
