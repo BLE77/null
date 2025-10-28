@@ -192,8 +192,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Verify payment using library method
+      console.log("[Solana Payment] Verifying payment with header:", paymentHeader);
       const verified = await x402.verifyPayment(paymentHeader, paymentRequirements);
+      console.log("[Solana Payment] Verification result:", verified);
+      
       if (!verified) {
+        console.log("[Solana Payment] Payment verification FAILED");
         return res.status(402).json({
           error: "Payment verification failed",
           message: "Invalid or unverified payment",
@@ -202,6 +206,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Get transaction hash from payment header
       const paymentTxHash = paymentHeader || 'solana-x402-verified';
+      console.log("[Solana Payment] Payment VERIFIED - Transaction hash:", paymentTxHash);
+      console.log("[Solana Payment] Check transaction on Solana Explorer: https://explorer.solana.com/tx/" + paymentTxHash);
 
       // Create the order with verified transaction details
       const order = await dbStorage.createOrder({
@@ -212,10 +218,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: "completed",
       });
 
+      console.log("[Solana Payment] Order created:", order.id);
       res.status(200).json({
         success: true,
         order,
         message: "Solana payment verified and order created",
+        explorerUrl: `https://explorer.solana.com/tx/${paymentTxHash}`,
       });
     } catch (error) {
       console.error("Solana payment error:", error);
