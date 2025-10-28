@@ -6,6 +6,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { X } from 'lucide-react';
 import splashLogo from "@assets/off human simple_1761649401547.png";
 import introAudioFile from "@assets/OFF!_1761649401549.mp3";
 import themeAudioFile from "@assets/2hollis - jeans (instrumental) [prod. 2hollis]_1761649401547.mp3";
@@ -600,6 +601,19 @@ export function CharacterController() {
             alt="Off Human" 
             className={`${splashGlitching ? 'splash-glitching' : ''} ${splashFade ? 'splash-fade' : ''}`}
           />
+          
+          {/* Skip Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSplashClick();
+            }}
+            className="absolute bottom-24 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-2 border-primary bg-black/40 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)]"
+            data-testid="button-skip-splash"
+            aria-label="Skip intro"
+          >
+            <X className="w-6 h-6 text-primary" strokeWidth={3} />
+          </button>
         </div>
       )}
 
