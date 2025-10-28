@@ -7,16 +7,19 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
-import { Loader2, CheckCircle2 } from "lucide-react";
+import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { Order } from "@shared/schema";
 import { getProductImage } from "@/lib/product-images";
+import { useAccount } from 'wagmi';
+import { WalletConnect } from '@/components/WalletConnect';
 
 export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+  const { address: walletAddress, isConnected } = useAccount();
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -295,6 +298,38 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                  Crypto Wallet
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {!isConnected ? (
+                  <div className="bg-muted p-4 rounded-md">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Wallet className="w-5 h-5 text-primary" />
+                      <p className="text-sm font-medium">Connect your wallet to pay</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-4">
+                      Supports MetaMask, Phantom, Coinbase Wallet, WalletConnect and 300+ wallets
+                    </p>
+                    <WalletConnect />
+                  </div>
+                ) : (
+                  <div className="bg-primary/10 border border-primary/20 p-4 rounded-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Wallet className="w-5 h-5 text-primary" />
+                      <p className="text-sm font-medium text-primary">Wallet Connected</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground font-mono" data-testid="text-wallet-address">
+                      {walletAddress}
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
                   Payment Method
                 </CardTitle>
               </CardHeader>
@@ -317,10 +352,18 @@ export default function Checkout() {
               </CardContent>
             </Card>
 
+            {!isConnected && (
+              <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-md mb-4">
+                <p className="text-sm text-destructive font-medium">
+                  ⚠️ Connect your wallet to enable crypto payments
+                </p>
+              </div>
+            )}
+
             <Button
               type="submit"
               className="w-full h-12 uppercase tracking-wider text-base"
-              disabled={isProcessing}
+              disabled={!isConnected || isProcessing}
               data-testid="button-place-order"
             >
               {isProcessing ? (
@@ -328,8 +371,10 @@ export default function Checkout() {
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Processing Payment...
                 </>
+              ) : !isConnected ? (
+                'Connect Wallet to Pay'
               ) : (
-                `Pay $${totalPrice.toFixed(2)} with Crypto`
+                `Pay $${totalPrice.toFixed(2)} with USDC`
               )}
             </Button>
           </form>

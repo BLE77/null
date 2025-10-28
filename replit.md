@@ -36,15 +36,21 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   - **Implementation**: X402 Express middleware integrated on `/api/checkout/pay` endpoint
   - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
   - **Facilitator**: https://facilitator.payai.network
-  - **Packages**: `x402-express`, `x402-fetch`, `viem`
+  - **Packages**: `x402-express`, `x402-fetch`, `viem`, `wagmi`, `@web3modal/wagmi`
   - **Wallet**: X402_WALLET_ADDRESS environment variable (your payment receiving address)
+  - **Wallet Connect Integration**:
+    - Multi-wallet support: MetaMask, Phantom (EVM mode), Coinbase Wallet, WalletConnect (300+ wallets)
+    - Web3Modal UI for wallet selection
+    - Wallet status displayed in navigation bar
+    - Required for checkout payment flow
   - **Payment Flow**: 
-    1. Client requests payment endpoint without payment → 402 Payment Required
-    2. X402 middleware returns payment requirements (USDC amount, network, wallet)
-    3. Client signs transaction with crypto wallet
-    4. Client resubmits with X-PAYMENT header containing signed authorization
-    5. X402 middleware verifies payment via facilitator
-    6. Payment settled on-chain, order created
+    1. User connects crypto wallet (MetaMask/Phantom/etc)
+    2. Client requests payment endpoint → 402 Payment Required
+    3. X402 middleware returns payment requirements (USDC amount, network, wallet)
+    4. User signs transaction with connected wallet
+    5. Client resubmits with X-PAYMENT header containing signed authorization
+    6. X402 middleware verifies payment via facilitator
+    7. Payment settled on-chain, order created with transaction hash
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.
