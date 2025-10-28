@@ -428,7 +428,7 @@ export default function Checkout() {
                     </div>
                   )
                 ) : (
-                  !solanaWallet?.isConnected ? (
+                  !solanaConnected ? (
                     <div className="bg-muted p-4 rounded-md">
                       <div className="flex items-center gap-2 mb-3">
                         <Wallet className="w-5 h-5 text-primary" />
