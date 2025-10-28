@@ -84,28 +84,62 @@ export function CharacterController() {
     localStorage.setItem('hasSeenSplash', 'true');
     
     // Play intro audio
-    if (sceneRef.current.introAudio) {
-      sceneRef.current.introAudio.currentTime = 0;
-      sceneRef.current.introAudio.play().catch(() => {});
+    if (sceneRef.current.introAudio && sceneRef.current.themeAudio) {
+      const introAudio = sceneRef.current.introAudio;
+      const themeAudio = sceneRef.current.themeAudio;
       
-      // Wait for intro to finish, then fade and start theme
-      const introDuration = sceneRef.current.introAudio.duration || 7;
-      setTimeout(() => {
+      // MOBILE FIX: Load theme audio immediately on user interaction
+      // Mobile browsers block autoplay unless triggered by user gesture
+      // We load it here (during click) then play it when intro ends
+      themeAudio.load();
+      
+      // Track whether handler has already run
+      let hasHandled = false;
+      let fallbackTimerId: number | null = null;
+      
+      // Use 'ended' event instead of setTimeout for better mobile compatibility
+      const handleIntroEnd = () => {
+        // Ensure this only runs once
+        if (hasHandled) return;
+        hasHandled = true;
+        
+        // Clear fallback timer if it exists
+        if (fallbackTimerId !== null) {
+          clearTimeout(fallbackTimerId);
+          fallbackTimerId = null;
+        }
+        
+        // Clean up event listener
+        introAudio.removeEventListener('ended', handleIntroEnd);
+        
         // Stop glitching and start fade
         setSplashGlitching(false);
         setSplashFade(true);
         
-        // Start theme music
-        if (sceneRef.current.themeAudio) {
-          sceneRef.current.themeAudio.currentTime = 0;
-          sceneRef.current.themeAudio.play().catch(() => {});
-        }
+        // Start theme music (now allowed because it follows user interaction)
+        themeAudio.currentTime = 0;
+        themeAudio.play().catch(err => {
+          console.warn('Theme audio playback failed:', err);
+        });
         
         // Hide splash after fade completes (1.6s)
         setTimeout(() => {
           setShowSplash(false);
         }, 1600);
-      }, introDuration * 1000);
+      };
+      
+      // Listen for intro audio to end
+      introAudio.addEventListener('ended', handleIntroEnd);
+      
+      // Add fallback timeout in case 'ended' event doesn't fire on mobile
+      const introDuration = introAudio.duration || 7;
+      fallbackTimerId = window.setTimeout(handleIntroEnd, (introDuration + 0.5) * 1000);
+      
+      // Start intro audio
+      introAudio.currentTime = 0;
+      introAudio.play().catch(err => {
+        console.warn('Intro audio playback failed:', err);
+      });
     }
   };
 
