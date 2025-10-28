@@ -137,7 +137,7 @@ export default function ProductDetail() {
             <div className="aspect-[4/5] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
               {isClankerTokyo && selectedImage === 0 ? (
                 <ThreeModelViewer 
-                  src="/attached_assets/Clanker Tokyo_1761610501240.glb"
+                  src="/attached_assets/Clanker Tokyo_1761611854063.glb"
                   className="w-full h-full"
                 />
               ) : (
