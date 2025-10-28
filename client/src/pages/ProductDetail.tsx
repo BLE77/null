@@ -277,6 +277,23 @@ export default function ProductDetail() {
                 </AccordionContent>
               </AccordionItem>
 
+              <AccordionItem value="fit" className="border-primary/30">
+                <AccordionTrigger 
+                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  Fit
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p 
+                    className="text-sm text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    the model, ChatGPT, is 175B parameters and wearing a size small
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+
               <AccordionItem value="shipping" className="border-primary/30">
                 <AccordionTrigger 
                   className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
