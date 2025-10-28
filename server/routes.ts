@@ -154,20 +154,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // Same for mainnet
 
       // If no payment header, return 402 with payment requirements
+      // Format matches x402-solana client expectations
       if (!paymentHeader) {
-        return res.status(402).json({
-          error: "Payment Required",
-          paymentRequirements: {
-            price: {
-              amount: "2500000", // $2.50 USDC (6 decimals)
-              asset: { address: USDC_MINT_DEVNET },
-            },
-            network: "solana-devnet", // Use "solana" for mainnet
-            recipient: X402_SOLANA_WALLET,
+        const paymentResponse = {
+          price: {
+            amount: "2500000", // $2.50 USDC (6 decimals)
+            asset: { address: USDC_MINT_DEVNET },
+          },
+          network: "solana-devnet", // Use "solana" for mainnet
+          recipient: X402_SOLANA_WALLET,
+          config: {
             description: "OFF HUMAN Streetwear Order",
             resource: "/api/checkout/pay/solana",
           },
-        });
+        };
+        console.log("[Solana Payment] Returning 402 with requirements:", JSON.stringify(paymentResponse, null, 2));
+        return res.status(402).json(paymentResponse);
       }
 
       // Verify payment with facilitator
