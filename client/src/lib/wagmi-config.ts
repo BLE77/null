@@ -23,10 +23,9 @@ export const config = createConfig({
     [baseSepolia.id]: http(),
     [base.id]: http(),
   },
-  // Disable auto-reconnect to prevent annoying network switch popups
+  // Disable auto-reconnect completely
   ssr: false,
-  // Storage: null to prevent auto-reconnect on page load
-  storage: null,
+  multiInjectedProviderDiscovery: false, // Don't auto-discover wallets
   connectors: [
     // WalletConnect - supports 300+ wallets including Phantom (EVM mode)
     walletConnect({ 

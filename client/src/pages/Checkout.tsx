@@ -213,7 +213,7 @@ export default function Checkout() {
         // Create x402 client for automatic payment handling
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana-devnet', // Use 'solana-devnet' or 'solana' for mainnet
+          network: 'solana', // MAINNET - real USDC payments
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
         

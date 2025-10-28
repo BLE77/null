@@ -151,7 +151,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Create payment handler with proper configuration
       const x402 = new X402PaymentHandler({
-        network: 'solana-devnet',
+        network: 'solana', // MAINNET
         treasuryAddress: X402_SOLANA_WALLET,
         facilitatorUrl: FACILITATOR_URL,
       });
@@ -159,8 +159,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const paymentHeader = x402.extractPayment(req.headers);
       const { customerEmail, items, totalAmount } = req.body;
 
-      // USDC mint address on Solana Devnet
-      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+      // USDC mint address on Solana MAINNET
+      const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
       // Create payment requirements using library format
       const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
@@ -168,11 +168,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         price: {
           amount: "2500000", // $2.50 USDC (6 decimals)
           asset: { 
-            address: USDC_MINT_DEVNET,
+            address: USDC_MINT_MAINNET,
             decimals: 6, // USDC has 6 decimals
           },
         },
-        network: "solana-devnet",
+        network: "solana", // MAINNET
         config: {
           description: "OFF HUMAN Streetwear Order",
           resource: `${baseUrl}/api/checkout/pay/solana`,
