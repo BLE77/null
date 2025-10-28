@@ -3,6 +3,7 @@ import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLocation } from "wouter";
+import { getProductImage } from "@/lib/product-images";
 
 export function CartSidebar() {
   const { cart, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, getTotalPrice } = useCart();
@@ -53,8 +54,12 @@ export function CartSidebar() {
                   className="flex gap-4 border border-border rounded-md p-4 hover-elevate"
                   data-testid={`cart-item-${item.product.id}`}
                 >
-                  <div className="w-20 h-20 bg-muted rounded-md flex items-center justify-center text-xs text-muted-foreground overflow-hidden">
-                    {item.product.imageUrl}
+                  <div className="w-20 h-20 bg-muted rounded-md overflow-hidden">
+                    <img 
+                      src={getProductImage(item.product.imageUrl) || item.product.imageUrl} 
+                      alt={item.product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   
                   <div className="flex-1 min-w-0">

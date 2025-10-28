@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { type Product, getProductSizes } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { getProductImage } from "@/lib/product-images";
 
 interface ProductCardProps {
   product: Product;
@@ -14,9 +15,11 @@ export function ProductCard({ product }: ProductCardProps) {
     <Link href={`/product/${product.id}`}>
       <div className="group geometric-panel bg-card hover:shadow-xl transition-all duration-300 cursor-pointer lift-on-hover" data-testid={`card-product-${product.id}`}>
           <div className="aspect-[4/5] bg-muted relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
-              {product.imageUrl}
-            </div>
+            <img 
+              src={getProductImage(product.imageUrl) || product.imageUrl} 
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             <div className="absolute bottom-6 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">

@@ -11,6 +11,7 @@ import { Loader2, CheckCircle2 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { Order } from "@shared/schema";
+import { getProductImage } from "@/lib/product-images";
 
 export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
@@ -279,8 +280,12 @@ export default function Checkout() {
                       className="flex gap-3 pb-3 border-b border-border last:border-0"
                       data-testid={`order-item-${item.product.id}`}
                     >
-                      <div className="w-16 h-16 bg-muted rounded-md flex items-center justify-center text-xs text-muted-foreground overflow-hidden">
-                        {item.product.imageUrl}
+                      <div className="w-16 h-16 bg-muted rounded-md overflow-hidden">
+                        <img 
+                          src={getProductImage(item.product.imageUrl) || item.product.imageUrl} 
+                          alt={item.product.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-sm uppercase truncate">

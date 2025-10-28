@@ -10,6 +10,7 @@ import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { getAISizeInfo } from "@shared/ai-sizes";
 import { ThreeModelViewer } from "@/components/ThreeModelViewer";
+import { getProductImage } from "@/lib/product-images";
 import {
   Accordion,
   AccordionContent,
@@ -119,8 +120,8 @@ export default function ProductDetail() {
   const sizes = getProductSizes(product);
   const isClankerTokyo = product.name.toUpperCase().includes("CLANKERS TOKYO");
   
-  // Add 3D model as first option for Clanker Tokyo
-  const viewOptions = isClankerTokyo ? ["3D Model", ...allImages] : allImages;
+  // Add 3D model as first option if product has a model
+  const viewOptions = (product.modelUrl) ? ["3D Model", ...allImages] : allImages;
 
   return (
     <div className="min-h-screen digital-matrix-bg pt-24 pb-12">
@@ -135,15 +136,17 @@ export default function ProductDetail() {
         <div className="grid md:grid-cols-[60%_40%] gap-12">
           <div className="space-y-4">
             <div className="aspect-[4/5] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
-              {isClankerTokyo && selectedImage === 0 ? (
+              {isClankerTokyo && selectedImage === 0 && product.modelUrl ? (
                 <ThreeModelViewer 
-                  src="/attached_assets/Clanker Tokyo_1761611854063.glb"
+                  src={product.modelUrl}
                   className="w-full h-full"
                 />
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center">
-                  {isClankerTokyo && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage]}
-                </div>
+                <img 
+                  src={getProductImage(isClankerTokyo && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage]) || (isClankerTokyo && selectedImage > 0 ? allImages[selectedImage - 1] : allImages[selectedImage])} 
+                  alt={product.name}
+                  className="w-full h-full object-contain"
+                />
               )}
             </div>
 
@@ -158,9 +161,17 @@ export default function ProductDetail() {
                   style={{ background: selectedImage === idx ? 'rgba(95, 255, 175, 0.1)' : 'rgba(0,0,0,0.5)' }}
                   data-testid={`button-image-${idx}`}
                 >
-                  <div className="w-full h-full flex items-center justify-center text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] p-2 text-center font-bold" style={{ fontFamily: "'Orbitron', sans-serif" }}>
-                    {option === "3D Model" ? "3D VIEW" : option}
-                  </div>
+                  {option === "3D Model" ? (
+                    <div className="w-full h-full flex items-center justify-center text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] p-2 text-center font-bold" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                      3D VIEW
+                    </div>
+                  ) : (
+                    <img 
+                      src={getProductImage(option) || option} 
+                      alt={`View ${idx}`}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </button>
               ))}
             </div>

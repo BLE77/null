@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import type { Product } from "@shared/schema";
+import { getProductImage } from "@/lib/product-images";
 
 export default function Shop() {
   const { data: products, isLoading, isError } = useQuery<Product[]>({
@@ -43,7 +44,7 @@ export default function Shop() {
                 >
                   <div className="aspect-[3/4] mb-4 overflow-hidden rounded-md border-2 border-transparent hover:border-primary/50 transition-colors duration-300">
                     <img 
-                      src={product.imageUrl} 
+                      src={getProductImage(product.imageUrl) || product.imageUrl} 
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
