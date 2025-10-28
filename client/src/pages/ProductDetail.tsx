@@ -116,16 +116,16 @@ export default function ProductDetail() {
     return null;
   }
 
-  // Filter out empty values and prioritize specific thumbnail fields
+  // Filter out empty values and deduplicate images
   const imageList = [
     product.shopImageUrl,
     product.homePageImageUrl,
     product.imageUrl,
     ...product.images
-  ].filter(Boolean); // Remove falsy values
+  ].filter((url): url is string => Boolean(url)); // Remove falsy values with type guard
   
-  // Use first available image if none of the above exist
-  const allImages = imageList.length > 0 ? imageList : [];
+  // Remove duplicates by creating a Set
+  const allImages = Array.from(new Set(imageList));
   const sizes = getProductSizes(product);
   const has3DModel = !!product.modelUrl;
   
