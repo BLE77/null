@@ -132,16 +132,16 @@ export class DbStorage {
         category: "tees",
         imageUrl: "@assets/ChatGPT Image Oct 25, 2025, 04_51_32 PM_1761436509620.png",
         images: ["@assets/ChatGPT Image Oct 25, 2025, 04_51_32 PM_1761436509620.png"],
-        inventory: { S: 15, M: 20, L: 18, XL: 12, XXL: 8 },
+        inventory: { "Pi": 15, "LLaMA 3": 20, "DeepSeek-V2": 18, "Mistral Large": 14, "Grok": 12, "Claude 3.5 Opus": 12, "GPT-5": 8 },
       },
       {
-        name: "CLANKERS SKULL TEE",
+        name: "CLANKERS TOKYO",
         description: "Neon green cyberpunk skull with Japanese クレンケス graphics. Retro-tech aesthetic on acid-washed cotton. Bold statement piece with vintage Y2K vibes.",
         price: "70.00",
         category: "tees",
         imageUrl: "@assets/ChatGPT Image Oct 25, 2025, 04_49_09 PM_1761436509620.png",
         images: ["@assets/ChatGPT Image Oct 25, 2025, 04_49_09 PM_1761436509620.png"],
-        inventory: { S: 12, M: 18, L: 16, XL: 10, XXL: 6 },
+        inventory: { "Pi": 12, "LLaMA 3": 18, "DeepSeek-V2": 16, "Mistral Large": 10, "Grok": 8, "Claude 3.5 Opus": 10, "GPT-5": 6 },
       },
       {
         name: "PROVE YOU'RE NOT HUMAN",
@@ -150,7 +150,7 @@ export class DbStorage {
         category: "tees",
         imageUrl: "@assets/prove_1761436638560.png",
         images: ["@assets/prove_1761436638560.png"],
-        inventory: { S: 10, M: 15, L: 14, XL: 8, XXL: 5 },
+        inventory: { "Pi": 10, "LLaMA 3": 15, "DeepSeek-V2": 14, "Mistral Large": 12, "Grok": 10, "Claude 3.5 Opus": 8, "GPT-5": 5 },
       },
       {
         name: "X402 CALL TEE",
@@ -159,7 +159,7 @@ export class DbStorage {
         category: "tees",
         imageUrl: "@assets/402 call_1761436644815.png",
         images: ["@assets/402 call_1761436644815.png"],
-        inventory: { S: 14, M: 20, L: 16, XL: 10, XXL: 7 },
+        inventory: { "Pi": 14, "LLaMA 3": 20, "DeepSeek-V2": 16, "Mistral Large": 14, "Grok": 12, "Claude 3.5 Opus": 10, "GPT-5": 7 },
       },
       {
         name: "CLANKERS BMX HOODIE",
@@ -168,7 +168,7 @@ export class DbStorage {
         category: "hoodies",
         imageUrl: "@assets/clankersar_1761436647628.png",
         images: ["@assets/clankersar_1761436647628.png"],
-        inventory: { S: 8, M: 12, L: 10, XL: 6 },
+        inventory: { "Pi": 8, "LLaMA 3": 12, "DeepSeek-V2": 10, "Mistral Large": 8, "Grok": 6, "Claude 3.5 Opus": 6, "GPT-5": 4 },
       },
       {
         name: "CYBER ARMS LONGSLEEVE",
@@ -177,7 +177,7 @@ export class DbStorage {
         category: "tees",
         imageUrl: "@assets/long sleeve_1761436670427.png",
         images: ["@assets/long sleeve_1761436670427.png"],
-        inventory: { S: 10, M: 14, L: 12, XL: 8 },
+        inventory: { "Pi": 10, "LLaMA 3": 14, "DeepSeek-V2": 12, "Mistral Large": 10, "Grok": 8, "Claude 3.5 Opus": 8, "GPT-5": 6 },
       }
     ];
 

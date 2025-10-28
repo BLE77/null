@@ -2,7 +2,7 @@
 // Map product names to robot figure image paths
 export const robotImageMap: Record<string, string> = {
   "X402 PROTOCOL TEE": "/attached_assets/fit 1_1761538260908.png",           // Robot with circuit tie
-  "CLANKERS SKULL TEE": "/attached_assets/fit 2a_1761538260906.png",         // Robot with green skull tee
+  "CLANKERS TOKYO": "/attached_assets/fit 2a_1761538260906.png",             // Robot with green skull tee
   "PROVE YOU'RE NOT HUMAN": "/attached_assets/fit 9_1761538260908.png",      // Robot with pixel "not human" tee
   "X402 CALL TEE": "/attached_assets/fit 4a_1761538260907.png",              // Robot with X402 call tee
   "CLANKERS BMX HOODIE": "/attached_assets/fit 3a_1761538260907.png",        // Robot with BMX hoodie
