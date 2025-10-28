@@ -27,6 +27,7 @@ function isWebGLAvailable(): boolean {
 export function CharacterController() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showSplash, setShowSplash] = useState(true);
+  const [splashGlitching, setSplashGlitching] = useState(false);
   const [splashFade, setSplashFade] = useState(false);
   const [webGLSupported, setWebGLSupported] = useState(true);
   const [introStarted, setIntroStarted] = useState(false);
@@ -61,22 +62,30 @@ export function CharacterController() {
   const handleSplashClick = () => {
     if (introStarted) return;
     setIntroStarted(true);
-    setSplashFade(true);
+    setSplashGlitching(true);
     
     // Play intro audio
     if (sceneRef.current.introAudio) {
       sceneRef.current.introAudio.currentTime = 0;
       sceneRef.current.introAudio.play().catch(() => {});
       
-      // Wait for intro to finish, then load model and play theme
+      // Wait for intro to finish, then fade and start theme
       const introDuration = sceneRef.current.introAudio.duration || 7;
       setTimeout(() => {
-        setShowSplash(false);
-        // Start theme music after intro
+        // Stop glitching and start fade
+        setSplashGlitching(false);
+        setSplashFade(true);
+        
+        // Start theme music
         if (sceneRef.current.themeAudio) {
           sceneRef.current.themeAudio.currentTime = 0;
           sceneRef.current.themeAudio.play().catch(() => {});
         }
+        
+        // Hide splash after fade completes (1.6s)
+        setTimeout(() => {
+          setShowSplash(false);
+        }, 1600);
       }, introDuration * 1000);
     }
   };
@@ -549,7 +558,7 @@ export function CharacterController() {
           <img 
             src={splashLogo} 
             alt="Off Human" 
-            className={splashFade ? 'splash-fade' : ''}
+            className={`${splashGlitching ? 'splash-glitching' : ''} ${splashFade ? 'splash-fade' : ''}`}
           />
         </div>
       )}

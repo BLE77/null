@@ -470,9 +470,13 @@
     object-fit: contain;
     filter: drop-shadow(0 0 32px rgba(130, 200, 255, 0.35));
     mix-blend-mode: screen;
-    animation: splash-glitch 0.5s infinite;
+    animation: none;
     transform: scale(1);
     transition: transform 0.45s ease, filter 0.45s ease;
+  }
+
+  .splash img.splash-glitching {
+    animation: splash-glitch 0.5s infinite !important;
   }
 
   .splash:hover img,
