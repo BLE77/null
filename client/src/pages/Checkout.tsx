@@ -28,7 +28,9 @@ export default function Checkout() {
   const [orderComplete, setOrderComplete] = useState(false);
   const [transactionHash, setTransactionHash] = useState("");
   const [selectedNetwork, setSelectedNetwork] = useState<PaymentNetwork>('base');
+  const [paymentNetwork, setPaymentNetwork] = useState<PaymentNetwork>('base');
   const [solanaWallet, setSolanaWallet] = useState<any>(null);
+  const [solanaConnected, setSolanaConnected] = useState(false);
 
   const totalPrice = getTotalPrice();
 
@@ -56,6 +58,7 @@ export default function Checkout() {
         return;
       }
       await solanaWallet.connect();
+      setSolanaConnected(true); // Force React re-render
       toast({
         title: "Solana wallet connected",
         description: `Connected: ${solanaWallet.publicKey.toString().slice(0, 8)}...`,
@@ -69,7 +72,7 @@ export default function Checkout() {
     }
   };
 
-  const isWalletConnected = selectedNetwork === 'base' ? isConnected : solanaWallet?.isConnected;
+  const isWalletConnected = selectedNetwork === 'base' ? isConnected : solanaConnected;
 
   if (cart.length === 0 && !orderComplete) {
     return (
@@ -148,6 +151,7 @@ export default function Checkout() {
         if (response.ok) {
           const result = await response.json();
           setTransactionHash(result.order.transactionHash);
+          setPaymentNetwork('base');
           setOrderComplete(true);
           clearCart();
           setIsProcessing(false);
@@ -190,6 +194,7 @@ export default function Checkout() {
         if (response.ok) {
           const result = await response.json();
           setTransactionHash(result.order.transactionHash);
+          setPaymentNetwork('solana');
           setOrderComplete(true);
           clearCart();
           setIsProcessing(false);
@@ -257,7 +262,7 @@ export default function Checkout() {
                 </p>
                 <div className="flex items-center gap-2">
                   <Badge variant="outline">USDC</Badge>
-                  <Badge variant="outline">Base Network</Badge>
+                  <Badge variant="outline">{paymentNetwork === 'base' ? 'Base Network' : 'Solana Network'}</Badge>
                 </div>
               </div>
 

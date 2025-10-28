@@ -63,18 +63,21 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   - **Wallets**: Phantom (Solana mode), Backpack
   - **Payment Flow**:
     1. User connects Solana wallet via window.solana
-    2. Client requests payment endpoint → 402 Payment Required
-    3. Backend returns payment requirements
-    4. **TODO**: Client-side transaction signing with x402-solana (currently shows "coming soon")
-    5. Client resubmits with X-PAYMENT header
-    6. Backend verifies payment via facilitator
-    7. Payment settled on-chain, order created with transaction hash
+    2. Client creates wallet adapter implementing `address` and `signTransaction` interface
+    3. Client creates x402 client with wallet adapter and network configuration
+    4. Client calls x402Client.fetch() which automatically handles:
+       - Initial 402 Payment Required response
+       - Transaction creation and signing via connected wallet
+       - Payment submission with X-PAYMENT header
+       - Request retry with payment proof
+    5. Backend verifies payment via facilitator
+    6. Payment settled on-chain, order created with transaction hash
   
   **Shared Configuration:**
   - **Facilitator**: https://facilitator.payai.network
   - **Wallet Address**: X402_WALLET_ADDRESS environment variable (payment receiving address)
   - **Network Selection**: Users choose Base or Solana on checkout page
-  - **Status**: Base payments fully functional, Solana client-side signing in progress
+  - **Status**: Both Base and Solana payments fully functional and production-ready
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.
