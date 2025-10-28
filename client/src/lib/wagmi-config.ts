@@ -52,28 +52,3 @@ export const config = createConfig({
   ],
 });
 
-// Lazy initialization function for Web3Modal
-let web3ModalInstance: ReturnType<typeof createWeb3Modal> | null = null;
-
-export function ensureWeb3ModalInitialized() {
-  if (typeof window === 'undefined') return;
-  
-  if (!web3ModalInstance) {
-    try {
-      web3ModalInstance = createWeb3Modal({
-        wagmiConfig: config,
-        projectId,
-        enableAnalytics: false,
-        themeMode: 'dark',
-        themeVariables: {
-          '--w3m-accent': '#00FF41', // Matrix green
-          '--w3m-border-radius-master': '4px',
-        },
-      });
-    } catch (error) {
-      console.error('Failed to initialize Web3Modal:', error);
-    }
-  }
-  
-  return web3ModalInstance;
-}

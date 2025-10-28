@@ -3,10 +3,8 @@ import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Wallet, Power } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { ensureWeb3ModalInitialized } from '@/lib/wagmi-config';
 
-function WalletConnectInner() {
+export function WalletConnect() {
   const { open } = useWeb3Modal();
   const { address, isConnected, chain } = useAccount();
   const { disconnect } = useDisconnect();
@@ -50,30 +48,4 @@ function WalletConnectInner() {
       Connect Wallet
     </Button>
   );
-}
-
-export function WalletConnect() {
-  const [isInitialized, setIsInitialized] = useState(false);
-  
-  useEffect(() => {
-    // Ensure Web3Modal is initialized before rendering the inner component
-    ensureWeb3ModalInitialized();
-    setIsInitialized(true);
-  }, []);
-  
-  // Don't render wallet connect until Web3Modal is initialized
-  if (!isInitialized) {
-    return (
-      <Button
-        variant="default"
-        size="sm"
-        disabled
-      >
-        <Wallet className="w-4 h-4 mr-2" />
-        Loading...
-      </Button>
-    );
-  }
-  
-  return <WalletConnectInner />;
 }
