@@ -4,7 +4,7 @@ import { type Product, getProductSizes, getProductStock } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/lib/cart-context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, Check } from "lucide-react";
 import { Link } from "wouter";
 import { useToast } from "@/hooks/use-toast";
@@ -25,6 +25,11 @@ export default function ProductDetail() {
   const { toast } = useToast();
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState(0);
+
+  // Scroll to top when product changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [productId]);
 
   const { data: product, isLoading, isError } = useQuery<Product>({
     queryKey: ["/api/products", productId],

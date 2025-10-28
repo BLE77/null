@@ -51,7 +51,7 @@ export default function Home() {
               </Button>
             </div>
           ) : (
-            <div className="flex gap-6 justify-center items-start overflow-x-visible px-4" data-testid="grid-products">
+            <div className="flex flex-wrap gap-6 justify-center items-start px-4" data-testid="grid-products">
               {products?.slice(0, 3).map((product, index) => (
                 <AnimatedProductCard
                   key={product.id}
@@ -68,7 +68,7 @@ export default function Home() {
       {!isLoading && !isError && products && products.length > 3 && (
         <section className="relative flex items-center justify-center py-8">
           <div className="w-full px-8 md:px-16">
-            <div className="flex gap-6 justify-center items-start overflow-x-visible px-4">
+            <div className="flex flex-wrap gap-6 justify-center items-start px-4">
               {products.slice(3, 6).map((product, index) => (
                 <AnimatedProductCard
                   key={product.id}
