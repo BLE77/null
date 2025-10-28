@@ -31,6 +31,7 @@ export function CharacterController() {
   const [splashFade, setSplashFade] = useState(false);
   const [webGLSupported, setWebGLSupported] = useState(true);
   const [introStarted, setIntroStarted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   const sceneRef = useRef<{
     renderer?: THREE.WebGLRenderer;
@@ -57,6 +58,16 @@ export function CharacterController() {
     keys: { w: false, ArrowUp: false, Shift: false },
     auraTextScaleTarget: 0.2
   });
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Splash screen handler with intro music
   const handleSplashClick = () => {
@@ -353,6 +364,12 @@ export function CharacterController() {
       }, delay);
     };
 
+    // Expose aura trigger for mobile button
+    const triggerAura = () => {
+      playOneShot('aura');
+    };
+    (window as any).triggerAura = triggerAura;
+
     // Keyboard controls
     const normalizeKey = (key: string) => {
       if (key === 'Shift') return 'Shift';
@@ -383,8 +400,13 @@ export function CharacterController() {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
+    // Only enable keyboard controls on desktop
+    const checkMobile = () => window.innerWidth < 768 || 'ontouchstart' in window;
+    
+    if (!checkMobile()) {
+      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('keyup', handleKeyUp);
+    }
 
     const updateLocomotionFromInput = () => {
       const keys = sceneRef.current.keys;
@@ -624,12 +646,25 @@ export function CharacterController() {
         />
       )}
 
-      {/* Instructions Overlay */}
-      {!showSplash && webGLSupported && (
+      {/* Desktop Instructions Overlay */}
+      {!showSplash && webGLSupported && !isMobile && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
           <p className="text-white/60 text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" data-testid="instructions">
             Click and drag to rotate • W/↑: Move • Shift: Run • J: Punch • K: Kick • Space: Jump • U: Aura
           </p>
+        </div>
+      )}
+
+      {/* Mobile Aura Button */}
+      {!showSplash && webGLSupported && isMobile && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <button 
+            onClick={() => (window as any).triggerAura?.()}
+            className="metallic-nav px-8 py-3 rounded-md uppercase tracking-wider text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
+            data-testid="button-aura"
+          >
+            +100 Aura
+          </button>
         </div>
       )}
     </div>
