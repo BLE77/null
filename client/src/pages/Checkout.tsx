@@ -37,11 +37,23 @@ export default function Checkout() {
   // Detect and connect Solana wallet (Phantom/Backpack)
   useEffect(() => {
     const checkSolanaWallet = async () => {
+      console.log('[Solana Wallet Detection] Checking for Solana wallet...');
+      console.log('[Solana Wallet Detection] window.solana exists:', 'solana' in window);
+      
       if (typeof window !== 'undefined' && 'solana' in window) {
         const provider = (window as any).solana;
+        console.log('[Solana Wallet Detection] Provider found:', {
+          isPhantom: provider?.isPhantom,
+          isBackpack: provider?.isBackpack,
+          publicKey: provider?.publicKey?.toString(),
+        });
+        
         if (provider?.isPhantom || provider?.isBackpack) {
           setSolanaWallet(provider);
+          console.log('[Solana Wallet Detection] Wallet set successfully');
         }
+      } else {
+        console.log('[Solana Wallet Detection] No Solana wallet detected. Please ensure Phantom or Backpack is installed.');
       }
     };
     checkSolanaWallet();
@@ -365,8 +377,15 @@ export default function Checkout() {
                           Connect Phantom/Backpack
                         </Button>
                       ) : (
-                        <div className="text-sm text-destructive">
-                          No Solana wallet detected. Please install Phantom or Backpack.
+                        <div className="space-y-2">
+                          <div className="text-sm text-destructive font-medium">
+                            ⚠️ No Solana wallet detected
+                          </div>
+                          <div className="text-xs text-muted-foreground space-y-1">
+                            <p>• Install Phantom wallet from phantom.app</p>
+                            <p>• If Phantom is installed, make sure it's in Solana mode (not EVM mode)</p>
+                            <p>• Refresh the page after installation</p>
+                          </div>
                         </div>
                       )}
                     </div>
