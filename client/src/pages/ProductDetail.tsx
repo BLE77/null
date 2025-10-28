@@ -116,7 +116,7 @@ export default function ProductDetail() {
     return null;
   }
 
-  // Filter out empty values and deduplicate images
+  // Filter out empty values
   const imageList = [
     product.shopImageUrl,
     product.homePageImageUrl,
@@ -124,8 +124,22 @@ export default function ProductDetail() {
     ...product.images
   ].filter((url): url is string => Boolean(url)); // Remove falsy values with type guard
   
-  // Remove duplicates by creating a Set
-  const allImages = Array.from(new Set(imageList));
+  // Resolve all image paths first, then deduplicate based on resolved URLs
+  const resolvedImages = imageList.map(url => {
+    const resolved = getProductImage(url) || url;
+    return { original: url, resolved };
+  });
+  
+  // Deduplicate based on resolved URLs
+  const uniqueResolved = new Map<string, string>();
+  resolvedImages.forEach(({ original, resolved }) => {
+    if (!uniqueResolved.has(resolved)) {
+      uniqueResolved.set(resolved, original);
+    }
+  });
+  
+  // Use original URLs for the gallery (they'll be resolved again when displayed)
+  const allImages = Array.from(uniqueResolved.values());
   const sizes = getProductSizes(product);
   const has3DModel = !!product.modelUrl;
   
