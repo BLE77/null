@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { type Product } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Plus, Pencil, Trash2, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, Upload, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -157,9 +157,10 @@ export default function AdminDashboard() {
         thumbnailUrl = await uploadFile(thumbnailFile, 'image');
       }
 
-      // Upload gallery images if new files selected
+      // Upload gallery images if new files selected - APPEND to existing
       if (galleryFiles.length > 0) {
-        galleryUrls = await uploadMultipleImages(galleryFiles);
+        const newUrls = await uploadMultipleImages(galleryFiles);
+        galleryUrls = [...formData.images, ...newUrls];
       }
 
       // Upload model if new file selected
@@ -206,6 +207,44 @@ export default function AdminDashboard() {
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
       deleteMutation.mutate(id);
+    }
+  };
+
+  const handleRemoveGalleryImage = async (imageUrl: string) => {
+    if (!editingProduct) {
+      // Just remove from form data if creating new product
+      setFormData({
+        ...formData,
+        images: formData.images.filter(img => img !== imageUrl)
+      });
+      return;
+    }
+
+    // For existing products, update on server
+    try {
+      const updatedImages = formData.images.filter(img => img !== imageUrl);
+      await apiRequest("PATCH", `/api/admin/products/${editingProduct.id}`, {
+        images: updatedImages
+      });
+      
+      setFormData({
+        ...formData,
+        images: updatedImages
+      });
+
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/products"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/products"] });
+      
+      toast({
+        title: "Image removed",
+        description: "Gallery image has been removed successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to remove image",
+        variant: "destructive",
+      });
     }
   };
 
@@ -373,7 +412,7 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <Label htmlFor="gallery">Gallery Images (Multiple)</Label>
+                <Label htmlFor="gallery">Add Gallery Images</Label>
                 <Input
                   id="gallery"
                   type="file"
@@ -382,8 +421,34 @@ export default function AdminDashboard() {
                   onChange={(e) => setGalleryFiles(Array.from(e.target.files || []))}
                   data-testid="input-product-gallery"
                 />
-                {formData.images.length > 0 && galleryFiles.length === 0 && (
-                  <p className="text-xs text-muted-foreground mt-1">{formData.images.length} images</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Select one or multiple images to add to gallery
+                </p>
+                
+                {formData.images.length > 0 && (
+                  <div className="mt-4">
+                    <Label className="text-sm">Current Gallery ({formData.images.length})</Label>
+                    <div className="grid grid-cols-3 gap-2 mt-2">
+                      {formData.images.map((imageUrl, index) => (
+                        <div
+                          key={index}
+                          className="relative group border border-border rounded-md overflow-hidden aspect-square"
+                        >
+                          <div className="w-full h-full flex items-center justify-center bg-muted p-2">
+                            <p className="text-xs text-center break-all line-clamp-3">{imageUrl.split('/').pop()}</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveGalleryImage(imageUrl)}
+                            className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            data-testid={`button-remove-gallery-${index}`}
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
 
