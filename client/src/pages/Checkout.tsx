@@ -210,14 +210,12 @@ export default function Checkout() {
           }
         };
 
-        // Create x402 client for automatic payment handling
-        // MAINNET - x402 facilitator handles on-chain settlement
-        const heliusRpc = 'https://mainnet.helius-rpc.com/?api-key=REDACTED_HELIUS_KEY';
-        
+        // Create x402 client for automatic payment handling  
+        // DEVNET - Using devnet for testing (mainnet has fee payer issues)
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana', // MAINNET
-          rpcUrl: heliusRpc,
+          network: 'solana-devnet', // DEVNET
+          rpcUrl: 'https://api.devnet.solana.com',
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
         
