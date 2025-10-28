@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div 
-      className="min-h-screen overflow-y-auto digital-matrix-bg"
+      className="min-h-screen overflow-y-auto overflow-x-hidden digital-matrix-bg"
       data-testid="timeline-container"
     >
       {/* Section 1: Hero - 3D Character Controller */}
@@ -20,11 +20,11 @@ export default function Home() {
       </section>
 
       {/* Section 2: Products Timeline */}
-      <section className="min-h-screen relative flex items-center justify-center py-16" id="products">
+      <section className="min-h-screen relative flex items-center justify-center py-16 overflow-hidden" id="products">
         {/* Heading positioned absolutely behind robots */}
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center z-0">
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center z-0 w-full px-4">
           <h2 
-            className="text-4xl md:text-5xl font-bold text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)] whitespace-nowrap"
+            className="text-2xl sm:text-4xl md:text-5xl font-bold text-white/40 drop-shadow-[0_8px_16px_rgba(0,0,0,1)]"
             style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.1em' }}
             data-testid="text-collection-title"
           >
@@ -33,7 +33,7 @@ export default function Home() {
         </div>
 
         {/* Products centered vertically */}
-        <div className="w-full px-8 md:px-16">
+        <div className="w-full px-4 sm:px-8 md:px-16 overflow-hidden">
           {isLoading ? (
             <div className="flex gap-6 justify-center">
               {[1, 2, 3].map((i) => (
@@ -51,7 +51,7 @@ export default function Home() {
               </Button>
             </div>
           ) : (
-            <div className="flex flex-wrap gap-6 justify-center items-start px-4" data-testid="grid-products">
+            <div className="flex flex-wrap gap-4 sm:gap-6 justify-center items-start" data-testid="grid-products">
               {products?.slice(0, 3).map((product, index) => (
                 <AnimatedProductCard
                   key={product.id}
@@ -66,9 +66,9 @@ export default function Home() {
 
       {/* Section 3: More Products */}
       {!isLoading && !isError && products && products.length > 3 && (
-        <section className="relative flex items-center justify-center py-8">
-          <div className="w-full px-8 md:px-16">
-            <div className="flex flex-wrap gap-6 justify-center items-start px-4">
+        <section className="relative flex items-center justify-center py-8 overflow-hidden">
+          <div className="w-full px-4 sm:px-8 md:px-16 overflow-hidden">
+            <div className="flex flex-wrap gap-4 sm:gap-6 justify-center items-start">
               {products.slice(3, 6).map((product, index) => (
                 <AnimatedProductCard
                   key={product.id}
