@@ -20,9 +20,6 @@ export default function Checkout() {
   const { address: walletAddress, isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [transactionHash, setTransactionHash] = useState("");
@@ -45,10 +42,10 @@ export default function Checkout() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !address || !city || !postalCode) {
+    if (!email) {
       toast({
         title: "Missing information",
-        description: "Please fill in all shipping details",
+        description: "Please enter your email address",
         variant: "destructive",
       });
       return;
@@ -80,7 +77,6 @@ export default function Checkout() {
           price: item.product.price,
         })),
         totalAmount: totalPrice.toFixed(2),
-        shippingDetails: { address, city, postalCode },
       };
 
       // FIXED TEST PRICE: 0.001 ETH (~$2.50 at current rates)
@@ -216,10 +212,10 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
-                  Shipping Information
+                  Contact Information
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent>
                 <div>
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -231,44 +227,9 @@ export default function Checkout() {
                     required
                     data-testid="input-email"
                   />
-                </div>
-
-                <div>
-                  <Label htmlFor="address">Street Address</Label>
-                  <Input
-                    id="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="123 Main St"
-                    required
-                    data-testid="input-address"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="city">City</Label>
-                    <Input
-                      id="city"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="New York"
-                      required
-                      data-testid="input-city"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="postal">Postal Code</Label>
-                    <Input
-                      id="postal"
-                      value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value)}
-                      placeholder="10001"
-                      required
-                      data-testid="input-postal"
-                    />
-                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Order confirmation will be sent to this email
+                  </p>
                 </div>
               </CardContent>
             </Card>

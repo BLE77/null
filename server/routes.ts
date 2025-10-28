@@ -102,7 +102,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // This route handler ONLY executes if middleware verified payment
       async (req, res) => {
         try {
-          const { customerEmail, items, totalAmount, shippingDetails } = req.body;
+          const { customerEmail, items, totalAmount } = req.body;
           
           // At this point, payment has been cryptographically verified by X402 middleware
           // The facilitator has confirmed the EIP-712 signature and blockchain transaction
