@@ -197,11 +197,15 @@ export default function Checkout() {
           throw new Error("Solana wallet not connected");
         }
 
+        console.log('[Solana Payment] Starting payment with wallet:', solanaWallet.publicKey.toString());
+
         // Create wallet adapter for x402-solana
         const walletAdapter = {
           address: solanaWallet.publicKey.toString(),
           signTransaction: async (tx: VersionedTransaction): Promise<VersionedTransaction> => {
+            console.log('[Solana Payment] Signing transaction...');
             const signedTx = await solanaWallet.signTransaction(tx);
+            console.log('[Solana Payment] Transaction signed successfully');
             return signedTx;
           }
         };
@@ -209,17 +213,19 @@ export default function Checkout() {
         // Create x402 client for automatic payment handling
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana-devnet', // Change to 'solana' for mainnet
-          rpcEndpoint: 'https://api.devnet.solana.com', // Solana devnet RPC
-          facilitatorUrl: 'https://facilitator.payai.network', // x402 facilitator
+          network: 'solana-devnet', // Use 'solana-devnet' or 'solana' for mainnet
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
+        
+        console.log('[Solana Payment] x402 client created, making payment request...');
 
+        console.log('[Solana Payment] Making payment request...');
         const response = await x402Client.fetch('/api/checkout/pay/solana', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderData),
         });
+        console.log('[Solana Payment] Payment response received:', response.status);
 
         if (response.ok) {
           const result = await response.json();

@@ -154,18 +154,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // Mainnet USDC
 
       // If no payment header, return 402 with payment requirements
-      // Format matches x402-solana client expectations (NO recipient in 402 response)
+      // Format matches x402-solana client expectations
       if (!paymentHeader) {
         const paymentResponse = {
           price: {
             amount: "2500000", // $2.50 USDC (6 decimals)
             asset: { address: USDC_MINT_DEVNET },
           },
-          network: "solana-devnet", // Use "solana" for mainnet
+          network: "solana-devnet", // Use 'solana-devnet' or 'solana' for mainnet
           config: {
             description: "OFF HUMAN Streetwear Order",
             resource: "/api/checkout/pay/solana",
-            recipient: X402_SOLANA_WALLET, // Recipient goes inside config
+            recipient: X402_SOLANA_WALLET,
           },
         };
         console.log("[Solana Payment] Returning 402 with requirements:", JSON.stringify(paymentResponse, null, 2));
