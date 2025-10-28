@@ -465,7 +465,7 @@ export default function Checkout() {
             <Button
               type="submit"
               className="w-full h-12 uppercase tracking-wider text-base"
-              disabled={!isConnected || isProcessing}
+              disabled={!isWalletConnected || isProcessing || !email}
               data-testid="button-place-order"
             >
               {isProcessing ? (
