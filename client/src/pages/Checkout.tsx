@@ -211,14 +211,11 @@ export default function Checkout() {
         };
 
         // Create x402 client for automatic payment handling
-        // MAINNET with Helius RPC - REAL USDC PAYMENTS
-        // Note: Helius API key is embedded for production use
-        const heliusRpc = 'https://mainnet.helius-rpc.com/?api-key=REDACTED_HELIUS_KEY';
-        
+        // Using DEVNET - x402 facilitator settles transactions on devnet
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana', // MAINNET
-          rpcUrl: heliusRpc,
+          network: 'solana-devnet', // DEVNET
+          rpcUrl: 'https://api.devnet.solana.com',
           maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
         
