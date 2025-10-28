@@ -136,7 +136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   }
 
   // Solana X402 Payment Endpoint
-  // Manual payment verification (x402-solana doesn't have middleware like x402-express)
+  // Using X402PaymentHandler library for proper payment handling
   app.post("/api/checkout/pay/solana", async (req, res) => {
     try {
       if (!X402_SOLANA_WALLET) {
@@ -146,56 +146,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const paymentHeader = req.headers['x-payment'] as string;
-      const { customerEmail, items, totalAmount } = req.body;
+      // Import X402PaymentHandler
+      const { X402PaymentHandler } = await import('x402-solana/server');
 
-      // USDC mint addresses on Solana
-      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"; // Devnet USDC
-      const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // Mainnet USDC
-
-      // If no payment header, return 402 with payment requirements
-      // Format matches x402-solana client expectations
-      if (!paymentHeader) {
-        const paymentResponse = {
-          price: {
-            amount: "2500000", // $2.50 USDC (6 decimals)
-            asset: { address: USDC_MINT_DEVNET },
-          },
-          network: "solana-devnet", // Use 'solana-devnet' or 'solana' for mainnet
-          config: {
-            description: "OFF HUMAN Streetwear Order",
-            resource: "/api/checkout/pay/solana",
-            recipient: X402_SOLANA_WALLET,
-          },
-        };
-        console.log("[Solana Payment] Returning 402 with requirements:", JSON.stringify(paymentResponse, null, 2));
-        return res.status(402).json(paymentResponse);
-      }
-
-      // Verify payment with facilitator
-      const verificationResponse = await fetch(`${FACILITATOR_URL}/verify`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          paymentHeader,
-          recipient: X402_SOLANA_WALLET,
-          amount: "2500000",
-          token: USDC_MINT_DEVNET,
-          network: "solana-devnet",
-        }),
+      // Create payment handler with proper configuration
+      const x402 = new X402PaymentHandler({
+        network: 'solana-devnet',
+        treasuryAddress: X402_SOLANA_WALLET,
+        facilitatorUrl: FACILITATOR_URL,
       });
 
-      if (!verificationResponse.ok) {
+      const paymentHeader = x402.extractPayment(req.headers);
+      const { customerEmail, items, totalAmount } = req.body;
+
+      // USDC mint address on Solana Devnet
+      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+
+      // Create payment requirements using library format
+      const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
+      const paymentRequirements = await x402.createPaymentRequirements({
+        price: {
+          amount: "2500000", // $2.50 USDC (6 decimals)
+          asset: { 
+            address: USDC_MINT_DEVNET,
+            decimals: 6, // USDC has 6 decimals
+          },
+        },
+        network: "solana-devnet",
+        config: {
+          description: "OFF HUMAN Streetwear Order",
+          resource: `${baseUrl}/api/checkout/pay/solana`,
+        },
+      });
+
+      // If no payment header, return 402 using library method
+      if (!paymentHeader) {
+        const response = x402.create402Response(paymentRequirements);
+        console.log("[Solana Payment] Returning 402 with requirements:", JSON.stringify(response.body, null, 2));
+        return res.status(response.status).json(response.body);
+      }
+
+      // Verify payment using library method
+      const verified = await x402.verifyPayment(paymentHeader, paymentRequirements);
+      if (!verified) {
         return res.status(402).json({
           error: "Payment verification failed",
           message: "Invalid or unverified payment",
         });
       }
 
-      const verificationResult = await verificationResponse.json();
-      const paymentTxHash = verificationResult.transactionHash || 'solana-x402-verified';
+      // Get transaction hash from payment header
+      const paymentTxHash = paymentHeader || 'solana-x402-verified';
 
       // Create the order with verified transaction details
       const order = await dbStorage.createOrder({
