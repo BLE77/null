@@ -226,16 +226,12 @@ export function CharacterController() {
     };
 
     const playOneShot = (kind: string) => {
-      console.log('🎯 playOneShot called with:', kind);
       const { actions, mixer } = sceneRef.current;
-      console.log('Available actions:', actions ? Object.keys(actions) : 'none');
       const act = actions?.[kind];
       
       if (!act) {
-        console.warn(`❌ No animation found for: ${kind}`);
         // For aura, show text even without animation
         if (kind === 'aura') {
-          console.log('💚 Showing aura text anyway (no animation)');
           revealAuraText();
           scheduleAuraTextHide();
         }
@@ -259,7 +255,6 @@ export function CharacterController() {
       sceneRef.current.activeAction = act;
       
       if (kind === 'aura') {
-        console.log('💚 Revealing aura text');
         revealAuraText();
         scheduleAuraTextHide();
       }
@@ -278,22 +273,16 @@ export function CharacterController() {
     };
 
     const ensureAuraText = async () => {
-      if (sceneRef.current.auraTextMesh) {
-        console.log('♻️ Aura text mesh already exists');
-        return sceneRef.current.auraTextMesh;
-      }
+      if (sceneRef.current.auraTextMesh) return sceneRef.current.auraTextMesh;
       
-      console.log('🔨 Creating aura text mesh...');
       try {
         const ttfLoader = new TTFLoader();
         const fontLoader = new FontLoader();
         
         return new Promise<THREE.Mesh>((resolve) => {
-          console.log('📁 Loading font:', auraFont);
           ttfLoader.load(
             auraFont, 
             (data: any) => {
-              console.log('✅ Font loaded successfully');
               const font = fontLoader.parse(data);
               const textGeo = new TextGeometry('+100 Aura!!', {
                 font,
@@ -318,41 +307,31 @@ export function CharacterController() {
               
               const mesh = new THREE.Mesh(textGeo, textMat);
               mesh.visible = false;
-              mesh.position.set(-1.5, 2.4, 0);
+              mesh.position.set(-1.5, 2.4, -2);
               mesh.scale.setScalar(0.2);
               scene.add(mesh);
               sceneRef.current.auraTextMesh = mesh;
-              console.log('✅ Aura text mesh created and added to scene');
               resolve(mesh);
             },
             undefined,
             (error: any) => {
-              console.error('❌ Failed to load font:', error);
+              console.error('Failed to load aura font:', error);
               resolve(null as any);
             }
           );
         });
       } catch (err) {
-        console.error('❌ Failed to create aura text:', err);
+        console.warn('Failed to create aura text:', err);
         return null;
       }
     };
 
     const revealAuraText = () => {
-      console.log('💫 revealAuraText called');
       ensureAuraText().then((mesh) => {
-        if (!mesh) {
-          console.error('❌ Aura mesh not created');
-          return;
-        }
-        // Randomize position each time
-        const randomX = -2 + Math.random() * 1.5; // Random between -2 and -0.5 (left side)
-        const randomZ = -0.5 + Math.random() * 1; // Random between -0.5 and 0.5 (slight depth variation)
-        mesh.position.set(randomX, 2.4, randomZ);
+        if (!mesh) return;
         mesh.visible = true;
         mesh.scale.setScalar(0.2);
         sceneRef.current.auraTextScaleTarget = 0.6;
-        console.log('✅ Aura text revealed at position:', mesh.position, 'visible:', mesh.visible);
       });
     };
 
@@ -388,20 +367,10 @@ export function CharacterController() {
       }
       
       const lower = e.key.toLowerCase();
-      if (lower === 'j') {
-        console.log('⚡ J key pressed - punch');
-        playOneShot('punch');
-      }
-      if (lower === 'k') {
-        console.log('⚡ K key pressed - kick');
-        playOneShot('kick');
-      }
-      if (lower === 'u') {
-        console.log('⚡ U key pressed - aura');
-        playOneShot('aura');
-      }
+      if (lower === 'j') playOneShot('punch');
+      if (lower === 'k') playOneShot('kick');
+      if (lower === 'u') playOneShot('aura');
       if (e.code === 'Space') {
-        console.log('⚡ Space key pressed - jump');
         e.preventDefault();
         playOneShot('jump');
       }
