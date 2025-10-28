@@ -196,6 +196,7 @@ export class DbStorage {
     }
 
     const adminUsername = process.env.ADMIN_USERNAME || "admin";
+    const existingAdmin = await this.getUserByUsername(adminUsername);
     if (existingAdmin) return;
 
     // Using environment variables for credentials (or defaults in development)
