@@ -139,18 +139,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       
-      // X402 protocol requires paymentOptions array format
+      // X402 protocol format (from official examples)
       const paymentRequirements = {
         x402Version: 1,
-        paymentOptions: [
+        paymentRequirements: [  // ← Correct field name (not paymentOptions)
           {
-            scheme: "exact",
-            network: "base",
-            maxAmountRequired: serverTotal.toFixed(2), // Properly formatted decimal string
-            resource: `${baseUrl}/api/checkout/pay`,
-            payTo: X402_WALLET,
-            asset: USDC_BASE_MAINNET,
-            description: `OFF HUMAN Streetwear Order - $${serverTotal.toFixed(2)} USDC`,
+            scheme: "eip7702-sign",  // ← Correct scheme for EVM
+            network: "base",         // ← base mainnet
+            asset: "USDC",           // ← Just "USDC", not contract address
+            recipient: X402_WALLET,  // ← recipient, not payTo
+            amount: usdcMicroUnits.toString(), // ← micro-units as string, not USD
+            extras: {
+              description: `OFF HUMAN Streetwear Order - $${serverTotal.toFixed(2)} USDC`,
+            }
           }
         ]
       };
@@ -163,6 +164,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           microUnits: usdcMicroUnits,
           network: "base",
         }, null, 2));
+        console.log("[Base Payment] FULL 402 RESPONSE:", JSON.stringify(paymentRequirements, null, 2));
         
         return res.status(402).json(paymentRequirements);
       }
@@ -178,7 +180,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Call facilitator verify endpoint
         // Facilitator expects: { paymentPayload, paymentRequirements }
         // paymentPayload should be the EIP-712 payload (not the full envelope)
-        // paymentRequirements should be the individual option object (not the array wrapper)
+        // paymentRequirements should be the individual requirement object (not the array wrapper)
         const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
           method: 'POST',
           headers: {
@@ -186,7 +188,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           body: JSON.stringify({
             paymentPayload: decodedPayment.payload,
-            paymentRequirements: paymentRequirements.paymentOptions[0],
+            paymentRequirements: paymentRequirements.paymentRequirements[0],
           }),
         });
 
