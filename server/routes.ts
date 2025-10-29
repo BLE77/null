@@ -92,9 +92,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           "POST /api/checkout/pay": {
             price: "$2.50", // Price in USD - facilitator converts to USDC
-            network: "base", // BASE MAINNET - Real USDC payments
+            network: "base-sepolia", // BASE SEPOLIA TESTNET - Facilitator mainnet has infrastructure issues
             asset: {
-              address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as `0x${string}`, // USDC on Base Mainnet
+              address: "0x036CbD53842c5426634e7929541eC2318f3dCF7e" as `0x${string}`, // USDC on Base Sepolia
               decimals: 6, // USDC has 6 decimals
             },
           },
