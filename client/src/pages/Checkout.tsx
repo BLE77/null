@@ -12,8 +12,7 @@ import { getProductImage } from "@/lib/product-images";
 import { useAccount, useDisconnect, useWalletClient } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
-import { withPaymentInterceptor } from 'x402-axios';
-import axios from 'axios';
+import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
 
@@ -162,30 +161,34 @@ export default function Checkout() {
       });
 
       if (selectedNetwork === 'base') {
-        // Base Network Payment using x402-axios (PROVEN TO WORK)
+        // Base Network Payment using x402-fetch
         if (!walletClient || !walletAddress) {
           throw new Error("EVM wallet not connected");
         }
 
-        console.log('[Base Payment] Using x402-axios with wagmi wallet client');
+        console.log('[Base Payment] Using x402-fetch with wagmi wallet client');
         console.log('[Base Payment] Wallet address:', walletAddress);
-        console.log('[Base Payment] Chain:', await walletClient.getChainId());
 
-        // Create axios client with x402 payment interceptor
-        const baseApiClient = axios.create({
-          baseURL: window.location.origin,
-          headers: { 'Content-Type': 'application/json' }
+        // Wrap fetch with x402 payment handler
+        // @ts-ignore - Type mismatch but runtime works
+        const paymentFetch = wrapFetchWithPayment(fetch, walletClient);
+        console.log('[Base Payment] Sending payment request...');
+
+        const response = await paymentFetch('/api/checkout/pay', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData),
         });
 
-        // Use the SAME approach that worked on testnet
-        // @ts-ignore - Type mismatch but runtime works
-        const apiClient = withPaymentInterceptor(baseApiClient, walletClient);
-        console.log('[Base Payment] Payment interceptor configured, sending request...');
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || 'Payment failed');
+        }
 
-        const response = await apiClient.post('/api/checkout/pay', orderData);
+        const result = await response.json();
+        console.log('[Base Payment] Payment successful!', result);
         
-        console.log('[Base Payment] Payment successful!', response.data);
-        setTransactionHash(response.data.order.transactionHash);
+        setTransactionHash(result.order.transactionHash);
         setPaymentNetwork('base');
         setOrderComplete(true);
         clearCart();
