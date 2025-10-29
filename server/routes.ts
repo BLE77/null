@@ -4,6 +4,7 @@ import { dbStorage } from "./db-storage";
 import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth";
+import { paymentMiddleware } from "x402-express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Seed products and admin user on startup
@@ -12,7 +13,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // X402 Payment configuration
   const X402_WALLET = process.env.X402_WALLET_ADDRESS;
-  const X402_SOLANA_WALLET = process.env.X402_SOLANA_WALLET_ADDRESS || X402_WALLET; // Can use same wallet or separate Solana wallet
+  const X402_SOLANA_WALLET = process.env.X402_SOLANA_WALLET_ADDRESS || X402_WALLET;
   const FACILITATOR_URL = "https://facilitator.payai.network";
   
   if (!X402_WALLET) {
@@ -22,6 +23,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   if (!X402_SOLANA_WALLET) {
     console.warn("⚠️  X402_SOLANA_WALLET_ADDRESS not set - Solana payments will not work");
   }
+  
+  // Remove middleware - using manual handling for dynamic pricing
   
   app.get("/api/products", async (req, res) => {
     try {
@@ -139,15 +142,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       
+      // TESTNET FIRST - Switch to base-sepolia to test
+      const USDC_BASE_SEPOLIA = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
+      
       // X402 protocol format (correct v0.7.0 spec)
       const paymentRequirements = {
         x402Version: 1,
         paymentRequirements: [
           {
             scheme: "eip7702-sign",
-            network: "base",
-            asset: {  // ← Must be an object with address and decimals
-              address: USDC_BASE_MAINNET,
+            network: "base-sepolia", // TESTNET
+            asset: {
+              address: USDC_BASE_SEPOLIA,
               decimals: 6
             },
             recipient: X402_WALLET,

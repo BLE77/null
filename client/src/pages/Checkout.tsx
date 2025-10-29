@@ -17,7 +17,7 @@ import axios from 'axios';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
 import { createWalletClient, custom, type WalletClient, type Hex } from 'viem';
-import { base } from 'viem/chains';
+import { baseSepolia } from 'viem/chains';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -43,14 +43,14 @@ export default function Checkout() {
   // Create manual wallet client when wagmi wallet connects (compatible with x402)
   useEffect(() => {
     if (isConnected && walletAddress && typeof window.ethereum !== 'undefined') {
-      console.log('[Wallet Setup] Creating manual viem wallet client for x402');
+      console.log('[Wallet Setup] Creating manual viem wallet client for x402 (TESTNET)');
       const client = createWalletClient({
         account: walletAddress as Hex,
-        chain: base,
+        chain: baseSepolia,
         transport: custom(window.ethereum)
       });
       setManualWalletClient(client);
-      console.log('[Wallet Setup] Manual wallet client created successfully');
+      console.log('[Wallet Setup] Manual wallet client created for Base Sepolia testnet');
     } else {
       setManualWalletClient(null);
     }
