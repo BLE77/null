@@ -536,7 +536,7 @@ export default function Checkout() {
               ) : !isWalletConnected ? (
                 'Connect Wallet to Pay'
               ) : (
-                `Pay $2.50 USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}`
+                `Pay $${totalPrice.toFixed(2)} USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}`
               )}
             </Button>
           </form>
