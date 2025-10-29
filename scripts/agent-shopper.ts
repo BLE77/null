@@ -138,7 +138,8 @@ REASON: [one sentence explanation]`;
   console.log(`\n✨ Agent chose: ${chosenProduct.name}`);
   console.log(`💰 Price: $${chosenProduct.price} USDC`);
 
-  if (chosenProduct.price > AGENT_CONFIG.budget) {
+  const productPrice = Number(chosenProduct.price);
+  if (productPrice > AGENT_CONFIG.budget) {
     console.log('❌ Product exceeds budget, aborting purchase');
     process.exit(1);
   }
@@ -160,9 +161,9 @@ REASON: [one sentence explanation]`;
       name: chosenProduct.name,
       size: 'L', // Agent picks size L
       quantity: 1,
-      price: chosenProduct.price,
+      price: productPrice,
     }],
-    totalAmount: chosenProduct.price.toFixed(2),
+    totalAmount: productPrice.toFixed(2),
   };
 
   console.log('\n📡 Sending payment request to store...');
@@ -185,7 +186,7 @@ REASON: [one sentence explanation]`;
     console.log('\n✅ PURCHASE COMPLETE!');
     console.log('═══════════════════════════════════════');
     console.log(`🎉 Product: ${chosenProduct.name}`);
-    console.log(`💰 Amount Paid: $${chosenProduct.price} USDC`);
+    console.log(`💰 Amount Paid: $${productPrice.toFixed(2)} USDC`);
     console.log(`🔗 Transaction: ${result.order.transactionHash}`);
     console.log(`📧 Receipt sent to: ${orderData.customerEmail}`);
     console.log('═══════════════════════════════════════\n');
