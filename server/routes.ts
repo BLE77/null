@@ -142,18 +142,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       
-      // TESTNET FIRST - Switch to base-sepolia to test
-      const USDC_BASE_SEPOLIA = "0x036CbD53842c5426634e7929541eC2318f3dCF7e";
-      
       // X402 protocol format (correct v0.7.0 spec)
       const paymentRequirements = {
         x402Version: 1,
         paymentRequirements: [
           {
             scheme: "eip7702-sign",
-            network: "base-sepolia", // TESTNET
+            network: "base", // MAINNET PRODUCTION
             asset: {
-              address: USDC_BASE_SEPOLIA,
+              address: USDC_BASE_MAINNET,
               decimals: 6
             },
             recipient: X402_WALLET,
