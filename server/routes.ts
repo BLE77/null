@@ -139,16 +139,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       
-      // X402 protocol format (from official examples)
+      // X402 protocol format (correct v0.7.0 spec)
       const paymentRequirements = {
         x402Version: 1,
-        paymentRequirements: [  // ← Correct field name (not paymentOptions)
+        paymentRequirements: [
           {
-            scheme: "eip7702-sign",  // ← Correct scheme for EVM
-            network: "base",         // ← base mainnet
-            asset: "USDC",           // ← Just "USDC", not contract address
-            recipient: X402_WALLET,  // ← recipient, not payTo
-            amount: usdcMicroUnits.toString(), // ← micro-units as string, not USD
+            scheme: "eip7702-sign",
+            network: "base",
+            asset: {  // ← Must be an object with address and decimals
+              address: USDC_BASE_MAINNET,
+              decimals: 6
+            },
+            recipient: X402_WALLET,
+            amount: usdcMicroUnits.toString(),
+            resource: `${baseUrl}/api/checkout/pay`,
             extras: {
               description: `OFF HUMAN Streetwear Order - $${serverTotal.toFixed(2)} USDC`,
             }
