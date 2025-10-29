@@ -30,7 +30,7 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
 - **Shopping Cart**: Implemented with a slide-in sidebar interface.
 - **Pages**: Home (`/`), Shop (`/shop`), Product Detail (`/product/:id`), Checkout (`/checkout`), and About (`/about`).
 - **Data Models**: Defined for Product (name, description, price, media, inventory, modelUrl), CartItem, and Order (customerEmail, items, totalAmount, transactionHash, status).
-- **Payment System**: Dual-network cryptocurrency payments supporting **USDC on both Base and Solana networks**. **Dynamic pricing** based on actual cart total (products range from $1-$4). Uses 6 decimal places for USDC micro-units. Network selection UI on checkout page.
+- **Payment System**: Dual-network cryptocurrency payments supporting **USDC on both Base and Solana networks**. Fixed $2.50 test price. Uses 6 decimal places for USDC micro-units. Network selection UI on checkout page.
 - **Checkout Flow**: Email-only requirement (no shipping address). Users select network (Base/Solana), connect appropriate wallet, enter email, and complete payment.
 
 ## External Dependencies
@@ -38,11 +38,11 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   
   **Base Network Implementation:**
   - **Endpoint**: `/api/checkout/pay` with X402 Express middleware (plug-and-play)
-  - **Currency**: USDC (6 decimals) with **dynamic pricing** based on cart total (up to $100 max)
+  - **Currency**: USDC (6 decimals) with $2.50 fixed test price
   - **Asset Addresses**: 
     - Base Sepolia (testnet): `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
-    - Base Mainnet: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` ⬅️ **ACTIVE**
-  - **Network**: **Base mainnet (production)** - live and accepting real USDC payments
+    - Base Mainnet: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
+  - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
   - **Packages**: `x402-express`, `x402-fetch`, `viem`, `wagmi`, `@web3modal/wagmi`
   - **Wallets**: MetaMask, Coinbase Wallet, WalletConnect (300+ wallets), Phantom (EVM mode)
   - **Payment Flow**: 
@@ -56,9 +56,9 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   
   **Solana Network Implementation:**
   - **Endpoint**: `/api/checkout/pay/solana` with manual x402-solana verification (no middleware)
-  - **Currency**: USDC (6 decimals) with **dynamic pricing** based on cart total
+  - **Currency**: USDC (6 decimals) with $2.50 fixed test price
   - **Asset Address**: 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU (USDC mint on Solana devnet)
-  - **Network**: Solana devnet (testnet only - mainnet not supported yet)
+  - **Network**: Solana devnet
   - **CRITICAL ISSUE**: Solana **mainnet does NOT work** with x402 PayAI facilitator despite documentation claiming "drop-in setup". Facilitator rejects all mainnet verification attempts with "Invalid request". See `SOLANA_MAINNET_ISSUE.md` for full details.
   - **Packages**: `x402-solana`, `@solana/web3.js`
   - **Wallets**: Phantom (Solana mode), Backpack
@@ -79,20 +79,9 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   - **Wallet Address**: X402_WALLET_ADDRESS environment variable (payment receiving address)
   - **Network Selection**: Users choose Base or Solana on checkout page
   - **Status**: 
-    - ✅ Base mainnet payments: **ACTIVE IN PRODUCTION** - Fully functional with dynamic pricing
-    - ✅ Solana devnet payments: **Fully functional for testing** with dynamic pricing
+    - ✅ Base mainnet payments: **Fully functional and production-ready**
+    - ✅ Solana devnet payments: **Fully functional for testing**
     - ❌ Solana mainnet payments: **Broken** - facilitator rejects all verification attempts (see `SOLANA_MAINNET_ISSUE.md`)
-  
-  **Recent Updates (Oct 29, 2025):**
-  - **Base Mainnet Production**: Switched from Base Sepolia testnet to Base mainnet (ACTIVE)
-  - **Dynamic Pricing**: Implemented true dynamic pricing ($0.01-$100 based on actual cart)
-  - **Manual x402 Protocol**: Replaced middleware with manual x402 handling for flexible pricing
-  - **Security Hardening**: Added server-side cart validation to prevent price manipulation
-  - **X402 Protocol Fixes**:
-    - Fixed 402 response format: Uses `x402Version` and `paymentOptions` array per spec
-    - Fixed facilitator payload: Sends `decodedPayment.payload` and individual option object
-    - Fixed amount formatting: Uses `toFixed(2)` to prevent floating-point errors (e.g., "0.30" not "0.30000000000000004")
-  - **Cart Validation**: Server fetches products from DB, validates totals, enforces $100 cap
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.

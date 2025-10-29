@@ -9,12 +9,12 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { getProductImage } from "@/lib/product-images";
-import { useAccount, useDisconnect, useWalletClient } from 'wagmi';
+import { useAccount, useWalletClient, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
+import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
-import { parseUnits, type Hex } from 'viem';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -36,7 +36,6 @@ export default function Checkout() {
   const [solanaConnected, setSolanaConnected] = useState(false);
 
   const totalPrice = getTotalPrice();
-
 
   // Auto-disconnect EVM wallet and close Web3Modal when switching to Solana
   useEffect(() => {
@@ -152,8 +151,7 @@ export default function Checkout() {
         totalAmount: totalPrice.toFixed(2),
       };
 
-      // Use actual cart total for payment
-      const usdcAmount = totalPrice;
+      const usdcAmount = 2.50;
       
       toast({
         title: "Preparing payment",
@@ -161,75 +159,38 @@ export default function Checkout() {
       });
 
       if (selectedNetwork === 'base') {
-        // Direct USDC Transfer on Base (NO x402 - it's broken)
-        if (!walletClient || !walletAddress) {
-          throw new Error("EVM wallet not connected");
+        // Base Network Payment (EVM)
+        if (!walletClient) {
+          throw new Error("EVM wallet client not available");
         }
 
-        console.log('[Base Payment] Direct USDC transfer');
-        console.log('[Base Payment] From:', walletAddress);
-        
-        // Base mainnet USDC contract
-        const USDC_CONTRACT = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913' as Hex;
-        const RECIPIENT = '0x6983aAc8c2eA0E74E18A92f4F4324073396CC1Bf' as Hex;
-        
-        // Convert USD amount to USDC units (6 decimals)
-        const usdcUnits = parseUnits(usdcAmount.toString(), 6);
-        console.log('[Base Payment] Amount:', usdcAmount, 'USDC =', usdcUnits.toString(), 'units');
+        const fetchWithPayment = wrapFetchWithPayment(
+          fetch, 
+          walletClient as any,
+          BigInt(Math.floor(10 * 1_000_000)) // $10 USDC max
+        );
 
-        // ERC20 transfer function signature
-        const transferData = `0xa9059cbb${RECIPIENT.slice(2).padStart(64, '0')}${usdcUnits.toString(16).padStart(64, '0')}` as Hex;
-        
-        console.log('[Base Payment] Sending USDC transfer transaction...');
-        
-        // Send USDC transfer transaction
-        const txHash = await walletClient.sendTransaction({
-          account: walletAddress as Hex,
-          to: USDC_CONTRACT,
-          data: transferData,
-          chain: walletClient.chain,
-        });
-
-        console.log('[Base Payment] Transaction sent:', txHash);
-        
-        toast({
-          title: "Transaction submitted",
-          description: "Waiting for blockchain confirmation...",
-        });
-
-        // Wait for confirmation (optional - can skip for faster UX)
-        console.log('[Base Payment] Waiting for confirmation...');
-        await walletClient.waitForTransactionReceipt({ hash: txHash });
-        
-        console.log('[Base Payment] Transaction confirmed! Creating order...');
-
-        // Create order on backend
-        const response = await fetch('/api/checkout/pay/direct', {
+        const response = await fetchWithPayment('/api/checkout/pay', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...orderData,
-            transactionHash: txHash,
-            network: 'base',
-          }),
+          body: JSON.stringify(orderData),
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to create order');
+        if (response.ok) {
+          const result = await response.json();
+          setTransactionHash(result.order.transactionHash);
+          setPaymentNetwork('base');
+          setOrderComplete(true);
+          clearCart();
+          setIsProcessing(false);
+          toast({
+            title: "Payment successful!",
+            description: "Your USDC payment on Base has been verified",
+          });
+        } else {
+          const error = await response.json();
+          throw new Error(error.message || 'Payment failed');
         }
-
-        const result = await response.json();
-        console.log('[Base Payment] Order created!', result);
-        
-        setTransactionHash(txHash);
-        setPaymentNetwork('base');
-        setOrderComplete(true);
-        clearCart();
-        setIsProcessing(false);
-        toast({
-          title: "Payment successful!",
-          description: "Your USDC payment has been confirmed",
-        });
       } else {
         // Solana Network Payment
         if (!solanaWallet?.publicKey) {
@@ -249,17 +210,13 @@ export default function Checkout() {
           }
         };
 
-        // Convert USD amount to USDC micro-units (6 decimals) for Solana
-        // Use precise calculation to avoid floating-point rounding errors
-        const solanaUsdcMicroUnits = BigInt(Math.round(usdcAmount * 1_000_000));
-        
         // Create x402 client for automatic payment handling  
         // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"
         const x402Client = createX402Client({
           wallet: walletAdapter,
           network: 'solana-devnet',
           rpcUrl: 'https://api.devnet.solana.com',
-          maxPaymentAmount: solanaUsdcMicroUnits, // Exact cart total in USDC micro-units
+          maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
         });
         
         console.log('[Solana Payment] x402 client created, making payment request...');
@@ -569,7 +526,7 @@ export default function Checkout() {
               ) : !isWalletConnected ? (
                 'Connect Wallet to Pay'
               ) : (
-                `Pay $${totalPrice.toFixed(2)} USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}`
+                `Pay $2.50 USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}`
               )}
             </Button>
           </form>
