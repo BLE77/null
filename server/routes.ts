@@ -173,7 +173,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const usdcMicroUnits = Math.floor(priceInUSD * 1_000_000);
 
       // Create payment requirements using library format
-      const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
+      const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
+      const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
           amount: usdcMicroUnits.toString(), // Dynamic price based on cart total
@@ -185,7 +186,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         network: "solana-devnet",
         config: {
           description: "OFF HUMAN Streetwear Order",
-          resource: `${baseUrl}/api/checkout/pay/solana`,
+          resource: `${baseUrl}/api/checkout/pay/solana` as `${string}://${string}`,
         },
       });
 
