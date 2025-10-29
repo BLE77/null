@@ -177,7 +177,26 @@ REASON: [one sentence explanation]`;
 
     if (!paymentResponse.ok) {
       const error = await paymentResponse.json();
-      console.error('❌ Payment failed:', error);
+      
+      // Check if this is a 402 Payment Required response
+      if (error.x402Version && error.accepts) {
+        const paymentInfo = error.accepts[0];
+        const amountUSDC = (parseInt(paymentInfo.maxAmountRequired) / 1_000_000).toFixed(2);
+        
+        console.error('\n❌ Payment could not be completed');
+        console.error('════════════════════════════════════════════════════════════');
+        console.error(`💰 Required: $${amountUSDC} USDC on Base network`);
+        console.error(`💳 Agent wallet: ${account.address}`);
+        console.error('\n⚠️  Your agent wallet likely needs:');
+        console.error(`   1. At least $${amountUSDC} USDC (to pay for the product)`);
+        console.error('   2. Some ETH on Base (for gas fees, ~$0.10)');
+        console.error('\n🔗 Fund your wallet:');
+        console.error('   • Bridge USDC: https://bridge.base.org');
+        console.error('   • Get Base ETH: https://www.base.org/ecosystem');
+        console.error('════════════════════════════════════════════════════════════\n');
+      } else {
+        console.error('❌ Payment failed:', error);
+      }
       process.exit(1);
     }
 
