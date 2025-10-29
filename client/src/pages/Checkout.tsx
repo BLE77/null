@@ -185,15 +185,16 @@ export default function Checkout() {
         }
 
         console.log('[Base Payment] Creating axios client with payment interceptor');
-        console.log('[Base Payment] Wallet client:', manualWalletClient);
+        console.log('[Base Payment] Using account:', manualWalletClient.account);
         
         // Create axios instance with x402 payment interceptor
+        // CRITICAL: withPaymentInterceptor expects an ACCOUNT, not a walletClient!
         const baseApiClient = axios.create({
           baseURL: window.location.origin,
           headers: { 'Content-Type': 'application/json' }
         });
         
-        const apiClient = withPaymentInterceptor(baseApiClient, manualWalletClient as any);
+        const apiClient = withPaymentInterceptor(baseApiClient, manualWalletClient.account as any);
         console.log('[Base Payment] Axios client created, making payment request');
 
         const response = await apiClient.post('/api/checkout/pay', orderData);
