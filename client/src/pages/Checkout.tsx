@@ -179,28 +179,91 @@ export default function Checkout() {
       });
 
       if (selectedNetwork === 'base') {
-        // Base Network Payment (EVM) using x402-axios
+        // Base Network Payment - MANUAL IMPLEMENTATION (bypass x402-axios)
         if (!manualWalletClient) {
           throw new Error("EVM wallet client not available");
         }
 
-        console.log('[Base Payment] Creating axios client with payment interceptor');
-        console.log('[Base Payment] Using account:', manualWalletClient.account);
-        
-        // Create axios instance with x402 payment interceptor
-        // CRITICAL: withPaymentInterceptor expects an ACCOUNT, not a walletClient!
-        const baseApiClient = axios.create({
-          baseURL: window.location.origin,
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
-        const apiClient = withPaymentInterceptor(baseApiClient, manualWalletClient.account as any);
-        console.log('[Base Payment] Axios client created, making payment request');
+        console.log('[Base Payment] Making initial request to get 402 response...');
 
-        const response = await apiClient.post('/api/checkout/pay', orderData);
-        
-        console.log('[Base Payment] Payment response received:', response.status);
-        setTransactionHash(response.data.order.transactionHash);
+        // Step 1: Make initial request - expect 402 Payment Required
+        const initialResponse = await fetch('/api/checkout/pay', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData),
+        });
+
+        if (initialResponse.status !== 402) {
+          throw new Error(`Expected 402 Payment Required, got ${initialResponse.status}`);
+        }
+
+        const paymentRequirements = await initialResponse.json();
+        console.log('[Base Payment] Got 402 response with requirements:', paymentRequirements);
+
+        const requirement = paymentRequirements.paymentRequirements[0];
+        console.log('[Base Payment] Payment requirement:', requirement);
+
+        // Step 2: Create EIP-712 typed data for signing
+        const typedData = {
+          domain: {
+            name: 'x402',
+            version: '1',
+            chainId: await manualWalletClient.getChainId(),
+          },
+          types: {
+            Payment: [
+              { name: 'recipient', type: 'address' },
+              { name: 'amount', type: 'uint256' },
+              { name: 'asset', type: 'address' },
+              { name: 'resource', type: 'string' },
+            ],
+          },
+          primaryType: 'Payment' as const,
+          message: {
+            recipient: requirement.recipient,
+            amount: BigInt(requirement.amount),
+            asset: requirement.asset.address,
+            resource: requirement.resource,
+          },
+        };
+
+        console.log('[Base Payment] Signing payment with wallet...');
+
+        // Step 3: Sign the typed data
+        const signature = await manualWalletClient.signTypedData({
+          account: manualWalletClient.account!,
+          ...typedData,
+        });
+        console.log('[Base Payment] Payment signed:', signature.substring(0, 20) + '...');
+
+        // Step 4: Create payment header
+        const paymentPayload = {
+          payload: typedData.message,
+          signature,
+        };
+
+        const paymentHeader = btoa(JSON.stringify(paymentPayload));
+        console.log('[Base Payment] Submitting payment with X-PAYMENT header...');
+
+        // Step 5: Retry request with payment
+        const finalResponse = await fetch('/api/checkout/pay', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-PAYMENT': paymentHeader,
+          },
+          body: JSON.stringify(orderData),
+        });
+
+        if (!finalResponse.ok) {
+          const error = await finalResponse.json();
+          throw new Error(error.message || 'Payment verification failed');
+        }
+
+        const result = await finalResponse.json();
+        console.log('[Base Payment] Payment successful!', result);
+
+        setTransactionHash(result.order.transactionHash);
         setPaymentNetwork('base');
         setOrderComplete(true);
         clearCart();
