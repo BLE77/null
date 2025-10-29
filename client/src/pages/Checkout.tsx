@@ -9,13 +9,15 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { getProductImage } from "@/lib/product-images";
-import { useAccount, useWalletClient, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
 import { withPaymentInterceptor } from 'x402-axios';
 import axios from 'axios';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
+import { createWalletClient, custom, type WalletClient, type Hex } from 'viem';
+import { base } from 'viem/chains';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -24,7 +26,6 @@ export default function Checkout() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const { address: walletAddress, isConnected } = useAccount();
-  const { data: walletClient } = useWalletClient();
   const { disconnect } = useDisconnect();
   const { close } = useWeb3Modal();
   const [email, setEmail] = useState("");
@@ -35,8 +36,25 @@ export default function Checkout() {
   const [paymentNetwork, setPaymentNetwork] = useState<PaymentNetwork>('base');
   const [solanaWallet, setSolanaWallet] = useState<any>(null);
   const [solanaConnected, setSolanaConnected] = useState(false);
+  const [manualWalletClient, setManualWalletClient] = useState<WalletClient | null>(null);
 
   const totalPrice = getTotalPrice();
+
+  // Create manual wallet client when wagmi wallet connects (compatible with x402)
+  useEffect(() => {
+    if (isConnected && walletAddress && typeof window.ethereum !== 'undefined') {
+      console.log('[Wallet Setup] Creating manual viem wallet client for x402');
+      const client = createWalletClient({
+        account: walletAddress as Hex,
+        chain: base,
+        transport: custom(window.ethereum)
+      });
+      setManualWalletClient(client);
+      console.log('[Wallet Setup] Manual wallet client created successfully');
+    } else {
+      setManualWalletClient(null);
+    }
+  }, [isConnected, walletAddress]);
 
   // Auto-disconnect EVM wallet and close Web3Modal when switching to Solana
   useEffect(() => {
@@ -162,11 +180,12 @@ export default function Checkout() {
 
       if (selectedNetwork === 'base') {
         // Base Network Payment (EVM) using x402-axios
-        if (!walletClient) {
+        if (!manualWalletClient) {
           throw new Error("EVM wallet client not available");
         }
 
         console.log('[Base Payment] Creating axios client with payment interceptor');
+        console.log('[Base Payment] Wallet client:', manualWalletClient);
         
         // Create axios instance with x402 payment interceptor
         const baseApiClient = axios.create({
@@ -174,7 +193,7 @@ export default function Checkout() {
           headers: { 'Content-Type': 'application/json' }
         });
         
-        const apiClient = withPaymentInterceptor(baseApiClient, walletClient as any);
+        const apiClient = withPaymentInterceptor(baseApiClient, manualWalletClient as any);
         console.log('[Base Payment] Axios client created, making payment request');
 
         const response = await apiClient.post('/api/checkout/pay', orderData);

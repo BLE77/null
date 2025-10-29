@@ -1,0 +1,59 @@
+8:25:31 PM [express] POST /api/checkout/pay 402 in 35ms :: {"x402Version":1,"paymentRequirements":[{…
+[Base Payment] Validating cart server-side...
+[Base Payment] X402 CALL TEE x1 = $1.00
+[Base Payment] ✅ Cart validation passed: $1.00
+[Base Payment] No payment header found, returning 402 with requirements
+[Base Payment] Required payment: {
+  "amount": "$1.00",
+  "microUnits": 1000000,
+  "network": "base"
+}
+[Base Payment] FULL 402 RESPONSE: {
+  "x402Version": 1,
+  "paymentRequirements": [
+    {
+      "scheme": "eip7702-sign",
+      "network": "base",
+      "asset": {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "decimals": 6
+      },
+      "recipient": "0x6983aAc8c2eA0E74E18A92f4F4324073396CC1Bf",
+      "amount": "1000000",
+      "resource": "https://afa42c80-b2ce-4259-83ca-003bf6a3a8cc-00-15es718ftmzcp.picard.replit.dev/api/checkout/pay",
+      "extras": {
+        "description": "OFF HUMAN Streetwear Order - $1.00 USDC"
+      }
+    }
+  ]
+}
+8:25:31 PM [express] POST /api/checkout/pay 402 in 26ms :: {"x402Version":1,"paymentRequirements":[{…
+[Base Payment] Validating cart server-side...
+[Base Payment] X402 CALL TEE x1 = $1.00
+[Base Payment] ✅ Cart validation passed: $1.00
+[Base Payment] No payment header found, returning 402 with requirements
+[Base Payment] Required payment: {
+  "amount": "$1.00",
+  "microUnits": 1000000,
+  "network": "base"
+}
+[Base Payment] FULL 402 RESPONSE: {
+  "x402Version": 1,
+  "paymentRequirements": [
+    {
+      "scheme": "eip7702-sign",
+      "network": "base",
+      "asset": {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "decimals": 6
+      },
+      "recipient": "0x6983aAc8c2eA0E74E18A92f4F4324073396CC1Bf",
+      "amount": "1000000",
+      "resource": "https://afa42c80-b2ce-4259-83ca-003bf6a3a8cc-00-15es718ftmzcp.picard.replit.dev/api/checkout/pay",
+      "extras": {
+        "description": "OFF HUMAN Streetwear Order - $1.00 USDC"
+      }
+    }
+  ]
+}
+8:25:31 PM [express] POST /api/checkout/pay 402 in 25ms :: {"x402Version":1,"paymentRequirements":[{…
