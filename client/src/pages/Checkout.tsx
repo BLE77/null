@@ -151,7 +151,8 @@ export default function Checkout() {
         totalAmount: totalPrice.toFixed(2),
       };
 
-      const usdcAmount = 2.50;
+      // Use actual cart total for payment
+      const usdcAmount = totalPrice;
       
       toast({
         title: "Preparing payment",
@@ -164,10 +165,13 @@ export default function Checkout() {
           throw new Error("EVM wallet client not available");
         }
 
+        // Convert USD amount to USDC micro-units (6 decimals)
+        const usdcMicroUnits = BigInt(Math.floor(usdcAmount * 1_000_000));
+        
         const fetchWithPayment = wrapFetchWithPayment(
           fetch, 
           walletClient as any,
-          BigInt(Math.floor(10 * 1_000_000)) // $10 USDC max
+          usdcMicroUnits // Exact cart total in USDC micro-units
         );
 
         const response = await fetchWithPayment('/api/checkout/pay', {
@@ -210,13 +214,16 @@ export default function Checkout() {
           }
         };
 
+        // Convert USD amount to USDC micro-units (6 decimals) for Solana
+        const solanaUsdcMicroUnits = BigInt(Math.floor(usdcAmount * 1_000_000));
+        
         // Create x402 client for automatic payment handling  
         // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"
         const x402Client = createX402Client({
           wallet: walletAdapter,
           network: 'solana-devnet',
           rpcUrl: 'https://api.devnet.solana.com',
-          maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
+          maxPaymentAmount: solanaUsdcMicroUnits, // Exact cart total in USDC micro-units
         });
         
         console.log('[Solana Payment] x402 client created, making payment request...');

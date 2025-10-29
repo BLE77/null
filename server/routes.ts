@@ -85,19 +85,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // 2. Verify cryptographic signature with facilitator
     // 3. Only call next() if payment is valid
     // 4. Return 402 if payment missing/invalid
+    // 
+    // DYNAMIC PRICING: The middleware accepts up to $100 max
+    // The frontend specifies the exact amount via wrapFetchWithPayment's maxPay parameter
+    // The transaction will be for the exact cart total (up to $100 max)
     app.post(
       "/api/checkout/pay",
       paymentMiddleware(
         X402_WALLET as `0x${string}`,
         {
           "POST /api/checkout/pay": {
-            price: "$2.50", // Price in USD - facilitator converts to USDC
-            network: "base-sepolia", // Use base-sepolia for testing, change to "base" for mainnet
+            price: "$100.00", // Maximum price - frontend specifies exact amount
+            network: "base", // Base mainnet - production ready!
             asset: {
-              address: "0x036CbD53842c5426634e7929541eC2318f3dCF7e" as `0x${string}`, // USDC on Base Sepolia
+              address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as `0x${string}`, // USDC on Base Mainnet
               decimals: 6, // USDC has 6 decimals
             },
-            // For mainnet, use: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
           },
         },
         {
@@ -165,11 +168,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // USDC mint address on Solana DEVNET
       const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
 
+      // Calculate USDC amount in micro-units (6 decimals) from cart total
+      const priceInUSD = totalAmount ? parseFloat(totalAmount) : 0;
+      const usdcMicroUnits = Math.floor(priceInUSD * 1_000_000);
+
       // Create payment requirements using library format
       const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
-          amount: "2500000", // $2.50 USDC (6 decimals)
+          amount: usdcMicroUnits.toString(), // Dynamic price based on cart total
           asset: { 
             address: USDC_MINT_DEVNET,
             decimals: 6, // USDC has 6 decimals
