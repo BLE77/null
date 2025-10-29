@@ -16,7 +16,7 @@ export function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 metallic-nav">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-16">
           <Link href="/">
             <div className="cursor-pointer inline-block" data-testid="link-home">
               <img 
@@ -28,7 +28,7 @@ export function Navigation() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8">
             <Link href="/">
               <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-home">
                 Home
@@ -53,7 +53,7 @@ export function Navigation() {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ml-auto">
             <UniversalWalletConnect />
             {user ? (
               <>
