@@ -12,9 +12,9 @@ import { getProductImage } from "@/lib/product-images";
 import { useAccount, useDisconnect, useWalletClient } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
-import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
+import { parseUnits, type Hex } from 'viem';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -161,41 +161,74 @@ export default function Checkout() {
       });
 
       if (selectedNetwork === 'base') {
-        // Base Network Payment using x402-fetch
+        // Direct USDC Transfer on Base (NO x402 - it's broken)
         if (!walletClient || !walletAddress) {
           throw new Error("EVM wallet not connected");
         }
 
-        console.log('[Base Payment] Using x402-fetch with wagmi wallet client');
-        console.log('[Base Payment] Wallet address:', walletAddress);
+        console.log('[Base Payment] Direct USDC transfer');
+        console.log('[Base Payment] From:', walletAddress);
+        
+        // Base mainnet USDC contract
+        const USDC_CONTRACT = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913' as Hex;
+        const RECIPIENT = '0x6983aAc8c2eA0E74E18A92f4F4324073396CC1Bf' as Hex;
+        
+        // Convert USD amount to USDC units (6 decimals)
+        const usdcUnits = parseUnits(usdcAmount.toString(), 6);
+        console.log('[Base Payment] Amount:', usdcAmount, 'USDC =', usdcUnits.toString(), 'units');
 
-        // Wrap fetch with x402 payment handler
-        // @ts-ignore - Type mismatch but runtime works
-        const paymentFetch = wrapFetchWithPayment(fetch, walletClient);
-        console.log('[Base Payment] Sending payment request...');
+        // ERC20 transfer function signature
+        const transferData = `0xa9059cbb${RECIPIENT.slice(2).padStart(64, '0')}${usdcUnits.toString(16).padStart(64, '0')}` as Hex;
+        
+        console.log('[Base Payment] Sending USDC transfer transaction...');
+        
+        // Send USDC transfer transaction
+        const txHash = await walletClient.sendTransaction({
+          account: walletAddress as Hex,
+          to: USDC_CONTRACT,
+          data: transferData,
+          chain: walletClient.chain,
+        });
 
-        const response = await paymentFetch('/api/checkout/pay', {
+        console.log('[Base Payment] Transaction sent:', txHash);
+        
+        toast({
+          title: "Transaction submitted",
+          description: "Waiting for blockchain confirmation...",
+        });
+
+        // Wait for confirmation (optional - can skip for faster UX)
+        console.log('[Base Payment] Waiting for confirmation...');
+        await walletClient.waitForTransactionReceipt({ hash: txHash });
+        
+        console.log('[Base Payment] Transaction confirmed! Creating order...');
+
+        // Create order on backend
+        const response = await fetch('/api/checkout/pay/direct', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData),
+          body: JSON.stringify({
+            ...orderData,
+            transactionHash: txHash,
+            network: 'base',
+          }),
         });
 
         if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.message || 'Payment failed');
+          throw new Error('Failed to create order');
         }
 
         const result = await response.json();
-        console.log('[Base Payment] Payment successful!', result);
+        console.log('[Base Payment] Order created!', result);
         
-        setTransactionHash(result.order.transactionHash);
+        setTransactionHash(txHash);
         setPaymentNetwork('base');
         setOrderComplete(true);
         clearCart();
         setIsProcessing(false);
         toast({
           title: "Payment successful!",
-          description: "Your USDC payment on Base has been verified",
+          description: "Your USDC payment has been confirmed",
         });
       } else {
         // Solana Network Payment

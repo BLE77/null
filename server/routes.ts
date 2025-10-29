@@ -272,6 +272,80 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Direct USDC Transfer Endpoint (Base Mainnet)
+  // Simple approach - no broken x402 libraries
+  app.post("/api/checkout/pay/direct", async (req, res) => {
+    try {
+      const { customerEmail, items, totalAmount, transactionHash, network } = req.body;
+      
+      if (!transactionHash) {
+        return res.status(400).json({ message: "Transaction hash required" });
+      }
+
+      // Server-side cart validation
+      console.log("[Direct Payment] Validating cart...");
+      let serverTotal = 0;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ 
+          error: "Invalid cart",
+          message: "Cart is empty or invalid"
+        });
+      }
+
+      for (const item of items) {
+        const product = await dbStorage.getProduct(item.productId);
+        if (!product) {
+          return res.status(400).json({
+            error: "Product not found",
+            message: `Product ${item.productId} not found`
+          });
+        }
+        
+        const itemTotal = parseFloat(product.price) * item.quantity;
+        serverTotal += itemTotal;
+        console.log(`[Direct Payment] ${product.name} x${item.quantity} = $${itemTotal.toFixed(2)}`);
+      }
+
+      // Verify cart total matches
+      const claimedTotal = parseFloat(totalAmount);
+      if (Math.abs(serverTotal - claimedTotal) > 0.01) {
+        console.log(`[Direct Payment] ❌ Cart total mismatch! Server: $${serverTotal.toFixed(2)}, Client: $${claimedTotal.toFixed(2)}`);
+        return res.status(400).json({
+          error: "Cart total mismatch",
+          message: `Server calculated $${serverTotal.toFixed(2)} but client claimed $${claimedTotal.toFixed(2)}`
+        });
+      }
+
+      console.log(`[Direct Payment] ✅ Cart validated: $${serverTotal.toFixed(2)}`);
+      console.log(`[Direct Payment] Transaction hash: ${transactionHash}`);
+      console.log(`[Direct Payment] Network: ${network}`);
+
+      // Create order
+      const order = await dbStorage.createOrder({
+        customerEmail,
+        items: JSON.stringify(items),
+        totalAmount: serverTotal.toFixed(2),
+        transactionHash,
+        status: "completed",
+      });
+
+      console.log("[Direct Payment] ✅ Order created:", order.id);
+
+      res.status(200).json({
+        success: true,
+        order,
+        message: "Order created successfully",
+      });
+    } catch (error) {
+      console.error("Direct payment error:", error);
+      res.status(500).json({
+        message: "Failed to create order",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Solana X402 Payment Endpoint
   // Using X402PaymentHandler library for proper payment handling
   app.post("/api/checkout/pay/solana", async (req, res) => {
