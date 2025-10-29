@@ -105,6 +105,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ),
       // This route handler ONLY executes if middleware verified payment
       async (req, res) => {
+        // Safety check: middleware may have already sent a response
+        if (res.headersSent) {
+          console.log("[Payment] Response already sent by middleware, skipping handler");
+          return;
+        }
+        
         try {
           const { customerEmail, items, totalAmount } = req.body;
           
@@ -121,14 +127,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
             status: "completed",
           });
           
-          res.status(200).json({
-            success: true,
-            order,
-            message: "Payment verified and order created",
-          });
+          if (!res.headersSent) {
+            res.status(200).json({
+              success: true,
+              order,
+              message: "Payment verified and order created",
+            });
+          }
         } catch (error) {
           console.error("Order creation error:", error);
-          res.status(500).json({ message: "Failed to create order after payment" });
+          if (!res.headersSent) {
+            res.status(500).json({ message: "Failed to create order after payment" });
+          }
         }
       }
     );
@@ -167,6 +177,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create payment requirements using library format
       const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
+      const resourceUrl = `${baseUrl}/api/checkout/pay/solana` as `${string}://${string}`;
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
           amount: "2500000", // $2.50 USDC (6 decimals)
@@ -178,7 +189,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         network: "solana-devnet",
         config: {
           description: "OFF HUMAN Streetwear Order",
-          resource: `${baseUrl}/api/checkout/pay/solana`,
+          resource: resourceUrl,
         },
       });
 
