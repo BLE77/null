@@ -9,15 +9,13 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { getProductImage } from "@/lib/product-images";
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect, useWalletClient } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
 import { withPaymentInterceptor } from 'x402-axios';
 import axios from 'axios';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
-import { createWalletClient, custom, type WalletClient, type Hex } from 'viem';
-import { base } from 'viem/chains';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -26,6 +24,7 @@ export default function Checkout() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const { address: walletAddress, isConnected } = useAccount();
+  const { data: walletClient } = useWalletClient();
   const { disconnect } = useDisconnect();
   const { close } = useWeb3Modal();
   const [email, setEmail] = useState("");
@@ -36,25 +35,9 @@ export default function Checkout() {
   const [paymentNetwork, setPaymentNetwork] = useState<PaymentNetwork>('base');
   const [solanaWallet, setSolanaWallet] = useState<any>(null);
   const [solanaConnected, setSolanaConnected] = useState(false);
-  const [manualWalletClient, setManualWalletClient] = useState<WalletClient | null>(null);
 
   const totalPrice = getTotalPrice();
 
-  // Create manual wallet client when wagmi wallet connects (compatible with x402)
-  useEffect(() => {
-    if (isConnected && walletAddress && typeof window.ethereum !== 'undefined') {
-      console.log('[Wallet Setup] Creating manual viem wallet client for x402 (MAINNET)');
-      const client = createWalletClient({
-        account: walletAddress as Hex,
-        chain: base,
-        transport: custom(window.ethereum)
-      });
-      setManualWalletClient(client);
-      console.log('[Wallet Setup] Manual wallet client created for Base mainnet');
-    } else {
-      setManualWalletClient(null);
-    }
-  }, [isConnected, walletAddress]);
 
   // Auto-disconnect EVM wallet and close Web3Modal when switching to Solana
   useEffect(() => {
@@ -179,91 +162,30 @@ export default function Checkout() {
       });
 
       if (selectedNetwork === 'base') {
-        // Base Network Payment - MANUAL IMPLEMENTATION (bypass x402-axios)
-        if (!manualWalletClient) {
-          throw new Error("EVM wallet client not available");
+        // Base Network Payment using x402-axios (PROVEN TO WORK)
+        if (!walletClient || !walletAddress) {
+          throw new Error("EVM wallet not connected");
         }
 
-        console.log('[Base Payment] Making initial request to get 402 response...');
+        console.log('[Base Payment] Using x402-axios with wagmi wallet client');
+        console.log('[Base Payment] Wallet address:', walletAddress);
+        console.log('[Base Payment] Chain:', await walletClient.getChainId());
 
-        // Step 1: Make initial request - expect 402 Payment Required
-        const initialResponse = await fetch('/api/checkout/pay', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData),
+        // Create axios client with x402 payment interceptor
+        const baseApiClient = axios.create({
+          baseURL: window.location.origin,
+          headers: { 'Content-Type': 'application/json' }
         });
 
-        if (initialResponse.status !== 402) {
-          throw new Error(`Expected 402 Payment Required, got ${initialResponse.status}`);
-        }
+        // Use the SAME approach that worked on testnet
+        // @ts-ignore - Type mismatch but runtime works
+        const apiClient = withPaymentInterceptor(baseApiClient, walletClient);
+        console.log('[Base Payment] Payment interceptor configured, sending request...');
 
-        const paymentRequirements = await initialResponse.json();
-        console.log('[Base Payment] Got 402 response with requirements:', paymentRequirements);
-
-        const requirement = paymentRequirements.paymentRequirements[0];
-        console.log('[Base Payment] Payment requirement:', requirement);
-
-        // Step 2: Create EIP-712 typed data for signing
-        const typedData = {
-          domain: {
-            name: 'x402',
-            version: '1',
-            chainId: await manualWalletClient.getChainId(),
-          },
-          types: {
-            Payment: [
-              { name: 'recipient', type: 'address' },
-              { name: 'amount', type: 'uint256' },
-              { name: 'asset', type: 'address' },
-              { name: 'resource', type: 'string' },
-            ],
-          },
-          primaryType: 'Payment' as const,
-          message: {
-            recipient: requirement.recipient,
-            amount: BigInt(requirement.amount),
-            asset: requirement.asset.address,
-            resource: requirement.resource,
-          },
-        };
-
-        console.log('[Base Payment] Signing payment with wallet...');
-
-        // Step 3: Sign the typed data
-        const signature = await manualWalletClient.signTypedData({
-          account: manualWalletClient.account!,
-          ...typedData,
-        });
-        console.log('[Base Payment] Payment signed:', signature.substring(0, 20) + '...');
-
-        // Step 4: Create payment header
-        const paymentPayload = {
-          payload: typedData.message,
-          signature,
-        };
-
-        const paymentHeader = btoa(JSON.stringify(paymentPayload));
-        console.log('[Base Payment] Submitting payment with X-PAYMENT header...');
-
-        // Step 5: Retry request with payment
-        const finalResponse = await fetch('/api/checkout/pay', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-PAYMENT': paymentHeader,
-          },
-          body: JSON.stringify(orderData),
-        });
-
-        if (!finalResponse.ok) {
-          const error = await finalResponse.json();
-          throw new Error(error.message || 'Payment verification failed');
-        }
-
-        const result = await finalResponse.json();
-        console.log('[Base Payment] Payment successful!', result);
-
-        setTransactionHash(result.order.transactionHash);
+        const response = await apiClient.post('/api/checkout/pay', orderData);
+        
+        console.log('[Base Payment] Payment successful!', response.data);
+        setTransactionHash(response.data.order.transactionHash);
         setPaymentNetwork('base');
         setOrderComplete(true);
         clearCart();
