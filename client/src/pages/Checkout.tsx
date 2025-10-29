@@ -166,7 +166,9 @@ export default function Checkout() {
         }
 
         // Convert USD amount to USDC micro-units (6 decimals)
-        const usdcMicroUnits = BigInt(Math.floor(usdcAmount * 1_000_000));
+        // Use precise calculation to avoid floating-point rounding errors
+        // Multiply by 1M and round to ensure exact micro-unit precision
+        const usdcMicroUnits = BigInt(Math.round(usdcAmount * 1_000_000));
         
         const fetchWithPayment = wrapFetchWithPayment(
           fetch, 
@@ -215,7 +217,8 @@ export default function Checkout() {
         };
 
         // Convert USD amount to USDC micro-units (6 decimals) for Solana
-        const solanaUsdcMicroUnits = BigInt(Math.floor(usdcAmount * 1_000_000));
+        // Use precise calculation to avoid floating-point rounding errors
+        const solanaUsdcMicroUnits = BigInt(Math.round(usdcAmount * 1_000_000));
         
         // Create x402 client for automatic payment handling  
         // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"

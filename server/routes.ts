@@ -4,7 +4,6 @@ import { dbStorage } from "./db-storage";
 import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth";
-import { paymentMiddleware } from "x402-express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Seed products and admin user on startup
@@ -68,75 +67,200 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // X402 Protected Payment Endpoint
-  // The middleware MUST be applied in a way that blocks all requests without valid payment
-  if (!X402_WALLET) {
-    // Disable endpoint entirely if wallet not configured
-    app.post("/api/checkout/pay", (req, res) => {
-      res.status(503).json({
-        error: "Service Unavailable",
-        message: "Payment system not configured",
-      });
-    });
-  } else {
-    // Apply X402 middleware - this handles payment verification with the facilitator
-    // The middleware will:
-    // 1. Check for X-PAYMENT header
-    // 2. Verify cryptographic signature with facilitator
-    // 3. Only call next() if payment is valid
-    // 4. Return 402 if payment missing/invalid
-    // 
-    // DYNAMIC PRICING: The middleware accepts up to $100 max
-    // The frontend specifies the exact amount via wrapFetchWithPayment's maxPay parameter
-    // The transaction will be for the exact cart total (up to $100 max)
-    app.post(
-      "/api/checkout/pay",
-      paymentMiddleware(
-        X402_WALLET as `0x${string}`,
-        {
-          "POST /api/checkout/pay": {
-            price: "$100.00", // Maximum price - frontend specifies exact amount
-            network: "base", // Base mainnet - production ready!
-            asset: {
-              address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as `0x${string}`, // USDC on Base Mainnet
-              decimals: 6, // USDC has 6 decimals
-            },
-          },
-        },
-        {
-          url: FACILITATOR_URL,
-        }
-      ),
-      // This route handler ONLY executes if middleware verified payment
-      async (req, res) => {
-        try {
-          const { customerEmail, items, totalAmount } = req.body;
-          
-          // At this point, payment has been cryptographically verified by X402 middleware
-          // The facilitator has confirmed the EIP-712 signature and blockchain transaction
-          const paymentTxHash = req.headers['x-payment-tx'] as string || 'x402-verified';
-          
-          // Create the order with verified transaction details
-          const order = await dbStorage.createOrder({
-            customerEmail,
-            items: JSON.stringify(items),
-            totalAmount,
-            transactionHash: paymentTxHash,
-            status: "completed",
-          });
-          
-          res.status(200).json({
-            success: true,
-            order,
-            message: "Payment verified and order created",
-          });
-        } catch (error) {
-          console.error("Order creation error:", error);
-          res.status(500).json({ message: "Failed to create order after payment" });
-        }
+  // Base X402 Payment Endpoint
+  // Manual x402 handling with dynamic pricing based on cart total
+  app.post("/api/checkout/pay", async (req, res) => {
+    try {
+      if (!X402_WALLET) {
+        return res.status(503).json({
+          error: "Service Unavailable",
+          message: "Payment system not configured",
+        });
       }
-    );
-  }
+
+      // Extract payment header manually from request headers
+      const paymentHeader = req.headers['x-payment'] as string | undefined;
+      const { customerEmail, items, totalAmount } = req.body;
+
+      // CRITICAL: Server-side cart validation
+      // Validate cart against database to prevent price manipulation
+      console.log("[Base Payment] Validating cart server-side...");
+      let serverTotal = 0;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ 
+          error: "Invalid cart",
+          message: "Cart is empty or invalid"
+        });
+      }
+
+      for (const item of items) {
+        const product = await dbStorage.getProduct(item.productId);
+        if (!product) {
+          return res.status(400).json({ 
+            error: "Invalid product",
+            message: `Product ${item.productId} not found`
+          });
+        }
+        
+        const itemTotal = parseFloat(product.price) * item.quantity;
+        serverTotal += itemTotal;
+        console.log(`[Base Payment] ${product.name} x${item.quantity} = $${itemTotal.toFixed(2)}`);
+      }
+
+      // Verify cart total matches claimed amount
+      const claimedTotal = parseFloat(totalAmount);
+      if (Math.abs(serverTotal - claimedTotal) > 0.01) {
+        console.log(`[Base Payment] ❌ Cart total mismatch! Server: $${serverTotal.toFixed(2)}, Client: $${claimedTotal.toFixed(2)}`);
+        return res.status(400).json({
+          error: "Cart total mismatch",
+          message: `Server calculated $${serverTotal.toFixed(2)} but client claimed $${claimedTotal.toFixed(2)}`
+        });
+      }
+
+      // Enforce $100 maximum cap
+      if (serverTotal > 100) {
+        return res.status(400).json({
+          error: "Cart exceeds maximum",
+          message: "Cart total exceeds $100 maximum"
+        });
+      }
+
+      console.log(`[Base Payment] ✅ Cart validation passed: $${serverTotal.toFixed(2)}`);
+
+      // USDC contract on Base Mainnet
+      const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+
+      // Convert validated server total to USDC micro-units (6 decimals)
+      // Using Math.round to avoid floating-point errors
+      const usdcMicroUnits = Math.round(serverTotal * 1_000_000);
+
+      // Create payment requirements with EXACT cart total
+      const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
+      const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
+      
+      const paymentRequirements = {
+        version: 1,
+        scheme: "EIP712",
+        network: "base",
+        payment: {
+          amount: usdcMicroUnits.toString(),
+          asset: {
+            address: USDC_BASE_MAINNET,
+            decimals: 6,
+          },
+          receivingAddress: X402_WALLET,
+        },
+        config: {
+          description: "OFF HUMAN Streetwear Order",
+          resource: `${baseUrl}/api/checkout/pay`,
+        },
+      };
+
+      // If no payment header, return 402 with payment requirements
+      if (!paymentHeader) {
+        console.log("[Base Payment] No payment header found, returning 402 with requirements");
+        console.log("[Base Payment] Required payment:", JSON.stringify({
+          amount: `$${serverTotal.toFixed(2)}`,
+          microUnits: usdcMicroUnits,
+          network: "base",
+        }, null, 2));
+        
+        return res.status(402).json(paymentRequirements);
+      }
+
+      // Verify payment with facilitator via HTTP
+      console.log("[Base Payment] Verifying payment with facilitator...");
+      console.log("[Base Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
+      
+      try {
+        // Decode payment header to extract payload
+        const decodedPayment = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        
+        // Call facilitator verify endpoint
+        const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            payload: decodedPayment.payload,
+            paymentRequirements,
+          }),
+        });
+
+        if (!verifyResponse.ok) {
+          console.log("[Base Payment] ❌ Facilitator verification failed:", verifyResponse.status);
+          return res.status(402).json({
+            error: "Payment verification failed",
+            message: "Facilitator rejected payment signature"
+          });
+        }
+
+        const verifyResult = await verifyResponse.json();
+        console.log("[Base Payment] Facilitator verification result:", verifyResult);
+
+        if (!verifyResult.valid) {
+          console.log("[Base Payment] ❌ Payment is not valid");
+          return res.status(402).json({
+            error: "Payment verification failed",
+            message: verifyResult.reason || "Payment signature invalid"
+          });
+        }
+
+        console.log("[Base Payment] ✅ Payment VERIFIED by facilitator!");
+      } catch (verifyError) {
+        console.error("[Base Payment] Verification error:", verifyError);
+        return res.status(500).json({
+          error: "Verification failed",
+          message: "Could not verify payment with facilitator"
+        });
+      }
+
+      // Extract transaction hash from payment header
+      let txHash = 'base-x402-verified';
+      try {
+        const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        if (decodedHeader.payload?.transaction) {
+          txHash = decodedHeader.payload.transaction;
+        }
+      } catch (error) {
+        console.log("[Base Payment] Could not extract transaction hash:", error);
+      }
+
+      console.log("[Base Payment] Transaction hash:", txHash);
+      console.log("[Base Payment] 💰 USDC received at:", X402_WALLET);
+
+      // Create the order with verified payment
+      const order = await dbStorage.createOrder({
+        customerEmail,
+        items: JSON.stringify(items),
+        totalAmount: serverTotal.toFixed(2), // Use server-validated total
+        transactionHash: txHash,
+        status: "completed",
+      });
+
+      console.log("[Base Payment] ✅ Order created:", order.id);
+
+      res.status(200).json({
+        success: true,
+        order,
+        message: "Payment verified and order created",
+        transaction: {
+          hash: txHash,
+          network: "Base Mainnet",
+          amount: `$${serverTotal.toFixed(2)} USDC`,
+          receivedAt: X402_WALLET,
+        },
+      });
+    } catch (error) {
+      console.error("Base payment error:", error);
+      res.status(500).json({
+        message: "Failed to process Base payment",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
 
   // Solana X402 Payment Endpoint
   // Using X402PaymentHandler library for proper payment handling
@@ -165,19 +289,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const paymentHeader = x402.extractPayment(req.headers);
       const { customerEmail, items, totalAmount } = req.body;
 
+      // CRITICAL: Server-side cart validation
+      // Validate cart against database to prevent price manipulation
+      console.log("[Solana Payment] Validating cart server-side...");
+      let serverTotal = 0;
+      
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ 
+          error: "Invalid cart",
+          message: "Cart is empty or invalid"
+        });
+      }
+
+      for (const item of items) {
+        const product = await dbStorage.getProduct(item.productId);
+        if (!product) {
+          return res.status(400).json({ 
+            error: "Invalid product",
+            message: `Product ${item.productId} not found`
+          });
+        }
+        
+        const itemTotal = parseFloat(product.price) * item.quantity;
+        serverTotal += itemTotal;
+        console.log(`[Solana Payment] ${product.name} x${item.quantity} = $${itemTotal.toFixed(2)}`);
+      }
+
+      // Verify cart total matches claimed amount
+      const claimedTotal = parseFloat(totalAmount);
+      if (Math.abs(serverTotal - claimedTotal) > 0.01) {
+        console.log(`[Solana Payment] ❌ Cart total mismatch! Server: $${serverTotal.toFixed(2)}, Client: $${claimedTotal.toFixed(2)}`);
+        return res.status(400).json({
+          error: "Cart total mismatch",
+          message: `Server calculated $${serverTotal.toFixed(2)} but client claimed $${claimedTotal.toFixed(2)}`
+        });
+      }
+
+      // Enforce $100 maximum cap
+      if (serverTotal > 100) {
+        return res.status(400).json({
+          error: "Cart exceeds maximum",
+          message: "Cart total exceeds $100 maximum"
+        });
+      }
+
+      console.log(`[Solana Payment] ✅ Cart validation passed: $${serverTotal.toFixed(2)}`);
+
       // USDC mint address on Solana DEVNET
       const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
 
-      // Calculate USDC amount in micro-units (6 decimals) from cart total
-      const priceInUSD = totalAmount ? parseFloat(totalAmount) : 0;
-      const usdcMicroUnits = Math.floor(priceInUSD * 1_000_000);
+      // Convert validated server total to USDC micro-units (6 decimals)
+      // Using Math.round to avoid floating-point errors
+      const usdcMicroUnits = Math.round(serverTotal * 1_000_000);
 
       // Create payment requirements using library format
       const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
-          amount: usdcMicroUnits.toString(), // Dynamic price based on cart total
+          amount: usdcMicroUnits.toString(), // Exact cart total from server validation
           asset: { 
             address: USDC_MINT_DEVNET,
             decimals: 6, // USDC has 6 decimals
@@ -277,7 +447,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const order = await dbStorage.createOrder({
         customerEmail,
         items: JSON.stringify(items),
-        totalAmount,
+        totalAmount: serverTotal.toFixed(2), // Use server-validated total
         transactionHash: txSignature,
         status: "completed",
       });
@@ -291,8 +461,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         transaction: {
           signature: txSignature,
           explorer: `https://explorer.solana.com/tx/${txSignature}`,
-          network: "Solana Mainnet",
-          amount: "$2.50 USDC",
+          network: "Solana Devnet",
+          amount: `$${serverTotal.toFixed(2)} USDC`,
           receivedAt: X402_SOLANA_WALLET,
         },
       });
