@@ -9,12 +9,13 @@ import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Loader2, CheckCircle2, Wallet } from "lucide-react";
 import { getProductImage } from "@/lib/product-images";
-import { useAccount, useWalletClient, useDisconnect } from 'wagmi';
+import { useAccount, useWalletClient, useDisconnect, useSwitchChain } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
 import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
+import { base } from 'wagmi/chains';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -22,10 +23,11 @@ export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
-  const { address: walletAddress, isConnected } = useAccount();
+  const { address: walletAddress, isConnected, chain } = useAccount();
   const { data: walletClient } = useWalletClient();
   const { disconnect } = useDisconnect();
   const { close } = useWeb3Modal();
+  const { switchChain } = useSwitchChain();
   const [email, setEmail] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
@@ -162,6 +164,27 @@ export default function Checkout() {
         // Base Network Payment (EVM)
         if (!walletClient) {
           throw new Error("EVM wallet client not available");
+        }
+
+        // Check if wallet is on Base Mainnet (chain ID 8453)
+        if (chain?.id !== base.id) {
+          console.log('[Network Switch] Wrong network detected. Current:', chain?.id, 'Required:', base.id);
+          toast({
+            title: "Switching network",
+            description: "Switching to Base Mainnet...",
+          });
+          
+          try {
+            await switchChain({ chainId: base.id });
+            toast({
+              title: "Network switched",
+              description: "Successfully switched to Base Mainnet",
+            });
+            // Wait a moment for the wallet to update
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          } catch (error) {
+            throw new Error("Please switch to Base Mainnet in your wallet to continue");
+          }
         }
 
         const fetchWithPayment = wrapFetchWithPayment(

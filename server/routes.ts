@@ -165,7 +165,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
 
       // Create payment requirements using library format
-      const baseUrl = req.headers.host ? `https://${req.headers.host}` : 'http://localhost:5000';
+      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+      const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       const paymentRequirements = await x402.createPaymentRequirements({
         price: {
           amount: "2500000", // $2.50 USDC (6 decimals)
