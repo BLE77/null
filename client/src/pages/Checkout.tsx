@@ -165,15 +165,11 @@ export default function Checkout() {
           throw new Error("EVM wallet client not available");
         }
 
-        // Convert USD amount to USDC micro-units (6 decimals)
-        // Use precise calculation to avoid floating-point rounding errors
-        // Multiply by 1M and round to ensure exact micro-unit precision
-        const usdcMicroUnits = BigInt(Math.round(usdcAmount * 1_000_000));
-        
+        // wrapFetchWithPayment automatically reads payment amount from 402 response
+        // No need to pass maxPay - the library gets it from paymentOptions[0].maxAmountRequired
         const fetchWithPayment = wrapFetchWithPayment(
           fetch, 
-          walletClient as any,
-          usdcMicroUnits // Exact cart total in USDC micro-units
+          walletClient as any
         );
 
         const response = await fetchWithPayment('/api/checkout/pay', {
