@@ -12,7 +12,8 @@ import { getProductImage } from "@/lib/product-images";
 import { useAccount, useWalletClient, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { WalletConnect } from '@/components/WalletConnect';
-import { wrapFetchWithPayment } from 'x402-fetch';
+import { withPaymentInterceptor } from 'x402-axios';
+import axios from 'axios';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
 
@@ -160,39 +161,34 @@ export default function Checkout() {
       });
 
       if (selectedNetwork === 'base') {
-        // Base Network Payment (EVM)
+        // Base Network Payment (EVM) using x402-axios
         if (!walletClient) {
           throw new Error("EVM wallet client not available");
         }
 
-        // wrapFetchWithPayment automatically reads payment amount from 402 response
-        // No need to pass maxPay - the library gets it from paymentOptions[0].maxAmountRequired
-        const fetchWithPayment = wrapFetchWithPayment(
-          fetch, 
-          walletClient as any
-        );
-
-        const response = await fetchWithPayment('/api/checkout/pay', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData),
+        console.log('[Base Payment] Creating axios client with payment interceptor');
+        
+        // Create axios instance with x402 payment interceptor
+        const baseApiClient = axios.create({
+          baseURL: window.location.origin,
+          headers: { 'Content-Type': 'application/json' }
         });
+        
+        const apiClient = withPaymentInterceptor(baseApiClient, walletClient as any);
+        console.log('[Base Payment] Axios client created, making payment request');
 
-        if (response.ok) {
-          const result = await response.json();
-          setTransactionHash(result.order.transactionHash);
-          setPaymentNetwork('base');
-          setOrderComplete(true);
-          clearCart();
-          setIsProcessing(false);
-          toast({
-            title: "Payment successful!",
-            description: "Your USDC payment on Base has been verified",
-          });
-        } else {
-          const error = await response.json();
-          throw new Error(error.message || 'Payment failed');
-        }
+        const response = await apiClient.post('/api/checkout/pay', orderData);
+        
+        console.log('[Base Payment] Payment response received:', response.status);
+        setTransactionHash(response.data.order.transactionHash);
+        setPaymentNetwork('base');
+        setOrderComplete(true);
+        clearCart();
+        setIsProcessing(false);
+        toast({
+          title: "Payment successful!",
+          description: "Your USDC payment on Base has been verified",
+        });
       } else {
         // Solana Network Payment
         if (!solanaWallet?.publicKey) {
