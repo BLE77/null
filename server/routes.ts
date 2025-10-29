@@ -139,22 +139,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const protocol = req.headers.host?.includes('replit.dev') ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       
+      // X402 protocol requires paymentOptions array format
       const paymentRequirements = {
-        version: 1,
-        scheme: "EIP712",
-        network: "base",
-        payment: {
-          amount: usdcMicroUnits.toString(),
-          asset: {
-            address: USDC_BASE_MAINNET,
-            decimals: 6,
-          },
-          receivingAddress: X402_WALLET,
-        },
-        config: {
-          description: "OFF HUMAN Streetwear Order",
-          resource: `${baseUrl}/api/checkout/pay`,
-        },
+        x402Version: 1,
+        paymentOptions: [
+          {
+            scheme: "exact",
+            network: "base",
+            maxAmountRequired: serverTotal.toFixed(2), // Properly formatted decimal string
+            resource: `${baseUrl}/api/checkout/pay`,
+            payTo: X402_WALLET,
+            asset: USDC_BASE_MAINNET,
+            description: `OFF HUMAN Streetwear Order - $${serverTotal.toFixed(2)} USDC`,
+          }
+        ]
       };
 
       // If no payment header, return 402 with payment requirements
@@ -178,14 +176,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const decodedPayment = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
         
         // Call facilitator verify endpoint
+        // Facilitator expects: { paymentPayload, paymentRequirements }
+        // paymentPayload should be the EIP-712 payload (not the full envelope)
+        // paymentRequirements should be the individual option object (not the array wrapper)
         const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            payload: decodedPayment.payload,
-            paymentRequirements,
+            paymentPayload: decodedPayment.payload,
+            paymentRequirements: paymentRequirements.paymentOptions[0],
           }),
         });
 
