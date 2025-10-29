@@ -84,10 +84,15 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
     - ❌ Solana mainnet payments: **Broken** - facilitator rejects all verification attempts (see `SOLANA_MAINNET_ISSUE.md`)
   
   **Recent Updates (Oct 29, 2025):**
-  - Switched from Base Sepolia testnet to Base mainnet for production payments
-  - Implemented dynamic pricing system - transactions now match actual cart totals ($1-$4 per item)
-  - Middleware accepts up to $100, frontend specifies exact amount via `wrapFetchWithPayment`
-  - Both Base and Solana endpoints use cart total instead of fixed $2.50 test price
+  - **Base Mainnet Production**: Switched from Base Sepolia testnet to Base mainnet (ACTIVE)
+  - **Dynamic Pricing**: Implemented true dynamic pricing ($0.01-$100 based on actual cart)
+  - **Manual x402 Protocol**: Replaced middleware with manual x402 handling for flexible pricing
+  - **Security Hardening**: Added server-side cart validation to prevent price manipulation
+  - **X402 Protocol Fixes**:
+    - Fixed 402 response format: Uses `x402Version` and `paymentOptions` array per spec
+    - Fixed facilitator payload: Sends `decodedPayment.payload` and individual option object
+    - Fixed amount formatting: Uses `toFixed(2)` to prevent floating-point errors (e.g., "0.30" not "0.30000000000000004")
+  - **Cart Validation**: Server fetches products from DB, validates totals, enforces $100 cap
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.
