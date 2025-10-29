@@ -38,11 +38,9 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   
   **Base Network Implementation:**
   - **Endpoint**: `/api/checkout/pay` with X402 Express middleware (plug-and-play)
-  - **Currency**: USDC (6 decimals) with $2.50 fixed test price
-  - **Asset Addresses**: 
-    - Base Sepolia (testnet): `0x036CbD53842c5426634e7929541eC2318f3dCF7e`
-    - Base Mainnet: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
-  - **Network**: Base Sepolia (testnet) - change to `base` for mainnet
+  - **Currency**: USDC (6 decimals) with $2.50 price
+  - **Asset Address**: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` (USDC on Base Mainnet)
+  - **Network**: **Base Mainnet** (production) - real USDC payments enabled
   - **Packages**: `x402-express`, `x402-fetch`, `viem`, `wagmi`, `@web3modal/wagmi`
   - **Wallets**: MetaMask, Coinbase Wallet, WalletConnect (300+ wallets), Phantom (EVM mode)
   - **Payment Flow**: 
@@ -79,7 +77,7 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
   - **Wallet Address**: X402_WALLET_ADDRESS environment variable (payment receiving address)
   - **Network Selection**: Users choose Base or Solana on checkout page
   - **Status**: 
-    - ✅ Base mainnet payments: **Fully functional and production-ready**
+    - ✅ **Base mainnet payments: ENABLED** - Production-ready with real USDC on Base network
     - ✅ Solana devnet payments: **Fully functional for testing**
     - ❌ Solana mainnet payments: **Broken** - facilitator rejects all verification attempts (see `SOLANA_MAINNET_ISSUE.md`)
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.

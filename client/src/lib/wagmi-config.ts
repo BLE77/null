@@ -13,8 +13,8 @@ const metadata = {
   icons: ['https://offhuman.com/icon.png']
 };
 
-// Configure supported chains
-export const chains = [baseSepolia, base] as const;
+// Configure supported chains (Base mainnet first for primary network)
+export const chains = [base, baseSepolia] as const;
 
 // Configure wagmi
 export const config = createConfig({
