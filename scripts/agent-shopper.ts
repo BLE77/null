@@ -73,7 +73,48 @@ async function main() {
     transport: http(),
   });
 
-  console.log(`💳 Agent Wallet: ${account.address}\n`);
+  console.log(`💳 Agent Wallet: ${account.address}`);
+  
+  // Check wallet balances
+  const { createPublicClient } = await import('viem');
+  const publicClient = createPublicClient({
+    chain: base,
+    transport: http(),
+  });
+  
+  const USDC_BASE = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
+  
+  try {
+    // Check ETH balance
+    const ethBalance = await publicClient.getBalance({ address: account.address });
+    const ethFormatted = Number(ethBalance) / 1e18;
+    console.log(`💵 ETH Balance: ${ethFormatted.toFixed(6)} ETH`);
+    
+    // Check USDC balance
+    const usdcBalance = await publicClient.readContract({
+      address: USDC_BASE as `0x${string}`,
+      abi: [{
+        name: 'balanceOf',
+        type: 'function',
+        stateMutability: 'view',
+        inputs: [{ name: 'account', type: 'address' }],
+        outputs: [{ type: 'uint256' }],
+      }],
+      functionName: 'balanceOf',
+      args: [account.address],
+    });
+    const usdcFormatted = Number(usdcBalance) / 1e6;
+    console.log(`💵 USDC Balance: ${usdcFormatted.toFixed(2)} USDC\n`);
+    
+    if (ethFormatted < 0.0001) {
+      console.log('⚠️  WARNING: Low ETH balance. You need ~$0.10-0.50 worth for gas fees.');
+    }
+    if (usdcFormatted < 2.50) {
+      console.log('⚠️  WARNING: Insufficient USDC balance for purchase.\n');
+    }
+  } catch (error) {
+    console.log('⚠️  Could not check wallet balance\n');
+  }
 
   // Step 1: Browse the store
   console.log('📦 Step 1: Browsing OFF HUMAN store...');
