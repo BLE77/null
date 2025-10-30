@@ -149,6 +149,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         payTo: X402_WALLET as `0x${string}`,
         asset: USDC_BASE_MAINNET as `0x${string}`,
         maxTimeoutSeconds: 60,
+        // EIP-3009 domain parameters for USDC on Base
+        extra: {
+          name: "USD Coin",
+          version: "2",
+        },
       };
       
       // If no payment header, return 402 with correct x402 format
