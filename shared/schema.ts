@@ -24,6 +24,7 @@ export const products = pgTable("products", {
   images: text("images").array().notNull().default(sql`ARRAY[]::text[]`),
   inventory: json("inventory").notNull(),
   modelUrl: text("model_url"),
+  nftMintAddress: text("nft_mint_address"), // Solana NFT mint address for this product
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -36,6 +37,7 @@ export const orders = pgTable("orders", {
   transactionHash: text("transaction_hash"),
   network: text("network"),
   trackingToken: text("tracking_token").notNull().unique(),
+  nftTransferSignature: text("nft_transfer_signature"), // Solana signature for NFT transfer
   status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
