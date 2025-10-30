@@ -107,6 +107,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           ...item,
           price: Number(product.price), // Use real price from DB
           name: product.name,
+          product: product, // Keep full product object for email generation
         });
         
         console.log(`[Base Payment] - ${product.name}: $${product.price} x ${item.quantity} = $${itemTotal.toFixed(2)}`);
@@ -240,16 +241,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("[Base Payment] Transaction hash:", txHash);
       console.log("[Base Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC transferred on Base!");
       
+      // Generate tracking token
+      const { generateTrackingToken } = await import('./email.js');
+      const trackingToken = generateTrackingToken();
+      
       // Create the order with verified payment
       const order = await dbStorage.createOrder({
         customerEmail,
         items: JSON.stringify(validatedItems),
         totalAmount: calculatedTotal.toFixed(2),
         transactionHash: txHash,
+        network: "base",
+        trackingToken,
         status: "completed",
       });
       
       console.log("[Base Payment] ✅ Order created:", order.id);
+      
+      // Send delivery email with product files
+      try {
+        const { sendOrderConfirmationEmail } = await import('./email.js');
+        const productFiles = validatedItems.map((item: any) => ({
+          productId: item.productId,
+          name: item.name,
+          glbUrl: item.product.modelUrl || undefined,
+          thumbnailUrl: item.product.shopImageUrl || item.product.imageUrl,
+        }));
+        
+        await sendOrderConfirmationEmail({
+          customerEmail,
+          trackingToken,
+          network: "base",
+          transactionHash: txHash,
+          items: validatedItems.map((item: any) => ({
+            productId: item.productId,
+            name: item.name,
+            size: item.size,
+            quantity: item.quantity,
+            price: item.product.price,
+          })),
+          totalAmount: calculatedTotal.toFixed(2),
+          productFiles,
+        });
+        
+        console.log("[Base Payment] ✅ Delivery email sent to", customerEmail);
+      } catch (emailError) {
+        console.error("[Base Payment] Failed to send delivery email:", emailError);
+      }
       
       res.status(200).json({
         success: true,
@@ -331,6 +369,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           size: item.size,
           quantity: item.quantity,
           price: product.price,
+          product: product, // Keep full product object for email generation
         });
       }
 
@@ -458,16 +497,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("[Solana Payment] Transaction signature:", txSignature);
       console.log("[Solana Payment] ✅ $" + calculatedTotal.toFixed(2) + " USDC transferred on Solana!");
       
+      // Generate tracking token
+      const { generateTrackingToken } = await import('./email.js');
+      const trackingToken = generateTrackingToken();
+      
       // Create the order with verified payment
       const order = await dbStorage.createOrder({
         customerEmail,
         items: JSON.stringify(validatedItems),
         totalAmount: calculatedTotal.toFixed(2),
         transactionHash: txSignature,
+        network: SOLANA_NETWORK,
+        trackingToken,
         status: "completed",
       });
       
       console.log("[Solana Payment] ✅ Order created:", order.id);
+      
+      // Send delivery email with product files
+      try {
+        const { sendOrderConfirmationEmail } = await import('./email.js');
+        const productFiles = validatedItems.map((item: any) => ({
+          productId: item.productId,
+          name: item.name,
+          glbUrl: item.product.modelUrl || undefined,
+          thumbnailUrl: item.product.shopImageUrl || item.product.imageUrl,
+        }));
+        
+        await sendOrderConfirmationEmail({
+          customerEmail,
+          trackingToken,
+          network: SOLANA_NETWORK,
+          transactionHash: txSignature,
+          items: validatedItems.map((item: any) => ({
+            productId: item.productId,
+            name: item.name,
+            size: item.size,
+            quantity: item.quantity,
+            price: item.product.price,
+          })),
+          totalAmount: calculatedTotal.toFixed(2),
+          productFiles,
+        });
+        
+        console.log("[Solana Payment] ✅ Delivery email sent to", customerEmail);
+      } catch (emailError) {
+        console.error("[Solana Payment] Failed to send delivery email:", emailError);
+      }
       
       const networkName = SOLANA_NETWORK === "solana-devnet" ? "Solana Devnet" : "Solana Mainnet";
       
@@ -495,6 +571,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // REMOVED: Public order creation endpoint
   // Orders can ONLY be created through the X402-protected payment endpoints
   // This prevents bypassing payment verification
+
+  // Download endpoint - allows customers to re-download using tracking token
+  app.get("/api/orders/download/:trackingToken", async (req, res) => {
+    try {
+      const { trackingToken } = req.params;
+      
+      console.log("[Download] Looking up order with tracking token:", trackingToken);
+      const order = await dbStorage.getOrderByTrackingToken(trackingToken);
+      
+      if (!order) {
+        return res.status(404).json({ message: "Order not found. Please check your tracking token." });
+      }
+      
+      // Parse order items to get product info
+      const items = JSON.parse(order.items);
+      const productIds = items.map((item: any) => item.productId);
+      
+      // Fetch all products for this order
+      const products = await Promise.all(
+        productIds.map((id: string) => dbStorage.getProduct(id))
+      );
+      
+      // Build download links
+      const downloads = products
+        .filter((p): p is any => p !== undefined)
+        .map(product => ({
+          productId: product.id,
+          name: product.name,
+          files: [
+            product.modelUrl ? { type: "3D Model (GLB)", url: product.modelUrl } : null,
+            { type: "Thumbnail (PNG)", url: product.shopImageUrl || product.imageUrl }
+          ].filter(Boolean)
+        }));
+      
+      console.log("[Download] Found order with", downloads.length, "products");
+      
+      res.json({
+        trackingToken: order.trackingToken,
+        customerEmail: order.customerEmail,
+        network: order.network,
+        transactionHash: order.transactionHash,
+        totalAmount: order.totalAmount,
+        createdAt: order.createdAt,
+        items,
+        downloads,
+      });
+    } catch (error) {
+      console.error("[Download] Error:", error);
+      res.status(500).json({ message: "Failed to fetch order" });
+    }
+  });
 
   app.get("/api/orders/:id", async (req, res) => {
     try {
