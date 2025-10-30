@@ -72,11 +72,6 @@ interface OrderEmailData {
     glbUrl?: string;
     thumbnailUrl: string;
   }[];
-  nftTransfers?: Array<{
-    productName: string;
-    signature: string;
-    explorerUrl: string;
-  }>;
 }
 
 export async function sendOrderConfirmationEmail(orderData: OrderEmailData): Promise<void> {
@@ -97,10 +92,6 @@ export async function sendOrderConfirmationEmail(orderData: OrderEmailData): Pro
       files.push(`• Thumbnail (PNG): ${file.thumbnailUrl}`);
       return `${file.name}:\n${files.join('\n')}`;
     }).join('\n\n');
-    
-    const nftSection = orderData.nftTransfers && orderData.nftTransfers.length > 0 ? orderData.nftTransfers.map(nft => 
-      `${nft.productName}:\n• View on Explorer: ${nft.explorerUrl}`
-    ).join('\n\n') : '';
     
     const downloadUrl = `${process.env.REPLIT_DOMAINS}/api/orders/download/${orderData.trackingToken}`;
     
@@ -208,13 +199,7 @@ export async function sendOrderConfirmationEmail(orderData: OrderEmailData): Pro
       <div class="section-title">Your Digital Products</div>
       <div style="white-space: pre-line;">${filesList}</div>
     </div>
-    ${nftSection ? `
-    <div class="section">
-      <div class="section-title">🎨 Solana NFTs Delivered</div>
-      <div style="white-space: pre-line;">${nftSection}</div>
-      <p style="font-size: 12px; color: #888; margin-top: 10px;">NFTs have been transferred to your wallet: Check your Phantom/Backpack wallet!</p>
-    </div>
-    ` : ''}
+    
     <div style="text-align: center;">
       <a href="${downloadUrl}" class="download-btn">Download All Files</a>
     </div>
@@ -246,7 +231,6 @@ Transaction: ${orderData.transactionHash}
 
 YOUR DIGITAL PRODUCTS:
 ${filesList}
-${nftSection ? `\n\nSOLANA NFTs DELIVERED:\n${nftSection}\nNFTs have been transferred to your wallet - check your Phantom/Backpack wallet!` : ''}
 
 DOWNLOAD LINK:
 ${downloadUrl}

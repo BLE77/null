@@ -514,65 +514,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log("[Solana Payment] ✅ Order created:", order.id);
       
-      // Transfer NFTs to customer's wallet (if products have NFT mint addresses)
-      let nftTransferSignature: string | undefined;
-      let nftTransferResults: Array<{productName: string; signature: string; explorerUrl: string}> = [];
-      
-      try {
-        const { transferNFT, isNFTTransferEnabled } = await import('./nft.js');
-        
-        if (isNFTTransferEnabled()) {
-          const payerWallet = verifyResult.payer; // Wallet that made the payment
-          
-          if (!payerWallet) {
-            console.log("[Solana Payment] No payer wallet in verification result - skipping NFT transfer");
-          } else {
-            console.log("[Solana Payment] NFT transfers enabled - checking products...");
-          
-          for (const item of validatedItems) {
-            const product = item.product;
-            if (product.nftMintAddress) {
-              console.log(`[Solana Payment] Transferring NFT for ${product.name}...`);
-              console.log(`[Solana Payment] Mint: ${product.nftMintAddress}`);
-              console.log(`[Solana Payment] Recipient: ${payerWallet}`);
-              
-              const transferResult = await transferNFT({
-                recipient: payerWallet,
-                mint: product.nftMintAddress,
-                decimals: 0,
-              });
-              
-              nftTransferResults.push({
-                productName: product.name,
-                signature: transferResult.signature,
-                explorerUrl: transferResult.explorerUrl,
-              });
-              
-              // Store first NFT transfer signature in order
-              if (!nftTransferSignature) {
-                nftTransferSignature = transferResult.signature;
-              }
-              
-              console.log(`[Solana Payment] ✅ NFT transferred: ${transferResult.signature}`);
-            }
-          }
-          }
-          
-          // Update order with NFT transfer signature
-          if (nftTransferSignature) {
-            await dbStorage.updateOrder(order.id, {
-              nftTransferSignature,
-            });
-            console.log("[Solana Payment] ✅ NFT transfer signature saved to order");
-          }
-        } else {
-          console.log("[Solana Payment] NFT transfers not configured (no vault wallet)");
-        }
-      } catch (nftError: any) {
-        console.error("[Solana Payment] NFT transfer failed (non-fatal):", nftError.message);
-        // NFT transfer failure doesn't fail the order - customer still gets digital files
-      }
-      
       // Send delivery email with product files
       try {
         const { sendOrderConfirmationEmail } = await import('./email.js');
@@ -597,7 +538,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           })),
           totalAmount: calculatedTotal.toFixed(2),
           productFiles,
-          nftTransfers: nftTransferResults.length > 0 ? nftTransferResults : undefined,
         });
         
         console.log("[Solana Payment] ✅ Delivery email sent to", customerEmail);
