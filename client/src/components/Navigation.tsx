@@ -28,32 +28,32 @@ export function Navigation() {
             </div>
           </Link>
 
-          <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8">
+          <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8 pointer-events-none">
             <Link href="/">
-              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-home">
+              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md pointer-events-auto" data-testid="link-home">
                 Home
               </span>
             </Link>
             <Link href="/shop">
-              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-shop">
+              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md pointer-events-auto" data-testid="link-shop">
                 Shop
               </span>
             </Link>
             <Link href="/about">
-              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md" data-testid="link-about">
+              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md pointer-events-auto" data-testid="link-about">
                 About
               </span>
             </Link>
             {user?.isAdmin && (
               <Link href="/admin">
-                <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-primary drop-shadow-md" data-testid="link-admin">
+                <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-primary drop-shadow-md pointer-events-auto" data-testid="link-admin">
                   Admin
                 </span>
               </Link>
             )}
           </div>
 
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-2 ml-auto relative z-10">
             <UniversalWalletConnect />
             {user ? (
               <>
@@ -100,7 +100,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-white hover:bg-white/20"
+              className="lg:hidden text-white hover:bg-white/20"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               data-testid="button-mobile-menu"
             >
@@ -110,7 +110,7 @@ export function Navigation() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-white/30 py-4">
+          <div className="lg:hidden border-t border-white/30 py-4">
             <div className="flex flex-col gap-4">
               <Link href="/">
                 <span 
