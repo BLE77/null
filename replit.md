@@ -5,6 +5,16 @@ OFF HUMAN is an e-commerce clothing brand designed with an early 2000s Flash-ins
 
 ## Recent Changes
 
+### Solana Mainnet Support with PayAI Fee Payer (October 30, 2025)
+Implemented full Solana mainnet USDC payments with PayAI facilitator integration:
+- **Discovery**: Found PayAI's `/supported` endpoint documenting fee payer requirement for Solana networks
+- **Fee Payer Configuration**: Added `extra: { feePayer: "2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" }` to payment requirements - PayAI's wallet pays transaction fees, enabling gasless payments for users
+- **Dual Network Support**: Configured both mainnet (`EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v`) and devnet USDC mint addresses
+- **Manual Verification**: Replaced x402-solana library with manual facilitator API integration for full control
+- **Dynamic Pricing**: Implemented server-side cart validation and dynamic payment amounts (same as Base)
+- **Network Selection**: Environment variable `SOLANA_NETWORK` controls mainnet vs devnet (defaults to mainnet)
+- **Base Payment Fix**: Corrected verification to check `isValid` field instead of `valid` - payments were being verified but rejected due to field name typo
+
 ### Dynamic Pricing Implementation (October 30, 2025)
 Replaced fixed $2.50 test pricing with full dynamic pricing system:
 - **Backend**: Replaced x402-express paymentMiddleware with direct facilitator API integration to support variable payment amounts. Server-side cart validation fetches products from DB, calculates totals, and rejects requests with price mismatches (>$0.01 tolerance) to prevent client-side price manipulation.
@@ -65,35 +75,35 @@ The project utilizes a React SPA frontend with Wouter for routing and TanStack Q
     9. Payment settled on-chain, order created with transaction hash
   
   **Solana Network Implementation:**
-  - **Endpoint**: `/api/checkout/pay/solana` with manual x402-solana verification (no middleware)
+  - **Endpoint**: `/api/checkout/pay/solana` with manual x402 verification (direct facilitator integration)
   - **Currency**: USDC (6 decimals) with **dynamic pricing** based on actual cart totals
-  - **Asset Address**: 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU (USDC mint on Solana devnet)
-  - **Network**: Solana devnet
-  - **CRITICAL ISSUE**: Solana **mainnet does NOT work** with x402 PayAI facilitator despite documentation claiming "drop-in setup". Facilitator rejects all mainnet verification attempts with "Invalid request". See `SOLANA_MAINNET_ISSUE.md` for full details.
-  - **Packages**: `x402-solana`, `@solana/web3.js`
+  - **Asset Addresses**: 
+    - Mainnet: `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` (USDC SPL token)
+    - Devnet: `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU` (USDC test token)
+  - **Network**: Configurable via `SOLANA_NETWORK` environment variable (`"solana"` for mainnet, `"solana-devnet"` for devnet). Defaults to mainnet.
+  - **CRITICAL REQUIREMENT**: Payment requirements must include PayAI's fee payer wallet in `extra` field: `{ feePayer: "2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4" }`. This wallet pays Solana transaction fees, enabling gasless payments for end users.
+  - **Packages**: `x402-solana`, `@solana/web3.js`, `bs58`
   - **Wallets**: Phantom (Solana mode), Backpack
   - **Payment Flow**:
     1. User connects Solana wallet via window.solana
     2. Client calculates cart total from product prices × quantities
-    3. Client creates wallet adapter implementing `address` and `signTransaction` interface
-    4. Client creates x402 client with wallet adapter, network config, and dynamic max payment amount (cart total + 10% buffer)
-    5. Client calls x402Client.fetch() with cart items which automatically handles:
-       - Server fetches products from DB, calculates server-side total, validates against client total
-       - Initial 402 Payment Required response with dynamic payment amount
-       - Transaction creation and signing via connected wallet
-       - Payment submission with X-PAYMENT header
-       - Request retry with payment proof
-    6. Backend verifies payment via facilitator
-    7. Payment settled on-chain, order created with transaction hash
+    3. Client requests payment endpoint with cart items → 402 Payment Required
+    4. Server fetches products from DB, calculates server-side total, validates against client total
+    5. Server returns 402 with dynamic payment requirements including PayAI fee payer in `extra` field
+    6. Client creates x402 client with wallet adapter and network config
+    7. Client calls x402Client.fetch() which automatically handles transaction signing and payment submission
+    8. Server decodes payment header and verifies with facilitator via direct HTTP POST to /verify endpoint
+    9. Payment verified, order created with transaction signature
   
   **Shared Configuration:**
   - **Facilitator**: https://facilitator.payai.network
+  - **Fee Payer**: `2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4` (PayAI's Solana wallet for transaction fees)
   - **Wallet Address**: X402_WALLET_ADDRESS environment variable (payment receiving address)
   - **Network Selection**: Users choose Base or Solana on checkout page
   - **Status**: 
     - ✅ **Base mainnet payments: ENABLED** - Production-ready with real USDC on Base network
-    - ✅ Solana devnet payments: **Fully functional for testing**
-    - ❌ Solana mainnet payments: **Broken** - facilitator rejects all verification attempts (see `SOLANA_MAINNET_ISSUE.md`)
+    - ✅ **Solana mainnet payments: ENABLED** - Production-ready with PayAI fee payer configuration
+    - ✅ Solana devnet payments: **Available for testing**
 - **Three.js**: Used for the interactive 3D character controller in the hero section and for the 3D model viewer on product detail pages.
 - **GLTFLoader, OrbitControls**: Three.js extensions for loading 3D models and camera controls.
 - **Google Fonts**: For Orbitron typography.

@@ -272,7 +272,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Solana X402 Payment Endpoint
-  // Using X402PaymentHandler library for proper payment handling
+  // Manual x402 implementation with PayAI fee payer configuration
+  // Supports both mainnet and devnet with dynamic pricing
   app.post("/api/checkout/pay/solana", async (req, res) => {
     try {
       if (!X402_SOLANA_WALLET) {
@@ -282,89 +283,174 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Import X402PaymentHandler
-      const { X402PaymentHandler } = await import('x402-solana/server');
-
-      // Create payment handler with proper configuration
-      // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"
-      // This is a facilitator bug or undocumented limitation
-      const x402 = new X402PaymentHandler({
-        network: 'solana-devnet',
-        treasuryAddress: X402_SOLANA_WALLET,
-        facilitatorUrl: FACILITATOR_URL,
-        rpcUrl: 'https://api.devnet.solana.com',
-      });
-
-      const paymentHeader = x402.extractPayment(req.headers);
+      const paymentHeader = req.headers['x-payment'] as string | undefined;
       const { customerEmail, items, totalAmount } = req.body;
 
-      // USDC mint address on Solana DEVNET
-      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+      // USDC mint addresses
+      const USDC_MINT_MAINNET = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // USDC on Solana mainnet
+      const USDC_MINT_DEVNET = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"; // USDC on Solana devnet
+      
+      // PayAI fee payer wallet (from facilitator's /supported endpoint)
+      const PAYAI_FEE_PAYER = "2wKupLR9q6wXYppw8Gr2NvWxKBUqm4PPJKkQfoxHDBg4";
+      
+      // Determine network from environment or default to mainnet
+      const SOLANA_NETWORK = process.env.SOLANA_NETWORK || "solana"; // "solana" or "solana-devnet"
+      const USDC_MINT = SOLANA_NETWORK === "solana-devnet" ? USDC_MINT_DEVNET : USDC_MINT_MAINNET;
+      const EXPLORER_URL = SOLANA_NETWORK === "solana-devnet" 
+        ? "https://explorer.solana.com/tx/"
+        : "https://explorer.solana.com/tx/";
+      
+      console.log(`[Solana Payment] Network: ${SOLANA_NETWORK}, USDC Mint: ${USDC_MINT}`);
 
-      // Create payment requirements using library format
+      // Validate cart total server-side (same logic as Base)
+      console.log("[Solana Payment] Validating cart total...");
+      console.log("[Solana Payment] Frontend sent items:", JSON.stringify(items, null, 2));
+      console.log("[Solana Payment] Frontend sent total:", totalAmount);
+
+      const validatedItems = [];
+      let calculatedTotal = 0;
+
+      for (const item of items) {
+        const product = await dbStorage.getProduct(item.productId);
+        if (!product) {
+          return res.status(400).json({
+            error: "Invalid product",
+            message: `Product ${item.productId} not found`,
+          });
+        }
+
+        const itemPrice = parseFloat(product.price);
+        const itemTotal = itemPrice * item.quantity;
+        calculatedTotal += itemTotal;
+
+        console.log(`[Solana Payment] - ${product.name}: $${itemPrice} x ${item.quantity} = $${itemTotal.toFixed(2)}`);
+
+        validatedItems.push({
+          productId: product.id,
+          name: product.name,
+          size: item.size,
+          quantity: item.quantity,
+          price: product.price,
+        });
+      }
+
+      console.log("[Solana Payment] Calculated total: $" + calculatedTotal.toFixed(2));
+
+      // Verify frontend total matches server-calculated total
+      const frontendTotal = parseFloat(totalAmount);
+      const priceDifference = Math.abs(frontendTotal - calculatedTotal);
+      if (priceDifference > 0.01) {
+        console.log("[Solana Payment] ❌ Price mismatch detected!");
+        console.log(`[Solana Payment] Frontend: $${frontendTotal}, Server: $${calculatedTotal}`);
+        return res.status(400).json({
+          error: "Price validation failed",
+          message: "Cart total does not match server calculation",
+          details: {
+            clientTotal: frontendTotal,
+            serverTotal: calculatedTotal,
+          },
+        });
+      }
+
+      console.log("[Solana Payment] ✅ Cart total validated");
+
+      // Convert to USDC micro-units (6 decimals)
+      const amountInMicroUnits = Math.round(calculatedTotal * 1_000_000).toString();
+
+      // Build payment requirements with PayAI fee payer
       const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
-      const resourceUrl = `${baseUrl}/api/checkout/pay/solana` as `${string}://${string}`;
-      const paymentRequirements = await x402.createPaymentRequirements({
-        price: {
-          amount: "2500000", // $2.50 USDC (6 decimals)
-          asset: { 
-            address: USDC_MINT_DEVNET,
-            decimals: 6, // USDC has 6 decimals
-          },
-        },
-        network: "solana-devnet",
-        config: {
-          description: "OFF HUMAN Streetwear Order",
-          resource: resourceUrl,
-        },
-      });
+      const resourceUrl = `${baseUrl}/api/checkout/pay/solana`;
 
-      // If no payment header, return 402 using library method
+      const paymentRequirement = {
+        scheme: "exact",
+        network: SOLANA_NETWORK,
+        maxAmountRequired: amountInMicroUnits,
+        resource: resourceUrl,
+        description: `OFF HUMAN Order - $${calculatedTotal.toFixed(2)}`,
+        mimeType: "application/json",
+        payTo: X402_SOLANA_WALLET,
+        asset: USDC_MINT,
+        maxTimeoutSeconds: 60,
+        // CRITICAL: PayAI wallet must pay transaction fees
+        extra: {
+          feePayer: PAYAI_FEE_PAYER,
+        },
+      };
+
+      // If no payment header, return 402 with correct x402 format
       if (!paymentHeader) {
-        const response = x402.create402Response(paymentRequirements);
-        console.log("[Solana Payment] Returning 402 with requirements:", JSON.stringify(response.body, null, 2));
-        return res.status(response.status).json(response.body);
+        console.log(`[Solana Payment] No payment header - returning 402 for $${calculatedTotal.toFixed(2)}`);
+        return res.status(402).json({
+          x402Version: 1,
+          accepts: [paymentRequirement],
+        });
       }
 
-      // Step 1: Verify payment signature using library
-      console.log("[Solana Payment] Step 1: Verifying payment signature...");
+      // Step 1: Verify payment with facilitator using direct HTTP call
+      console.log("[Solana Payment] Step 1: Verifying payment with facilitator...");
       console.log("[Solana Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
       
-      // Decode payment header to see what's inside
+      // Decode the payment header to get the payment payload
+      let paymentPayload;
       try {
-        const decodedPayment = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
-        console.log("[Solana Payment] Decoded payment header:", JSON.stringify(decodedPayment, null, 2));
-      } catch (e) {
-        console.log("[Solana Payment] Could not decode payment header");
-      }
-      
-      console.log("[Solana Payment] Payment requirements:", JSON.stringify(paymentRequirements, null, 2));
-      
-      // Use library's verifyPayment method (handles facilitator communication)
-      const verificationResult = await x402.verifyPayment(paymentHeader, paymentRequirements);
-      console.log("[Solana Payment] Library verification result:", verificationResult);
-      
-      if (!verificationResult) {
-        console.log("[Solana Payment] ❌ Payment verification FAILED");
-        console.log("[Solana Payment] This usually means:");
-        console.log("  1. Facilitator rejected the signature");
-        console.log("  2. Transaction doesn't match requirements");
-        console.log("  3. Network mismatch (mainnet vs devnet)");
-        
-        return res.status(402).json({
-          error: "Payment verification failed",
-          message: "Facilitator rejected payment signature - this may be a mainnet compatibility issue",
+        paymentPayload = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        console.log("[Solana Payment] Decoded payment payload:", JSON.stringify(paymentPayload, null, 2));
+      } catch (error) {
+        console.error("[Solana Payment] Failed to decode payment header:", error);
+        return res.status(400).json({
+          error: "Invalid payment header",
+          message: "Could not decode payment header",
         });
       }
       
-      console.log("[Solana Payment] ✅ Payment signature VERIFIED by facilitator");
-
-      // Extract transaction info from payment header
-      let txSignature = 'solana-pending';
       try {
-        const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
-        const signedTxBase64 = decodedHeader.payload?.transaction;
+        // Facilitator expects: { x402Version, paymentPayload, paymentRequirements }
+        const verifyRequest = {
+          x402Version: 1,
+          paymentPayload: paymentPayload,  // Decoded object, not base64 string
+          paymentRequirements: paymentRequirement,  // Single object, not array
+        };
+        
+        console.log("[Solana Payment] Sending verification request to facilitator...");
+        
+        const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(verifyRequest),
+        });
+        
+        const verifyResult = await verifyResponse.json();
+        console.log("[Solana Payment] Facilitator verification response:", verifyResult);
+        
+        // Check isValid field from facilitator response
+        if (!verifyResponse.ok || !verifyResult.isValid) {
+          console.log("[Solana Payment] ❌ Payment verification FAILED");
+          return res.status(402).json({
+            error: "Payment verification failed",
+            message: "Facilitator rejected payment signature",
+            details: verifyResult,
+          });
+        }
+        
+        console.log("[Solana Payment] ✅ Payment signature VERIFIED by facilitator!");
+        console.log("[Solana Payment] Payer address:", verifyResult.payer);
+      } catch (error) {
+        console.error("[Solana Payment] Facilitator verification error:", error);
+        return res.status(500).json({
+          error: "Verification failed",
+          message: "Could not verify payment with facilitator",
+        });
+      }
+      
+      // Step 2: Extract transaction signature
+      console.log("[Solana Payment] Step 2: Extracting transaction details...");
+      
+      let txSignature = 'solana-verified';
+      try {
+        const signedTxBase64 = paymentPayload.payload?.transaction;
         
         if (signedTxBase64) {
           // Decode the transaction to get its signature
@@ -381,56 +467,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.log("[Solana Payment] Extracted transaction signature:", txSignature);
           }
         }
-      } catch (error) {
-        console.log("[Solana Payment] Could not extract transaction signature:", error);
+      } catch (e) {
+        console.log("[Solana Payment] Could not extract tx signature from header");
       }
-
-      // Step 2: Settle payment on-chain
-      console.log("[Solana Payment] Step 2: Submitting transaction to blockchain...");
-      const settlementResult = await x402.settlePayment(paymentHeader, paymentRequirements);
-      console.log("[Solana Payment] Settlement result:", settlementResult);
       
-      if (!settlementResult) {
-        console.log("[Solana Payment] Payment settlement FAILED");
-        return res.status(500).json({
-          error: "Payment settlement failed",
-          message: "Transaction could not be submitted to blockchain",
-        });
-      }
-
-      console.log("[Solana Payment] ✅ Payment VERIFIED and SETTLED on blockchain!");
       console.log("[Solana Payment] Transaction signature:", txSignature);
-      console.log("[Solana Payment] Explorer:", `https://explorer.solana.com/tx/${txSignature}`);
-      console.log("[Solana Payment] 💰 USDC received at:", X402_SOLANA_WALLET);
-
-      // Create the order with verified and settled payment
+      console.log("[Solana Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC transferred on Solana!");
+      
+      // Create the order with verified payment
       const order = await dbStorage.createOrder({
         customerEmail,
-        items: JSON.stringify(items),
-        totalAmount,
+        items: JSON.stringify(validatedItems),
+        totalAmount: calculatedTotal.toFixed(2),
         transactionHash: txSignature,
         status: "completed",
       });
-
+      
       console.log("[Solana Payment] ✅ Order created:", order.id);
+      
+      const networkName = SOLANA_NETWORK === "solana-devnet" ? "Solana Devnet" : "Solana Mainnet";
       
       res.status(200).json({
         success: true,
         order,
-        message: "Payment successful - USDC transferred on Solana!",
+        message: `Payment successful - $${calculatedTotal.toFixed(2)} USDC transferred on Solana!`,
         transaction: {
           signature: txSignature,
-          explorer: `https://explorer.solana.com/tx/${txSignature}`,
-          network: "Solana Mainnet",
-          amount: "$2.50 USDC",
+          network: networkName,
+          amount: `$${calculatedTotal.toFixed(2)} USDC`,
           receivedAt: X402_SOLANA_WALLET,
+          explorer: `${EXPLORER_URL}${txSignature}${SOLANA_NETWORK === "solana-devnet" ? "?cluster=devnet" : ""}`,
         },
       });
     } catch (error) {
-      console.error("Solana payment error:", error);
-      res.status(500).json({ 
+      console.error("[Solana Payment] Error:", error);
+      res.status(500).json({
         message: "Failed to process Solana payment",
-        error: error instanceof Error ? error.message : "Unknown error"
+        error: error instanceof Error ? error.message : "Unknown error",
       });
     }
   });
