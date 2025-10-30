@@ -34,6 +34,8 @@ export const orders = pgTable("orders", {
   items: text("items").notNull(),
   totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
   transactionHash: text("transaction_hash"),
+  network: text("network"),
+  trackingToken: text("tracking_token").notNull().unique(),
   status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
