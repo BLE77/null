@@ -445,34 +445,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Step 2: Extract transaction signature
-      console.log("[Solana Payment] Step 2: Extracting transaction details...");
+      // Step 2: Submit transaction to Solana blockchain
+      console.log("[Solana Payment] Step 2: Submitting transaction to blockchain...");
       
-      let txSignature = 'solana-verified';
+      let txSignature = 'solana-pending';
       try {
         const signedTxBase64 = paymentPayload.payload?.transaction;
         
-        if (signedTxBase64) {
-          // Decode the transaction to get its signature
-          const { VersionedTransaction } = await import('@solana/web3.js');
-          const txBuffer = Buffer.from(signedTxBase64, 'base64');
-          const transaction = VersionedTransaction.deserialize(txBuffer);
-          
-          // Get the transaction signature (first signature in signatures array)
-          const signature = transaction.signatures[0];
-          if (signature) {
-            // Convert signature bytes to base58 string
-            const bs58 = await import('bs58');
-            txSignature = bs58.default.encode(signature);
-            console.log("[Solana Payment] Extracted transaction signature:", txSignature);
-          }
+        if (!signedTxBase64) {
+          throw new Error("No signed transaction in payment payload");
         }
+        
+        // Deserialize the signed transaction
+        const { VersionedTransaction, Connection } = await import('@solana/web3.js');
+        const txBuffer = Buffer.from(signedTxBase64, 'base64');
+        const transaction = VersionedTransaction.deserialize(txBuffer);
+        
+        // Connect to Solana RPC
+        const rpcUrl = SOLANA_NETWORK === 'solana-devnet'
+          ? 'https://api.devnet.solana.com'
+          : 'https://solana.drpc.org';
+        const connection = new Connection(rpcUrl, 'confirmed');
+        
+        console.log("[Solana Payment] Sending transaction to Solana...");
+        
+        // Send the transaction to the blockchain
+        const signature = await connection.sendRawTransaction(
+          transaction.serialize(),
+          {
+            skipPreflight: false,
+            preflightCommitment: 'confirmed',
+          }
+        );
+        
+        console.log("[Solana Payment] Transaction sent! Signature:", signature);
+        console.log("[Solana Payment] Waiting for confirmation...");
+        
+        // Wait for confirmation
+        const confirmation = await connection.confirmTransaction(signature, 'confirmed');
+        
+        if (confirmation.value.err) {
+          console.error("[Solana Payment] Transaction failed:", confirmation.value.err);
+          throw new Error("Transaction failed on-chain");
+        }
+        
+        txSignature = signature;
+        console.log("[Solana Payment] ✅ Transaction CONFIRMED on blockchain!");
+        console.log("[Solana Payment] Signature:", txSignature);
+        console.log("[Solana Payment] ✅ $" + calculatedTotal.toFixed(2) + " USDC transferred on Solana!");
       } catch (e) {
-        console.log("[Solana Payment] Could not extract tx signature from header");
+        console.error("[Solana Payment] Transaction submission error:", e);
+        return res.status(500).json({
+          error: "Transaction submission failed",
+          message: e instanceof Error ? e.message : "Could not submit transaction to blockchain",
+        });
       }
-      
-      console.log("[Solana Payment] Transaction signature:", txSignature);
-      console.log("[Solana Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC transferred on Solana!");
       
       // Create the order with verified payment
       const order = await dbStorage.createOrder({
