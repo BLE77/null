@@ -165,16 +165,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("[Base Payment] Step 1: Verifying payment with facilitator...");
       console.log("[Base Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
       
+      // Decode the payment header to get the payment payload
+      let paymentPayload;
       try {
+        paymentPayload = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        console.log("[Base Payment] Decoded payment payload:", JSON.stringify(paymentPayload, null, 2));
+      } catch (error) {
+        console.error("[Base Payment] Failed to decode payment header:", error);
+        return res.status(400).json({
+          error: "Invalid payment header",
+          message: "Could not decode payment header",
+        });
+      }
+      
+      try {
+        // Facilitator expects: { x402Version, paymentPayload, paymentRequirements }
+        const verifyRequest = {
+          x402Version: 1,
+          paymentPayload: paymentPayload,  // Decoded object, not base64 string
+          paymentRequirements: paymentRequirement,  // Single object, not array
+        };
+        
+        console.log("[Base Payment] Sending verification request to facilitator...");
+        
         const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            payment: paymentHeader,
-            requirements: [paymentRequirement],
-          }),
+          body: JSON.stringify(verifyRequest),
         });
         
         const verifyResult = await verifyResponse.json();
