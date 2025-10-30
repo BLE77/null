@@ -4,7 +4,6 @@ import { dbStorage } from "./db-storage";
 import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth";
-import { paymentMiddleware } from "x402-express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Seed products and admin user on startup
@@ -68,81 +67,160 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // X402 Protected Payment Endpoint
-  // The middleware MUST be applied in a way that blocks all requests without valid payment
-  if (!X402_WALLET) {
-    // Disable endpoint entirely if wallet not configured
-    app.post("/api/checkout/pay", (req, res) => {
-      res.status(503).json({
-        error: "Service Unavailable",
-        message: "Payment system not configured",
-      });
-    });
-  } else {
-    // Apply X402 middleware - this handles payment verification with the facilitator
-    // The middleware will:
-    // 1. Check for X-PAYMENT header
-    // 2. Verify cryptographic signature with facilitator
-    // 3. Only call next() if payment is valid
-    // 4. Return 402 if payment missing/invalid
-    app.post(
-      "/api/checkout/pay",
-      paymentMiddleware(
-        X402_WALLET as `0x${string}`,
-        {
-          "POST /api/checkout/pay": {
-            price: "$2.50", // Price in USD - facilitator converts to USDC
-            network: "base", // BASE MAINNET - Real USDC payments
-            asset: {
-              address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as `0x${string}`, // USDC on Base Mainnet
-              decimals: 6, // USDC has 6 decimals
-            },
-          },
-        },
-        {
-          url: FACILITATOR_URL,
-        }
-      ),
-      // This route handler ONLY executes if middleware verified payment
-      async (req, res) => {
-        // Safety check: middleware may have already sent a response
-        if (res.headersSent) {
-          console.log("[Payment] Response already sent by middleware, skipping handler");
-          return;
+  // Base X402 Payment Endpoint with Dynamic Pricing
+  // Using direct x402 handling for flexible per-request pricing
+  app.post("/api/checkout/pay", async (req, res) => {
+    try {
+      if (!X402_WALLET) {
+        return res.status(503).json({
+          error: "Service Unavailable",
+          message: "Payment system not configured",
+        });
+      }
+
+      const { customerEmail, items, totalAmount } = req.body;
+      
+      // Step 1: Calculate and validate cart total from actual product prices
+      console.log("[Base Payment] Validating cart total...");
+      console.log("[Base Payment] Frontend sent items:", JSON.stringify(items, null, 2));
+      console.log("[Base Payment] Frontend sent total:", totalAmount);
+      
+      let calculatedTotal = 0;
+      const validatedItems = [];
+      
+      for (const item of items) {
+        // Fetch actual product from database
+        const product = await dbStorage.getProduct(item.productId);
+        
+        if (!product) {
+          return res.status(400).json({
+            error: "Invalid product",
+            message: `Product ${item.productId} not found`,
+          });
         }
         
-        try {
-          const { customerEmail, items, totalAmount } = req.body;
-          
-          // At this point, payment has been cryptographically verified by X402 middleware
-          // The facilitator has confirmed the EIP-712 signature and blockchain transaction
-          const paymentTxHash = req.headers['x-payment-tx'] as string || 'x402-verified';
-          
-          // Create the order with verified transaction details
-          const order = await dbStorage.createOrder({
-            customerEmail,
-            items: JSON.stringify(items),
-            totalAmount,
-            transactionHash: paymentTxHash,
-            status: "completed",
-          });
-          
-          if (!res.headersSent) {
-            res.status(200).json({
-              success: true,
-              order,
-              message: "Payment verified and order created",
-            });
-          }
-        } catch (error) {
-          console.error("Order creation error:", error);
-          if (!res.headersSent) {
-            res.status(500).json({ message: "Failed to create order after payment" });
-          }
-        }
+        // Calculate item total using real database price
+        const itemTotal = Number(product.price) * item.quantity;
+        calculatedTotal += itemTotal;
+        
+        validatedItems.push({
+          ...item,
+          price: Number(product.price), // Use real price from DB
+          name: product.name,
+        });
+        
+        console.log(`[Base Payment] - ${product.name}: $${product.price} x ${item.quantity} = $${itemTotal.toFixed(2)}`);
       }
-    );
-  }
+      
+      console.log("[Base Payment] Calculated total: $" + calculatedTotal.toFixed(2));
+      
+      // Verify frontend didn't lie about the price
+      if (Math.abs(calculatedTotal - Number(totalAmount)) > 0.01) {
+        console.log("[Base Payment] ❌ Price mismatch detected!");
+        console.log(`[Base Payment] Frontend claimed: $${totalAmount}`);
+        console.log(`[Base Payment] Actual total: $${calculatedTotal.toFixed(2)}`);
+        return res.status(400).json({
+          error: "Price mismatch",
+          message: "Cart total doesn't match product prices",
+        });
+      }
+      
+      console.log("[Base Payment] ✅ Cart total validated");
+      
+      // Convert total to USDC micro-units (6 decimals)
+      const amountInMicroUnits = Math.floor(calculatedTotal * 1_000_000).toString();
+      
+      // Import x402 utilities
+      const { create402Response, extractPayment, verify } = await import('x402');
+      
+      const paymentHeader = extractPayment(req.headers);
+      const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+      
+      // Create dynamic payment requirements based on actual cart total
+      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+      const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
+      const resourceUrl = `${baseUrl}/api/checkout/pay`;
+      
+      const paymentRequirements = {
+        scheme: "exact" as const,
+        network: "base" as const,
+        maxAmountRequired: amountInMicroUnits,
+        resource: resourceUrl,
+        description: `OFF HUMAN Order - $${calculatedTotal.toFixed(2)}`,
+        payTo: X402_WALLET as `0x${string}`,
+        asset: USDC_BASE_MAINNET as `0x${string}`,
+        maxTimeoutSeconds: 60,
+      };
+      
+      // If no payment header, return 402 Payment Required
+      if (!paymentHeader) {
+        const response402 = create402Response([paymentRequirements]);
+        console.log("[Base Payment] Returning 402 with requirements for $" + calculatedTotal.toFixed(2));
+        return res.status(402).json(response402);
+      }
+      
+      // Step 2: Verify payment with facilitator
+      console.log("[Base Payment] Verifying payment with facilitator...");
+      console.log("[Base Payment] Amount: $" + calculatedTotal.toFixed(2) + " USDC");
+      
+      const verificationResult = await verify(paymentHeader, paymentRequirements, {
+        url: FACILITATOR_URL,
+      });
+      
+      if (!verificationResult) {
+        console.log("[Base Payment] ❌ Payment verification FAILED");
+        return res.status(402).json({
+          error: "Payment verification failed",
+          message: "Facilitator rejected payment signature",
+        });
+      }
+      
+      console.log("[Base Payment] ✅ Payment VERIFIED by facilitator");
+      
+      // Extract transaction hash from payment header
+      let txHash = 'base-verified';
+      try {
+        const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+        if (decodedHeader.payload?.txHash) {
+          txHash = decodedHeader.payload.txHash;
+        }
+      } catch (error) {
+        console.log("[Base Payment] Could not extract tx hash");
+      }
+      
+      console.log("[Base Payment] Transaction hash:", txHash);
+      console.log("[Base Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC received");
+      
+      // Create the order with verified payment
+      const order = await dbStorage.createOrder({
+        customerEmail,
+        items: JSON.stringify(validatedItems),
+        totalAmount: calculatedTotal.toFixed(2),
+        transactionHash: txHash,
+        status: "completed",
+      });
+      
+      console.log("[Base Payment] ✅ Order created:", order.id);
+      
+      res.status(200).json({
+        success: true,
+        order,
+        message: `Payment successful - $${calculatedTotal.toFixed(2)} USDC transferred on Base!`,
+        transaction: {
+          hash: txHash,
+          network: "Base Mainnet",
+          amount: `$${calculatedTotal.toFixed(2)} USDC`,
+          receivedAt: X402_WALLET,
+        },
+      });
+    } catch (error) {
+      console.error("[Base Payment] Error:", error);
+      res.status(500).json({
+        message: "Failed to process Base payment",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
 
   // Solana X402 Payment Endpoint
   // Using X402PaymentHandler library for proper payment handling
