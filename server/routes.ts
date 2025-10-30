@@ -204,7 +204,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const verifyResult = await verifyResponse.json();
         console.log("[Base Payment] Facilitator verification response:", verifyResult);
         
-        if (!verifyResponse.ok || !verifyResult.valid) {
+        // Check isValid (not valid) - facilitator returns isValid field
+        if (!verifyResponse.ok || !verifyResult.isValid) {
           console.log("[Base Payment] ❌ Payment verification FAILED");
           return res.status(402).json({
             error: "Payment verification failed",
@@ -213,7 +214,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
         
-        console.log("[Base Payment] ✅ Payment signature VERIFIED by facilitator");
+        console.log("[Base Payment] ✅ Payment signature VERIFIED by facilitator!");
+        console.log("[Base Payment] Payer address:", verifyResult.payer);
       } catch (error) {
         console.error("[Base Payment] Facilitator verification error:", error);
         return res.status(500).json({
