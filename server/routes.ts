@@ -404,6 +404,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
+      let verifyResult: any;
       try {
         // Facilitator expects: { x402Version, paymentPayload, paymentRequirements }
         const verifyRequest = {
@@ -412,9 +413,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           paymentRequirements: paymentRequirement,  // Single object, not array
         };
         
-        console.log("[Solana Payment] Sending verification request to facilitator...");
+        console.log("[Solana Payment] Sending settlement request to facilitator...");
+        console.log("[Solana Payment] Using /settle endpoint to verify AND submit transaction");
         
-        const verifyResponse = await fetch(`${FACILITATOR_URL}/verify`, {
+        // Use /settle instead of /verify - this submits the transaction to Solana!
+        const settleResponse = await fetch(`${FACILITATOR_URL}/settle`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -422,22 +425,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
           body: JSON.stringify(verifyRequest),
         });
         
-        const verifyResult = await verifyResponse.json();
-        console.log("[Solana Payment] Facilitator verification response:", JSON.stringify(verifyResult, null, 2));
+        verifyResult = await settleResponse.json();
+        console.log("[Solana Payment] Facilitator settlement response:", JSON.stringify(verifyResult, null, 2));
         
         // Check isValid field from facilitator response
-        if (!verifyResponse.ok || !verifyResult.isValid) {
-          console.log("[Solana Payment] ❌ Payment verification FAILED");
+        if (!settleResponse.ok || !verifyResult.isValid) {
+          console.log("[Solana Payment] ❌ Payment settlement FAILED");
           return res.status(402).json({
-            error: "Payment verification failed",
-            message: "Facilitator rejected payment signature",
+            error: "Payment settlement failed",
+            message: "Facilitator rejected or failed to submit transaction",
             details: verifyResult,
           });
         }
         
-        console.log("[Solana Payment] ✅ Payment signature VERIFIED by facilitator!");
+        console.log("[Solana Payment] ✅ Payment VERIFIED AND SUBMITTED by facilitator!");
         console.log("[Solana Payment] Payer address:", verifyResult.payer);
-        console.log("[Solana Payment] Signature from facilitator:", verifyResult.signature);
+        console.log("[Solana Payment] Transaction signature:", verifyResult.signature);
       } catch (error) {
         console.error("[Solana Payment] Facilitator verification error:", error);
         return res.status(500).json({
@@ -446,53 +449,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Step 2: Submit transaction to Solana blockchain
-      // The facilitator only VERIFIES the signature - we still need to SUBMIT it!
-      console.log("[Solana Payment] Step 2: Submitting transaction to Solana blockchain...");
+      // Step 2: Get transaction signature from verification result
+      // NOTE: x402-solana library submits the transaction on the frontend!
+      // PayAI only verifies it was submitted correctly. We just need the signature.
+      console.log("[Solana Payment] Step 2: Getting transaction signature...");
       
-      let txSignature = 'solana-pending';
-      try {
-        const signedTxBase64 = paymentPayload.payload?.transaction;
-        
-        if (!signedTxBase64) {
-          throw new Error("No signed transaction in payment payload");
-        }
-        
-        // Deserialize the signed transaction
-        const { Connection, VersionedTransaction } = await import('@solana/web3.js');
-        const txBuffer = Buffer.from(signedTxBase64, 'base64');
-        const transaction = VersionedTransaction.deserialize(txBuffer);
-        
-        // Connect to Solana RPC
-        const rpcUrl = SOLANA_NETWORK === 'solana-devnet'
-          ? 'https://api.devnet.solana.com'
-          : 'https://api.mainnet-beta.solana.com';
-        
-        console.log("[Solana Payment] Using RPC:", rpcUrl);
-        const connection = new Connection(rpcUrl, 'confirmed');
-        
-        console.log("[Solana Payment] Sending transaction to blockchain...");
-        
-        // Submit the fully signed transaction
-        const signature = await connection.sendRawTransaction(
-          transaction.serialize(),
-          {
-            skipPreflight: false,
-            maxRetries: 3,
+      // The signature might be in the verification result or we can extract from transaction
+      let txSignature = (verifyResult && verifyResult.signature) ? verifyResult.signature : 'solana-verified';
+      
+      // If not in verification result, try to extract from transaction bytes
+      if (!verifyResult || !verifyResult.signature) {
+        try {
+          const signedTxBase64 = paymentPayload.payload?.transaction;
+          if (signedTxBase64) {
+            const { VersionedTransaction } = await import('@solana/web3.js');
+            const bs58 = await import('bs58');
+            const txBuffer = Buffer.from(signedTxBase64, 'base64');
+            const transaction = VersionedTransaction.deserialize(txBuffer);
+            
+            // Extract the signature from the transaction
+            const signature = transaction.signatures[0];
+            if (signature && signature.length === 64) {
+              // Check if signature is not all zeros (placeholder)
+              const isValidSignature = !signature.every(byte => byte === 0);
+              if (isValidSignature) {
+                txSignature = bs58.default.encode(signature);
+                console.log("[Solana Payment] ✅ Extracted real signature:", txSignature);
+              } else {
+                console.log("[Solana Payment] Warning: Transaction has placeholder signatures");
+              }
+            }
           }
-        );
-        
-        console.log("[Solana Payment] ✅ Transaction submitted! Signature:", signature);
-        console.log("[Solana Payment] ✅ $" + calculatedTotal.toFixed(2) + " USDC transferred on Solana!");
-        
-        txSignature = signature;
-      } catch (e) {
-        console.error("[Solana Payment] Transaction submission error:", e);
-        return res.status(500).json({
-          error: "Transaction submission failed",
-          message: e instanceof Error ? e.message : "Could not submit transaction to blockchain",
-        });
+        } catch (e) {
+          console.log("[Solana Payment] Could not extract signature:", e instanceof Error ? e.message : 'Unknown');
+        }
       }
+      
+      console.log("[Solana Payment] Transaction signature:", txSignature);
+      console.log("[Solana Payment] ✅ Payment verified - $" + calculatedTotal.toFixed(2) + " USDC on Solana!");
       
       // Create the order with verified payment
       const order = await dbStorage.createOrder({
