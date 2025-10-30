@@ -145,6 +145,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         maxAmountRequired: amountInMicroUnits,
         resource: resourceUrl,
         description: `OFF HUMAN Order - $${calculatedTotal.toFixed(2)}`,
+        mimeType: "application/json", // Required field for x402-fetch
         payTo: X402_WALLET as `0x${string}`,
         asset: USDC_BASE_MAINNET as `0x${string}`,
         maxTimeoutSeconds: 60,
