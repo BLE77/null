@@ -243,11 +243,18 @@ export default function Checkout() {
         // Network configuration - defaults to mainnet
         // Can be overridden with VITE_SOLANA_NETWORK env var for testing
         const solanaNetwork = import.meta.env.VITE_SOLANA_NETWORK || 'solana';
+        
+        // Use Helius RPC for mainnet (better rate limits than public RPC)
+        // Fallback to public RPC if no API key
+        const heliusApiKey = import.meta.env.VITE_HELIUS_API_KEY;
         const rpcUrl = solanaNetwork === 'solana-devnet' 
           ? 'https://api.devnet.solana.com'
-          : 'https://api.mainnet-beta.solana.com';
+          : heliusApiKey 
+            ? `https://mainnet.helius-rpc.com/?api-key=${heliusApiKey}`
+            : 'https://api.mainnet-beta.solana.com';
         
-        console.log('[Solana Payment] Network:', solanaNetwork, 'RPC:', rpcUrl);
+        console.log('[Solana Payment] Network:', solanaNetwork);
+        console.log('[Solana Payment] RPC:', heliusApiKey ? 'Helius (with API key)' : 'Public RPC');
         
         // Create x402 client with PayAI fee payer support
         const x402Client = createX402Client({
