@@ -127,79 +127,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log("[Base Payment] ✅ Cart total validated");
       
+      // IMPORTANT: We need to actually settle the payment on-chain, not just verify
+      // x402-express middleware handles both verification AND settlement
+      
       // Convert total to USDC micro-units (6 decimals)
       const amountInMicroUnits = Math.floor(calculatedTotal * 1_000_000).toString();
       const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
       
-      // Extract payment header
-      const paymentHeader = req.headers['x-payment'] as string;
+      console.log("[Base Payment] Creating x402-express middleware with dynamic amount: $" + calculatedTotal.toFixed(2));
       
-      // Create payment requirements in x402 format
-      const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-      const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
-      const resourceUrl = `${baseUrl}/api/checkout/pay`;
+      // Import and configure x402-express middleware
+      const { paymentMiddleware } = await import('x402-express');
       
-      const paymentRequirement = {
-        scheme: "exact" as const,
-        network: "base" as const,
-        maxAmountRequired: amountInMicroUnits,
-        resource: resourceUrl,
-        description: `OFF HUMAN Order - $${calculatedTotal.toFixed(2)}`,
-        payTo: X402_WALLET as `0x${string}`,
-        asset: USDC_BASE_MAINNET as `0x${string}`,
-        maxTimeoutSeconds: 60,
-      };
-      
-      // If no payment header, return 402 Payment Required
-      if (!paymentHeader) {
-        console.log("[Base Payment] No payment header - returning 402 with requirements for $" + calculatedTotal.toFixed(2));
-        return res.status(402).json({
-          x402Version: 1,
-          error: "X-PAYMENT header is missing. Client must provide payment.",
-          accepts: [paymentRequirement],
-        });
-      }
-      
-      // Verify payment with facilitator using x402 protocol
-      console.log("[Base Payment] Verifying payment with facilitator...");
-      console.log("[Base Payment] Amount: $" + calculatedTotal.toFixed(2) + " USDC");
-      
-      try {
-        // Import x402 verify function
-        const x402 = await import('x402');
-        
-        // Use x402 library to verify payment
-        const isValid = await x402.verify(paymentHeader, [paymentRequirement], {
-          url: FACILITATOR_URL,
-        });
-        
-        if (!isValid) {
-          console.log("[Base Payment] ❌ Payment verification FAILED");
-          return res.status(402).json({
-            error: "Payment verification failed",
-            message: "Facilitator rejected payment signature",
-          });
+      // Create middleware instance with dynamic payment requirements
+      // This middleware will:
+      // 1. Return 402 if no payment header
+      // 2. Verify payment signature with facilitator
+      // 3. Submit transaction to Base network (ACTUAL PAYMENT)
+      // 4. Call next() on success
+      const middleware = paymentMiddleware(
+        X402_WALLET as `0x${string}`,
+        {
+          price: `$${calculatedTotal.toFixed(2)}`, // Dynamic price in dollar format
+          network: 'base' // Base Mainnet
+        },
+        {
+          url: FACILITATOR_URL
         }
-        
-        console.log("[Base Payment] ✅ Payment VERIFIED by facilitator");
-      } catch (error) {
-        console.error("[Base Payment] Verification error:", error);
-        return res.status(500).json({
-          error: "Verification failed",
-          message: error instanceof Error ? error.message : "Could not verify payment",
-        });
-      }
+      );
       
-      // Extract transaction hash from payment header
-      let txHash = 'base-verified';
-      try {
-        const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
-        if (decodedHeader.payload?.txHash) {
-          txHash = decodedHeader.payload.txHash;
-        }
-      } catch (error) {
-        console.log("[Base Payment] Could not extract tx hash");
-      }
+      // Execute middleware and capture result
+      let txHash = 'base-pending';
+      await new Promise<void>((resolve, reject) => {
+        middleware(req, res, (error?: any) => {
+          if (error) {
+            console.log("[Base Payment] ❌ Middleware error:", error);
+            reject(error);
+          } else {
+            console.log("[Base Payment] ✅ Payment verified AND settled on Base!");
+            
+            // Extract transaction hash from payment header
+            const paymentHeader = req.headers['x-payment'] as string;
+            if (paymentHeader) {
+              try {
+                const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+                if (decodedHeader.payload?.txHash) {
+                  txHash = decodedHeader.payload.txHash;
+                }
+              } catch (e) {
+                console.log("[Base Payment] Could not extract tx hash");
+              }
+            }
+            
+            resolve();
+          }
+        });
+      });
       
       console.log("[Base Payment] Transaction hash:", txHash);
       console.log("[Base Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC received");
