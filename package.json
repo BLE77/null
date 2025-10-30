@@ -11,6 +11,7 @@
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "@coinbase/x402": "^0.7.0",
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",
     "@neondatabase/serverless": "^0.10.4",
@@ -84,6 +85,7 @@
     "wagmi": "^2.19.0",
     "wouter": "^3.3.5",
     "ws": "^8.18.0",
+    "x402": "^0.7.0",
     "x402-express": "^0.6.5",
     "x402-fetch": "^0.7.0",
     "x402-solana": "^0.1.1",

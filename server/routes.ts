@@ -130,10 +130,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Convert total to USDC micro-units (6 decimals)
       const amountInMicroUnits = Math.floor(calculatedTotal * 1_000_000).toString();
       
-      // Import x402 utilities
-      const { create402Response, extractPayment, verify } = await import('x402');
-      
-      const paymentHeader = extractPayment(req.headers);
+      // Extract payment header
+      const paymentHeader = req.headers['x-payment'] as string;
       const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
       
       // Create dynamic payment requirements based on actual cart total
@@ -141,41 +139,77 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       const resourceUrl = `${baseUrl}/api/checkout/pay`;
       
-      const paymentRequirements = {
+      const paymentRequirement = {
         scheme: "exact" as const,
         network: "base" as const,
         maxAmountRequired: amountInMicroUnits,
         resource: resourceUrl,
         description: `OFF HUMAN Order - $${calculatedTotal.toFixed(2)}`,
+        mimeType: "",
         payTo: X402_WALLET as `0x${string}`,
         asset: USDC_BASE_MAINNET as `0x${string}`,
         maxTimeoutSeconds: 60,
+        outputSchema: {},
+        extra: {},
       };
       
       // If no payment header, return 402 Payment Required
       if (!paymentHeader) {
-        const response402 = create402Response([paymentRequirements]);
-        console.log("[Base Payment] Returning 402 with requirements for $" + calculatedTotal.toFixed(2));
-        return res.status(402).json(response402);
+        console.log("[Base Payment] No payment header - returning 402 with requirements for $" + calculatedTotal.toFixed(2));
+        return res.status(402).json({
+          x402Version: 1,
+          error: "X-PAYMENT header is missing. Client must provide payment.",
+          accepts: [paymentRequirement],
+        });
       }
       
       // Step 2: Verify payment with facilitator
       console.log("[Base Payment] Verifying payment with facilitator...");
       console.log("[Base Payment] Amount: $" + calculatedTotal.toFixed(2) + " USDC");
+      console.log("[Base Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
       
-      const verificationResult = await verify(paymentHeader, paymentRequirements, {
-        url: FACILITATOR_URL,
-      });
-      
-      if (!verificationResult) {
-        console.log("[Base Payment] ❌ Payment verification FAILED");
-        return res.status(402).json({
-          error: "Payment verification failed",
-          message: "Facilitator rejected payment signature",
+      // Call facilitator to verify payment
+      try {
+        const facilitatorResponse = await fetch(`${FACILITATOR_URL}/verify`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            payment: paymentHeader,
+            requirement: paymentRequirement,
+          }),
+        });
+        
+        if (!facilitatorResponse.ok) {
+          const errorText = await facilitatorResponse.text();
+          console.log("[Base Payment] ❌ Facilitator rejected payment:", facilitatorResponse.status, errorText);
+          return res.status(402).json({
+            error: "Payment verification failed",
+            message: "Facilitator rejected payment signature",
+            details: errorText,
+          });
+        }
+        
+        const verificationResult = await facilitatorResponse.json();
+        console.log("[Base Payment] Facilitator verification result:", verificationResult);
+        
+        if (!verificationResult || verificationResult.verified === false) {
+          console.log("[Base Payment] ❌ Payment verification FAILED");
+          return res.status(402).json({
+            error: "Payment verification failed",
+            message: "Facilitator rejected payment signature",
+          });
+        }
+        
+        console.log("[Base Payment] ✅ Payment VERIFIED by facilitator");
+      } catch (error) {
+        console.error("[Base Payment] Facilitator verification error:", error);
+        return res.status(500).json({
+          error: "Verification failed",
+          message: "Could not verify payment with facilitator",
         });
       }
-      
-      console.log("[Base Payment] ✅ Payment VERIFIED by facilitator");
       
       // Extract transaction hash from payment header
       let txHash = 'base-verified';

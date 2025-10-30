@@ -153,7 +153,8 @@ export default function Checkout() {
         totalAmount: totalPrice.toFixed(2),
       };
 
-      const usdcAmount = 2.50;
+      // Use actual cart total (not hardcoded)
+      const usdcAmount = totalPrice;
       
       toast({
         title: "Preparing payment",
@@ -187,10 +188,13 @@ export default function Checkout() {
           }
         }
 
+        // Set max amount to cart total + 10% buffer for gas/fees
+        const maxAmount = Math.ceil(totalPrice * 1.1 * 1_000_000);
+        
         const fetchWithPayment = wrapFetchWithPayment(
           fetch, 
           walletClient as any,
-          BigInt(Math.floor(10 * 1_000_000)) // $10 USDC max
+          BigInt(maxAmount) // Dynamic max based on cart total
         );
 
         const response = await fetchWithPayment('/api/checkout/pay', {
@@ -233,13 +237,16 @@ export default function Checkout() {
           }
         };
 
+        // Set max amount to cart total + 10% buffer for gas/fees
+        const maxAmountSolana = Math.ceil(totalPrice * 1.1 * 1_000_000);
+        
         // Create x402 client for automatic payment handling  
         // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"
         const x402Client = createX402Client({
           wallet: walletAdapter,
           network: 'solana-devnet',
           rpcUrl: 'https://api.devnet.solana.com',
-          maxPaymentAmount: BigInt(10_000_000), // Max 10 USDC
+          maxPaymentAmount: BigInt(maxAmountSolana), // Dynamic max based on cart total
         });
         
         console.log('[Solana Payment] x402 client created, making payment request...');
