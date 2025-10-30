@@ -3,25 +3,37 @@ import { Strategy as LocalStrategy } from "passport-local";
 import type { Express, RequestHandler } from "express";
 import session from "express-session";
 import createMemoryStore from "memorystore";
+import connectPgSimple from "connect-pg-simple";
 import { dbStorage } from "./db-storage";
 import type { User } from "@shared/schema";
 
 const MemoryStore = createMemoryStore(session);
 
 export function setupAuth(app: Express) {
+  const usePgStore = app.get("env") === "production" || !!process.env.VERCEL;
+
+  const baseCookie: session.CookieOptions = {
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    sameSite: usePgStore ? "lax" : "lax",
+  };
+
   const sessionSettings: session.SessionOptions = {
     secret: process.env.SESSION_SECRET || "y2k-secret-key-2001",
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
-    },
-    store: new MemoryStore({
-      checkPeriod: 86400000, // 24 hours
-    }),
+    cookie: baseCookie,
+    store: usePgStore
+      ? new (connectPgSimple(session))({
+          conString: process.env.DATABASE_URL,
+          createTableIfMissing: true,
+          tableName: "session",
+        })
+      : new MemoryStore({
+          checkPeriod: 86400000,
+        }),
   };
 
-  if (app.get("env") === "production") {
+  if (usePgStore) {
     app.set("trust proxy", 1);
     sessionSettings.cookie = {
       ...sessionSettings.cookie,

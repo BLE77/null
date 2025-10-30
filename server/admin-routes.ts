@@ -5,23 +5,30 @@ import { requireAdmin } from "./auth";
 import { insertProductSchema } from "@shared/schema";
 import path from "path";
 import fs from "fs";
+import { put } from "@vercel/blob";
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(process.cwd(), "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
+const isVercel = !!process.env.VERCEL;
+const useBlob = isVercel || !!process.env.BLOB_READ_WRITE_TOKEN;
+let uploadsDir = path.join(process.cwd(), "uploads");
+if (!useBlob) {
+  // Only ensure local uploads dir when not using Blob storage
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
 }
 
 // Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
+const storage = useBlob
+  ? multer.memoryStorage()
+  : multer.diskStorage({
+      destination: (_req, _file, cb) => {
+        cb(null, uploadsDir);
+      },
+      filename: (_req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+      },
+    });
 
 const upload = multer({
   storage,
@@ -47,13 +54,21 @@ const upload = multer({
 
 export function registerAdminRoutes(app: Express) {
   // Upload image endpoint
-  app.post("/api/admin/uploads/image", requireAdmin, upload.single('image'), (req, res) => {
+  app.post("/api/admin/uploads/image", requireAdmin, upload.single('image'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
-      
-      const fileUrl = `/uploads/${req.file.filename}`;
+      if (useBlob) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const key = `uploads/${req.file.fieldname}-${uniqueSuffix}${path.extname(req.file.originalname)}`;
+        const { url } = await put(key, req.file.buffer as Buffer, {
+          access: 'public',
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+        });
+        return res.json({ url });
+      }
+      const fileUrl = `/uploads/${(req.file as any).filename}`;
       res.json({ url: fileUrl });
     } catch (error) {
       res.status(500).json({ message: "Failed to upload image" });
@@ -61,13 +76,21 @@ export function registerAdminRoutes(app: Express) {
   });
 
   // Upload model endpoint
-  app.post("/api/admin/uploads/model", requireAdmin, upload.single('model'), (req, res) => {
+  app.post("/api/admin/uploads/model", requireAdmin, upload.single('model'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
-      
-      const fileUrl = `/uploads/${req.file.filename}`;
+      if (useBlob) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const key = `uploads/${req.file.fieldname}-${uniqueSuffix}${path.extname(req.file.originalname)}`;
+        const { url } = await put(key, req.file.buffer as Buffer, {
+          access: 'public',
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+        });
+        return res.json({ url });
+      }
+      const fileUrl = `/uploads/${(req.file as any).filename}`;
       res.json({ url: fileUrl });
     } catch (error) {
       res.status(500).json({ message: "Failed to upload model" });
@@ -75,13 +98,26 @@ export function registerAdminRoutes(app: Express) {
   });
 
   // Upload multiple images endpoint
-  app.post("/api/admin/uploads/images", requireAdmin, upload.array('images', 10), (req, res) => {
+  app.post("/api/admin/uploads/images", requireAdmin, upload.array('images', 10), async (req, res) => {
     try {
-      if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
+      const files = req.files as Express.Multer.File[] | undefined;
+      if (!files || files.length === 0) {
         return res.status(400).json({ message: "No files uploaded" });
       }
-      
-      const fileUrls = req.files.map(file => `/uploads/${file.filename}`);
+      if (useBlob) {
+        const urls: string[] = [];
+        for (const f of files) {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const key = `uploads/${f.fieldname}-${uniqueSuffix}${path.extname(f.originalname)}`;
+          const { url } = await put(key, f.buffer as Buffer, {
+            access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN,
+          });
+          urls.push(url);
+        }
+        return res.json({ urls });
+      }
+      const fileUrls = (files as any[]).map((file) => `/uploads/${file.filename}`);
       res.json({ urls: fileUrls });
     } catch (error) {
       res.status(500).json({ message: "Failed to upload images" });
