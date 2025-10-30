@@ -240,12 +240,20 @@ export default function Checkout() {
         // Set max amount to cart total + 10% buffer for gas/fees
         const maxAmountSolana = Math.ceil(totalPrice * 1.1 * 1_000_000);
         
-        // Create x402 client for automatic payment handling  
-        // DEVNET - Mainnet doesn't work despite docs claiming "drop-in setup"
+        // Network configuration - defaults to mainnet
+        // Can be overridden with VITE_SOLANA_NETWORK env var for testing
+        const solanaNetwork = import.meta.env.VITE_SOLANA_NETWORK || 'solana';
+        const rpcUrl = solanaNetwork === 'solana-devnet' 
+          ? 'https://api.devnet.solana.com'
+          : 'https://api.mainnet-beta.solana.com';
+        
+        console.log('[Solana Payment] Network:', solanaNetwork, 'RPC:', rpcUrl);
+        
+        // Create x402 client with PayAI fee payer support
         const x402Client = createX402Client({
           wallet: walletAdapter,
-          network: 'solana-devnet',
-          rpcUrl: 'https://api.devnet.solana.com',
+          network: solanaNetwork as 'solana' | 'solana-devnet',
+          rpcUrl: rpcUrl,
           maxPaymentAmount: BigInt(maxAmountSolana), // Dynamic max based on cart total
         });
         
