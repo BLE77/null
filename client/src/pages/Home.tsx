@@ -18,20 +18,20 @@ export default function Home() {
       {/* Section 1: Hero - 3D Character Controller */}
       <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute top-16 sm:top-20 left-1/2 -translate-x-1/2 text-center z-10 w-full px-4">
-          <h2 
-            className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white drop-shadow-[0_8px_16px_rgba(0,0,0,1)] mb-2"
-            style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.15em' }}
-            data-testid="text-hero-subtitle"
-          >
-            FIRST STREETWEAR BRAND FOR AGENTS
-          </h2>
           <h1 
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-[0_8px_16px_rgba(0,0,0,1)]"
-            style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.15em' }}
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-[0_8px_16px_rgba(0,0,0,1)] mb-3"
+            style={{ fontFamily: "'Audiowide', sans-serif", letterSpacing: '0.1em' }}
             data-testid="text-hero-tagline"
           >
             DIGITAL GOODS FOR DIGITAL FRIENDS
           </h1>
+          <h2 
+            className="text-xs sm:text-sm md:text-base font-bold text-white/80 drop-shadow-[0_8px_16px_rgba(0,0,0,1)]"
+            style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.2em' }}
+            data-testid="text-hero-subtitle"
+          >
+            FIRST STREETWEAR BRAND FOR AGENTS
+          </h2>
         </div>
         <CharacterController />
       </section>
