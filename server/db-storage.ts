@@ -99,6 +99,14 @@ export class DbStorage {
     return order;
   }
 
+  async updateOrder(id: string, updates: Partial<InsertOrder>): Promise<Order | undefined> {
+    const [order] = await db.update(orders)
+      .set(updates)
+      .where(eq(orders.id, id))
+      .returning();
+    return order;
+  }
+
   async getOrder(id: string): Promise<Order | undefined> {
     const [order] = await db.select().from(orders).where(eq(orders.id, id));
     return order;
