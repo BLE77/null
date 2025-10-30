@@ -34,7 +34,7 @@ interface AgentConfig {
 const AGENT_CONFIG: AgentConfig = {
   name: "ShopBot-3000",
   personality: "A futuristic AI with a taste for cutting-edge streetwear and tech aesthetics",
-  budget: 10.00, // $10 USDC max
+  budget: 100.00, // $100 USDC max
   preferences: "Loves anything cyberpunk, neural-themed, or singularity-related. Prefers hoodies and tech wear."
 };
 
@@ -109,8 +109,8 @@ async function main() {
     if (ethFormatted < 0.0001) {
       console.log('⚠️  WARNING: Low ETH balance. You need ~$0.10-0.50 worth for gas fees.');
     }
-    if (usdcFormatted < 2.50) {
-      console.log('⚠️  WARNING: Insufficient USDC balance for purchase.\n');
+    if (usdcFormatted < AGENT_CONFIG.budget) {
+      console.log(`⚠️  WARNING: USDC balance ($${usdcFormatted.toFixed(2)}) may be insufficient for purchases up to $${AGENT_CONFIG.budget}.\n`);
     }
   } catch (error) {
     console.log('⚠️  Could not check wallet balance\n');
