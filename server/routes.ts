@@ -156,33 +156,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       );
       
-      // Execute middleware and capture result
-      let txHash = 'base-pending';
+      // Execute middleware
+      // CRITICAL: The middleware will either:
+      // 1. Send a 402 response (if no payment) - in this case res.headersSent will be true
+      // 2. Call next() after verifying payment - in this case we continue
       await new Promise<void>((resolve, reject) => {
         middleware(req, res, (error?: any) => {
           if (error) {
             console.log("[Base Payment] ❌ Middleware error:", error);
             reject(error);
           } else {
-            console.log("[Base Payment] ✅ Payment verified AND settled on Base!");
-            
-            // Extract transaction hash from payment header
-            const paymentHeader = req.headers['x-payment'] as string;
-            if (paymentHeader) {
-              try {
-                const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
-                if (decodedHeader.payload?.txHash) {
-                  txHash = decodedHeader.payload.txHash;
-                }
-              } catch (e) {
-                console.log("[Base Payment] Could not extract tx hash");
-              }
-            }
-            
             resolve();
           }
         });
       });
+      
+      // Check if middleware already sent a response (402 Payment Required)
+      if (res.headersSent) {
+        console.log("[Base Payment] Middleware sent 402 - waiting for payment");
+        return; // Don't continue - client needs to provide payment
+      }
+      
+      // If we get here, payment was verified AND settled successfully
+      console.log("[Base Payment] ✅ Payment verified AND settled on Base!");
+      
+      // Extract transaction hash from payment header
+      let txHash = 'base-verified';
+      const paymentHeader = req.headers['x-payment'] as string;
+      if (paymentHeader) {
+        try {
+          const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+          if (decodedHeader.payload?.txHash) {
+            txHash = decodedHeader.payload.txHash;
+          }
+        } catch (e) {
+          console.log("[Base Payment] Could not extract tx hash");
+        }
+      }
       
       console.log("[Base Payment] Transaction hash:", txHash);
       console.log("[Base Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC received");
