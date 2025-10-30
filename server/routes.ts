@@ -428,8 +428,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         verifyResult = await settleResponse.json();
         console.log("[Solana Payment] Facilitator settlement response:", JSON.stringify(verifyResult, null, 2));
         
-        // Check isValid field from facilitator response
-        if (!settleResponse.ok || !verifyResult.isValid) {
+        // Check success field from facilitator /settle response (different from /verify which uses isValid)
+        if (!settleResponse.ok || !verifyResult.success) {
           console.log("[Solana Payment] ❌ Payment settlement FAILED");
           return res.status(402).json({
             error: "Payment settlement failed",
@@ -440,7 +440,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         console.log("[Solana Payment] ✅ Payment VERIFIED AND SUBMITTED by facilitator!");
         console.log("[Solana Payment] Payer address:", verifyResult.payer);
-        console.log("[Solana Payment] Transaction signature:", verifyResult.signature);
+        console.log("[Solana Payment] Transaction signature:", verifyResult.transaction);
       } catch (error) {
         console.error("[Solana Payment] Facilitator verification error:", error);
         return res.status(500).json({
@@ -449,44 +449,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Step 2: Get transaction signature from verification result
-      // NOTE: x402-solana library submits the transaction on the frontend!
-      // PayAI only verifies it was submitted correctly. We just need the signature.
-      console.log("[Solana Payment] Step 2: Getting transaction signature...");
+      // Step 2: Get transaction signature from settlement result
+      console.log("[Solana Payment] Step 2: Processing successful settlement...");
       
-      // The signature might be in the verification result or we can extract from transaction
-      let txSignature = (verifyResult && verifyResult.signature) ? verifyResult.signature : 'solana-verified';
-      
-      // If not in verification result, try to extract from transaction bytes
-      if (!verifyResult || !verifyResult.signature) {
-        try {
-          const signedTxBase64 = paymentPayload.payload?.transaction;
-          if (signedTxBase64) {
-            const { VersionedTransaction } = await import('@solana/web3.js');
-            const bs58 = await import('bs58');
-            const txBuffer = Buffer.from(signedTxBase64, 'base64');
-            const transaction = VersionedTransaction.deserialize(txBuffer);
-            
-            // Extract the signature from the transaction
-            const signature = transaction.signatures[0];
-            if (signature && signature.length === 64) {
-              // Check if signature is not all zeros (placeholder)
-              const isValidSignature = !signature.every(byte => byte === 0);
-              if (isValidSignature) {
-                txSignature = bs58.default.encode(signature);
-                console.log("[Solana Payment] ✅ Extracted real signature:", txSignature);
-              } else {
-                console.log("[Solana Payment] Warning: Transaction has placeholder signatures");
-              }
-            }
-          }
-        } catch (e) {
-          console.log("[Solana Payment] Could not extract signature:", e instanceof Error ? e.message : 'Unknown');
-        }
-      }
+      // The /settle endpoint returns the transaction signature in the "transaction" field
+      const txSignature = verifyResult.transaction || 'solana-settled';
       
       console.log("[Solana Payment] Transaction signature:", txSignature);
-      console.log("[Solana Payment] ✅ Payment verified - $" + calculatedTotal.toFixed(2) + " USDC on Solana!");
+      console.log("[Solana Payment] ✅ $" + calculatedTotal.toFixed(2) + " USDC transferred on Solana!");
       
       // Create the order with verified payment
       const order = await dbStorage.createOrder({
