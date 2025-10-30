@@ -151,11 +151,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
       
       // If no payment header, return 402 with correct x402 format
+      // x402-fetch expects "accepts" field, not "paymentRequirements"
       if (!paymentHeader) {
         console.log("[Base Payment] No payment header - returning 402 for $" + calculatedTotal.toFixed(2));
         return res.status(402).json({
           x402Version: 1,
-          paymentRequirements: [paymentRequirement],
+          accepts: [paymentRequirement],
         });
       }
       
