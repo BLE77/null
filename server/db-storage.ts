@@ -104,6 +104,11 @@ export class DbStorage {
     return order;
   }
 
+  async getOrderByTrackingToken(trackingToken: string): Promise<Order | undefined> {
+    const [order] = await db.select().from(orders).where(eq(orders.trackingToken, trackingToken));
+    return order;
+  }
+
   async getAllOrders(): Promise<Order[]> {
     return db.select().from(orders);
   }

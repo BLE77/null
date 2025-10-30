@@ -13,6 +13,7 @@ export interface IStorage {
   
   createOrder(order: InsertOrder): Promise<Order>;
   getOrder(id: string): Promise<Order | undefined>;
+  getOrderByTrackingToken(trackingToken: string): Promise<Order | undefined>;
   getAllOrders(): Promise<Order[]>;
 }
 
@@ -146,6 +147,12 @@ export class MemStorage implements IStorage {
 
   async getOrder(id: string): Promise<Order | undefined> {
     return this.orders.get(id);
+  }
+
+  async getOrderByTrackingToken(trackingToken: string): Promise<Order | undefined> {
+    return Array.from(this.orders.values()).find(
+      (order) => order.trackingToken === trackingToken
+    );
   }
 
   async getAllOrders(): Promise<Order[]> {
