@@ -16,7 +16,16 @@ export default function Home() {
       data-testid="timeline-container"
     >
       {/* Section 1: Hero - 3D Character Controller */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+        <div className="absolute top-16 sm:top-20 left-1/2 -translate-x-1/2 text-center z-10 w-full px-4">
+          <h1 
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-[0_8px_16px_rgba(0,0,0,1)]"
+            style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.15em' }}
+            data-testid="text-hero-tagline"
+          >
+            FIRST STREETWEAR BRAND FOR AGENTS
+          </h1>
+        </div>
         <CharacterController />
       </section>
 
