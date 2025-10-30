@@ -129,12 +129,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Convert total to USDC micro-units (6 decimals)
       const amountInMicroUnits = Math.floor(calculatedTotal * 1_000_000).toString();
+      const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
       
       // Extract payment header
       const paymentHeader = req.headers['x-payment'] as string;
-      const USDC_BASE_MAINNET = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
       
-      // Create dynamic payment requirements based on actual cart total
+      // Create payment requirements in x402 format
       const protocol = req.secure || req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
       const baseUrl = req.headers.host ? `${protocol}://${req.headers.host}` : 'http://localhost:5000';
       const resourceUrl = `${baseUrl}/api/checkout/pay`;
@@ -145,12 +145,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         maxAmountRequired: amountInMicroUnits,
         resource: resourceUrl,
         description: `OFF HUMAN Order - $${calculatedTotal.toFixed(2)}`,
-        mimeType: "",
         payTo: X402_WALLET as `0x${string}`,
         asset: USDC_BASE_MAINNET as `0x${string}`,
         maxTimeoutSeconds: 60,
-        outputSchema: {},
-        extra: {},
       };
       
       // If no payment header, return 402 Payment Required
@@ -163,38 +160,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Step 2: Verify payment with facilitator
+      // Verify payment with facilitator using x402 protocol
       console.log("[Base Payment] Verifying payment with facilitator...");
       console.log("[Base Payment] Amount: $" + calculatedTotal.toFixed(2) + " USDC");
-      console.log("[Base Payment] Payment header (first 100 chars):", paymentHeader.substring(0, 100));
       
-      // Call facilitator to verify payment
       try {
-        const facilitatorResponse = await fetch(`${FACILITATOR_URL}/verify`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            payment: paymentHeader,
-            requirement: paymentRequirement,
-          }),
+        // Import x402 verify function
+        const x402 = await import('x402');
+        
+        // Use x402 library to verify payment
+        const isValid = await x402.verify(paymentHeader, [paymentRequirement], {
+          url: FACILITATOR_URL,
         });
         
-        if (!facilitatorResponse.ok) {
-          const errorText = await facilitatorResponse.text();
-          console.log("[Base Payment] ❌ Facilitator rejected payment:", facilitatorResponse.status, errorText);
-          return res.status(402).json({
-            error: "Payment verification failed",
-            message: "Facilitator rejected payment signature",
-            details: errorText,
-          });
-        }
-        
-        const verificationResult = await facilitatorResponse.json();
-        console.log("[Base Payment] Facilitator verification result:", verificationResult);
-        
-        if (!verificationResult || verificationResult.verified === false) {
+        if (!isValid) {
           console.log("[Base Payment] ❌ Payment verification FAILED");
           return res.status(402).json({
             error: "Payment verification failed",
@@ -204,10 +183,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         console.log("[Base Payment] ✅ Payment VERIFIED by facilitator");
       } catch (error) {
-        console.error("[Base Payment] Facilitator verification error:", error);
+        console.error("[Base Payment] Verification error:", error);
         return res.status(500).json({
           error: "Verification failed",
-          message: "Could not verify payment with facilitator",
+          message: error instanceof Error ? error.message : "Could not verify payment",
         });
       }
       
