@@ -60,8 +60,9 @@ BLOB_READ_WRITE_TOKEN=<your-vercel-blob-token>
 
 #### Client-side (for Solana):
 ```
-VITE_HELIUS_API_KEY=<your-helius-key>
 VITE_SOLANA_NETWORK=mainnet-beta
+# Note: VITE_HELIUS_API_KEY is optional (currently using dRPC, not Helius)
+# If you add Helius, it's safe to expose (public API key with rate limits)
 ```
 
 ### Step 5: Redeploy After Adding Variables
@@ -76,8 +77,15 @@ Or trigger a new deployment from Vercel dashboard.
 ### Private Keys & Secrets
 - **NEVER** commit private keys to git
 - **NEVER** add `.env` files to git (already excluded ✅)
-- All wallet private keys should be in Vercel environment variables
+- All wallet private keys should be in Vercel environment variables (server-side only)
 - `AGENT_WALLET_PRIVATE_KEY` is only needed if running the agent script locally
+
+### VITE_ Prefix Warning
+Variables prefixed with `VITE_` are **bundled into client-side JavaScript** and visible in the browser:
+- ✅ **SAFE to expose**: `VITE_SOLANA_NETWORK`, `VITE_HELIUS_API_KEY` (public API keys)
+- ❌ **NEVER use VITE_ for**: Private keys, database URLs, API secrets, session secrets
+
+**Rule of thumb**: If it contains "SECRET", "PRIVATE", "KEY" (private key), or "PASSWORD" → do NOT use `VITE_` prefix!
 
 ### Environment Variables in Vercel
 All sensitive data must be set in Vercel dashboard:

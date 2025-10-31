@@ -27,8 +27,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const products = await dbStorage.getAllProducts();
       res.json(products);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch products" });
+    } catch (error: any) {
+      console.error("[API /api/products] Error:", error);
+      console.error("[API /api/products] Error message:", error?.message);
+      console.error("[API /api/products] DATABASE_URL exists:", !!process.env.DATABASE_URL);
+      res.status(500).json({ 
+        message: "Failed to fetch products",
+        error: process.env.NODE_ENV === "development" ? error?.message : undefined
+      });
     }
   });
 
