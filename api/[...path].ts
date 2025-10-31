@@ -30,21 +30,34 @@ async function getApp() {
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   try {
-    console.log(`[API] ${req.method} ${req.url}`);
+    console.log(`[API Handler] ${req.method} ${req.url || req.headers['x-forwarded-url'] || 'unknown'}`);
+    console.log(`[API Handler] Path: ${(req as any).url || req.url}`);
+    
     const app = await getApp();
-    // Express app is a request handler: (req, res, next?) => void
-    // @ts-ignore - Express handler signature is compatible with Vercel handler
-    return app(req as any, res as any);
+    console.log(`[API Handler] App obtained, calling Express handler`);
+    
+    // Express app handles the response asynchronously
+    // We need to call it but not await it - it will handle res.end() internally
+    app(req as any, res as any);
+    
+    // Return undefined immediately - Express will handle the response
+    return undefined;
   } catch (error: any) {
-    console.error("[API] Handler error:", error);
+    console.error("[API Handler] Fatal error:", error);
+    console.error("[API Handler] Error stack:", error?.stack);
+    console.error("[API Handler] Error message:", error?.message);
+    
     if (!res.headersSent) {
       res.statusCode = 500;
       res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ 
-        message: "Internal server error", 
-        error: process.env.NODE_ENV === "development" ? error.message : undefined 
-      }));
+      const errorResponse = {
+        message: "Internal server error",
+        error: process.env.NODE_ENV === "development" ? error?.message : undefined,
+        stack: process.env.NODE_ENV === "development" ? error?.stack : undefined
+      };
+      res.end(JSON.stringify(errorResponse));
     }
+    return undefined;
   }
 }
 
