@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { createApp } from "../server/app.js";
+// @ts-ignore - Vercel will compile this
+import { createApp } from "../server/app";
 
 let appPromise: ReturnType<typeof createApp> | null = null;
 
