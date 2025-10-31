@@ -32,17 +32,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   try {
     console.log(`[API] ${req.method} ${req.url}`);
     const app = await getApp();
-    // Express handler signature
-    return new Promise((resolve, reject) => {
-      app(req as any, res as any, (err?: any) => {
-        if (err) {
-          console.error("[API] Express error:", err);
-          reject(err);
-        } else {
-          resolve(undefined);
-        }
-      });
-    });
+    // Express app is a request handler: (req, res, next?) => void
+    // @ts-ignore - Express handler signature is compatible with Vercel handler
+    return app(req as any, res as any);
   } catch (error: any) {
     console.error("[API] Handler error:", error);
     if (!res.headersSent) {
