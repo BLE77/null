@@ -25,11 +25,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/products", async (req, res) => {
     try {
+      console.log("[API /api/products] Fetching products...");
+      console.log("[API /api/products] DATABASE_URL exists:", !!process.env.DATABASE_URL);
+      
       const products = await dbStorage.getAllProducts();
+      console.log(`[API /api/products] Successfully fetched ${products.length} products`);
       res.json(products);
     } catch (error: any) {
       console.error("[API /api/products] Error:", error);
       console.error("[API /api/products] Error message:", error?.message);
+      console.error("[API /api/products] Error stack:", error?.stack);
       console.error("[API /api/products] DATABASE_URL exists:", !!process.env.DATABASE_URL);
       res.status(500).json({ 
         message: "Failed to fetch products",
