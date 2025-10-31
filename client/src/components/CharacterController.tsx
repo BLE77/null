@@ -464,7 +464,7 @@ export function CharacterController() {
     // Load GLB model
     const loader = new GLTFLoader();
     loader.load(
-      '/attached_assets/THG_1761649401547.glb',
+      '/attached_assets/THG.glb',
       (gltf: any) => {
         const model = gltf.scene;
         model.scale.setScalar(0.6); // Scale down to fit in viewport

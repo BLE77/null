@@ -1,4 +1,4 @@
-import brandImage from "@assets/9a2da2ac-bcdf-4064-81e8-606508945db1_1761639029145.png";
+import brandImage from "@assets/About Robo.png";
 
 export default function About() {
   return (

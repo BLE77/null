@@ -1,4 +1,4 @@
-import logoImage from "@assets/OFF_HUMAN_transparent_1761601015783.png";
+import logoImage from "@assets/OFF_HUMAN_transparent.png";
 
 interface LogoProps {
   variant?: "hero" | "nav";
