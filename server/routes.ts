@@ -1,7 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { dbStorage } from "./db-storage.js";
-import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
+import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "../shared/schema.js";
+import { db } from "./db.js";
+import { sql } from "drizzle-orm";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth.js";
 
@@ -14,6 +16,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const X402_WALLET = process.env.X402_WALLET_ADDRESS;
   const X402_SOLANA_WALLET = process.env.X402_SOLANA_WALLET_ADDRESS || X402_WALLET; // Can use same wallet or separate Solana wallet
   const FACILITATOR_URL = "https://facilitator.payai.network";
+
+  // Lightweight health check for debugging 500s
+  app.get("/api/healthz", async (_req, res) => {
+    try {
+      const productsCountRes: any = await (db as any).execute(sql`select count(*)::int as count from products`);
+      const ordersCountRes: any = await (db as any).execute(sql`select count(*)::int as count from orders`);
+      res.json({
+        ok: true,
+        env: {
+          DATABASE_URL: !!process.env.DATABASE_URL,
+          VERCEL: !!process.env.VERCEL,
+        },
+        db: {
+          products: productsCountRes?.rows?.[0]?.count ?? null,
+          orders: ordersCountRes?.rows?.[0]?.count ?? null,
+        },
+        time: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: error?.message || "health check failed",
+        env: { DATABASE_URL: !!process.env.DATABASE_URL },
+      });
+    }
+  });
+
+  // Lightweight health check for debugging 500s
+  app.get("/api/healthz", async (_req, res) => {
+    try {
+      const productsCountRes: any = await (db as any).execute(sql`select count(*)::int as count from products`);
+      const ordersCountRes: any = await (db as any).execute(sql`select count(*)::int as count from orders`);
+      res.json({
+        ok: true,
+        env: {
+          DATABASE_URL: !!process.env.DATABASE_URL,
+          VERCEL: !!process.env.VERCEL,
+        },
+        db: {
+          products: productsCountRes?.rows?.[0]?.count ?? null,
+          orders: ordersCountRes?.rows?.[0]?.count ?? null,
+        },
+        time: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: error?.message || "health check failed",
+        env: { DATABASE_URL: !!process.env.DATABASE_URL },
+      });
+    }
+  });
   
   if (!X402_WALLET) {
     console.warn("⚠️  X402_WALLET_ADDRESS not set - X402 payments will not work");

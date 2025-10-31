@@ -1,34 +1,38 @@
+import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes.js";
-import { registerAdminRoutes } from "./admin-routes.js";
-import { setupVite, serveStatic, log } from "./vite.js";
-import { setupAuth } from "./auth.js";
+import { registerRoutes } from "./routes.ts";
+import { registerAdminRoutes } from "./admin-routes.ts";
+import { setupAuth } from "./auth.ts";
 import path from "path";
 
 const app = express();
 setupAuth(app);
 
-app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets'), {
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.otf')) {
-      res.setHeader('Content-Type', 'font/otf');
-    } else if (filePath.endsWith('.ttf')) {
-      res.setHeader('Content-Type', 'font/ttf');
-    } else if (filePath.endsWith('.woff')) {
-      res.setHeader('Content-Type', 'font/woff');
-    } else if (filePath.endsWith('.woff2')) {
-      res.setHeader('Content-Type', 'font/woff2');
+if (!process.env.VERCEL) {
+  app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets'), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.otf')) {
+        res.setHeader('Content-Type', 'font/otf');
+      } else if (filePath.endsWith('.ttf')) {
+        res.setHeader('Content-Type', 'font/ttf');
+      } else if (filePath.endsWith('.woff')) {
+        res.setHeader('Content-Type', 'font/woff');
+      } else if (filePath.endsWith('.woff2')) {
+        res.setHeader('Content-Type', 'font/woff2');
+      }
     }
-  }
-}));
+  }));
+}
 
-app.use('/uploads', express.static(path.join(process.cwd(), 'uploads'), {
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.glb')) {
-      res.setHeader('Content-Type', 'model/gltf-binary');
+if (!process.env.VERCEL) {
+  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads'), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.glb')) {
+        res.setHeader('Content-Type', 'model/gltf-binary');
+      }
     }
-  }
-}));
+  }));
+}
 
 declare module 'http' {
   interface IncomingMessage {
@@ -87,9 +91,22 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
+  // Lightweight logger to avoid importing vite in production
+  const log = (message: string, source = "express") => {
+    const formattedTime = new Date().toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+    console.log(`${formattedTime} [${source}] ${message}`);
+  };
+
   if (app.get("env") === "development") {
+    const { setupVite } = await import("./vite.ts");
     await setupVite(app, server);
   } else {
+    const { serveStatic } = await import("./vite.ts");
     serveStatic(app);
   }
 

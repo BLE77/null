@@ -1,10 +1,12 @@
 import { createWeb3Modal } from '@web3modal/wagmi';
-import { http, createConfig } from 'wagmi';
+import { createConfig, createStorage } from 'wagmi';
+import { http } from 'viem';
 import { base, baseSepolia } from 'wagmi/chains';
-import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
+// Import injected from @wagmi/connectors for wagmi v2
+import { injected } from '@wagmi/connectors';
 
-// WalletConnect Project ID - get from https://cloud.walletconnect.com
-export const projectId = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
+// WalletConnect Project ID (set VITE_WALLETCONNECT_PROJECT_ID in env)
+export const projectId = (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string) || 'c4c89e8e16e7ac96efcf97932c8b0070';
 
 const metadata = {
   name: 'OFF HUMAN',
@@ -16,26 +18,20 @@ const metadata = {
 // Configure supported chains (Base mainnet first for primary network)
 export const chains = [base, baseSepolia] as const;
 
-// Configure wagmi
+// Configure wagmi v2
 export const config = createConfig({
   chains,
   transports: {
     [baseSepolia.id]: http(),
     [base.id]: http(),
   },
-  // Disable auto-reconnect completely
-  ssr: false,
-  multiInjectedProviderDiscovery: false, // Don't auto-discover wallets
+  // Storage configuration for wagmi v2
+  storage: typeof window !== 'undefined' ? createStorage({ storage: window.localStorage }) : undefined,
   connectors: [
-    // WalletConnect - supports 300+ wallets including Phantom (EVM mode)
-    walletConnect({ 
-      projectId, 
-      metadata,
-      showQrModal: false, // Web3Modal handles the QR modal
-    }),
     // Injected wallets (MetaMask, Phantom browser extension, etc.)
     injected({ 
       target: 'metaMask',
+      shimDisconnect: true,
     }),
     // Phantom specifically (when installed as browser extension)
     injected({
@@ -46,11 +42,8 @@ export const config = createConfig({
           provider: typeof window !== 'undefined' ? (window as any).phantom?.ethereum : undefined,
         };
       },
+      shimDisconnect: true,
     }),
-    // Coinbase Wallet
-    coinbaseWallet({
-      appName: metadata.name,
-      appLogoUrl: metadata.icons[0],
-    }),
+    // Note: WalletConnect and Coinbase Wallet are handled by @web3modal/wagmi
   ],
 });

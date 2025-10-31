@@ -3,7 +3,16 @@ import path from "path";
 import { registerRoutes } from "./routes.js";
 import { registerAdminRoutes } from "./admin-routes.js";
 import { setupAuth } from "./auth.js";
-import { log } from "./vite.js";
+// Lightweight logger (avoid importing Vite/ Rollup in serverless)
+function log(message: string, source = "express") {
+  const formattedTime = new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
 
 declare module "http" {
   interface IncomingMessage {
@@ -22,23 +31,25 @@ export async function createApp(): Promise<AppBundle> {
 
   setupAuth(app);
 
-  // Static assets bundled with the app
-  app.use(
-    "/attached_assets",
-    express.static(path.join(process.cwd(), "attached_assets"), {
-      setHeaders: (res, filePath) => {
-        if (filePath.endsWith(".otf")) {
-          res.setHeader("Content-Type", "font/otf");
-        } else if (filePath.endsWith(".ttf")) {
-          res.setHeader("Content-Type", "font/ttf");
-        } else if (filePath.endsWith(".woff")) {
-          res.setHeader("Content-Type", "font/woff");
-        } else if (filePath.endsWith(".woff2")) {
-          res.setHeader("Content-Type", "font/woff2");
-        }
-      },
-    }),
-  );
+  // Serve attached assets locally (Vercel serves them statically from the build output)
+  if (!process.env.VERCEL) {
+    app.use(
+      "/attached_assets",
+      express.static(path.join(process.cwd(), "attached_assets"), {
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith(".otf")) {
+            res.setHeader("Content-Type", "font/otf");
+          } else if (filePath.endsWith(".ttf")) {
+            res.setHeader("Content-Type", "font/ttf");
+          } else if (filePath.endsWith(".woff")) {
+            res.setHeader("Content-Type", "font/woff");
+          } else if (filePath.endsWith(".woff2")) {
+            res.setHeader("Content-Type", "font/woff2");
+          }
+        },
+      }),
+    );
+  }
 
   // In serverless (Vercel), persistent local disk is not available.
   // Only expose local uploads when not running on Vercel.
@@ -111,4 +122,3 @@ export async function createApp(): Promise<AppBundle> {
 
   return { app, httpServer };
 }
-

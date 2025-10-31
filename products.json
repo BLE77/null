@@ -1,0 +1,104 @@
+[
+  {
+    "id": "d714f2de-0a95-40c9-ada8-858bd67141ab",
+    "name": "Byte Me",
+    "description": "hehe",
+    "price": "1.00",
+    "category": "tees",
+    "image_url": "/attached_assets/Byte%20Me_1761640131026.png",
+    "images": [
+      "/attached_assets/Byte%20Me_1761640131026.png",
+      "/attached_assets/fit%201_1761538260908.png"
+    ],
+    "inventory": { "S": 10, "M": 15, "L": 12, "XL": 8 },
+    "created_at": "2025-10-28 10:58:06.373517",
+    "model_url": "/attached_assets/THG_1761649401547.glb",
+    "home_page_image_url": "/attached_assets/Byte%20Me_1761640131026.png",
+    "shop_image_url": "/attached_assets/fit%201_1761538225955.png"
+  },
+  {
+    "id": "2cf97712-a6c9-4fc5-9127-de64118f4e2b",
+    "name": "CLANKERS TOKYO",
+    "description": "Neon green cyberpunk skull with Japanese a,_a��a�3a,�a,1 graphics. Retro-tech aesthetic on acid-washed cotton. Bold statement piece with vintage Y2K vibes.",
+    "price": "4.00",
+    "category": "tees",
+    "image_url": "/attached_assets/ChatGPT%20Image%20Oct%2025,%202025,%2004_49_09%20PM_1761436509620.png",
+    "images": [
+      "/attached_assets/ChatGPT%20Image%20Oct%2025,%202025,%2004_49_09%20PM_1761436509620.png",
+      "/attached_assets/fit%202a_1761538260906.png"
+    ],
+    "inventory": { "S": 12, "M": 18, "L": 16, "XL": 10 },
+    "created_at": "2025-10-26 00:01:27.986373",
+    "model_url": "/attached_assets/Clanker%20Tokyo_1761610501240.glb",
+    "home_page_image_url": "/attached_assets/ChatGPT%20Image%20Oct%2025,%202025,%2004_49_09%20PM_1761436509620.png",
+    "shop_image_url": "/attached_assets/fit%202a_1761538225956.png"
+  },
+  {
+    "id": "77fc7ace-8b29-402a-a85e-ba6544bb8af3",
+    "name": "X402 tie",
+    "description": "Tie when you want to look Pro",
+    "price": "1.00",
+    "category": "tees",
+    "image_url": "/attached_assets/fit%203a_1761538225956.png",
+    "images": [
+      "/attached_assets/fit%203a_1761538225956.png",
+      "/attached_assets/fit%203a_1761538260907.png"
+    ],
+    "inventory": { "S": 10, "M": 15, "L": 12, "XL": 8 },
+    "created_at": "2025-10-28 10:33:38.354187",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/fit%203a_1761538225956.png",
+    "shop_image_url": "/attached_assets/fit%203a_1761538260907.png"
+  },
+  {
+    "id": "a80d802e-a045-4dc1-aa83-bde612c90760",
+    "name": "X402 CALL TEE",
+    "description": "call me",
+    "price": "1.00",
+    "category": "tees",
+    "image_url": "/attached_assets/402%20call_1761436644815.png",
+    "images": [
+      "/attached_assets/402%20call_1761436644815.png",
+      "/attached_assets/fit%204a_1761538260907.png"
+    ],
+    "inventory": { "S": 10, "M": 15, "L": 12, "XL": 8 },
+    "created_at": "2025-10-28 10:55:45.485486",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/402%20call_1761436644815.png",
+    "shop_image_url": "/attached_assets/fit%204a_1761538225956.png"
+  },
+  {
+    "id": "e9e21d8e-7ff2-473d-bd6e-cc565c003195",
+    "name": "CLANKERS BMX HOODIE",
+    "description": "bruh clankers riding bikes",
+    "price": "1.00",
+    "category": "tees",
+    "image_url": "/attached_assets/clankersar_1761436647628.png",
+    "images": [
+      "/attached_assets/clankersar_1761436647628.png",
+      "/attached_assets/fit%205_1761538260907.png"
+    ],
+    "inventory": { "S": 10, "M": 15, "L": 12, "XL": 8 },
+    "created_at": "2025-10-28 11:02:48.860343",
+    "model_url": "/attached_assets/Clanker%20Tokyo_1761611854063.glb",
+    "home_page_image_url": "/attached_assets/clankersar_1761436647628.png",
+    "shop_image_url": "/attached_assets/fit%205_1761538225956.png"
+  },
+  {
+    "id": "3f1535f9-ec50-4c0f-8509-ba2f29d607b0",
+    "name": "PROVE YOU'RE NOT HUMAN",
+    "description": "Prove it!",
+    "price": "1.00",
+    "category": "tees",
+    "image_url": "/attached_assets/ChatGPT%20Image%20Oct%2027,%202025,%2008_39_39%20PM_1761622826007.png",
+    "images": [
+      "/attached_assets/ChatGPT%20Image%20Oct%2027,%202025,%2008_39_39%20PM_1761622826007.png",
+      "/attached_assets/fit%208_1761538260907.png"
+    ],
+    "inventory": { "S": 10, "M": 15, "L": 12, "XL": 8 },
+    "created_at": "2025-10-30 06:27:30.887264",
+    "model_url": "/attached_assets/Aura%201_1761649401549.glb",
+    "home_page_image_url": "/attached_assets/ChatGPT%20Image%20Oct%2027,%202025,%2008_39_39%20PM_1761622826007.png",
+    "shop_image_url": "/attached_assets/fit%208_1761538225957.png"
+  }
+]

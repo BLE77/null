@@ -2,7 +2,7 @@ import type { Express } from "express";
 import multer from "multer";
 import { dbStorage } from "./db-storage.js";
 import { requireAdmin } from "./auth.js";
-import { insertProductSchema } from "@shared/schema";
+import { insertProductSchema } from "../shared/schema.js";
 import path from "path";
 import fs from "fs";
 import { put } from "@vercel/blob";

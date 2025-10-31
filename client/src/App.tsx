@@ -46,7 +46,7 @@ function Router() {
 
 function App() {
   return (
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <AuthProvider>

@@ -1,5 +1,5 @@
 import { db } from "./db.js";
-import { users, products, orders, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory } from "@shared/schema";
+import { users, products, orders, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory } from "../shared/schema.js";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 
@@ -190,13 +190,16 @@ export class DbStorage {
   }
 
   async seedAdmin(): Promise<void> {
-    // Fail fast if SEED_ADMIN is enabled in non-development environment
-    if (process.env.SEED_ADMIN === "true" && process.env.NODE_ENV !== "development") {
-      throw new Error("CRITICAL: SEED_ADMIN cannot be enabled in production! This is a security risk.");
+    // Never seed admin in production; skip instead of crashing if misconfigured
+    if (process.env.NODE_ENV !== "development") {
+      if (process.env.SEED_ADMIN === "true") {
+        console.warn("[Security] SEED_ADMIN is set but ignored in production. Skipping admin seeding.");
+      }
+      return;
     }
 
     // Only seed admin in development mode and if explicitly enabled
-    if (process.env.NODE_ENV !== "development" || process.env.SEED_ADMIN !== "true") {
+    if (process.env.SEED_ADMIN !== "true") {
       return;
     }
 

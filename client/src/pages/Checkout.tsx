@@ -26,8 +26,8 @@ export default function Checkout() {
   const { address: walletAddress, isConnected, chain } = useAccount();
   const { data: walletClient } = useWalletClient();
   const { disconnect } = useDisconnect();
-  const { close } = useWeb3Modal();
   const { switchChain } = useSwitchChain();
+  const { close } = useWeb3Modal();
   const [email, setEmail] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);

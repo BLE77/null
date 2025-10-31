@@ -2,11 +2,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import { createWeb3Modal } from '@web3modal/wagmi/react';
-import { config } from '@/lib/wagmi-config';
+import { config, projectId } from '@/lib/wagmi-config';
 
 // Initialize Web3Modal ONCE at startup before app renders
-const projectId = 'c4c89e8e16e7ac96efcf97932c8b0070';
-
+// wagmi v2 exposes chains correctly on config object
 createWeb3Modal({
   wagmiConfig: config,
   projectId,

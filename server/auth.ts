@@ -5,12 +5,18 @@ import session from "express-session";
 import createMemoryStore from "memorystore";
 import connectPgSimple from "connect-pg-simple";
 import { dbStorage } from "./db-storage.js";
-import type { User } from "@shared/schema";
+import type { User } from "../shared/schema.js";
 
 const MemoryStore = createMemoryStore(session);
 
 export function setupAuth(app: Express) {
   const usePgStore = app.get("env") === "production" || !!process.env.VERCEL;
+
+  // Sanitize DATABASE_URL for pg SessionStore (strip unsupported params like channel_binding)
+  const rawDbUrl = process.env.DATABASE_URL || "";
+  const conString = rawDbUrl
+    ? rawDbUrl.replace(/([?&])channel_binding=[^&]*&?/g, "$1").replace(/[?&]$/, "")
+    : undefined;
 
   const baseCookie: session.CookieOptions = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -24,7 +30,7 @@ export function setupAuth(app: Express) {
     cookie: baseCookie,
     store: usePgStore
       ? new (connectPgSimple(session))({
-          conString: process.env.DATABASE_URL,
+          conString,
           createTableIfMissing: true,
           tableName: "session",
         })
