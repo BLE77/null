@@ -116,8 +116,11 @@ async function migrateFiles() {
   console.log('🔄 Updating database URLs...\n');
   
   try {
-    // Get all products
-    const productsResult = await pool.query('SELECT id, name, model_url, image_url, images FROM products');
+    // Get all products with all image URL fields
+    const productsResult = await pool.query(`
+      SELECT id, name, model_url, image_url, shop_image_url, home_page_image_url, images 
+      FROM products
+    `);
     const products = productsResult.rows;
     
     let updatedCount = 0;
@@ -127,7 +130,7 @@ async function migrateFiles() {
       const updates: any = {};
       
       // Update model_url
-      if (product.model_url && fileMappings.has(product.model_url)) {
+      if (product.model_url && product.model_url.startsWith('/uploads/') && fileMappings.has(product.model_url)) {
         updates.model_url = fileMappings.get(product.model_url);
         needsUpdate = true;
         console.log(`  🔄 ${product.name}: model_url`);
@@ -140,10 +143,24 @@ async function migrateFiles() {
         console.log(`  🔄 ${product.name}: image_url`);
       }
       
+      // Update shop_image_url (NEW - was missing!)
+      if (product.shop_image_url && product.shop_image_url.startsWith('/uploads/') && fileMappings.has(product.shop_image_url)) {
+        updates.shop_image_url = fileMappings.get(product.shop_image_url);
+        needsUpdate = true;
+        console.log(`  🔄 ${product.name}: shop_image_url`);
+      }
+      
+      // Update home_page_image_url (NEW - was missing!)
+      if (product.home_page_image_url && product.home_page_image_url.startsWith('/uploads/') && fileMappings.has(product.home_page_image_url)) {
+        updates.home_page_image_url = fileMappings.get(product.home_page_image_url);
+        needsUpdate = true;
+        console.log(`  🔄 ${product.name}: home_page_image_url`);
+      }
+      
       // Update images array
       if (product.images && Array.isArray(product.images)) {
         const updatedImages = product.images.map((img: string) => {
-          if (img.startsWith('/uploads/') && fileMappings.has(img)) {
+          if (img && img.startsWith('/uploads/') && fileMappings.has(img)) {
             return fileMappings.get(img)!;
           }
           return img;
@@ -157,7 +174,7 @@ async function migrateFiles() {
       }
       
       if (needsUpdate) {
-        const setClause = Object.keys(updates).map((key, idx) => `${key} = $${idx + 1}`).join(', ');
+        const setClause = Object.keys(updates).map((key, idx) => `"${key}" = $${idx + 1}`).join(', ');
         const values = Object.values(updates);
         values.push(product.id);
         
