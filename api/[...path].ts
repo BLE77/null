@@ -1,6 +1,7 @@
+// This file is automatically bundled by the build script
+// For Vercel, it will use the bundled version from api/[...path].js
 import type { IncomingMessage, ServerResponse } from "http";
-// @ts-ignore - Vercel will compile this
-import { createApp } from "../server/app";
+import { createApp } from "../server/app.js";
 
 let appPromise: ReturnType<typeof createApp> | null = null;
 
