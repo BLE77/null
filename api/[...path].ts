@@ -1,6 +1,7 @@
 // Vercel will compile this TypeScript file automatically
 import type { IncomingMessage, ServerResponse } from "http";
-import { createApp } from "../server/app";
+// Note: In ES modules with TypeScript, we use .js extension even when importing .ts files
+import { createApp } from "../server/app.js";
 
 let appPromise: ReturnType<typeof createApp> | null = null;
 
