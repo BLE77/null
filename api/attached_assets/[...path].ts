@@ -68,27 +68,62 @@ export default async function handler(
       return;
     }
 
-    if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
-      console.warn(`[assets] not found: ${filePath}`);
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      console.warn(`[assets] File not found: ${filePath}`);
+      
       // Fallback: try case-insensitive match in the directory
-      const files = fs.readdirSync(baseDir);
-      const candidate = files.find((n) => n.toLowerCase() === rel.toLowerCase());
-      if (candidate) {
-        const altPath = path.join(baseDir, candidate);
-        console.log(`[assets] fallback hit: ${altPath}`);
-        res.statusCode = 200;
-        res.setHeader("Content-Type", contentType(altPath));
-        fs.createReadStream(altPath).pipe(res as any);
+      try {
+        const files = fs.readdirSync(baseDir);
+        const candidate = files.find((n) => n.toLowerCase() === rel.toLowerCase());
+        if (candidate) {
+          const altPath = path.join(baseDir, candidate);
+          console.log(`[assets] Using case-insensitive fallback: ${altPath}`);
+          filePath = altPath;
+        } else {
+          res.statusCode = 404;
+          res.end("File not found");
+          return;
+        }
+      } catch (readError) {
+        console.error(`[assets] Error reading directory:`, readError);
+        res.statusCode = 404;
+        res.end("File not found");
         return;
       }
+    }
+    
+    // Check if it's a file (not a directory)
+    const stats = fs.statSync(filePath);
+    if (!stats.isFile()) {
+      console.warn(`[assets] Path is not a file: ${filePath}`);
       res.statusCode = 404;
-      res.end("Not found");
+      res.end("Not a file");
       return;
     }
 
+    // Set appropriate headers
     res.statusCode = 200;
-    res.setHeader("Content-Type", contentType(filePath));
-    fs.createReadStream(filePath).pipe(res as any);
+    const contentTypeHeader = contentType(filePath);
+    res.setHeader("Content-Type", contentTypeHeader);
+    
+    // For GLB files, set additional headers
+    if (filePath.endsWith(".glb")) {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Content-Type", "model/gltf-binary");
+    }
+    
+    // Stream the file
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.on('error', (err) => {
+      console.error(`[assets] Error reading file:`, err);
+      if (!res.headersSent) {
+        res.statusCode = 500;
+        res.end("Internal server error");
+      }
+    });
+    
+    fileStream.pipe(res as any);
   } catch (err) {
     console.error("[/api/attached_assets] Error:", err);
     if (!res.headersSent) {
