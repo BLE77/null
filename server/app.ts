@@ -75,9 +75,9 @@ export async function createApp(): Promise<AppBundle> {
     (res as any).json = function (bodyJson: any, ...args: any[]) {
       capturedJsonResponse = bodyJson;
       if (args.length > 0) {
-        return originalResJson.apply(res, [bodyJson, ...args]);
+        return originalResJson.call(res, bodyJson, ...args);
       }
-      return originalResJson(bodyJson);
+      return originalResJson.call(res, bodyJson);
     } as any;
 
     res.on("finish", () => {
