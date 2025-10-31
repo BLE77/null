@@ -1,9 +1,9 @@
 import express, { type Express, type Request, type Response, type NextFunction } from "express";
 import path from "path";
-import { registerRoutes } from "./routes";
-import { registerAdminRoutes } from "./admin-routes";
-import { setupAuth } from "./auth";
-import { log } from "./vite";
+import { registerRoutes } from "./routes.js";
+import { registerAdminRoutes } from "./admin-routes.js";
+import { setupAuth } from "./auth.js";
+import { log } from "./vite.js";
 
 declare module "http" {
   interface IncomingMessage {

@@ -1,4 +1,4 @@
-import { db } from "./db";
+import { db } from "./db.js";
 import { users, products, orders, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";

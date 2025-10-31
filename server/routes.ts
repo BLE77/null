@@ -1,9 +1,9 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { dbStorage } from "./db-storage";
+import { dbStorage } from "./db-storage.js";
 import { insertProductSchema, insertOrderSchema, insertUserSchema, type User } from "@shared/schema";
 import passport from "passport";
-import { requireAuth, requireAdmin } from "./auth";
+import { requireAuth, requireAdmin } from "./auth.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Seed products and admin user on startup

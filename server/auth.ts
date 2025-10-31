@@ -4,7 +4,7 @@ import type { Express, RequestHandler } from "express";
 import session from "express-session";
 import createMemoryStore from "memorystore";
 import connectPgSimple from "connect-pg-simple";
-import { dbStorage } from "./db-storage";
+import { dbStorage } from "./db-storage.js";
 import type { User } from "@shared/schema";
 
 const MemoryStore = createMemoryStore(session);

@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import multer from "multer";
-import { dbStorage } from "./db-storage";
-import { requireAdmin } from "./auth";
+import { dbStorage } from "./db-storage.js";
+import { requireAdmin } from "./auth.js";
 import { insertProductSchema } from "@shared/schema";
 import path from "path";
 import fs from "fs";
