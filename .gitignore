@@ -5,9 +5,10 @@ server/public
 vite.config.ts.*
 *.tar.gz
 
-# Vercel API route builds (we need these for Vercel deployment)
-# api/*.js
-# !api/*.config.js
+# Vercel API route builds (generated during build, don't commit)
+api/[...path].js
+api/**/*.js
+!api/**/*.config.js
 
 # Environment variables
 .env
