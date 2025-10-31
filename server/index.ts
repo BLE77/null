@@ -1,8 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { registerAdminRoutes } from "./admin-routes";
-import { setupVite, serveStatic, log } from "./vite";
-import { setupAuth } from "./auth";
+import { registerRoutes } from "./routes.js";
+import { registerAdminRoutes } from "./admin-routes.js";
+import { setupVite, serveStatic, log } from "./vite.js";
+import { setupAuth } from "./auth.js";
 import path from "path";
 
 const app = express();
