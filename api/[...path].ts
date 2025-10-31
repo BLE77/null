@@ -32,16 +32,27 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   try {
     console.log(`[API] ${req.method} ${req.url}`);
     const app = await getApp();
-    // @ts-ignore Express handler signature
-    return app(req, res);
+    // Express handler signature
+    return new Promise((resolve, reject) => {
+      app(req as any, res as any, (err?: any) => {
+        if (err) {
+          console.error("[API] Express error:", err);
+          reject(err);
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
   } catch (error: any) {
     console.error("[API] Handler error:", error);
-    res.statusCode = 500;
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ 
-      message: "Internal server error", 
-      error: process.env.NODE_ENV === "development" ? error.message : undefined 
-    }));
+    if (!res.headersSent) {
+      res.statusCode = 500;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ 
+        message: "Internal server error", 
+        error: process.env.NODE_ENV === "development" ? error.message : undefined 
+      }));
+    }
   }
 }
 
