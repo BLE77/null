@@ -93,9 +93,11 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
 
     // Load model
     const loader = new GLTFLoader();
+    console.log("[ThreeModelViewer] Loading GLB from URL:", src);
     loader.load(
       src,
       (gltf: any) => {
+        console.log("[ThreeModelViewer] GLB loaded successfully");
         const model = gltf.scene;
         modelRef.current = model;
         
@@ -121,10 +123,19 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
         scene.add(model);
       },
       (progress: any) => {
-        console.log("Loading model:", (progress.loaded / progress.total) * 100, "%");
+        if (progress.lengthComputable) {
+          console.log("[ThreeModelViewer] Loading progress:", Math.round((progress.loaded / progress.total) * 100), "%");
+        }
       },
       (error: any) => {
-        console.error("Error loading model:", error);
+        console.error("[ThreeModelViewer] Error loading GLB model:", error);
+        console.error("[ThreeModelViewer] URL was:", src);
+        console.error("[ThreeModelViewer] Error details:", {
+          message: error?.message,
+          response: error?.response,
+          status: error?.response?.status,
+          statusText: error?.response?.statusText,
+        });
       }
     );
 
