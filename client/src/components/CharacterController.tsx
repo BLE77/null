@@ -7,7 +7,7 @@ import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { X, ChevronDown } from 'lucide-react';
-import splashLogo from "@assets/off human simple_1761649401547.png";
+import splashLogo from "@assets/OFF_HUMAN_transparent.png";
 import introAudioFile from "@assets/OFF!_1761649401549.mp3";
 import themeAudioFile from "@assets/2hollis - jeans (instrumental) [prod. 2hollis]_1761649401547.mp3";
 import auraFont from "@assets/Electroharmonix_1761649401549.otf";

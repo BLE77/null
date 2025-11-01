@@ -1,4 +1,4 @@
-import brandImage from "@assets/About Robo.png";
+import brandImage from "@assets/about-robo.png";
 
 export default function About() {
   return (

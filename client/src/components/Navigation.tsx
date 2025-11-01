@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { UniversalWalletConnect } from "@/components/UniversalWalletConnect";
+import navLogo from "@assets/OFF_HUMAN_transparent.png";
 
 export function Navigation() {
   const { getTotalItems, setIsCartOpen } = useCart();
@@ -20,7 +21,7 @@ export function Navigation() {
           <Link href="/">
             <div className="cursor-pointer inline-block" data-testid="link-home">
               <img 
-                src="/attached_assets/off human transparent white_1761604456550.png" 
+                src={navLogo}
                 alt="OFF HUMAN"
                 className="h-10 transition-all duration-300 hover:scale-105"
                 style={{ filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(0,0,0,0.5))' }}
