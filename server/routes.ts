@@ -7,10 +7,24 @@ import { sql } from "drizzle-orm";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth.js";
 
+const isProdLike =
+  process.env.NODE_ENV === "production" ||
+  process.env.VERCEL === "1" ||
+  process.env.VERCEL === "true";
+
+const shouldSeed =
+  (!isProdLike && process.env.NODE_ENV !== "test") ||
+  process.env.SEED_SAMPLE_PRODUCTS === "true";
+
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Seed products and admin user on startup
-  await dbStorage.seedProducts();
-  await dbStorage.seedAdmin();
+  // Seed products and admin user on startup (development only unless overridden)
+  if (shouldSeed) {
+    await dbStorage.seedProducts();
+  }
+
+  if (!isProdLike && process.env.SEED_ADMIN === "true") {
+    await dbStorage.seedAdmin();
+  }
 
   // X402 Payment configuration
   const X402_WALLET = process.env.X402_WALLET_ADDRESS;
