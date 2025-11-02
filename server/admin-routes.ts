@@ -53,11 +53,8 @@ const upload = multer({
 });
 
 export function registerAdminRoutes(app: Express) {
-  console.log("[AdminRoutes] Registering admin routes");
-
   // Upload image endpoint
   app.post("/api/admin/uploads/image", requireAdmin, upload.single('image'), async (req, res) => {
-    console.log("[AdminRoutes] POST /api/admin/uploads/image");
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -129,7 +126,6 @@ export function registerAdminRoutes(app: Express) {
 
   // Get all products (admin view with all data)
   app.get("/api/admin/products", requireAdmin, async (req, res) => {
-    console.log("[AdminRoutes] GET /api/admin/products");
     try {
       const products = await dbStorage.getAllProducts();
       res.json(products);
