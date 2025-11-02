@@ -355,7 +355,7 @@ export default function AdminDashboard() {
                     size="sm"
                     onClick={() => handleOpenDialog(product)}
                     data-testid={`button-edit-${product.id}`}
-                    className="flex-1"
+                    className="flex-1 bg-primary text-black border-primary hover:bg-primary/90 hover:text-black transition-colors"
                   >
                     <Pencil className="w-3 h-3 mr-2" />
                     Edit
@@ -365,7 +365,7 @@ export default function AdminDashboard() {
                     size="sm"
                     onClick={() => handleDelete(product.id)}
                     data-testid={`button-delete-${product.id}`}
-                    className="flex-1"
+                    className="flex-1 bg-primary text-black border-primary hover:bg-primary/90 hover:text-black transition-colors"
                   >
                     <Trash2 className="w-3 h-3 mr-2" />
                     Delete
