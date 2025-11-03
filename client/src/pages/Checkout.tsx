@@ -24,7 +24,7 @@ export default function Checkout() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const { address: walletAddress, isConnected, chain } = useAccount();
-  const { data: walletClient } = useWalletClient();
+  const { data: walletClient } = useWalletClient({ chainId: base.id });
   const { disconnect } = useDisconnect();
   const { switchChain } = useSwitchChain();
   const { close } = useWeb3Modal();
