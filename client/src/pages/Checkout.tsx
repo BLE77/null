@@ -26,7 +26,7 @@ export default function Checkout() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const { address: walletAddress, isConnected, chain } = useAccount();
-  const { data: walletClient } = useWalletClient({ chainId: base.id });
+  const { data: walletClient } = useWalletClient();
   const { disconnect } = useDisconnect();
   const { switchChain } = useSwitchChain();
   const { close } = useWeb3Modal();
@@ -183,23 +183,26 @@ export default function Checkout() {
               title: "Network switched",
               description: "Successfully switched to Base Mainnet",
             });
-            // Give provider a moment to finish the switch
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Wait for chain switch to complete - give more time for provider to update
+            await new Promise(resolve => setTimeout(resolve, 2000));
           } catch (error) {
             throw new Error("Please switch to Base Mainnet in your wallet to continue");
           }
         }
 
-        let evmWalletClient = walletClient;
+        // Get wallet client for Base chain after ensuring we're on the right chain
+        let evmWalletClient: Awaited<ReturnType<typeof getWalletClient>> | undefined;
 
-        if (!evmWalletClient) {
-          try {
-            evmWalletClient = await getWalletClient(wagmiConfig, {
-              chainId: base.id,
-              account: walletAddress,
-            });
-          } catch (error) {
-            console.error("[Checkout] Failed to fetch wallet client on demand:", error);
+        try {
+          // Try to get wallet client for Base chain
+          evmWalletClient = await getWalletClient(wagmiConfig, {
+            chainId: base.id,
+          });
+        } catch (error) {
+          console.error("[Checkout] Failed to fetch wallet client for Base:", error);
+          // Fallback to current wallet client if available
+          if (walletClient) {
+            evmWalletClient = walletClient;
           }
         }
 

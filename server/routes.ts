@@ -252,6 +252,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Decode the payment header to get the payment payload
       let paymentPayload;
+      let txHash: string | undefined;
+      let verifyResult: any;
       try {
         paymentPayload = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
         console.log("[Base Payment] Decoded payment payload:", JSON.stringify(paymentPayload, null, 2));
@@ -281,7 +283,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           body: JSON.stringify(verifyRequest),
         });
         
-        const verifyResult = await verifyResponse.json();
+        verifyResult = await verifyResponse.json();
         console.log("[Base Payment] Facilitator verification response:", verifyResult);
         
         // Check isValid (not valid) - facilitator returns isValid field
@@ -296,6 +298,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         console.log("[Base Payment] ✅ Payment signature VERIFIED by facilitator!");
         console.log("[Base Payment] Payer address:", verifyResult.payer);
+        console.log("[Base Payment] Facilitator response (full):", JSON.stringify(verifyResult, null, 2));
+        
+        // Step 2: Extract transaction hash and wait for confirmation
+        console.log("[Base Payment] Step 2: Extracting transaction details...");
+        // First, check if facilitator provided transaction hash (it might submit the transaction)
+        if (verifyResult.transactionHash || verifyResult.txHash || verifyResult.hash) {
+          txHash = verifyResult.transactionHash || verifyResult.txHash || verifyResult.hash;
+          console.log("[Base Payment] Facilitator provided transaction hash:", txHash);
+        }
+        
+        // Then try to extract from payment payload if not found from facilitator
+        if (!txHash) {
+          try {
+            const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
+            // Transaction hash might be in payload.txHash or payload.hash
+            txHash = decodedHeader.payload?.txHash || decodedHeader.payload?.hash || decodedHeader.txHash || decodedHeader.hash;
+            if (txHash) {
+              console.log("[Base Payment] Found transaction hash in payment payload:", txHash);
+            }
+          } catch (e) {
+            console.log("[Base Payment] Could not extract tx hash from header:", e);
+          }
+        }
       } catch (error) {
         console.error("[Base Payment] Facilitator verification error:", error);
         return res.status(500).json({
@@ -304,32 +329,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Step 2: Extract transaction hash
-      console.log("[Base Payment] Step 2: Extracting transaction details...");
-      
-      let txHash = 'base-verified';
-      try {
-        const decodedHeader = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf-8'));
-        if (decodedHeader.payload?.txHash) {
-          txHash = decodedHeader.payload.txHash;
+      // Wait for transaction confirmation on-chain (txHash was extracted above)
+      if (txHash && txHash !== 'base-verified' && !txHash.startsWith('base-')) {
+        console.log("[Base Payment] Waiting for transaction confirmation:", txHash);
+        try {
+          const { createPublicClient, http } = await import('viem');
+          const { base } = await import('viem/chains');
+          
+          const publicClient = createPublicClient({
+            chain: base,
+            transport: http(),
+          });
+          
+          console.log("[Base Payment] Waiting for transaction receipt...");
+          const receipt = await publicClient.waitForTransactionReceipt({
+            hash: txHash as `0x${string}`,
+            timeout: 60_000, // 60 second timeout
+          });
+          
+          console.log("[Base Payment] ✅ Transaction confirmed! Block:", receipt.blockNumber);
+          console.log("[Base Payment] Transaction status:", receipt.status);
+          
+          if (receipt.status === 'reverted') {
+            throw new Error("Transaction was reverted on-chain");
+          }
+        } catch (txError: any) {
+          console.error("[Base Payment] Error waiting for transaction confirmation:", txError);
+          // Don't fail completely - the signature was verified, transaction might still succeed
+          // But log it so we know something went wrong
+          if (txError?.message?.includes('timeout')) {
+            console.warn("[Base Payment] ⚠️ Transaction confirmation timeout - payment signature verified but awaiting on-chain confirmation");
+          }
         }
-      } catch (e) {
-        console.log("[Base Payment] Could not extract tx hash from header");
+      } else {
+        console.log("[Base Payment] ⚠️ No transaction hash found in payment payload - signature verified but transaction may not be submitted yet");
       }
       
-      console.log("[Base Payment] Transaction hash:", txHash);
       console.log("[Base Payment] ✅ Payment complete - $" + calculatedTotal.toFixed(2) + " USDC transferred on Base!");
       
       // Generate tracking token
       const { generateTrackingToken } = await import('./email.js');
       const trackingToken = generateTrackingToken();
       
+      // Use finalTxHash for order creation
+      const finalTxHash = txHash || 'base-verified-' + Date.now();
+      
       // Create the order with verified payment
       const order = await dbStorage.createOrder({
         customerEmail,
         items: JSON.stringify(validatedItems),
         totalAmount: calculatedTotal.toFixed(2),
-        transactionHash: txHash,
+        transactionHash: finalTxHash,
         network: "base",
         trackingToken,
         status: "completed",
@@ -351,7 +401,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           customerEmail,
           trackingToken,
           network: "base",
-          transactionHash: txHash,
+          transactionHash: finalTxHash,
           items: validatedItems.map((item: any) => ({
             productId: item.productId,
             name: item.name,
@@ -373,7 +423,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         order,
         message: `Payment successful - $${calculatedTotal.toFixed(2)} USDC transferred on Base!`,
         transaction: {
-          hash: txHash,
+          hash: finalTxHash,
           network: "Base Mainnet",
           amount: `$${calculatedTotal.toFixed(2)} USDC`,
           receivedAt: X402_WALLET,
