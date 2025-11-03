@@ -165,10 +165,39 @@ export default function Checkout() {
 
       if (selectedNetwork === 'base') {
         // Base Network Payment (EVM)
+        if (!walletAddress) {
+          throw new Error("EVM wallet not connected");
+        }
+
+        // Ensure wallet is on Base mainnet (chain ID 8453)
+        if (chain?.id !== base.id) {
+          console.log('[Network Switch] Wrong network detected. Current:', chain?.id, 'Required:', base.id);
+          toast({
+            title: "Switching network",
+            description: "Switching to Base Mainnet...",
+          });
+
+          try {
+            await switchChain({ chainId: base.id });
+            toast({
+              title: "Network switched",
+              description: "Successfully switched to Base Mainnet",
+            });
+            // Give provider a moment to finish the switch
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          } catch (error) {
+            throw new Error("Please switch to Base Mainnet in your wallet to continue");
+          }
+        }
+
         let evmWalletClient = walletClient;
+
         if (!evmWalletClient) {
           try {
-            evmWalletClient = await getWalletClient(wagmiConfig, { chainId: base.id });
+            evmWalletClient = await getWalletClient(wagmiConfig, {
+              chainId: base.id,
+              account: walletAddress,
+            });
           } catch (error) {
             console.error("[Checkout] Failed to fetch wallet client on demand:", error);
           }
@@ -178,32 +207,11 @@ export default function Checkout() {
           throw new Error("EVM wallet client not available");
         }
 
-        // Check if wallet is on Base Mainnet (chain ID 8453)
-        if (chain?.id !== base.id) {
-          console.log('[Network Switch] Wrong network detected. Current:', chain?.id, 'Required:', base.id);
-          toast({
-            title: "Switching network",
-            description: "Switching to Base Mainnet...",
-          });
-          
-          try {
-            await switchChain({ chainId: base.id });
-            toast({
-              title: "Network switched",
-              description: "Successfully switched to Base Mainnet",
-            });
-            // Wait a moment for the wallet to update
-            await new Promise(resolve => setTimeout(resolve, 1000));
-          } catch (error) {
-            throw new Error("Please switch to Base Mainnet in your wallet to continue");
-          }
-        }
-
         // Set max amount to cart total + 10% buffer for gas/fees
         const maxAmount = Math.ceil(totalPrice * 1.1 * 1_000_000);
         
         const fetchWithPayment = wrapFetchWithPayment(
-          fetch, 
+          fetch,
           evmWalletClient as any,
           BigInt(maxAmount) // Dynamic max based on cart total
         );
