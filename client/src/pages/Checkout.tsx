@@ -16,6 +16,8 @@ import { wrapFetchWithPayment } from 'x402-fetch';
 import { createX402Client } from 'x402-solana/client';
 import type { VersionedTransaction } from '@solana/web3.js';
 import { base } from 'wagmi/chains';
+import { getWalletClient } from 'wagmi/actions';
+import { config as wagmiConfig } from '@/lib/wagmi-config';
 
 type PaymentNetwork = 'base' | 'solana';
 
@@ -163,7 +165,16 @@ export default function Checkout() {
 
       if (selectedNetwork === 'base') {
         // Base Network Payment (EVM)
-        if (!walletClient) {
+        let evmWalletClient = walletClient;
+        if (!evmWalletClient) {
+          try {
+            evmWalletClient = await getWalletClient(wagmiConfig, { chainId: base.id });
+          } catch (error) {
+            console.error("[Checkout] Failed to fetch wallet client on demand:", error);
+          }
+        }
+
+        if (!evmWalletClient) {
           throw new Error("EVM wallet client not available");
         }
 
@@ -193,7 +204,7 @@ export default function Checkout() {
         
         const fetchWithPayment = wrapFetchWithPayment(
           fetch, 
-          walletClient as any,
+          evmWalletClient as any,
           BigInt(maxAmount) // Dynamic max based on cart total
         );
 
