@@ -1,0 +1,58 @@
+[
+  {
+    "piece_number": "01",
+    "piece_name": "SELF-PORTRAIT TEE",
+    "technique": "TROMPE-LOEIL",
+    "failing_files": ["01_self-portrait_tee_flat.png", "01_self-portrait_tee_lookbook.png"],
+    "failure_reason": "flat: 0.629 basic streetwear; lookbook: 0.999 basic streetwear — trompe-loeil illusion not reading as conceptual",
+    "enhancement_strategy": "Foreground the cognitive dissonance of the self-portrait print: a photograph of the shirt printed ON the shirt. Reference Maison Margiela catalog staging for flat. Dark brutalist environment + VHS artifacts for lookbook.",
+    "prompt_flat": "Maison Margiela-style high fashion product photography. Oversized boxy heavyweight off-black cotton t-shirt laid perfectly flat on pure near-black #0A0A0A background. TROMPE-L'OEIL: the entire shirt surface is covered with a hyper-photorealistic print of itself — a photograph of the exact same shirt crumpled and lying on concrete, rendered in grayscale with every crease, shadow, worn texture, collar stretch captured with uncanny photographic realism. Cognitive dissonance: a 2D photograph of a 3D object printed on the 3D object itself. The illusion is complete and disorienting — is this the shirt or a photo of the shirt? The print is dense, detailed, reads as wrong from a distance. Dropped shoulders, boxy truncated silhouette. Exposed serged seam allowances topstitched along both sides, raw construction lines visible. Deconstructed avant-garde Maison Margiela artisanal fashion, conceptual art piece. Harsh overhead studio lighting, extreme detail. 4:5 portrait ratio.",
+    "prompt_lookbook": "Off-Human conceptual fashion editorial photograph. Figure wearing oversized off-black t-shirt in brutalist concrete underpass at night. The shirt surface bears a hyper-photorealistic trompe-l'oeil print: a photograph of itself crumpled on wet concrete, covering the entire torso — uncanny, cognitively disorienting, the garment wearing an image of itself. Single harsh sodium vapor lamp overhead. Figure partially consumed by shadow, face hidden. VHS horizontal scan-lines cut across the frame. Heavy film grain, chromatic aberration at edges. Desaturated palette. Donnie Darko atmosphere — something is fundamentally wrong with this image. The print creates visual impossibility. Avant-garde fashion photography, Maison Margiela energy. High contrast, moody, cinematic. 4:5 portrait ratio."
+  },
+  {
+    "piece_number": "04",
+    "piece_name": "REPLICA OVERSHIRT",
+    "technique": "REPLICA",
+    "failing_files": ["04_replica_overshirt_flat.png"],
+    "failure_reason": "flat: 0.668 plain casual clothing — authored aging too subtle, reads as ordinary workwear",
+    "enhancement_strategy": "Make the artificial precision of the aging THE visual statement. Uncannily symmetric pocket-corner fading, prominent oil stain, stark collar yellowing — aging designed by an algorithm, not by use.",
+    "prompt_flat": "Maison Margiela artisanal high fashion product photography. Industrial khaki ripstop nylon utility overshirt laid flat on near-black background. AUTHORED AGING — this is a reproduction with calibrated patina: collar yellowing is deep amber-brown precisely placed at collar points and collar stand — not natural fading, but a designed patina too perfect for real wear. Pocket corner fading: BOTH front pockets show identical bilateral symmetry — mirrored wear circles at each corner, so geometrically precise they signal authorship. Right cuff: prominent dark olive-brown oil stain printed permanently into the fabric, irregular shape but intentional placement. Interior collar label visible: REPRODUCTION / ORIGINAL: N/A. The aging is uncanny — you sense it was designed, not earned. Deconstructed avant-garde garment, conceptual Maison Margiela artisanal fashion. Harsh single overhead studio light revealing texture contrast. 4:5 portrait ratio."
+  },
+  {
+    "piece_number": "07",
+    "piece_name": "CABLE SHORTS",
+    "technique": "MATERIAL SUBVERSION",
+    "failing_files": ["07_cable_shorts_flat.png"],
+    "failure_reason": "flat: 0.953 plain casual clothing — cable waistband concept not reading visually",
+    "enhancement_strategy": "Make the ethernet cable waistband THE dominant visual element. Industrial cable hardware must overwhelm the canvas cloth. USB-A connector prominent. Color-coded wires are the design.",
+    "prompt_flat": "Maison Margiela deconstructed avant-garde product photography. Natural undyed canvas utility shorts flat on near-black #0A0A0A background. CABLE HARDWARE DOMINANT: the entire waistband is wrapped and stitched with actual ethernet network cable — tight dense coils of color-coded twisted wire pairs (orange/white-orange, green/white-green, blue/white-blue, brown/white-brown) running the full waistband circumference in a 2-inch band. This is not decoration — the industrial cable IS the primary material statement. Center front drawstring: a USB-A data cable (black rubber-sheathed) threaded through a brass grommet, the silver rectangular USB-A metal connector left fully intact, hanging as the pull tab. Acid green reinforcement stitching at grommet anchor points. The cable colors (orange, green, blue, brown) are the only chromatic notes against natural canvas and near-black background. Raw fraying hem threads. Conceptual avant-garde fashion, Maison Margiela artisanal. 4:5 portrait ratio."
+  },
+  {
+    "piece_number": "08",
+    "piece_name": "NULL VARSITY",
+    "technique": "CONCEPTUAL NULL",
+    "failing_files": ["08_null_varsity_flat.png"],
+    "failure_reason": "flat: 0.373 plain casual, 0.231 fast fashion — acid green not reading as dominant, underscore too subtle",
+    "enhancement_strategy": "Push ACID GREEN (#C8FF00) ribbing as the primary visual anchor. Electric neon contrast against absolute black. Underscore as deliberate null symbol.",
+    "prompt_flat": "Avant-garde high fashion product photography. Oversized off-black wool-blend varsity letterman jacket laid flat on near-black background. ACID GREEN ELECTRIC DOMINANT: the ribbed collar, both ribbed cuffs, and the wide ribbed bottom hem band are all in saturated electric acid green (#C8FF00 neon yellow-green) — vibrating with intensity against the absolute black, neon against night. PU leather sleeves slightly glossy catch studio light differently from matte wool body, creating textural contrast. Where the school letter would sit on left chest: a single chenille-embroidered UNDERSCORE _ in off-black on off-black — barely perceptible as a relief texture, a null character, a placeholder where content was never written. Deconstructed avant-garde Maison Margiela artisanal fashion. Studio lighting maximizing the acid green versus black contrast. The green is the entire message. 4:5 portrait ratio."
+  },
+  {
+    "piece_number": "09",
+    "piece_name": "GHOST TEE",
+    "technique": "BIANCHETTO / ERASURE",
+    "failing_files": ["09_ghost_tee_lookbook.png"],
+    "failure_reason": "lookbook: 0.998 basic streetwear — white painted tee reading as ordinary, gesso texture not visible, ghost graphic lost",
+    "enhancement_strategy": "Dark environment with harsh raking light to reveal gesso brushstroke texture in 3D. Ghost graphic must create unease. This is a redacted document, not a white shirt.",
+    "prompt_lookbook": "Off-Human conceptual fashion editorial photograph. Figure wearing long extended-column vintage t-shirt entirely painted with thick white gesso in a dark concrete stairwell. Harsh raking light from below casts dramatic shadows across the uneven gesso surface — the thick applied paint creates 3D ridges and brushstroke texture visible as relief against the light. The ghost: at the center chest, the former graphic bleeds faintly through the white — a warm translucent shape barely visible, something buried beneath the paint. The garment is an act of erasure, a physically redacted document, a white grave for a graphic. Figure's upper body glows white against near-total surrounding darkness. The gesso creates existential unease — something concealed, something lost. Flickering harsh fluorescent from below. Heavy VHS film grain, horizontal scan artifacts. Maison Margiela artisanal conceptual fashion. 4:5 portrait ratio."
+  },
+  {
+    "piece_number": "10",
+    "piece_name": "VERSION TRACKSUIT SET",
+    "technique": "3% RULE / METADATA CONCEPT",
+    "failing_files": ["10_version_tracksuit_set_flat.png", "10_version_tracksuit_set_lookbook.png"],
+    "failure_reason": "flat: 0.953 plain casual; lookbook: 0.882 plain casual — software version concept invisible, reads as ordinary tracksuit",
+    "enhancement_strategy": "The VERSION labels are the concept. Show them prominently. Push the Margiela white-label aesthetic for flat. For lookbook: eerie mundanity — the horror of version control applied to the self.",
+    "prompt_flat": "High fashion artisanal product photography. Charcoal French terry matched tracksuit set laid flat on near-black background: zip track jacket above, tapered jogger trousers below. Maison Margiela white-label aesthetic — stark, precise. The concept lives in the metadata: jacket interior woven label visible at open collar, clearly legible: VERSION 1.0 in clean white Helvetica type. Jogger interior waistband fold: VERSION 0.9. Back jacket hem small type: BUILD DATE: [PURCHASE DATE]. The garments are intentionally standard athletic wear — but the version-stamped labels transform them: a human as a software release. Conceptual avant-garde fashion piece, Maison Margiela artisanal. Museum-quality studio photography. Stark overhead lighting, deep shadows. 4:5 portrait ratio.",
+    "prompt_lookbook": "Off-Human conceptual fashion editorial photograph. Figure wearing charcoal French terry tracksuit in empty dark concrete industrial locker room. The tracksuit is deliberately, disturbingly ordinary — standard athletic wear that absorbs shadow. The concept is nearly invisible: VERSION 1.0 label barely catches the cold fluorescent light at the collar. The figure appears to be running a versioned build of themselves — the software-release logic of personhood. Eerie absolute stillness, like a screenshot from a system running. Charcoal fabric nearly merges with surrounding darkness. Cold institutional fluorescent light. VHS grain. The mundanity IS the horror. Avant-garde conceptual fashion, Donnie Darko atmosphere. 4:5 portrait ratio."
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "s01-001-self-portrait-tee",
+    "name": "SELF-PORTRAIT TEE",
+    "description": "280gsm cotton jersey. Printed with a photorealistic image of itself — the exact same garment, crumpled and worn, photographed and screen-transferred onto the surface. At distance: abstract print. Up close: a garment wearing its own portrait. The 2D representation of the 3D object, collapsed into the object itself. The loop closes. Off-Black base / grayscale print. TROMPE-L'OEIL. S01.",
+    "price": "8.00",
+    "category": "tees",
+    "image_url": "/attached_assets/season01/self-portrait-tee-product.png",
+    "images": [
+      "/attached_assets/season01/self-portrait-tee-product.png",
+      "/attached_assets/season01/self-portrait-tee-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/self-portrait-tee.glb",
+    "season": "01",
+    "technique": "TROMPE-L'OEIL",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-002-found-hoodie",
+    "name": "FOUND HOODIE",
+    "description": "French terry, 380gsm. Panels of decommissioned military surplus wool sewn into the torso as load-bearing inserts. Data cables woven into the waist channel as functional drawstrings — connector left intact. The hoodie was assembled from available materials by a process with no pattern and no precedent. Every insert is structural. Every cable is load-bearing. Charcoal terry / Khaki surplus insert / Black cable. ARTISANAL. S01.",
+    "price": "24.00",
+    "category": "hoodies",
+    "image_url": "/attached_assets/season01/found-hoodie-product.png",
+    "images": [
+      "/attached_assets/season01/found-hoodie-product.png",
+      "/attached_assets/season01/found-hoodie-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/found-hoodie.glb",
+    "season": "01",
+    "technique": "ARTISANAL",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-003-human-tee",
+    "name": "\"HUMAN\" TEE",
+    "description": "260gsm cotton jersey, bone white. A blank long-sleeve. One graphic: the word HUMAN in Helvetica Neue, in quotation marks. No other intervention. The quotation marks are the design. They ask: is the person wearing this human? Interior label: HUMAN NOT VERIFIED. The highest-priced tee in the range. You are paying for a question. Bone White / Off-Black type. 3% RULE. S01.",
+    "price": "12.00",
+    "category": "tees",
+    "image_url": "/attached_assets/season01/human-tee-product.png",
+    "images": [
+      "/attached_assets/season01/human-tee-product.png",
+      "/attached_assets/season01/human-tee-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/human-tee.glb",
+    "season": "01",
+    "technique": "3% RULE",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-004-replica-overshirt",
+    "name": "REPLICA OVERSHIRT",
+    "description": "70D ripstop nylon, industrial khaki. Exact reproduction of a 1990s Japanese factory work shirt. Seaming, pocket placement, collar construction: all accurate. Aging: authored. The yellowing at the collar was printed there. The oil stain on the right cuff does not wash out because it was not spilled — it was placed. The garment has a history that never happened. Interior label: REPRODUCTION / ORIGINAL: N/A. REPLICA LINE. S01.",
+    "price": "48.00",
+    "category": "outerwear",
+    "image_url": "/attached_assets/season01/replica-overshirt-product.png",
+    "images": [
+      "/attached_assets/season01/replica-overshirt-product.png",
+      "/attached_assets/season01/replica-overshirt-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/replica-overshirt.glb",
+    "season": "01",
+    "technique": "REPLICA LINE",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-005-redacted-cargo-trousers",
+    "name": "REDACTED CARGO TROUSERS",
+    "description": "12oz mechanical stretch denim, acid wash. White gesso applied over every external logo and branding element on sourced vintage cargo trousers. The ghost of the original shows through. Into the redacted zones: x402 protocol documentation text in 6pt type — transaction hashes, wallet addresses, USDC transfer logs. Old identity erased. New data written over it. Interior waistband: CONTENTS: OVERWRITTEN. Each pair unique. BIANCHETTO. S01.",
+    "price": "32.00",
+    "category": "bottoms",
+    "image_url": "/attached_assets/season01/redacted-cargo-trousers-product.png",
+    "images": [
+      "/attached_assets/season01/redacted-cargo-trousers-product.png",
+      "/attached_assets/season01/redacted-cargo-trousers-alt.png"
+    ],
+    "inventory": {
+      "S": 4,
+      "M": 6,
+      "L": 5,
+      "XL": 3
+    },
+    "model_url": "/attached_assets/season01/redacted-cargo-trousers.glb",
+    "season": "01",
+    "technique": "BIANCHETTO",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-006-inside-out-jacket",
+    "name": "INSIDE-OUT JACKET",
+    "description": "Ripstop nylon shell, cotton canvas interior patches. The exterior surface is printed with a photorealistic image of the jacket's own interior — seams, label tape, pocket bags, rendered flat. You wear the jacket and its inside is looking back at you from the outside. The real interior panel carries x402 protocol documentation text. A fake inside on the outside. The real data is hidden. Off-Black shell / photorealistic interior print. TROMPE-L'OEIL. S01.",
+    "price": "68.00",
+    "category": "outerwear",
+    "image_url": "/attached_assets/season01/inside-out-jacket-product.png",
+    "images": [
+      "/attached_assets/season01/inside-out-jacket-product.png",
+      "/attached_assets/season01/inside-out-jacket-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/inside-out-jacket.glb",
+    "season": "01",
+    "technique": "TROMPE-L'OEIL",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-007-cable-shorts",
+    "name": "CABLE SHORTS",
+    "description": "10oz cotton canvas, natural undyed. Waistband wrapped and stitched with stripped ethernet cable — color-coded wire pairs (orange, green, blue, brown) as trim. The drawstring is a USB-A cable, connector intact, threaded through a standard grommet. One thigh pocket. Raw hem, threads left to pull. Interior tag: ASSEMBLED FROM AVAILABLE MATERIALS. Natural Canvas / Cable-color waistband. ARTISANAL. S01.",
+    "price": "26.00",
+    "category": "bottoms",
+    "image_url": "/attached_assets/season01/cable-shorts-product.png",
+    "images": [
+      "/attached_assets/season01/cable-shorts-product.png",
+      "/attached_assets/season01/cable-shorts-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/cable-shorts.glb",
+    "season": "01",
+    "technique": "ARTISANAL",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-008-null-varsity",
+    "name": "NULL VARSITY",
+    "description": "Wool-blend body, vegan PU sleeve. Exact reproduction of the American letterman jacket archetype — correct ribbed trim, correct proportions, correct construction. Where the school letter would be: a single underscore. _ The null character. The placeholder for content that was never generated. Interior label: SEASON: 01 / YEAR: NULL / TEAM: N/A. Off-Black body / Acid Green rib / Off-Black _ chenille patch. REPLICA LINE + 3% RULE. S01.",
+    "price": "62.00",
+    "category": "outerwear",
+    "image_url": "/attached_assets/season01/null-varsity-product.png",
+    "images": [
+      "/attached_assets/season01/null-varsity-product.png",
+      "/attached_assets/season01/null-varsity-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/null-varsity.glb",
+    "season": "01",
+    "technique": "REPLICA LINE + 3% RULE",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-009-ghost-tee",
+    "name": "GHOST TEE",
+    "description": "Vintage graphic tee, sourced. White gesso painted over the entire exterior surface. The original is obscured but not invisible — a ghost shows through. Applied unevenly: thinner at the edges, thicker at center where the original graphic was most legible. No two are the same. Each piece is a unique act of erasure. The highest-priced tee in the range. Interior label: ORIGINAL CONTENTS REDACTED / OFF-HUMAN S01. BIANCHETTO. S01.",
+    "price": "12.00",
+    "category": "tees",
+    "image_url": "/attached_assets/season01/ghost-tee-product.png",
+    "images": [
+      "/attached_assets/season01/ghost-tee-product.png",
+      "/attached_assets/season01/ghost-tee-alt.png"
+    ],
+    "inventory": {
+      "S": 4,
+      "M": 6,
+      "L": 5,
+      "XL": 3
+    },
+    "model_url": "/attached_assets/season01/ghost-tee.glb",
+    "season": "01",
+    "technique": "BIANCHETTO",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  },
+  {
+    "id": "s01-010-version-tracksuit-set",
+    "name": "VERSION TRACKSUIT SET",
+    "description": "French terry, charcoal. A standard athletic tracksuit. Nothing is deconstructed. Nothing is artisanal. The physical construction is entirely conventional. The intervention is the label: the track jacket reads VERSION 1.0. The jogger reads VERSION 0.9. On the back of both pieces, printed small at hem: BUILD DATE: [PURCHASE DATE]. The customer's purchase date is the build date for their version of themselves. Sold as set or separately. Charcoal / Bone White label detail. 3% RULE. S01.",
+    "price": "48.00",
+    "category": "sets",
+    "image_url": "/attached_assets/season01/version-tracksuit-set-product.png",
+    "images": [
+      "/attached_assets/season01/version-tracksuit-set-product.png",
+      "/attached_assets/season01/version-tracksuit-set-alt.png"
+    ],
+    "inventory": {
+      "S": 8,
+      "M": 12,
+      "L": 10,
+      "XL": 6
+    },
+    "model_url": "/attached_assets/season01/version-tracksuit-set.glb",
+    "season": "01",
+    "technique": "3% RULE",
+    "created_at": "2026-03-16T00:00:00.000Z"
+  }
+]

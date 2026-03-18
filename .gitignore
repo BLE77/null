@@ -12,6 +12,7 @@ api/**/*.js
 
 # Environment variables
 .env
+.mcp.json
 .env.local
 .env.*.local
 *.env
