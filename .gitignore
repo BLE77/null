@@ -43,3 +43,5 @@ references/
 artifacts/
 cache/
 .herenow/
+.local/
+dist2/

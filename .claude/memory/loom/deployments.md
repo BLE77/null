@@ -5,7 +5,7 @@
 - **URL:** https://mellow-grace-2r6q.here.now/
 - **Deployed:** 2026-03-19
 - **Auth mode:** Anonymous (expires 24h unless claimed)
-- **Claim URL:** https://here.now/claim?slug=mellow-grace-2r6q&token=5e3846f8d1aa782d55cb1e7c8a9bdc8ff3bc00630bf86f72ba9e8acab4b30af3
+- **Claim URL:** REDACTED (claimed)
 - **Slug:** mellow-grace-2r6q
 - **State file:** .herenow/state.json (in repo root)
 - **Built from:** dist/public/ (Vite build of client/)

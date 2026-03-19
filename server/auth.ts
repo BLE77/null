@@ -24,7 +24,7 @@ export function setupAuth(app: Express) {
   };
 
   const sessionSettings: session.SessionOptions = {
-    secret: process.env.SESSION_SECRET || "y2k-secret-key-2001",
+    secret: process.env.SESSION_SECRET || require("crypto").randomBytes(32).toString("hex"),
     resave: false,
     saveUninitialized: false,
     cookie: baseCookie,
