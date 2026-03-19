@@ -6,6 +6,7 @@ import { db } from "./db.js";
 import { sql } from "drizzle-orm";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth.js";
+import { registerWearablesRoutes } from "./routes/wearables.js";
 
 const isProdLike =
   process.env.NODE_ENV === "production" ||
@@ -828,6 +829,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     res.status(401).json({ message: "Not authenticated" });
   });
+
+  registerWearablesRoutes(app);
 
   const httpServer = createServer(app);
 
