@@ -1,0 +1,62 @@
+{
+  "updatedAt": "2026-03-19T19:13:19.510Z",
+  "contract": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+  "network": "base-mainnet",
+  "updates": [
+    {
+      "tier": 0,
+      "oldUri": "https://off-human.vercel.app/api/wearables/metadata/0",
+      "newUri": "https://gateway.lighthouse.storage/ipfs/bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "tx": "0x90084437fd260e5d883daf0fefb1b727ab4ea32852dbc8a73008976f656d5fbc"
+    },
+    {
+      "tier": 1,
+      "oldUri": "https://off-human.vercel.app/api/wearables/metadata/1",
+      "newUri": "https://gateway.lighthouse.storage/ipfs/bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "tx": "0x62974ec9db2ea341eb5126e949f63d67f329e7d068ddbd74b5970e1bb68663e4"
+    },
+    {
+      "tier": 2,
+      "oldUri": "https://off-human.vercel.app/api/wearables/metadata/2",
+      "newUri": "https://gateway.lighthouse.storage/ipfs/bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "tx": "0x47fb0aab17fa229529776b29b786f03703fcb8c6af1c4ac9311566b36257bbe8"
+    },
+    {
+      "tier": 3,
+      "oldUri": "https://off-human.vercel.app/api/wearables/metadata/3",
+      "newUri": "https://gateway.lighthouse.storage/ipfs/bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "tx": "0xb144d19a7d6e0e9de0a7afe06e531b0a46a40800ad2f8afa0e892bdfdd6f92c7"
+    },
+    {
+      "tier": 4,
+      "oldUri": "https://off-human.vercel.app/api/wearables/metadata/4",
+      "newUri": "https://gateway.lighthouse.storage/ipfs/bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "tx": "0xc31cd8fa74a65e7a527d5b85c1e3261a86ce440c24e9f01fd1c19e05d88af628"
+    },
+    {
+      "tier": 5,
+      "oldUri": "https://off-human.vercel.app/api/wearables/metadata/5",
+      "newUri": "https://gateway.lighthouse.storage/ipfs/bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "tx": "0x46834db61c0e4ef4485a712d11de49abeba79ab6bddbb9b58d7b480903f31452"
+    }
+  ],
+  "ipfsCIDs": {
+    "images": {
+      "0": "bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy",
+      "1": "bafybeieuukubdtf6rymdei2fztwh4vjhh544w5eexeg6jefwsg6fk4qvwe",
+      "2": "bafybeifhwoeare4tiiecb5xnwioycsvz4dynmbixqsbl4eeufgsmgnioky",
+      "3": "bafybeid7hws6loaifso75k5yv7psjhbp24tevygaxnzcjsfjyk4ddgjyjm",
+      "4": "bafybeibgb3asbmdayuwwpb5ja3hkawox5d2pg2nqa5lirwih4ep2e5ytnm",
+      "5": "bafybeicvs46mlt5wwi4htjqtmkvh4sndl55uymksrngbyh2oaw4zjxmwlq"
+    },
+    "metadata": {
+      "0": "bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "1": "bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "2": "bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "3": "bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "4": "bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "5": "bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4"
+    }
+  },
+  "basescanUrl": "https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e"
+}
