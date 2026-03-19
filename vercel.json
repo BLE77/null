@@ -3,7 +3,8 @@
   "outputDirectory": "dist/public",
   "functions": {
     "api/**": {
-      "excludeFiles": "attached_assets/**"
+      "excludeFiles": "attached_assets/**",
+      "includeFiles": "products.json"
     }
   },
   "rewrites": [
