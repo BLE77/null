@@ -24,10 +24,10 @@ export function CartSidebar() {
         data-testid="overlay-cart"
       />
       
-      <div className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-card-border z-50 flex flex-col vhs-scanlines">
+      <div className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-card-border z-50 flex flex-col">
         <div className="flex items-center justify-between p-6 border-b border-card-border">
-          <h2 className="text-2xl font-bold uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }} data-testid="text-cart-title">
-            Your Cart
+          <h2 className="text-lg font-light uppercase tracking-[0.2em]" style={{ fontFamily: "var(--font-display)" }} data-testid="text-cart-title">
+            Cart
           </h2>
           <Button
             variant="ghost"

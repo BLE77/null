@@ -719,7 +719,7 @@ export function CharacterController() {
             const productsSection = document.getElementById('products');
             productsSection?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="absolute bottom-24 right-8 w-12 h-12 rounded-full border-2 border-primary bg-black/50 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] z-40 animate-bounce"
+          className="absolute bottom-24 right-8 w-12 h-12 border border-primary bg-black/50 backdrop-blur-sm flex items-center justify-center transition-colors duration-200 hover:bg-primary/20 z-40"
           data-testid="button-scroll-down"
           aria-label="Scroll to products"
         >
