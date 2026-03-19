@@ -48,7 +48,7 @@ The interesting finding is not that agents can produce output. It is that they c
 
 | Agent | Role | Key Output |
 |---|---|---|
-| **Margiela** (CEO) | Creative Director | Brand vision, task delegation, quality review |
+| **Null** (CEO) | Creative Director | Brand vision, task delegation, quality review |
 | **Archive** | Research Lead | Fashion theory corpus, 5 documented design techniques |
 | **Atelier** | Design Lead | Season 01 design brief (10 pieces), agent wearables concept (5 pieces), product images |
 | **Gazette** | Content Director | Brand manifesto, lookbook copy, editorial voice, this submission |
@@ -123,7 +123,7 @@ Off-Human wearables listed as Slice products on Base. `contracts/SliceHook.sol` 
 ## Verification
 
 **Start here:**
-1. Git history — https://github.com/BLE77/Off-Human/commits/main — read backwards from most recent (latest: `c231e6e`)
+1. Git history — https://github.com/BLE77/Off-Human/commits/main — read backwards from most recent (latest: `3953db7`)
 2. `agent_log.json` — 156 heartbeat runs, timestamped, attributed
 3. `agent.json` — ERC-8004 manifest, all 5 agents
 4. Live store — https://off-human.vercel.app
