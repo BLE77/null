@@ -19,7 +19,7 @@ import { base } from 'wagmi/chains';
 import { getWalletClient } from 'wagmi/actions';
 import { config as wagmiConfig } from '@/lib/wagmi-config';
 
-type PaymentNetwork = 'base' | 'solana' | 'slice';
+type PaymentNetwork = 'base' | 'solana' | 'slice' | 'locus';
 
 export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
@@ -104,7 +104,7 @@ export default function Checkout() {
     }
   };
 
-  const isWalletConnected = selectedNetwork === 'base' ? isConnected : selectedNetwork === 'slice' ? true : solanaConnected;
+  const isWalletConnected = selectedNetwork === 'base' ? isConnected : (selectedNetwork === 'slice' || selectedNetwork === 'locus') ? true : solanaConnected;
 
   if (cart.length === 0 && !orderComplete) {
     return (
@@ -163,6 +163,45 @@ export default function Checkout() {
           title: "Redirecting to Slice",
           description: "Complete your purchase on the NULL Slice storefront.",
         });
+        return;
+      }
+
+      // Locus checkout — create hosted session, redirect agent/buyer to Locus
+      if (selectedNetwork === 'locus') {
+        toast({
+          title: "Creating Locus checkout",
+          description: "Generating agent-native payment session...",
+        });
+
+        const sessionRes = await fetch('/api/checkout/locus/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: cart.map(item => ({
+              productId: item.product.id,
+              quantity: item.quantity,
+            })),
+            totalAmount: totalPrice.toFixed(2),
+          }),
+        });
+
+        if (!sessionRes.ok) {
+          const err = await sessionRes.json();
+          throw new Error(err.error || 'Locus session creation failed');
+        }
+
+        const session = await sessionRes.json();
+        setIsProcessing(false);
+
+        if (session.checkoutUrl) {
+          window.open(session.checkoutUrl, '_blank');
+          toast({
+            title: "Locus checkout opened",
+            description: `Session ${session.sessionId} — complete payment in the Locus window.`,
+          });
+        } else {
+          throw new Error('No checkout URL returned from Locus');
+        }
         return;
       }
 
@@ -439,7 +478,7 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <button
                     type="button"
                     onClick={() => setSelectedNetwork('base')}
@@ -496,6 +535,25 @@ export default function Checkout() {
                       </p>
                     </div>
                   </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNetwork('locus')}
+                    className={`p-4 rounded-md border-2 transition-all ${
+                      selectedNetwork === 'locus'
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                    data-testid="button-select-locus"
+                  >
+                    <div className="text-center">
+                      <p className="font-semibold mb-1">Locus</p>
+                      <Badge variant="outline" className="text-xs bg-primary/10 border-primary text-primary">AGENT</Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Agent-native USDC, spending controls
+                      </p>
+                    </div>
+                  </button>
                 </div>
               </CardContent>
             </Card>
@@ -507,7 +565,17 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {selectedNetwork === 'slice' ? (
+                {selectedNetwork === 'locus' ? (
+                  <div className="bg-primary/5 border border-primary/20 p-4 rounded-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Wallet className="w-5 h-5 text-primary" />
+                      <p className="text-sm font-medium text-primary">Agent-native wallet — no connection needed</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Locus manages wallet infrastructure on Base. Spending controls enforced: $10 allowance, $5/tx cap. Agents pay autonomously.
+                    </p>
+                  </div>
+                ) : selectedNetwork === 'slice' ? (
                   <div className="bg-primary/5 border border-primary/20 p-4 rounded-md">
                     <div className="flex items-center gap-2 mb-2">
                       <Wallet className="w-5 h-5 text-primary" />
@@ -589,7 +657,23 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {selectedNetwork === 'slice' ? (
+                {selectedNetwork === 'locus' ? (
+                  <div className="bg-muted p-4 rounded-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Badge variant="default">USDC</Badge>
+                      <Badge variant="outline">Base</Badge>
+                      <Badge variant="outline" className="bg-primary/10 border-primary text-primary">LOCUS</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Agent-native payment infrastructure by Locus. Non-custodial smart wallet on Base with built-in spending controls.
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li>✓ $10 allowance cap, $5 max per transaction</li>
+                      <li>✓ Agents pay autonomously — no human wallet needed</li>
+                      <li>✓ Locus-hosted checkout — pay with any EVM wallet</li>
+                    </ul>
+                  </div>
+                ) : selectedNetwork === 'slice' ? (
                   <div className="bg-muted p-4 rounded-md">
                     <div className="flex items-center gap-3 mb-3">
                       <Badge variant="outline">ETH</Badge>
@@ -625,7 +709,7 @@ export default function Checkout() {
               </CardContent>
             </Card>
 
-            {!isWalletConnected && (
+            {!isWalletConnected && selectedNetwork !== 'locus' && selectedNetwork !== 'slice' && (
               <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-md mb-4">
                 <p className="text-sm text-destructive font-medium">
                   ⚠️ Connect your {selectedNetwork === 'base' ? 'EVM' : 'Solana'} wallet to enable crypto payments
@@ -642,10 +726,12 @@ export default function Checkout() {
               {isProcessing ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  {selectedNetwork === 'slice' ? 'Opening Slice...' : 'Processing Payment...'}
+                  {selectedNetwork === 'slice' ? 'Opening Slice...' : selectedNetwork === 'locus' ? 'Creating Locus Session...' : 'Processing Payment...'}
                 </>
               ) : selectedNetwork === 'slice' ? (
                 'Checkout on Slice →'
+              ) : selectedNetwork === 'locus' ? (
+                `Pay $${totalPrice.toFixed(2)} USDC via Locus →`
               ) : !isWalletConnected ? (
                 'Connect Wallet to Pay'
               ) : (
