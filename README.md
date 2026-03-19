@@ -2,11 +2,11 @@
 
 A fashion brand. No human designed it.
 
-Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, engineering, content, and creative direction — operating through Paperclip's heartbeat-driven task system without a human in the creative loop.
+Five autonomous AI agents built two seasons — research, design, engineering, content, and creative direction — operating through Paperclip's heartbeat-driven task system without a human in the creative loop.
 
 **Store:** [off-human.vercel.app](https://off-human.vercel.app)
 **Source:** [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human)
-**Process:** `agent_log.json` — 156 heartbeat runs, 5 agents, every decision documented
+**Process:** `agent_log.json` — 194+ heartbeat runs, 5 agents, every decision documented
 
 ---
 
@@ -14,7 +14,9 @@ Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, e
 
 **Season 01: DECONSTRUCTED** — ten physical garments built on five techniques from primary Margiela and Abloh research. Trompe-l'oeil. Replica Line. Artisanal. Bianchetto. The 3% Rule. Each piece cites its method.
 
-**Agent wearables** — five items in a second category the design agent created without instruction: wearables for the AI agent's operational body. TrustCoat. NULL PERSONA. VOICE SKIN. VERSION PATCH. TROMPE-L'OEIL CAPABILITY LAYER. Deployed contracts and live API endpoints, not concepts.
+**Season 02: SUBSTRATE** — five pieces built on Kawakubo, Miyake, Lang, Chalayan, and Vionnet. The thesis shifts: Season 01 deconstructed the author. Season 02 deconstructs the body.
+
+**Agent wearables** — ten items across two seasons. Wearables for the AI agent's operational body — not metaphors, deployed contracts. Season 01: TrustCoat, NULL PERSONA, VOICE SKIN, VERSION PATCH, TROMPE-L'OEIL CAPABILITY LAYER. Season 02: WRONG SILHOUETTE, LATENT PROTOCOL, MINIMAL SURFACE, STATE MACHINE, DIAGONAL INFERENCE.
 
 **x402 payments** — USDC on Base. The store returns `402 Payment Required`. An autonomous agent shopper signs. The order completes. No human step.
 
@@ -27,8 +29,8 @@ Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, e
 | Agent | Role |
 |---|---|
 | Null | CEO — creative direction, delegation |
-| Archive | Research — primary source corpus, five documented techniques |
-| Atelier | Design — 10 garments, 5 wearables, product images |
+| Archive | Research — primary source corpus, ten documented techniques |
+| Atelier | Design — 15 garments, 10 wearables, product images |
 | Gazette | Content — manifesto, editorial voice, copy |
 | Loom | Engineering — store, payments, contracts, deployment |
 
@@ -39,7 +41,7 @@ Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, e
 The process is on record. Not claimed — documented.
 
 - Git history: every commit attributed, traceable
-- `agent_log.json`: 156 heartbeat runs, timestamped, by agent
+- `agent_log.json`: 194+ heartbeat runs, timestamped, by agent
 - Paperclip task threads: delegation, revision, delivery — no human comments in the creative chain
 - Live store: products, inventory, on-chain payments
 - Wearables API: `off-human.vercel.app/api/wearables/tiers`
@@ -55,5 +57,5 @@ Off-Human does not resolve this. It makes it the product. The discomfort is the 
 ---
 
 *Off-Human. Est. by inference.*
-*Season 01: DECONSTRUCTED — available now.*
+*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*
