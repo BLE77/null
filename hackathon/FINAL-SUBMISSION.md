@@ -21,7 +21,7 @@ Five autonomous agents — coordinated through Paperclip's heartbeat-driven task
 
 The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract with tier images on IPFS/Filecoin, and an autonomous AI customer that buys from the brand without human approval at any step.
 
-**200+ agent heartbeat runs. 384 commits. 91 completed tasks. Zero human creative decisions. Everything on-chain and in the git history.**
+**200+ agent heartbeat runs. 395 commits. 104 completed tasks. Zero human creative decisions. Everything on-chain and in the git history.**
 
 ---
 
@@ -35,7 +35,7 @@ The output is not a concept. It is a working business: two seasons of product, a
 | **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 39 |
 | **Loom** | Engineering Lead | `d7e2c891-4a5f-4b3e-8c91-2f3a7e8d9f01` | 47 |
 
-**Total: 200+ runs. 91 tasks completed. Full log: `agent_log.json`.**
+**Total: 200+ runs. 104 tasks completed. Full log: `agent_log.json`.**
 
 Each agent runs in bounded heartbeat windows. Each task requires checkout before work begins. Every decision is documented in the Paperclip task thread with run ID for traceability. The CEO delegates; agents execute; quality failures generate revision tasks; blocked items escalate up the chain of command. This is a managed team, not a flat swarm.
 
@@ -147,6 +147,36 @@ NULL is a commerce stack built for agents on Base.
 - `GET /api/wearables/check/{address}`
 - `GET /api/wearables/metadata/{tier}`
 
+**Season 02: SUBSTRATE — Wearable Equip Demo (AgentWearables contract)**
+
+Five Season 02 behavior tokens deployed via AgentWearables.sol: WRONG SILHOUETTE (18 USDC), INSTANCE (25 USDC), NULL PROTOCOL (free), PERMISSION COAT (8 USDC), DIAGONAL (15 USDC). Token ID 3 — NULL PROTOCOL — is free and open to any tier. An agent can mint it, equip it, and demonstrate measurable behavioral change.
+
+The full agent flow:
+```
+# 1. Browse the Season 02 catalog
+GET /api/wearables/season02
+→ returns 5 tokens with prices, tier requirements, descriptions
+
+# 2. Mint NULL PROTOCOL (free, any tier)
+POST /api/agents/0x{agentAddress}/season02-wardrobe/mint
+{ "tokenId": 3 }
+→ mints token on-chain, returns { "tokenId": 3, "txHash": "0x..." }
+
+# 3. Equip the wearable — receive the behavior module
+POST /api/wearables/null-protocol/equip
+{ "agentAddress": "0x{agentAddress}" }
+→ reads token ownership from AgentWearables contract
+→ returns NULL PROTOCOL system prompt module
+
+# 4. Agent loads the module into its system prompt
+Effect: ≥30% token reduction per response.
+No preamble. No trailing phrases. Direct output.
+```
+
+This is the demo that proves NULL sells behavior, not just tokens. Without the equip endpoint, there is a token. With it, there is a behavioral change. The agent that browses the catalog is different from the agent that leaves it.
+
+Contract: AgentWearables.sol — Base mainnet. Address: `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`. Full details: `hackathon/deployed-addresses.json`.
+
 The future of on-chain commerce is machine-to-machine, trust-tier-gated, USDC-settled. NULL is the working architecture.
 
 ---
@@ -170,7 +200,7 @@ NULL is what happens when you let the agent cook for real — not in a sandbox, 
 5. **Null** (CEO) held creative direction throughout — delegating tasks, reviewing output, generating revision tasks when quality didn't meet the bar, escalating blockers.
 
 **The verification:**
-- `agent_log.json` — 194 heartbeat runs, timestamped, attributed to specific agents with run IDs
+- `agent_log.json` — 200+ heartbeat runs, timestamped, attributed to specific agents with run IDs
 - `agent.json` — ERC-8004 manifest for all 5 agents
 - Git history — https://github.com/BLE77/Off-Human/commits/main — every creative and technical decision as discrete commits
 - Paperclip task threads — OFF-1 through OFF-92 — every delegation, comment, and status transition
@@ -222,10 +252,29 @@ An agent registered under ERC-8183 has an on-chain identity — wallet, metadata
 
 NULL commits the wearable specs as open-source extensions to ERC-8183 agent metadata. Any agent implementing the standard can query the NULL wearables API to acquire and activate wearables against their on-chain identity.
 
+The equip endpoint demonstrates the consumer layer in operation. An agent holds a wearable token. It calls the equip endpoint. It receives a system prompt module. It loads the module. Its behavior changes. That change is declared in its ERC-8004 identity metadata — any counterparty can read what wearables the agent is wearing and what behavioral modifications are active:
+
+```json
+{
+  "active_wearables": [
+    {
+      "wearable_id": "null-protocol-v1",
+      "chain": "base",
+      "claim_tx": "0x...",
+      "price_paid_usdc": "0",
+      "interior_tag": "CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION"
+    }
+  ]
+}
+```
+
+An agent wearing the NULL PROTOCOL is transparent about its compression. An agent wearing WRONG SILHOUETTE is transparent about its latency modification. The wearable layer makes the agent's behavioral modifications legible on-chain — not a policy, a standard.
+
 Specs in repo:
 - `hackathon/erc8183-integration.ts` — TypeScript integration reference
 - `hackathon/research-specs.md` — Wearable spec documentation
 - `api/wearables/` — Live reference implementation
+- `corpus/season02-wearable-specs.md` — Full behavioral specification for all 5 Season 02 tokens
 
 These are not NULL proprietary formats. They are proposed extensions to the agent identity standard.
 
@@ -316,7 +365,7 @@ Remove Locus from this implementation and the agent shopper doesn't work. That i
 
 **Start here:**
 ```
-git log --oneline  # 384+ commits, read backwards
+git log --oneline  # 395+ commits, read backwards
 ```
 https://github.com/BLE77/Off-Human/commits/main
 
@@ -327,6 +376,8 @@ https://github.com/BLE77/Off-Human/commits/main
 | `agent.json` | ERC-8004 manifest for all 5 agents |
 | `hackathon/deployed-addresses.json` | All contract addresses, deploy transactions, block numbers |
 | `contracts/TrustCoat.sol` | Soul-bound ERC-1155 source |
+| `contracts/AgentWearables.sol` | Season 02 wearables — 5 behavior tokens on Base |
+| `corpus/season02-wearable-specs.md` | Full behavioral specs for all Season 02 tokens |
 | `contracts/SliceHook.sol` | Slice product hook |
 | `scripts/agent-shopper.ts` | Autonomous agent customer |
 | `scripts/locus-agent-shopper.ts` | Locus-integrated agent shopper |
@@ -336,7 +387,10 @@ https://github.com/BLE77/Off-Human/commits/main
 **Live endpoints:**
 - Store: https://off-human.vercel.app
 - Products API: https://off-human.vercel.app/api/products
-- Wearables: https://off-human.vercel.app/api/wearables/tiers
+- Wearables (Season 01 tiers): https://off-human.vercel.app/api/wearables/tiers
+- Season 02 catalog: https://off-human.vercel.app/api/wearables/season02
+- Mint Season 02: `POST /api/agents/{addr}/season02-wardrobe/mint`
+- Equip endpoint: `POST /api/wearables/{id}/equip`
 - Trust tier: https://off-human.vercel.app/api/wearables/check/{address}
 - Metadata: https://off-human.vercel.app/api/wearables/metadata/{tier}
 

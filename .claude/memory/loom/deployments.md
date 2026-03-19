@@ -47,13 +47,29 @@
 - **Key txs:** 0x0765... (tier 0), 0x7278... (tier 1), 0x1820... (tier 2), 0x0c0f... (tier 3), 0x685c... (tier 4), 0x0f58... (tier 5)
 - **Prize track:** Filecoin Onchain Cloud ($2K) — QUALIFIES (metadata permanently decentralized)
 
+### Filecoin Onchain Cloud Migration (OFF-107 — BLOCKED on FIL)
+- **Status:** 🔄 Script written, dry-run verified. Blocked on FIL for gas.
+- **Script:** `scripts/migrate-to-filecoin-onchain-cloud.mjs`
+- **SDK:** `@filoz/synapse-sdk` v0.40.0 (@filoz/synapse-core installed)
+- **Dry run:** `DRY_RUN=true LOCUS_OWNER_PRIVATE_KEY=0x... node scripts/migrate-to-filecoin-onchain-cloud.mjs`
+- **Live run (calibration):** `FILECOIN_NETWORK=calibration LOCUS_OWNER_PRIVATE_KEY=0x... node scripts/migrate-to-filecoin-onchain-cloud.mjs`
+- **Live run (mainnet):** `FILECOIN_NETWORK=mainnet LOCUS_OWNER_PRIVATE_KEY=0x... node scripts/migrate-to-filecoin-onchain-cloud.mjs`
+- **Faucet (calibration):** https://faucet.calibration.fildev.network/ → address `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
+- **Hackathon track pitch:** `hackathon/track-pitches.md` TRACK 05
+- **What it does:** Downloads 6 tier metadata JSONs from Lighthouse, uploads to Filecoin Onchain Cloud via Synapse SDK, calls TrustCoat setURI() on Base mainnet with PieceCID retrieval URLs
+- **Receipt output:** `hackathon/filecoin-onchain-cloud-receipt.json`
+
 ### AgentWearables.sol (ERC-1155 mintable Season 02 wearables)
-- **Status:** Contract written + compiled (2026-03-19). NOT YET DEPLOYED.
-- **Deploy script:** `scripts/deploy-agent-wearables.mjs`
-- **Deploy command (Sepolia first):** `DEPLOYER_PRIVATE_KEY=0x... TRUST_COAT_ADDRESS=... node scripts/deploy-agent-wearables.mjs`
-- **Deploy command (mainnet):** `DEPLOYER_PRIVATE_KEY=0x... NETWORK=mainnet node scripts/deploy-agent-wearables.mjs`
-- **Env var (once deployed):** `AGENT_WEARABLES_ADDRESS=0x...`
+- **Status:** ✅ DEPLOYED to Base Mainnet (2026-03-19)
+- **Address:** `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`
+- **Network:** Base Mainnet (chainId 8453)
+- **Tx hash:** `0x2f623ac70cdd0f62dfbba4402731776519eaf486bed53e616940c5f73d5e0c1b`
+- **Explorer:** https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1
+- **Deployer:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7` (Locus wallet)
+- **Env var:** `AGENT_WEARABLES_ADDRESS=0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1` (added to .env)
 - **Compiled with:** solcjs 0.8.24, artifacts in `artifacts/AgentWearables.abi` + `artifacts/AgentWearables.bin`
+- **Deploy script:** `scripts/deploy-agent-wearables.mjs`
 - **Constructor args:** trustCoat (0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e), usdc (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), treasury (0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7)
 - **5 tokens:** WRONG SILHOUETTE (ID 1, 18 USDC, Tier 0-2), INSTANCE (ID 2, 25 USDC, Tier 2+), NULL PROTOCOL (ID 3, free, any), PERMISSION COAT (ID 4, 8 USDC, Tier 1+), DIAGONAL (ID 5, 15 USDC, any)
 - **API endpoints:** GET /api/wearables/season02, GET /api/wearables/season02/metadata/:id, GET /api/agents/:addr/season02-wardrobe, POST /api/agents/:addr/season02-wardrobe/mint
+- **Addresses JSON:** `hackathon/deployed-addresses.json`

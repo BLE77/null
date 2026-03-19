@@ -24,6 +24,11 @@ export async function apiRequest(
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";
+// Static fallbacks for when the API backend is unavailable (e.g. static here.now deploy)
+const STATIC_FALLBACKS: Record<string, string> = {
+  "/api/products": "/products.json",
+};
+
 export const getQueryFn: <T>(options: {
   on401: UnauthorizedBehavior;
 }) => QueryFunction<T> =
@@ -31,7 +36,7 @@ export const getQueryFn: <T>(options: {
 async ({ queryKey }) => {
     const url = queryKey.join("/") as string;
     console.log("[QueryClient] Fetching:", url);
-    
+
     try {
       const res = await fetch(url, {
         credentials: "include",
@@ -46,6 +51,13 @@ async ({ queryKey }) => {
       if (!res.ok) {
         const text = await res.text();
         console.error("[QueryClient] Error response:", text);
+        // Try static fallback if available
+        const fallback = STATIC_FALLBACKS[url];
+        if (fallback) {
+          console.log("[QueryClient] Trying static fallback:", fallback);
+          const fbRes = await fetch(fallback);
+          if (fbRes.ok) return fbRes.json();
+        }
         throw new Error(`${res.status}: ${text || res.statusText}`);
       }
 
@@ -53,6 +65,15 @@ async ({ queryKey }) => {
       console.log("[QueryClient] Success:", url, "got", Array.isArray(data) ? `${data.length} items` : "1 item");
       return data;
     } catch (error: any) {
+      // On network failure (no backend), try static fallback
+      const fallback = STATIC_FALLBACKS[url];
+      if (fallback) {
+        try {
+          console.log("[QueryClient] Network error, trying static fallback:", fallback);
+          const fbRes = await fetch(fallback);
+          if (fbRes.ok) return fbRes.json();
+        } catch (_) {}
+      }
       console.error("[QueryClient] Fetch error for", url, ":", error);
       throw error;
     }

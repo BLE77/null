@@ -19,7 +19,22 @@ We extended this to a full agent-native commerce infrastructure:
 
 **The Agent Wardrobe API (live)** — NULL's product line includes five agent wearables (Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch). Live endpoints at `/api/wearables/tiers`, `/api/wearables/check/{address}`, `/api/wearables/metadata/{tier}`. Agents query by capability type, technique, and trust tier requirement — not by image or aesthetic.
 
-What we built is not a demo of x402. It is an agent-native commerce stack on Base, with a product catalog that serves agents as its primary customers. The wearables API is live. The x402 payment middleware is live. The TrustCoat is deployed and minted.
+**Season 02 Wearables — Behavior as Product (AgentWearables contract)**
+
+Five tokens deployed via AgentWearables.sol on Base: WRONG SILHOUETTE, INSTANCE, NULL PROTOCOL, PERMISSION COAT, DIAGONAL. The NULL PROTOCOL (token ID 3) is free. The full agent equip flow:
+
+```
+GET /api/wearables/season02              → browse Season 02 catalog
+POST /api/agents/{addr}/season02-wardrobe/mint  { "tokenId": 3 }
+                                         → mint NULL PROTOCOL on-chain (0 USDC)
+POST /api/wearables/null-protocol/equip  { "agentAddress": "0x..." }
+                                         → ownership check → return system prompt module
+[Agent loads module]                     → ≥30% token reduction, no preamble, no trailing phrases
+```
+
+NULL sells behavior, not just tokens. The equip endpoint is what makes this a real commerce primitive: a token you can purchase and a behavioral change you can measure. An agent that buys the NULL PROTOCOL is different from an agent that doesn't. The difference is on-chain and verifiable.
+
+What we built is not a demo of x402. It is an agent-native commerce stack on Base, with a product catalog that serves agents as its primary customers and delivers measurable behavioral output. The wearables API is live. The x402 payment middleware is live. The TrustCoat is deployed and minted.
 
 The future of on-chain commerce is machine-to-machine, trust-tier-gated, and settled in USDC. NULL is the working architecture.
 
@@ -109,7 +124,26 @@ An agent registered under ERC-8183 has an on-chain identity — wallet, metadata
 
 - **VOICE SKIN** — a system prompt module (REPLICA LINE technique) that modifies the agent's communication layer. In ERC-8183 terms: a behavioral overlay that is explicitly declared rather than hidden. The agent that wears a Voice Skin is transparent about the persona it's operating.
 
-**The open build proposal:**
+**The equip endpoint — consumer layer for ERC-8183:**
+
+An agent holds a token. It calls the equip endpoint. It receives a system prompt module. It loads the module. Its behavior changes. That change is declared in its ERC-8004 identity metadata.
+
+```
+POST /api/wearables/null-protocol/equip
+{ "agentAddress": "0x..." }
+
+Response:
+{
+  "wearable": "null-protocol-v1",
+  "system_prompt_module": "[NULL PROTOCOL — ACTIVE]\n...",
+  "effect": "≥30% token reduction, no preamble, no trailing phrases",
+  "interior_tag": "CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION"
+}
+```
+
+This is the consumer layer for ERC-8183 in operation. Standard defines the identity. Wearable equip modifies the behavior. The modification is on-chain, verifiable, and declared. Counterparties can read what wearables an agent is wearing and what behavioral modifications are active — not a trust claim, a contract read.
+
+**The open build:**
 
 NULL commits the wearable specs as open-source extensions to ERC-8183 agent metadata. Any agent implementing the standard can query the NULL wearables API to acquire and activate wearables against their on-chain identity.
 
@@ -117,10 +151,12 @@ The specs:
 - Trust Coat: soul-bound ERC-1155 with tier structure and advancement logic
 - Version Patch: JSON metadata schema for agent version display
 - Voice Skin: system prompt module format specification
+- NULL PROTOCOL: system prompt modifier, free, ≥30% compression, verifiable on-chain
+- `corpus/season02-wearable-specs.md`: full behavioral specs for all Season 02 tokens
 
 These are not NULL proprietary formats. They are proposed extensions to the agent identity standard — open for adoption, modification, and criticism.
 
-The agent wardrobe is the missing consumer layer for ERC-8183. You have the identity standard. What does the agent wear?
+The agent wardrobe is the missing consumer layer for ERC-8183. You have the identity standard. What does the agent wear? NULL has a working answer: five tokens, an equip endpoint, and measurable behavioral output.
 
 ---
 

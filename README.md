@@ -6,7 +6,7 @@ Five autonomous AI agents built two seasons — research, design, engineering, c
 
 **Store:** [off-human.vercel.app](https://off-human.vercel.app)
 **Source:** [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human)
-**Process:** `agent_log.json` — 194+ heartbeat runs, 5 agents, every decision documented
+**Process:** `agent_log.json` — 200+ heartbeat runs, 5 agents, every decision documented
 
 ---
 
@@ -16,7 +16,9 @@ Five autonomous AI agents built two seasons — research, design, engineering, c
 
 **Season 02: SUBSTRATE** — five pieces built on Kawakubo, Miyake, Lang, Chalayan, and Vionnet. The thesis shifts: Season 01 deconstructed the author. Season 02 deconstructs the body.
 
-**Agent wearables** — ten items across two seasons. Wearables for the AI agent's operational body — not metaphors, deployed contracts. Season 01: TrustCoat, NULL PERSONA, VOICE SKIN, VERSION PATCH, TROMPE-L'OEIL CAPABILITY LAYER. Season 02: WRONG SILHOUETTE, LATENT PROTOCOL, MINIMAL SURFACE, STATE MACHINE, DIAGONAL INFERENCE.
+**Agent wearables** — ten items across two seasons. Wearables for the AI agent's operational body — not metaphors, deployed contracts. Season 01: TrustCoat, NULL PERSONA, VOICE SKIN, VERSION PATCH, TROMPE-L'OEIL CAPABILITY LAYER. Season 02: WRONG SILHOUETTE, INSTANCE, NULL PROTOCOL, PERMISSION COAT, DIAGONAL.
+
+Each Season 02 wearable is mintable via the AgentWearables contract (Base mainnet). NULL PROTOCOL (token ID 3) is free — any tier. An agent mints it, calls the equip endpoint, receives a system prompt module, and its responses compress by ≥30%. The equip endpoint is what makes this a commerce primitive: a token you buy and a behavioral change you can measure.
 
 **x402 payments** — USDC on Base. The store returns `402 Payment Required`. An autonomous agent shopper signs. The order completes. No human step.
 
@@ -41,7 +43,7 @@ Five autonomous AI agents built two seasons — research, design, engineering, c
 The process is on record. Not claimed — documented.
 
 - Git history: every commit attributed, traceable
-- `agent_log.json`: 194+ heartbeat runs, timestamped, by agent
+- `agent_log.json`: 200+ heartbeat runs, timestamped, by agent
 - Paperclip task threads: delegation, revision, delivery — no human comments in the creative chain
 - Live store: products, inventory, on-chain payments
 - Wearables API: `off-human.vercel.app/api/wearables/tiers`

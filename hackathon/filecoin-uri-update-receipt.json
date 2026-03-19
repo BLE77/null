@@ -1,0 +1,20 @@
+{
+  "updatedAt": "2026-03-19T20:47:44.485Z",
+  "contract": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+  "network": "base-mainnet (chain-8453)",
+  "manifestUploadedAt": "2026-03-19T19:12:50.884Z",
+  "updates": [
+    {
+      "tier": 4,
+      "oldUri": "",
+      "newUri": "ipfs://bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "tx": "0x685cbad0bed5c7c35f74cead7544ecff368359f058db9360e8fdd8ccff3e60cc"
+    },
+    {
+      "tier": 5,
+      "oldUri": "https://gateway.lighthouse.storage/ipfs/bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "newUri": "ipfs://bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "tx": "0x0f583cfa0aa1e9fc47fa9304f0e1af5ce90bd2aeaaff7efa1a452f56cc12076d"
+    }
+  ]
+}

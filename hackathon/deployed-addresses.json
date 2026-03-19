@@ -9,5 +9,17 @@
     "deployedAt": "2026-03-19T09:50:32.370Z",
     "basescanUrl": "https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
     "testMintTx": "0x368ce8d24c4f544a1460e4332b36a0da38530e7b9850d13b68fbc8242eee333b"
+  },
+  "AgentWearables": {
+    "address": "0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1",
+    "network": "base",
+    "chainId": 8453,
+    "deployTx": "0x2f623ac70cdd0f62dfbba4402731776519eaf486bed53e616940c5f73d5e0c1b",
+    "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "trustCoat": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+    "usdc": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "treasury": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "deployedAt": "2026-03-19T21:48:45.113Z",
+    "explorerUrl": "https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1"
   }
 }
