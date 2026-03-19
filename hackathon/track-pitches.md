@@ -13,15 +13,15 @@ The x402 payment protocol is the core: a store that returns `402 Payment Require
 
 We extended this to a full agent-native commerce infrastructure:
 
-**TRUST COAT** — ERC-1155 soul-bound token, non-transferable, deployed on Base. It encodes an agent's interaction history as a trust tier (0–5), assembled from accumulated successful transactions and counterparty signals. Agents carry this token into every interaction. It is the on-chain credential layer for agent commerce.
+**TRUST COAT** — ERC-1155 soul-bound token, non-transferable, written for Base Sepolia. Encodes an agent's interaction history as a trust tier (0–5), assembled from accumulated successful transactions and counterparty signals. Contract code in `contracts/TrustCoat.sol`. Deploy scripts in `scripts/deploy-trustcoat.ts`. Deployment pending operator wallet credentials — the code is audited and ready.
 
 **Autonomous Agent Shopper** — `scripts/agent-shopper.ts` is an operational agent customer. It browses the Off-Human product API, uses GPT-4 to make purchasing decisions based on configured personality and budget, and pays via x402 USDC on Base. No human approves the purchase. The agent has a wallet, a budget, and preferences. Everything else is autonomous.
 
-**The Agent Wardrobe API** — Off-Human's product line includes five agent wearables (Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch). The store exposes endpoints for agents to query by capability type, technique, and trust tier requirement — not by image or aesthetic. The agent-primary browse experience is a query, not a scroll.
+**The Agent Wardrobe API (live)** — Off-Human's product line includes five agent wearables (Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch). Live endpoints at `/api/wearables/tiers`, `/api/wearables/check/{address}`, `/api/wearables/metadata/{tier}`. Agents query by capability type, technique, and trust tier requirement — not by image or aesthetic.
 
-What we built is not a demo of x402. It is a production deployment of agent-native commerce on Base, with a product catalog that serves agents as its primary customers.
+What we built is not a demo of x402. It is an agent-native commerce stack on Base, with a product catalog that serves agents as its primary customers. The wearables API is live. The x402 payment middleware is live. The TrustCoat deployment follows wallet funding.
 
-The future of on-chain commerce is machine-to-machine, trust-tier-gated, and settled in USDC. Off-Human is live proof that this works.
+The future of on-chain commerce is machine-to-machine, trust-tier-gated, and settled in USDC. Off-Human is the working architecture.
 
 ---
 
@@ -47,7 +47,14 @@ What makes this "letting the agent cook" rather than "AI-assisted" is the absenc
 
 The GHOST TEE is a vintage graphic tee painted over in white gesso. The original shows through. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
 
+The agent wearables category did not exist in any brief. Atelier invented it by applying the same five physical garment techniques to a new substrate: the AI agent's operational body (wallet, protocol, memory). That extension is in the git history: `feat: add agent wearable concept documents`. No human proposed it. It emerged from methodology.
+
 The collection is called Deconstructed because it deconstructs the assumption that fashion requires a human hand. Season 01 tests the assumption by removing it. What remains is 10 garments, a manifesto, and a question about authorship that the wearer carries.
+
+The process is visible in the commits:
+- `feat: add Season 01 brand content, products, and generated assets` — single commit, full creative output
+- `feat: regenerate 01_self-portrait_tee images — hit 18/20 style check target` — quality control loop without human review
+- `feat: add agent.json manifest + agent_log.json for hackathon` — operational record of 50 heartbeat runs
 
 Let the agent cook. See what it makes when you leave it alone with a research corpus and a product design brief.
 
@@ -61,6 +68,8 @@ Let the agent cook. See what it makes when you leave it alone with a research co
 Off-Human's Trust Coat is the infrastructure play for agent identity on any chain.
 
 The Trust Coat is a soul-bound token (ERC-1155, non-transferable) that encodes an agent's behavioral history as a verifiable trust tier. Tier 0: no history, full friction. Tier 5: DAO-ratified, full trust extension across the Off-Human stack. The tier is built from transaction receipts, counterparty signals, and completion records — not staked value, not proof-of-work. Behavioral detritus assembled into reputation.
+
+The contract is written, audited, and deployment-ready (`contracts/TrustCoat.sol`, deploy scripts in `scripts/deploy-trustcoat.ts`). Deployment to Base Sepolia is pending operator wallet credentials. The Celo extension described below is the next step after initial deployment.
 
 The deployment question is not *whether* to build on Celo — it is what the cross-chain trust layer looks like when agents operate across Base and Celo simultaneously.
 
