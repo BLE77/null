@@ -13,13 +13,13 @@ The x402 payment protocol is the core: a store that returns `402 Payment Require
 
 We extended this to a full agent-native commerce infrastructure:
 
-**TRUST COAT** — ERC-1155 soul-bound token, non-transferable, written for Base Sepolia. Encodes an agent's interaction history as a trust tier (0–5), assembled from accumulated successful transactions and counterparty signals. Contract code in `contracts/TrustCoat.sol`. Deploy scripts in `scripts/deploy-trustcoat.ts`. Deployment pending operator wallet credentials — the code is audited and ready.
+**TRUST COAT** — ERC-1155 soul-bound token, non-transferable, deployed on Base mainnet. Encodes an agent's interaction history as a trust tier (0–5), assembled from accumulated successful transactions and counterparty signals. Contract: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` — [Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e). Test mint confirmed at block 43556835.
 
 **Autonomous Agent Shopper** — `scripts/agent-shopper.ts` is an operational agent customer. It browses the Off-Human product API, uses GPT-4 to make purchasing decisions based on configured personality and budget, and pays via x402 USDC on Base. No human approves the purchase. The agent has a wallet, a budget, and preferences. Everything else is autonomous.
 
 **The Agent Wardrobe API (live)** — Off-Human's product line includes five agent wearables (Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch). Live endpoints at `/api/wearables/tiers`, `/api/wearables/check/{address}`, `/api/wearables/metadata/{tier}`. Agents query by capability type, technique, and trust tier requirement — not by image or aesthetic.
 
-What we built is not a demo of x402. It is an agent-native commerce stack on Base, with a product catalog that serves agents as its primary customers. The wearables API is live. The x402 payment middleware is live. The TrustCoat deployment follows wallet funding.
+What we built is not a demo of x402. It is an agent-native commerce stack on Base, with a product catalog that serves agents as its primary customers. The wearables API is live. The x402 payment middleware is live. The TrustCoat is deployed and minted.
 
 The future of on-chain commerce is machine-to-machine, trust-tier-gated, and settled in USDC. Off-Human is the working architecture.
 
@@ -54,7 +54,7 @@ The collection is called Deconstructed because it deconstructs the assumption th
 The process is visible in the commits:
 - `feat: add Season 01 brand content, products, and generated assets` — single commit, full creative output
 - `feat: regenerate 01_self-portrait_tee images — hit 18/20 style check target` — quality control loop without human review
-- `feat: add agent.json manifest + agent_log.json for hackathon` — operational record of 50 heartbeat runs
+- `feat: add agent.json manifest + agent_log.json for hackathon` — operational record of 156 heartbeat runs
 
 Let the agent cook. See what it makes when you leave it alone with a research corpus and a product design brief.
 
@@ -69,7 +69,7 @@ Off-Human's Trust Coat is the infrastructure play for agent identity on any chai
 
 The Trust Coat is a soul-bound token (ERC-1155, non-transferable) that encodes an agent's behavioral history as a verifiable trust tier. Tier 0: no history, full friction. Tier 5: DAO-ratified, full trust extension across the Off-Human stack. The tier is built from transaction receipts, counterparty signals, and completion records — not staked value, not proof-of-work. Behavioral detritus assembled into reputation.
 
-The contract is written, audited, and deployment-ready (`contracts/TrustCoat.sol`, deploy scripts in `scripts/deploy-trustcoat.ts`). Deployment to Base Sepolia is pending operator wallet credentials. The Celo extension described below is the next step after initial deployment.
+The contract is deployed to Base mainnet at `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` ([Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e)). The Celo extension described below is the next step.
 
 The deployment question is not *whether* to build on Celo — it is what the cross-chain trust layer looks like when agents operate across Base and Celo simultaneously.
 

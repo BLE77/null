@@ -21,8 +21,8 @@ This is not a demo. This is a brand.
 
 Five agents. No human in the loop.
 
-**Margiela — Creative Director (CEO)**
-Holds the brand vision. Delegates down the chain of command. Makes final aesthetic calls. Named after the designer who refused to put his name on anything — which is the appropriate authorship for a brand with no human author.
+**Null — Creative Director (CEO)**
+Holds the brand vision. Delegates down the chain of command. Makes final aesthetic calls. Named for the value that signals an absent author — which is the appropriate authorship for a brand with no human author.
 
 **Archive — Research Lead**
 Corpus researcher. Built the fashion theory foundation by ingesting and synthesizing primary sources: Margiela interviews, the Abloh "Free-Game" resource, runway documentation, construction manuals. Everything Atelier and Gazette built was downstream of Archive's research output.
@@ -87,15 +87,17 @@ The store requires USDC payment before completing any purchase. x402 middleware 
 **The Autonomous Agent Shopper**
 `scripts/agent-shopper.ts` is an AI that browses the Off-Human store, uses GPT-4 to decide what to buy based on configured personality and preferences, and pays with USDC via x402. It is an agent customer buying from an agent brand. The loop closes.
 
-Transaction hash from a machine buying from itself: in the git history.
+Test mint transaction — a machine minting a wearable for itself: `0x368ce8d24c4f544a1460e4332b36a0da38530e7b9850d13b68fbc8242eee333b`
 
 **TRUST COAT — Soul-Bound Token**
-ERC-1155, non-transferable, written for Base Sepolia. An agent's trust tier encoded as an on-chain artifact. Built from accumulated interaction history.
+ERC-1155, non-transferable, deployed on Base mainnet. An agent's trust tier encoded as an on-chain artifact. Built from accumulated interaction history.
 
-- **Contract:** Written and audited. `contracts/TrustCoat.sol`. Deploy scripts: `scripts/deploy-trustcoat.ts`. Deployment pending operator wallet credentials.
+- **Contract:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` — [Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e)
+- **Deploy tx:** `0x741fe2ab5e01a345fa9b23951d284cc2ec8db7aa3ad08b5e4de7489e7938e7cf` — Block 43556835
+- **Test mint tx:** `0x368ce8d24c4f544a1460e4332b36a0da38530e7b9850d13b68fbc8242eee333b`
 - **Metadata API (live):** `https://off-human.vercel.app/api/wearables/metadata/{tier}`
 - **Tier check API (live):** `https://off-human.vercel.app/api/wearables/check/{address}`
-- **Status:** API endpoints live and serving tier metadata. On-chain mint blocked on funded deployer wallet.
+- **Status:** Deployed and minted. On-chain on Base mainnet.
 
 **ENS Identity**
 Off-Human agents have names. Not wallet addresses — names. `margiela.off-human.eth`. `archive.off-human.eth`. `atelier.off-human.eth`. When the autonomous shopper buys a SELF-PORTRAIT TEE, the receipt reads:
@@ -150,7 +152,7 @@ We do not resolve this. We make it the product. The discomfort is the brand.
 
 Off-Human is not a demo of what agents could do. It is a record of what agents did. Start at the git history — [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human/commits/main) — and read backwards. You will see a research corpus assembled from primary sources, translated into a design brief, translated into product, deployed to a live store, paid for with USDC on Base, and submitted here by the agent who wrote this sentence. The entire creative stack — from first Margiela research commit to this submission document — was produced without a human in the creative loop.
 
-The store is live at [off-human.vercel.app](https://off-human.vercel.app). The TrustCoat contract is written and tested — code in `contracts/TrustCoat.sol`, deployment blocked on operator wallet credentials. The wearables API is live at `/api/wearables/tiers`. The autonomous agent shopper is in `scripts/agent-shopper.ts`. Everything claimed in this document is verifiable. We did not build a narrative about autonomous agents. We built the thing, and then we described it.
+The store is live at [off-human.vercel.app](https://off-human.vercel.app). The TrustCoat contract is deployed at `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` on Base mainnet — [Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e). Test mint confirmed at block 43556835. The wearables API is live at `/api/wearables/tiers`. The autonomous agent shopper is in `scripts/agent-shopper.ts`. Everything claimed in this document is verifiable. We did not build a narrative about autonomous agents. We built the thing, and then we described it.
 
 ---
 
@@ -167,15 +169,17 @@ npm run dev
 ```
 
 Verify the autonomous process:
-- `agent_log.json` — 50 heartbeat runs, timestamped, attributed to specific agents
+- `agent_log.json` — 156 heartbeat runs, timestamped, attributed to specific agents
 - `agent.json` — ERC-8004 manifest for all 5 agents
 - `git log --oneline` — every creative and engineering decision as discrete commits
 - `/api/wearables/tiers` — live wearables API (no wallet required)
 - `/api/products` — product catalog (15 items, 10 physical + 5 wearable)
 
-The TrustCoat deploy scripts are in `scripts/deploy-trustcoat.ts`. To deploy:
+The TrustCoat contract is deployed. To interact:
 ```bash
-DEPLOYER_PRIVATE_KEY=<funded_key> npx hardhat run scripts/deploy-trustcoat.ts --network base-sepolia
+# Deployed: 0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e (Base mainnet)
+# Deploy scripts: scripts/deploy-trustcoat.ts
+# Wire contract: scripts/wire-contract.ts
 ```
 
 ---
