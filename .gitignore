@@ -42,3 +42,4 @@ references/
 # Hardhat build artifacts
 artifacts/
 cache/
+.herenow/
