@@ -1,73 +1,19 @@
 [
   {
-    "file": "anonymous_atelier_tier0.png",
+    "file": "trustcoat_tier1_sample.png",
     "passed": true,
-    "target_score": 1.0,
-    "generic_score": 0.0,
+    "target_score": 0.997,
+    "generic_score": 0.003,
     "top_concept": "Maison Margiela artisanal fashion",
-    "top_score": 0.993,
+    "top_score": 0.976,
     "verdict": "PASS",
     "scores": {
-      "Maison Margiela artisanal fashion": 0.993,
-      "conceptual fashion piece": 0.004,
-      "deconstructed avant-garde garment": 0.003,
-      "high fashion editorial piece": 0.0,
-      "fast fashion mass produced": 0.0,
-      "plain casual clothing": 0.0,
-      "basic streetwear graphic tee": 0.0
-    }
-  },
-  {
-    "file": "anonymous_atelier_tier5.png",
-    "passed": true,
-    "target_score": 0.996,
-    "generic_score": 0.004,
-    "top_concept": "conceptual fashion piece",
-    "top_score": 0.516,
-    "verdict": "PASS",
-    "scores": {
-      "conceptual fashion piece": 0.516,
-      "deconstructed avant-garde garment": 0.464,
-      "high fashion editorial piece": 0.01,
-      "Maison Margiela artisanal fashion": 0.006,
-      "fast fashion mass produced": 0.004,
-      "plain casual clothing": 0.0,
-      "basic streetwear graphic tee": 0.0
-    }
-  },
-  {
-    "file": "atelier_addresses_itself.png",
-    "passed": true,
-    "target_score": 0.994,
-    "generic_score": 0.006,
-    "top_concept": "conceptual fashion piece",
-    "top_score": 0.762,
-    "verdict": "PASS",
-    "scores": {
-      "conceptual fashion piece": 0.762,
-      "Maison Margiela artisanal fashion": 0.195,
-      "deconstructed avant-garde garment": 0.034,
-      "high fashion editorial piece": 0.004,
+      "Maison Margiela artisanal fashion": 0.976,
+      "deconstructed avant-garde garment": 0.011,
+      "conceptual fashion piece": 0.009,
       "fast fashion mass produced": 0.003,
-      "plain casual clothing": 0.002,
-      "basic streetwear graphic tee": 0.0
-    }
-  },
-  {
-    "file": "trompe_loeil_self_portrait.png",
-    "passed": true,
-    "target_score": 0.818,
-    "generic_score": 0.182,
-    "top_concept": "conceptual fashion piece",
-    "top_score": 0.418,
-    "verdict": "PASS",
-    "scores": {
-      "conceptual fashion piece": 0.418,
-      "Maison Margiela artisanal fashion": 0.218,
-      "fast fashion mass produced": 0.179,
-      "high fashion editorial piece": 0.147,
-      "deconstructed avant-garde garment": 0.035,
-      "plain casual clothing": 0.003,
+      "high fashion editorial piece": 0.0,
+      "plain casual clothing": 0.0,
       "basic streetwear graphic tee": 0.0
     }
   }
