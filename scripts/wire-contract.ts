@@ -21,12 +21,15 @@
  */
 
 import { createPublicClient, http, isAddress, parseAbi } from "viem";
-import { baseSepolia } from "viem/chains";
+import { baseSepolia, base } from "viem/chains";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const TRUST_COAT_ABI = parseAbi([
   "function owner() view returns (address)",
@@ -63,10 +66,13 @@ async function main() {
 
   // ─── Step 2: Validate on-chain ──────────────────────────────────────────────
   console.log("Checking on-chain...");
-  const client = createPublicClient({
-    chain: baseSepolia,
-    transport: http(process.env.BASE_SEPOLIA_RPC ?? "https://sepolia.base.org"),
-  });
+  const isMainnet = !contractAddress?.toLowerCase().includes("sepolia");
+  const chain = isMainnet ? base : baseSepolia;
+  const rpcUrl = isMainnet
+    ? (process.env.BASE_MAINNET_RPC ?? "https://mainnet.base.org")
+    : (process.env.BASE_SEPOLIA_RPC ?? "https://sepolia.base.org");
+
+  const client = createPublicClient({ chain, transport: http(rpcUrl) });
 
   const bytecode = await client.getBytecode({ address: contractAddress as `0x${string}` });
   if (!bytecode || bytecode === "0x") {
