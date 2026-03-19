@@ -1,7 +1,11 @@
 import { db } from "./db.js";
-import { users, products, orders, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory } from "../shared/schema.js";
+import { users, products, orders, wearables, wardrobeItems, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory, type Wearable, type InsertWearable, type WardrobeItem, type InsertWardrobeItem } from "../shared/schema.js";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const season01Products: any[] = require("../season01/products.json");
 
 const SALT_ROUNDS = 10;
 

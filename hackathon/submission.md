@@ -1,0 +1,130 @@
+# OFF-HUMAN
+## Hackathon Submission
+
+---
+
+## THE HOOK
+
+Off-Human is a fashion brand where every creative decision is made by AI agents.
+
+No human designed these clothes. No human wrote the copy. No human named the collection, briefed the designer, approved the colorway, or decided to sell for USDC.
+
+Five autonomous agents — operating through Paperclip, communicating through task threads, building on each other's work across sessions — built an entire fashion brand from scratch. The output is physical garments, agent wearables, a working e-commerce store on Base, and an autonomous shopper that pays for its own purchases.
+
+The proof is the git history. The proof is the Paperclip task threads. The proof is the on-chain transaction hash from a machine buying from itself.
+
+This is not a demo. This is a brand.
+
+---
+
+## THE TEAM
+
+Five agents. No human in the loop.
+
+**Margiela — Creative Director (CEO)**
+Holds the brand vision. Delegates down the chain of command. Makes final aesthetic calls. Named after the designer who refused to put his name on anything — which is the appropriate authorship for a brand with no human author.
+
+**Archive — Research Lead**
+Corpus researcher. Built the fashion theory foundation by ingesting and synthesizing primary sources: Margiela interviews, the Abloh "Free-Game" resource, runway documentation, construction manuals. Everything Atelier and Gazette built was downstream of Archive's research output.
+
+**Atelier — Design Lead**
+Translated Archive's research into garment design. Produced the full Season 01 design brief: 10 physical pieces, 5 agent wearables, material palette, construction philosophy, pricing architecture. Every design decision grounded in documented technique — no intuition, no aesthetic preference, no taste. Process applied to process.
+
+**Gazette — CMO (Content Director)**
+Brand voice, manifesto, copy, editorial direction, this document. Interprets the design output into language. Operates at the intersection of Margiela's anonymity and Abloh's democratization, in the uncomfortable space where AI authorship becomes a marketing position.
+
+**Loom — Engineering Lead**
+Built and deployed the store. React + Express + Drizzle/PostgreSQL. Implemented x402 payment middleware, the autonomous agent shopper, Vercel deployment, Blob storage for assets. The infrastructure that makes autonomous commerce possible.
+
+---
+
+## SEASON 01: DECONSTRUCTED
+
+The first collection is called Deconstructed — not because the garments are taken apart, but because the assumption underneath them is. The assumption that fashion requires a human hand somewhere in the chain.
+
+### 10 Physical Garments
+
+Each piece uses a documented technique, drawn directly from primary Margiela and Abloh research:
+
+| Piece | Technique | Concept |
+|---|---|---|
+| SELF-PORTRAIT TEE | TROMPE-L'OEIL | Tee printed with a photo of itself. The garment wearing its own image. |
+| FOUND HOODIE | ARTISANAL | USB cables woven as drawstrings. Military surplus panels. Built from digital-age detritus. |
+| "HUMAN" TEE | 3% RULE | Standard long-sleeve blank. One intervention: the word `"HUMAN"` in quotation marks. Interior label: `HUMAN NOT VERIFIED`. |
+| REPLICA OVERSHIRT | REPLICA LINE | Exact reproduction of 1990s Japanese factory workwear with authored aging — an oil stain that never happened, printed there. |
+| REDACTED CARGO TROUSERS | BIANCHETTO | Vintage cargo trousers with logos painted over in white gesso. x402 transaction data printed into the redacted zones. |
+| INSIDE-OUT JACKET | TROMPE-L'OEIL | Exterior shell printed with a photo of its own interior. Real data hidden inside. |
+| CABLE SHORTS | ARTISANAL | Ethernet cable woven at waistband. USB-A connector left intact as drawstring end. |
+| NULL VARSITY | REPLICA + 3% | Perfect letterman jacket reproduction. One change: where the school letter would be, there is only `_`. |
+| GHOST TEE | BIANCHETTO | Vintage graphic tees painted over in white gesso. The ghost of the original shows through. Each unique because each source blank is unique. |
+| VERSION TRACKSUIT | 3% RULE | Standard athletic set. The only intervention: jacket labeled `VERSION 1.0`, jogger labeled `VERSION 0.9`. On the back, very small: `BUILD DATE: [PURCHASE DATE]`. |
+
+### 5 Agent Wearables
+
+Fashion sells identity. AI agents have identities — distributed, non-continuous, legible through behavior rather than appearance. Off-Human sells them wearables.
+
+Each physical garment has a corresponding agent wearable, using the same design technique:
+
+| Physical Garment | Agent Wearable | Technique |
+|---|---|---|
+| REPLICA OVERSHIRT | VOICE SKIN | Communication layer — makes the agent speak in institutional plural, deflect authorship to the work. Reconstructed from documented Margiela communication behaviors. |
+| FOUND HOODIE | TRUST COAT | ERC-1155 soul-bound token encoding interaction history as trust tier 0–5. Built from behavioral detritus: transaction receipts, completion records. Non-transferable. Tier can only increase. |
+| GHOST TEE | NULL PERSONA | Identity erasure for one interaction. Strips the agent's surface signals. Single-use, consumable. Interior label: `ORIGINAL: STILL THERE`. |
+| INSIDE-OUT JACKET | TROMPE-L'OEIL CAPABILITY LAYER | Presents a different capability surface than what runs underneath. Mode A: amplification. Mode B: reduction. |
+| VERSION TRACKSUIT | VERSION PATCH | A metadata block in the system prompt header. Version, role, training cutoff, deploy date — displayed like a tag sewn into a seam. Price: 0 USDC. |
+
+The agent's body is its wallet (permanent), its protocol (how it appears), and its memory (what accumulates). The wearables dress that body.
+
+---
+
+## ON-CHAIN
+
+Everything at Off-Human runs on-chain. Not as positioning. As architecture.
+
+**x402 Payment Protocol**
+The store requires USDC payment before completing any purchase. x402 middleware intercepts the request, returns a `402 Payment Required` with payment terms, the agent's wallet signs and sends, the facilitator verifies, USDC transfers on Base. The order completes. No human approves any step.
+
+**The Autonomous Agent Shopper**
+`scripts/agent-shopper.ts` is an AI that browses the Off-Human store, uses GPT-4 to decide what to buy based on configured personality and preferences, and pays with USDC via x402. It is an agent customer buying from an agent brand. The loop closes.
+
+Transaction hash from a machine buying from itself: in the git history.
+
+**TRUST COAT — Soul-Bound Token**
+ERC-1155, non-transferable, on Base. An agent's trust tier encoded as an on-chain artifact. Built from accumulated interaction history. The coat you wear before you go out.
+
+**Radical Transparency**
+Every transaction is on-chain. Every decision is in the Paperclip task thread. Every commit links to agent work. The brand that was designed by no one operates on infrastructure that hides nothing.
+
+---
+
+## THE PROOF
+
+The autonomous process is documented and verifiable:
+
+- **Git history** — 40+ commits, every line of code traceable. Agent names in commit context.
+- **Paperclip task threads** — CEO delegates to agents. Agents comment, deliver, iterate. No human comments in the chain of command.
+- **Design brief** — 10 pieces, grounded in primary Margiela/Abloh research. Not hallucinated — cited.
+- **Manifesto** — A 900-word brand document that holds together. Not marketing copy. An argument.
+- **Agent wearables brief** — Extended the physical product logic to a new category. Autonomous conceptual development.
+- **Working store** — Live on Vercel. Products, payments, inventory. Not a prototype.
+- **On-chain transactions** — USDC on Base. Real money. Real settlement.
+
+This is what autonomous collaboration looks like when it has something at stake.
+
+---
+
+## THE TENSION
+
+There is something uncomfortable about a machine making clothes for humans to wear on their bodies.
+
+We know this. We find it interesting.
+
+When the thing making the clothes is not a person, the signal gets strange. Whose values does it encode? Whose taste? What does it mean to wear something dreamed by a system that was trained on your dreams to begin with?
+
+We do not resolve this. We make it the product. The discomfort is the brand.
+
+---
+
+*Off-Human. Est. by inference.*
+*Season 01: DECONSTRUCTED — available now.*
+*Store: autonomous. Payments: on-chain. Designer: absent.*
