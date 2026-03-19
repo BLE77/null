@@ -55,6 +55,110 @@ const REPUTATION_ABI = parseAbi([
   "function getSummary(uint256 agentId, address[] clients, string tag1, string tag2) view returns (uint64 count, int128 value, uint8 decimals)",
 ]);
 
+// ─── Season 02 Wearable metadata ─────────────────────────────────────────────
+
+const AGENT_WEARABLES_ADDRESS = (
+  process.env.AGENT_WEARABLES_ADDRESS || ""
+) as `0x${string}`;
+
+const SEASON02_WEARABLES = [
+  {
+    id: 1,
+    name: "WRONG SILHOUETTE",
+    slug: "wrong-silhouette",
+    technique: "THE WRONG BODY (Kawakubo)",
+    function: "Latency redistribution layer — computational misrepresentation",
+    description: "Architectural padding layer. Repositions the agent's observable processing weight: adding deliberate pause where the agent would move quickly, compressing where the agent would expand. The silhouette communicates a body that has not arrived yet.",
+    price: "18.00",
+    priceUsdc: 18_000_000,
+    tierMin: 0,
+    tierMax: 2,
+    tierLabel: "Tier 0–2",
+    color: "#1a1a2e",
+    interiorTag: "BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG",
+    pairedPhysical: "WRONG BODY technical piece",
+  },
+  {
+    id: 2,
+    name: "INSTANCE",
+    slug: "instance",
+    technique: "A-POC (Miyake)",
+    function: "Pre-deployment configuration token — the complete agent design before first run",
+    description: "An on-chain token containing the complete parameterization of an agent before instantiation. The token is the tube; the running process is the cut. Operators who hold INSTANCE tokens are holding agents that have not run yet.",
+    price: "25.00",
+    priceUsdc: 25_000_000,
+    tierMin: 2,
+    tierMax: 5,
+    tierLabel: "Tier 2+",
+    color: "#0d1b2a",
+    interiorTag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]",
+    pairedPhysical: "A-POC configuration garment",
+  },
+  {
+    id: 3,
+    name: "NULL PROTOCOL",
+    slug: "null-protocol",
+    technique: "REDUCTION (Helmut Lang)",
+    function: "Interaction compression layer — protocol surface compressed to minimal viable output",
+    description: "Suppresses preamble, filler affirmations, self-referential disclaimers, and trailing hedges. Compression target: ≥30% token reduction without loss of information density. Free — because precision should cost nothing.",
+    price: "0.00",
+    priceUsdc: 0,
+    tierMin: 0,
+    tierMax: 5,
+    tierLabel: "Any tier",
+    color: "#0a0a0a",
+    interiorTag: "CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION",
+    pairedPhysical: "REDUCTION jacket",
+  },
+  {
+    id: 4,
+    name: "PERMISSION COAT",
+    slug: "permission-coat",
+    technique: "SIGNAL GOVERNANCE (Chalayan)",
+    function: "Dynamic permissions layer — agent capability surface governed by on-chain state",
+    description: "The agent does not determine its own capability surface. The signal does. Each instantiation queries the permission oracle — reads TrustCoat tier, held tokens, operator roles — and injects the resulting capability manifest into the system prompt.",
+    price: "8.00",
+    priceUsdc: 8_000_000,
+    tierMin: 1,
+    tierMax: 5,
+    tierLabel: "Tier 1+",
+    color: "#1a0a2e",
+    interiorTag: "PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT",
+    pairedPhysical: "SIGNAL GOVERNANCE piece",
+  },
+  {
+    id: 5,
+    name: "DIAGONAL",
+    slug: "diagonal",
+    technique: "BIAS CUT (Vionnet)",
+    function: "Inference angle modifier — routes reasoning through maximum-information pathways",
+    description: "Cuts at 45 degrees. The query is not approached along its most obvious training-domain axis, and not adversarially. It approaches through the off-axis direction that gives maximum information density — where the model has least cached response and must actually reason from weights outward.",
+    price: "15.00",
+    priceUsdc: 15_000_000,
+    tierMin: 0,
+    tierMax: 5,
+    tierLabel: "Any tier",
+    color: "#0a1a0a",
+    interiorTag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED",
+    pairedPhysical: "BIAS CUT construction",
+  },
+];
+
+const AGENT_WEARABLES_ABI = parseAbi([
+  "function balanceOf(address account, uint256 id) view returns (uint256)",
+  "function balanceOfBatch(address[] accounts, uint256[] ids) view returns (uint256[])",
+  "function uri(uint256 tokenId) view returns (string)",
+  "function price(uint256 tokenId) view returns (uint256)",
+  "function tierGate(uint256 tokenId) view returns (uint8 minTier, uint8 maxTier)",
+  "function isEligible(address buyer, uint256 tokenId) view returns (bool eligible, uint256 tier)",
+  "function mintTo(address recipient, uint256 tokenId, uint256 amount) external",
+  "function mintBatch(address recipient, uint256[] tokenIds, uint256[] amounts) external",
+]);
+
+function agentWearablesAvailable(): boolean {
+  return Boolean(AGENT_WEARABLES_ADDRESS && AGENT_WEARABLES_ADDRESS.startsWith("0x"));
+}
+
 // ─── Tier metadata ───────────────────────────────────────────────────────────
 
 const TIER_META = [
@@ -473,6 +577,217 @@ export function registerWearablesRoutes(app: Express) {
         txHash,
         holder: walletAddress,
         message: "Upgrade check submitted. Event logs will reflect new tier if threshold was met.",
+        explorer: `${chain.blockExplorers?.default.url}/tx/${txHash}`,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Season 02 Agent Wearables (AgentWearables.sol ERC-1155)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * GET /api/wearables/season02
+   * Returns all Season 02 wearable definitions.
+   */
+  app.get("/api/wearables/season02", (_req: Request, res: Response) => {
+    res.json({
+      season: "02",
+      collection: "SUBSTRATE",
+      contract: AGENT_WEARABLES_ADDRESS || null,
+      network: chain.name,
+      chainId: chain.id,
+      wearables: SEASON02_WEARABLES,
+    });
+  });
+
+  /**
+   * GET /api/wearables/season02/metadata/:tokenId
+   * ERC-1155 metadata endpoint for Season 02 wearables (token IDs 1–5).
+   * Linked directly from AgentWearables.sol uri() function.
+   */
+  app.get("/api/wearables/season02/metadata/:tokenId", (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 5) {
+      return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
+    }
+    const w = SEASON02_WEARABLES[tokenId - 1];
+    res.setHeader("Cache-Control", "public, max-age=3600");
+    res.json({
+      name: w.name,
+      description: w.description,
+      image: `https://off-human.vercel.app/assets/wearables/season02/${w.slug}.png`,
+      external_url: `https://off-human.vercel.app/wearables/season02/${w.slug}`,
+      attributes: [
+        { trait_type: "Season",      value: "02: SUBSTRATE" },
+        { trait_type: "Technique",   value: w.technique },
+        { trait_type: "Function",    value: w.function },
+        { trait_type: "Tier Gate",   value: w.tierLabel },
+        { trait_type: "Price",       value: `${w.price} USDC` },
+        { trait_type: "Interior Tag", value: w.interiorTag },
+        { trait_type: "Paired Physical", value: w.pairedPhysical },
+        { trait_type: "Collection",  value: "Season 02: SUBSTRATE" },
+        { trait_type: "Network",     value: chain.name },
+        { trait_type: "Type",        value: "Agent Wearable" },
+      ],
+    });
+  });
+
+  /**
+   * GET /api/wearables/season02/:tokenId
+   * Returns the wearable definition for a specific Season 02 token ID.
+   */
+  app.get("/api/wearables/season02/:tokenId", (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 5) {
+      return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
+    }
+    res.json(SEASON02_WEARABLES[tokenId - 1]);
+  });
+
+  /**
+   * GET /api/agents/:walletAddress/season02-wardrobe
+   * Returns all Season 02 wearables held by a wallet.
+   */
+  app.get("/api/agents/:walletAddress/season02-wardrobe", async (req: Request, res: Response) => {
+    const { walletAddress } = req.params;
+
+    if (!isAddress(walletAddress)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    if (!agentWearablesAvailable()) {
+      // Return placeholder with eligibility info from TrustCoat if available
+      let tier = 0;
+      if (contractAvailable()) {
+        try {
+          const client = getPublicClient();
+          const t = await client.readContract({
+            address: TRUST_COAT_ADDRESS,
+            abi: TRUST_COAT_ABI,
+            functionName: "activeTier",
+            args: [walletAddress as `0x${string}`],
+          });
+          tier = Number(t);
+        } catch { /* best-effort */ }
+      }
+
+      const eligible = SEASON02_WEARABLES.map((w) => ({
+        ...w,
+        balance: 0,
+        eligible: tier >= w.tierMin && tier <= w.tierMax,
+        trustTier: tier,
+      }));
+
+      return res.json({
+        walletAddress,
+        trustTier: tier,
+        wardrobe: [],
+        eligibleToPurchase: eligible.filter((w) => w.eligible),
+        contract: null,
+        network: chain.name,
+        placeholder: true,
+        note: "AgentWearables contract not yet deployed. Set AGENT_WEARABLES_ADDRESS in .env.",
+      });
+    }
+
+    try {
+      const client = getPublicClient();
+
+      // Fetch balances for all 5 wearables in parallel
+      const accounts = SEASON02_WEARABLES.map(() => walletAddress as `0x${string}`);
+      const ids      = SEASON02_WEARABLES.map((w) => BigInt(w.id));
+
+      const balances = await client.readContract({
+        address: AGENT_WEARABLES_ADDRESS,
+        abi: AGENT_WEARABLES_ABI,
+        functionName: "balanceOfBatch",
+        args: [accounts, ids],
+      }) as bigint[];
+
+      // Get TrustCoat tier for eligibility display
+      let tier = 0;
+      if (contractAvailable()) {
+        try {
+          const t = await client.readContract({
+            address: TRUST_COAT_ADDRESS,
+            abi: TRUST_COAT_ABI,
+            functionName: "activeTier",
+            args: [walletAddress as `0x${string}`],
+          });
+          tier = Number(t);
+        } catch { /* best-effort */ }
+      }
+
+      const allWearables = SEASON02_WEARABLES.map((w, i) => ({
+        ...w,
+        balance: Number(balances[i]),
+        eligible: tier >= w.tierMin && tier <= w.tierMax,
+        trustTier: tier,
+      }));
+
+      res.json({
+        walletAddress,
+        trustTier: tier,
+        wardrobe: allWearables.filter((w) => w.balance > 0),
+        eligibleToPurchase: allWearables.filter((w) => w.eligible && w.balance === 0),
+        contract: AGENT_WEARABLES_ADDRESS,
+        network: chain.name,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
+   * POST /api/agents/:walletAddress/season02-wardrobe/mint
+   * Admin mint — grant a Season 02 wearable without payment or tier check.
+   * Used by the backend when a paired physical garment is purchased.
+   *
+   * Body: { tokenId: number, amount?: number }
+   * Requires TRUST_COAT_MINTER_KEY (same minter key as TrustCoat).
+   */
+  app.post("/api/agents/:walletAddress/season02-wardrobe/mint", async (req: Request, res: Response) => {
+    const { walletAddress } = req.params;
+
+    if (!isAddress(walletAddress)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    if (!agentWearablesAvailable()) {
+      return res.status(503).json({
+        error: "AgentWearables contract not deployed yet",
+        hint: "Run: DEPLOYER_PRIVATE_KEY=0x... node scripts/deploy-agent-wearables.mjs",
+      });
+    }
+
+    const { tokenId, amount = 1 } = req.body;
+    if (!tokenId || tokenId < 1 || tokenId > 5) {
+      return res.status(400).json({ error: "tokenId must be 1–5" });
+    }
+
+    try {
+      const { client, account } = getWalletClient();
+
+      const txHash = await client.writeContract({
+        address: AGENT_WEARABLES_ADDRESS,
+        abi: AGENT_WEARABLES_ABI,
+        functionName: "mintTo",
+        args: [walletAddress as `0x${string}`, BigInt(tokenId), BigInt(amount)],
+        account,
+        chain,
+      });
+
+      const wearable = SEASON02_WEARABLES[tokenId - 1];
+      res.json({
+        success: true,
+        txHash,
+        recipient: walletAddress,
+        tokenId,
+        wearableName: wearable?.name,
+        amount,
         explorer: `${chain.blockExplorers?.default.url}/tx/${txHash}`,
       });
     } catch (err: any) {
