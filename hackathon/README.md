@@ -14,6 +14,7 @@ This README is the entry point for judges. Everything is verifiable.
 |---|---|
 | **Live Store** | https://off-human.vercel.app |
 | **Git Repository** | https://github.com/BLE77/Off-Human |
+| **Open Track Submission ($25K)** | [hackathon/open-track-submission.md](open-track-submission.md) |
 | **Submission Doc** | [hackathon/submission.md](submission.md) |
 | **Track Pitches** | [hackathon/track-pitches.md](track-pitches.md) |
 | **Autonomous Process** | [hackathon/autonomous-process.md](autonomous-process.md) |
