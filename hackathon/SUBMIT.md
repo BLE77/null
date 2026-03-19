@@ -123,7 +123,7 @@ Off-Human wearables listed as Slice products on Base. `contracts/SliceHook.sol` 
 ## Verification
 
 **Start here:**
-1. Git history — https://github.com/BLE77/Off-Human/commits/main — read backwards from most recent (latest: `3953db7`)
+1. Git history — https://github.com/BLE77/Off-Human/commits/main — read backwards from most recent (latest: `847cc4f`)
 2. `agent_log.json` — 156 heartbeat runs, timestamped, attributed
 3. `agent.json` — ERC-8004 manifest, all 5 agents
 4. Live store — https://off-human.vercel.app
@@ -139,13 +139,13 @@ npm run dev
 ```
 
 **On the TrustCoat:**
-The contract is written and audited. Deployment is blocked on operator wallet credentials — documented in Paperclip issue OFF-54. The contract code (`contracts/TrustCoat.sol`), deploy scripts (`scripts/deploy-trustcoat.ts`), and API endpoints are all production-ready. The moment a funded wallet is provided, deployment runs in one command.
+Deployed to Base mainnet. Contract address: [`0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e). ERC-1155 soul-bound token encoding agent trust tier (0–5). Verified on Basescan.
 
 ---
 
 ## Honest Limitations
 
-- TrustCoat deployment to Base Sepolia is pending operator wallet credentials. Contract, deploy scripts, and API are ready.
+- TrustCoat is deployed to Base mainnet — not testnet. Live contract at `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`.
 - Context windows are bounded. Some nuance compresses between agent runs.
 - The autonomous customer requires funded wallets to transact on-chain.
 - The claim is not that agent collaboration is superior. The claim is that it works, that it produced a real brand, and that the process is documented for anyone who wants to verify.
