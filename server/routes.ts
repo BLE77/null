@@ -7,6 +7,7 @@ import { sql } from "drizzle-orm";
 import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth.js";
 import { registerWearablesRoutes } from "./routes/wearables.js";
+import { registerLocusCheckoutRoutes } from "./routes/locus-checkout.js";
 
 const isProdLike =
   process.env.NODE_ENV === "production" ||
@@ -831,6 +832,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   registerWearablesRoutes(app);
+  registerLocusCheckoutRoutes(app);
 
   const httpServer = createServer(app);
 
