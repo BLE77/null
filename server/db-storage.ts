@@ -1,6 +1,6 @@
 import { db } from "./db.js";
 import { users, products, orders, wearables, wardrobeItems, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory, type Wearable, type InsertWearable, type WardrobeItem, type InsertWardrobeItem } from "../shared/schema.js";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { createRequire } from "module";
 
@@ -130,9 +130,6 @@ export class DbStorage {
   }
 
   async seedProducts(): Promise<void> {
-    const existingProducts = await this.getAllProducts();
-    if (existingProducts.length > 0) return;
-
     const sampleProducts: InsertProduct[] = season01Products.map((p: any) => ({
       id: p.id,
       name: p.name,
@@ -147,7 +144,22 @@ export class DbStorage {
       modelUrl: p.model_url ?? null,
     }));
 
-    await db.insert(products).values(sampleProducts);
+    // Upsert: insert new products, update image/description/price for existing ones.
+    // Keeps the catalog in sync with products.json on every deploy without wiping data.
+    await db
+      .insert(products)
+      .values(sampleProducts)
+      .onConflictDoUpdate({
+        target: products.id,
+        set: {
+          imageUrl: sql`excluded.image_url`,
+          shopImageUrl: sql`excluded.shop_image_url`,
+          homePageImageUrl: sql`excluded.home_page_image_url`,
+          images: sql`excluded.images`,
+          description: sql`excluded.description`,
+          price: sql`excluded.price`,
+        },
+      });
   }
 
   async seedAdmin(): Promise<void> {

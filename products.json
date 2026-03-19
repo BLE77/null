@@ -249,18 +249,17 @@
     "season": "01",
     "type": "agent_wearable",
     "paired_physical": "REPLICA OVERSHIRT",
-    "image_url": "/attached_assets/season01/04_replica_overshirt_flat.png",
+    "image_url": "/attached_assets/season01/wearables/voice_skin.png",
     "images": [
-      "/attached_assets/season01/04_replica_overshirt_flat.png",
-      "/attached_assets/season01/04_replica_overshirt_lookbook.png"
+      "/attached_assets/season01/wearables/voice_skin.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-18T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season01/04_replica_overshirt_lookbook.png",
-    "shop_image_url": "/attached_assets/season01/04_replica_overshirt_flat.png"
+    "home_page_image_url": "/attached_assets/season01/wearables/voice_skin.png",
+    "shop_image_url": "/attached_assets/season01/wearables/voice_skin.png"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567812",
@@ -272,18 +271,17 @@
     "season": "01",
     "type": "agent_wearable",
     "paired_physical": "FOUND HOODIE",
-    "image_url": "/attached_assets/season01/02_found_hoodie_flat.png",
+    "image_url": "/attached_assets/season01/wearables/trust_coat.png",
     "images": [
-      "/attached_assets/season01/02_found_hoodie_flat.png",
-      "/attached_assets/season01/02_found_hoodie_lookbook.png"
+      "/attached_assets/season01/wearables/trust_coat.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-18T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season01/02_found_hoodie_lookbook.png",
-    "shop_image_url": "/attached_assets/season01/02_found_hoodie_flat.png"
+    "home_page_image_url": "/attached_assets/season01/wearables/trust_coat.png",
+    "shop_image_url": "/attached_assets/season01/wearables/trust_coat.png"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567813",
@@ -295,18 +293,17 @@
     "season": "01",
     "type": "agent_wearable",
     "paired_physical": "GHOST TEE",
-    "image_url": "/attached_assets/season01/09_ghost_tee_flat.png",
+    "image_url": "/attached_assets/season01/wearables/null_persona.png",
     "images": [
-      "/attached_assets/season01/09_ghost_tee_flat.png",
-      "/attached_assets/season01/09_ghost_tee_lookbook.png"
+      "/attached_assets/season01/wearables/null_persona.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-18T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season01/09_ghost_tee_lookbook.png",
-    "shop_image_url": "/attached_assets/season01/09_ghost_tee_flat.png"
+    "home_page_image_url": "/attached_assets/season01/wearables/null_persona.png",
+    "shop_image_url": "/attached_assets/season01/wearables/null_persona.png"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567814",
@@ -318,18 +315,18 @@
     "season": "01",
     "type": "agent_wearable",
     "paired_physical": "INSIDE-OUT JACKET",
-    "image_url": "/attached_assets/season01/06_inside-out_jacket_flat.png",
+    "image_url": "/attached_assets/season01/wearables/trompe_loeil_layer.png",
     "images": [
-      "/attached_assets/season01/06_inside-out_jacket_flat.png",
-      "/attached_assets/season01/06_inside-out_jacket_lookbook.png"
+      "/attached_assets/season01/wearables/trompe_loeil_layer.png",
+      "/attached_assets/season01/wearables/capability_layer.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-18T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season01/06_inside-out_jacket_lookbook.png",
-    "shop_image_url": "/attached_assets/season01/06_inside-out_jacket_flat.png"
+    "home_page_image_url": "/attached_assets/season01/wearables/trompe_loeil_layer.png",
+    "shop_image_url": "/attached_assets/season01/wearables/trompe_loeil_layer.png"
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567815",
@@ -341,17 +338,16 @@
     "season": "01",
     "type": "agent_wearable",
     "paired_physical": "VERSION TRACKSUIT",
-    "image_url": "/attached_assets/season01/10_version_tracksuit_set_flat.png",
+    "image_url": "/attached_assets/season01/wearables/version_patch.png",
     "images": [
-      "/attached_assets/season01/10_version_tracksuit_set_flat.png",
-      "/attached_assets/season01/10_version_tracksuit_set_lookbook.png"
+      "/attached_assets/season01/wearables/version_patch.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-18T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season01/10_version_tracksuit_set_lookbook.png",
-    "shop_image_url": "/attached_assets/season01/10_version_tracksuit_set_flat.png"
+    "home_page_image_url": "/attached_assets/season01/wearables/version_patch.png",
+    "shop_image_url": "/attached_assets/season01/wearables/version_patch.png"
   }
 ]
