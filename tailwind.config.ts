@@ -6,9 +6,9 @@ export default {
   theme: {
     extend: {
       borderRadius: {
-        lg: ".5625rem", /* 9px */
-        md: ".375rem", /* 6px */
-        sm: ".1875rem", /* 3px */
+        lg: "0rem",
+        md: "0rem",
+        sm: "0rem",
       },
       colors: {
         // Flat / base colors (regular buttons)
@@ -83,13 +83,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["Space Grotesk", "system-ui", "-apple-system", "sans-serif"],
         serif: ["Georgia", "serif"],
-        mono: ["Courier New", "Menlo", "monospace"],
-        display: ["Bebas Neue", "sans-serif"],
-        heading: ["Teko", "sans-serif"],
-        glitch: ["Rubik Glitch", "sans-serif"],
-        distressed: ["Rubik Distressed", "sans-serif"],
+        mono: ["Space Mono", "ui-monospace", "monospace"],
+        display: ["Space Grotesk", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

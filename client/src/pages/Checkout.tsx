@@ -161,7 +161,7 @@ export default function Checkout() {
         setIsProcessing(false);
         toast({
           title: "Redirecting to Slice",
-          description: "Complete your purchase on the Off-Human Slice storefront.",
+          description: "Complete your purchase on the NULL Slice storefront.",
         });
         return;
       }
@@ -336,7 +336,7 @@ export default function Checkout() {
 
   if (orderComplete) {
     return (
-      <div className="min-h-screen pt-24 pb-12 digital-matrix-bg">
+      <div className="min-h-screen pt-24 pb-12 null-bg">
         <div className="container mx-auto px-4 max-w-2xl">
           <Card className="border-primary/50">
             <CardHeader className="text-center">
@@ -345,7 +345,7 @@ export default function Checkout() {
               </div>
               <CardTitle 
                 className="text-3xl uppercase tracking-wider"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                style={{ fontFamily: "var(--font-display)" }}
                 data-testid="text-order-success"
               >
                 Order Confirmed!
@@ -395,11 +395,11 @@ export default function Checkout() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12 digital-matrix-bg">
+    <div className="min-h-screen pt-24 pb-12 null-bg">
       <div className="container mx-auto px-4 max-w-6xl">
         <h1 
           className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-8"
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          style={{ fontFamily: "var(--font-display)" }}
           data-testid="text-checkout-title"
         >
           Checkout
@@ -409,7 +409,7 @@ export default function Checkout() {
           <form onSubmit={handleSubmit} className="space-y-6 order-2 lg:order-1">
             <Card>
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "var(--font-display)" }}>
                   Contact Information
                 </CardTitle>
               </CardHeader>
@@ -434,7 +434,7 @@ export default function Checkout() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "var(--font-display)" }}>
                   Select Network
                 </CardTitle>
               </CardHeader>
@@ -502,7 +502,7 @@ export default function Checkout() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "var(--font-display)" }}>
                   Crypto Wallet
                 </CardTitle>
               </CardHeader>
@@ -584,7 +584,7 @@ export default function Checkout() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "var(--font-display)" }}>
                   Payment Details
                 </CardTitle>
               </CardHeader>
@@ -600,7 +600,7 @@ export default function Checkout() {
                       Purchase on Slice's decentralized storefront. Pay with ETH, USDC, or other ERC-20 tokens on Base. Seller splits handled by SliceCore.
                     </p>
                     <ul className="text-xs text-muted-foreground space-y-1">
-                      <li>✓ Decentralized — no Off-Human payment middleware</li>
+                      <li>✓ Decentralized — no NULL payment middleware</li>
                       <li>✓ Any EVM wallet, any ERC-20 token</li>
                       <li>✓ Advances your TrustCoat tier on purchase</li>
                     </ul>
@@ -657,7 +657,7 @@ export default function Checkout() {
           <div className="lg:sticky lg:top-24 h-fit order-1 lg:order-2">
             <Card>
               <CardHeader>
-                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
+                <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "var(--font-display)" }}>
                   Order Summary
                 </CardTitle>
               </CardHeader>

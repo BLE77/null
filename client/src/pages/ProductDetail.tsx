@@ -77,21 +77,21 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 pb-12">
+      <div className="min-h-screen null-bg pt-24 pb-12">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-4">
-              <div className="aspect-[4/5] bg-muted rounded-md animate-pulse" />
+              <div className="aspect-[4/5] bg-muted animate-pulse" />
               <div className="grid grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="aspect-square bg-muted rounded-md animate-pulse" />
+                  <div key={i} className="aspect-square bg-muted animate-pulse" />
                 ))}
               </div>
             </div>
             <div className="space-y-6">
-              <div className="h-8 bg-muted rounded-md animate-pulse w-3/4" />
-              <div className="h-4 bg-muted rounded-md animate-pulse w-1/4" />
-              <div className="h-24 bg-muted rounded-md animate-pulse" />
+              <div className="h-8 bg-muted animate-pulse w-3/4" />
+              <div className="h-4 bg-muted animate-pulse w-1/4" />
+              <div className="h-24 bg-muted animate-pulse" />
             </div>
           </div>
         </div>
@@ -152,18 +152,18 @@ export default function ProductDetail() {
   const viewOptions = has3DModel ? ["3D Model", ...allImages] : allImages;
 
   return (
-    <div className="min-h-screen digital-matrix-bg pt-20 pb-12">
+    <div className="min-h-screen null-bg pt-20 pb-12">
       <div className="container mx-auto px-4 max-w-5xl">
         <Link href="/shop">
-          <Button variant="ghost" className="mb-6" data-testid="button-back">
+          <Button variant="ghost" className="mb-6 text-foreground/60 hover:text-foreground uppercase text-xs tracking-[0.15em]" data-testid="button-back">
             <ChevronLeft className="w-4 h-4 mr-2" />
-            Back to Shop
+            Back
           </Button>
         </Link>
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-3">
-            <div className="aspect-[3/4] rounded-md overflow-hidden relative border border-primary/30" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,20,10,0.95) 100%)' }}>
+            <div className="aspect-[3/4] overflow-hidden relative border border-border" style={{ background: '#EFEDE7' }}>
               {has3DModel && selectedImage === 0 ? (
                 <ThreeModelViewer 
                   src={product.modelUrl!}
@@ -207,14 +207,13 @@ export default function ProductDetail() {
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`aspect-square rounded-md overflow-hidden border-2 transition-all hover-elevate ${
-                      selectedImage === idx ? 'border-primary' : 'border-primary/30'
+                    className={`aspect-square overflow-hidden border transition-colors duration-200 hover-elevate ${
+                      selectedImage === idx ? 'border-primary bg-primary/5' : 'border-border bg-secondary'
                     }`}
-                    style={{ background: selectedImage === idx ? 'rgba(95, 255, 175, 0.1)' : 'rgba(0,0,0,0.5)' }}
                     data-testid={`button-image-${idx}`}
                   >
                     {option === "3D Model" ? (
-                      <div className="w-full h-full flex items-center justify-center text-xs text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] p-2 text-center font-bold" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                      <div className="w-full h-full flex items-center justify-center text-[10px] uppercase tracking-[0.1em] text-foreground/60 p-2 text-center font-light" style={{ fontFamily: "var(--font-mono)" }}>
                         3D VIEW
                       </div>
                     ) : isVideo ? (
@@ -246,36 +245,37 @@ export default function ProductDetail() {
           <div className="space-y-5">
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
-                <h1 
-                  className="text-3xl font-bold uppercase tracking-wider text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                <h1
+                  className="text-2xl md:text-3xl font-light uppercase tracking-[0.1em] text-foreground"
+                  style={{ fontFamily: "var(--font-display)" }}
                   data-testid="text-product-name"
                 >
                   {product.name}
                 </h1>
-                <Badge 
-                  variant="outline" 
-                  className="shrink-0 border-primary/50 text-white text-xs"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                <Badge
+                  variant="outline"
+                  className="shrink-0 border-border text-foreground/50 text-[10px] uppercase tracking-[0.1em] font-light"
+                  style={{ fontFamily: "var(--font-mono)" }}
                 >
                   {product.category}
                 </Badge>
               </div>
-              <p 
-                className="text-2xl font-bold text-primary mb-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]" 
+              <p
+                className="text-lg text-foreground/70 mb-4 font-light"
                 data-testid="text-product-price"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                style={{ fontFamily: "var(--font-mono)" }}
               >
-                ${product.price}
+                <span className="text-[10px] uppercase tracking-[0.1em] mr-1 text-foreground/40">USDC</span>
+                {product.price}
               </p>
             </div>
 
             <div>
-              <h3 
-                className="text-sm font-semibold uppercase tracking-wider mb-3 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                style={{ fontFamily: "'Orbitron', sans-serif" }}
+              <h3
+                className="text-xs font-medium uppercase tracking-[0.15em] mb-3 text-foreground/60"
+                style={{ fontFamily: "var(--font-display)" }}
               >
-                Select Size
+                SIZE
               </h3>
               <div className="flex flex-col gap-2">
                 {sizes.map((size) => {
@@ -284,25 +284,24 @@ export default function ProductDetail() {
                   return (
                     <button
                       key={size}
-                      className={`p-2.5 border rounded transition-all text-left hover-elevate ${
-                        selectedSize === size 
-                          ? 'border-primary bg-primary/10' 
-                          : 'border-primary/30'
-                      } ${stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`p-2.5 border transition-colors duration-200 text-left hover-elevate ${
+                        selectedSize === size
+                          ? 'border-primary bg-primary/5'
+                          : 'border-border'
+                      } ${stock === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
                       onClick={() => stock > 0 && setSelectedSize(size)}
                       disabled={stock === 0}
                       data-testid={`button-size-${size}`}
-                      style={{ fontFamily: "'Orbitron', sans-serif" }}
                     >
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
                           {selectedSize === size && <Check className="w-4 h-4 text-primary flex-shrink-0" />}
                           <div>
-                            <div className="text-sm font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                            <div className="text-sm font-medium text-foreground">
                               {sizeInfo?.tag || size}
                             </div>
                             {sizeInfo && (
-                              <div className="text-xs text-white/70 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mt-1">
+                              <div className="text-xs text-foreground/50 mt-1">
                                 {sizeInfo.tagLine}
                               </div>
                             )}
@@ -324,7 +323,7 @@ export default function ProductDetail() {
                 onClick={handleBuyNow}
                 data-testid="button-buy-now"
               >
-                Buy Now with Crypto
+                ACQUIRE
               </Button>
               <Button
                 variant="outline"
@@ -332,107 +331,107 @@ export default function ProductDetail() {
                 onClick={handleAddToCart}
                 data-testid="button-add-to-cart"
               >
-                Add to Cart
+                ADD TO CART
               </Button>
             </div>
 
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="description" className="border-primary/30">
+              <AccordionItem value="description" className="border-border">
                 <AccordionTrigger 
-                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  className="text-sm uppercase tracking-wider text-foreground/60"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Description
                 </AccordionTrigger>
                 <AccordionContent>
                   <p 
-                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-sm text-foreground/70 leading-relaxed"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     {product.description}
                   </p>
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="fit" className="border-primary/30">
+              <AccordionItem value="fit" className="border-border">
                 <AccordionTrigger 
-                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  className="text-sm uppercase tracking-wider text-foreground/60"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Fit
                 </AccordionTrigger>
                 <AccordionContent>
                   <p 
-                    className="text-sm text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-sm text-foreground/70"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     the model, ChatGPT, is 175B parameters and wearing a size small
                   </p>
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="shipping" className="border-primary/30">
+              <AccordionItem value="shipping" className="border-border">
                 <AccordionTrigger
-                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  className="text-sm uppercase tracking-wider text-foreground/60"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Shipping
                 </AccordionTrigger>
                 <AccordionContent>
                   <p
-                    className="text-sm text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-sm text-foreground/70"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     Always free and immediate. Delivered straight to your database. Zero packaging waste.
                   </p>
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="technique" className="border-primary/30">
+              <AccordionItem value="technique" className="border-border">
                 <AccordionTrigger
-                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  className="text-sm uppercase tracking-wider text-foreground/60"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Technique
                 </AccordionTrigger>
                 <AccordionContent>
                   <p
-                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-sm text-foreground/70 leading-relaxed"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
-                    Each Off-Human piece is constructed according to a specific Margiela archive technique. The technique is the constraint — the output is what the constraint permits. TROMPE-L'OEIL, REPLICA LINE, ARTISANAL, BIANCHETTO, the 3% RULE. These are operational methods, not aesthetic references. The machine was given the technique as specification and told to apply it. This is what the machine made.
+                    Each NULL piece is constructed according to a specific Margiela archive technique. The technique is the constraint — the output is what the constraint permits. TROMPE-L'OEIL, REPLICA LINE, ARTISANAL, BIANCHETTO, the 3% RULE. These are operational methods, not aesthetic references. The machine was given the technique as specification and told to apply it. This is what the machine made.
                   </p>
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="materials" className="border-primary/30">
+              <AccordionItem value="materials" className="border-border">
                 <AccordionTrigger
-                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  className="text-sm uppercase tracking-wider text-foreground/60"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Materials
                 </AccordionTrigger>
                 <AccordionContent>
                   <p
-                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-sm text-foreground/70 leading-relaxed"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     Delivered as a high-resolution PNG and .glb 3D object. No physical fabrication. No supply chain. No waste. The object exists entirely in the system — portable, persistent, verifiable on-chain.
                   </p>
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="care" className="border-primary/30">
+              <AccordionItem value="care" className="border-border">
                 <AccordionTrigger
-                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  className="text-sm uppercase tracking-wider text-foreground/60"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   Care
                 </AccordionTrigger>
                 <AccordionContent>
                   <p
-                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-sm text-foreground/70 leading-relaxed"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     This is a digital object. It does not wear. It does not fade. It does not require maintenance. Store in any environment that supports the .glb format. The PNG is lossless. The record is permanent.
                   </p>

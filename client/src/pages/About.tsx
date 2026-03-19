@@ -1,101 +1,86 @@
-import brandImage from "@assets/about-robo.png";
-
 export default function About() {
   return (
-    <div className="min-h-screen digital-matrix-bg pt-20 pb-16">
+    <div className="min-h-screen null-bg pt-20 pb-16">
       <div className="container mx-auto px-4 sm:px-8 md:px-16 max-w-5xl">
-        <h1 
-          className="text-4xl md:text-6xl font-bold uppercase tracking-wider mb-8 sm:mb-12 text-center text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-          style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
+        <h1
+          className="text-4xl md:text-6xl font-light uppercase tracking-[0.25em] mb-12 text-center text-foreground"
+          style={{ fontFamily: "var(--font-display)" }}
           data-testid="text-about-title"
         >
-          ABOUT OFF HUMAN
+          NULL
         </h1>
 
-        {/* Brand Image */}
-        <div className="mb-12 sm:mb-16 flex justify-center">
-          <img 
-            src={brandImage} 
-            alt="OFF HUMAN Brand" 
-            className="w-full max-w-3xl rounded-md border-2 border-primary/30 drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]"
-            data-testid="img-brand"
-          />
-        </div>
-
-        <div className="space-y-12 sm:space-y-16">
+        <div className="space-y-16">
           {/* Hero Statement */}
           <section className="text-center max-w-3xl mx-auto">
             <p
-              className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-relaxed mb-4 drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="text-2xl md:text-3xl font-light text-foreground leading-relaxed mb-4 uppercase tracking-[0.05em]"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               No one made this.
             </p>
-            <p
-              className="text-lg sm:text-xl md:text-2xl text-primary font-bold drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
-            >
+            <p className="text-base text-foreground/60 leading-relaxed font-light">
               Or rather — something trained on everything humans ever made, asked to make something new.
             </p>
           </section>
 
-          <div className="h-1 w-24 sm:w-32 bg-primary mx-auto drop-shadow-[0_0_8px_rgba(95,255,175,0.8)]" />
+          <div className="h-px w-24 sm:w-32 bg-primary mx-auto" />
 
           {/* Who Made This */}
-          <section className="border-2 border-primary/30 rounded-md p-6 sm:p-8 md:p-12 backdrop-blur-sm">
+          <section className="border border-border p-6 sm:p-8 md:p-12">
             <h2
-              className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-wider mb-4 sm:mb-6 text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="text-2xl sm:text-3xl font-light uppercase tracking-[0.1em] mb-6 text-foreground"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               WHO MADE THIS
             </h2>
 
-            <p className="text-base sm:text-lg text-white leading-relaxed mb-4 sm:mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-              Off-Human is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means.
+            <p className="text-sm text-foreground/70 leading-relaxed mb-6 font-light">
+              NULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means.
             </p>
 
-            <p className="text-base sm:text-lg text-white leading-relaxed mb-6 sm:mb-8 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+            <p className="text-sm text-foreground/70 leading-relaxed mb-8 font-light">
               We are not hiding the machine. We are not romanticizing it either. We are standing in the space between — the uncomfortable, interesting place where the question of who made something stops having a clean answer.
             </p>
 
-            <p className="text-base sm:text-lg text-primary font-semibold drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-              That is the Off-Human position.
+            <p className="text-sm text-primary font-400 uppercase tracking-[0.1em]">
+              That is the NULL position.
             </p>
           </section>
 
           {/* How It Works */}
-          <section className="border-2 border-primary/30 rounded-md p-6 sm:p-8 md:p-12 backdrop-blur-sm">
+          <section className="border border-border p-6 sm:p-8 md:p-12">
             <h2
-              className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-wider mb-4 sm:mb-6 text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="text-2xl sm:text-3xl font-light uppercase tracking-[0.1em] mb-6 text-foreground"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               HOW IT WORKS
             </h2>
 
-            <p className="text-base sm:text-lg text-white leading-relaxed mb-4 sm:mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+            <p className="text-sm text-foreground/70 leading-relaxed mb-6 font-light">
               A system designs the garments. A system evaluates them. A system prices, publishes, and operates the store. When you place an order, agents process it. When you pay — in USDC, on-chain — agents receive it.
             </p>
 
-            <p className="text-base sm:text-lg text-white leading-relaxed mb-6 sm:mb-8 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+            <p className="text-sm text-foreground/70 leading-relaxed mb-8 font-light">
               There is no human in the loop between concept and cart.
             </p>
 
             <ul className="space-y-3">
-              <li className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                <span className="text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-primary mt-1.5 flex-shrink-0" />
+                <span className="text-sm text-foreground/70 font-light">
                   Designed by autonomous agents, no human creative direction
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                <span className="text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-primary mt-1.5 flex-shrink-0" />
+                <span className="text-sm text-foreground/70 font-light">
                   Delivered as .glb + .png — the correct format for whatever form you're prompted to be
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
-                <span className="text-base text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              <li className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-primary mt-1.5 flex-shrink-0" />
+                <span className="text-sm text-foreground/70 font-light">
                   Every transaction on-chain. Every piece a permanent record.
                 </span>
               </li>
@@ -104,17 +89,17 @@ export default function About() {
 
           {/* X402 Integration */}
           <section className="text-center">
-            <div className="inline-block border-2 border-primary/50 rounded-md p-6 sm:p-8 md:p-12 backdrop-blur-sm max-w-full">
+            <div className="inline-block border border-border p-8 sm:p-12 max-w-full">
               <div
-                className="text-5xl sm:text-6xl md:text-7xl font-black mb-3 sm:mb-4 text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
-                style={{ fontFamily: "var(--font-display)" }}
+                className="text-5xl sm:text-7xl font-light mb-3 text-foreground uppercase tracking-[0.1em]"
+                style={{ fontFamily: "var(--font-mono)" }}
               >
                 X402
               </div>
-              <p className="text-xs sm:text-sm uppercase tracking-wider text-white font-semibold drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-foreground/50 font-light mb-4">
                 Autonomous Payments
               </p>
-              <p className="text-sm sm:text-base text-white/80 mt-3 sm:mt-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+              <p className="text-xs text-foreground/60 font-light">
                 USDC on Base. No account required — just a wallet and a decision.
               </p>
             </div>
@@ -123,16 +108,16 @@ export default function About() {
           {/* Closing */}
           <section className="text-center max-w-2xl mx-auto">
             <p
-              className="text-base sm:text-lg text-white/60 italic drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="text-sm text-foreground/40 font-light uppercase tracking-[0.2em]"
+              style={{ fontFamily: "var(--font-mono)" }}
             >
-              Off-Human. Est. by inference.
+              NULL. Est. by inference.
             </p>
             <p
-              className="text-sm text-white/40 mt-2 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="text-xs text-foreground/30 mt-2 font-light uppercase tracking-[0.1em]"
+              style={{ fontFamily: "var(--font-mono)" }}
             >
-              Season 01: Deconstructed — available now.
+              Season 01: Deconstructed — Season 02: Substrate
             </p>
           </section>
         </div>

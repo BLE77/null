@@ -28,19 +28,19 @@ export default function Shop() {
   const totalCount = products?.length ?? 0;
 
   return (
-    <div className="min-h-screen digital-matrix-bg pt-20 pb-16">
+    <div className="min-h-screen null-bg pt-20 pb-16">
       <div className="container mx-auto px-4 sm:px-8 md:px-16 max-w-6xl">
         <div className="text-center mb-10">
           <h1
-            className="text-4xl md:text-6xl font-bold uppercase tracking-wider mb-2 text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-            style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.05em' }}
+            className="text-4xl md:text-6xl font-light uppercase tracking-[0.25em] mb-2 text-foreground"
+            style={{ fontFamily: "var(--font-display)" }}
             data-testid="text-shop-title"
           >
-            OFF-HUMAN
+            NULL
           </h1>
           <p
-            className="text-sm text-white/50 uppercase tracking-widest"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
+            className="text-xs text-foreground/40 uppercase tracking-[0.3em] font-light"
+            style={{ fontFamily: "var(--font-mono)" }}
           >
             {totalCount} pieces
           </p>
@@ -52,12 +52,12 @@ export default function Shop() {
             <button
               key={s}
               onClick={() => setActiveSeason(s)}
-              className={`px-5 py-1.5 text-xs uppercase tracking-widest border rounded transition-all ${
+              className={`px-5 py-1.5 text-[10px] uppercase tracking-[0.2em] border transition-colors duration-200 ${
                 activeSeason === s
-                  ? "border-primary bg-primary/20 text-primary"
-                  : "border-white/20 text-white/50 hover:border-white/40 hover:text-white/80"
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-foreground/40 hover:border-foreground/40 hover:text-foreground/70"
               }`}
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-display)" }}
               data-testid={`season-filter-${s}`}
             >
               {s === "all" ? "All Seasons" : `Season ${s}`}
@@ -71,12 +71,12 @@ export default function Shop() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 text-xs uppercase tracking-widest border rounded transition-all ${
+              className={`px-4 py-1.5 text-[10px] uppercase tracking-[0.15em] border transition-colors duration-200 ${
                 activeCategory === cat
-                  ? "border-primary bg-primary/10 text-white"
-                  : "border-white/20 text-white/50 hover:border-white/40 hover:text-white/80"
+                  ? "border-foreground/60 bg-foreground/5 text-foreground"
+                  : "border-border text-foreground/40 hover:border-foreground/40 hover:text-foreground/70"
               }`}
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              style={{ fontFamily: "var(--font-display)" }}
               data-testid={`filter-${cat}`}
             >
               {cat === "all" ? "All" : cat}
@@ -87,15 +87,15 @@ export default function Shop() {
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="aspect-[3/4] border-2 border-primary/30 rounded animate-pulse" />
+              <div key={i} className="aspect-[3/4] null-product-card animate-pulse" />
             ))}
           </div>
         ) : isError ? (
           <div className="text-center py-16">
-            <h3 className="text-2xl font-bold mb-4 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+            <h3 className="text-2xl font-light mb-4 text-foreground uppercase tracking-wider">
               Failed to load products
             </h3>
-            <p className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
+            <p className="text-foreground/50 text-sm font-light">
               Please try again later
             </p>
           </div>
@@ -105,18 +105,18 @@ export default function Shop() {
             {season02Products && season02Products.length > 0 && (
               <div className="mb-16">
                 <div className="text-center mb-8">
-                  <div className="inline-block border border-primary/40 px-6 py-1 mb-3 rounded">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-primary/60" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  <div className="inline-block border border-foreground/20 px-6 py-1 mb-3">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-foreground/40 font-light" style={{ fontFamily: "var(--font-mono)" }}>
                       Season 02
                     </span>
                   </div>
                   <h2
-                    className="text-3xl md:text-4xl font-bold uppercase tracking-wider text-white mb-2"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-3xl md:text-4xl font-light uppercase tracking-[0.1em] text-foreground mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     SUBSTRATE
                   </h2>
-                  <p className="text-xs text-white/40 uppercase tracking-widest" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  <p className="text-xs text-foreground/40 uppercase tracking-[0.2em] font-light" style={{ fontFamily: "var(--font-mono)" }}>
                     The body as execution environment — {season02Products.length} pieces
                   </p>
                 </div>
@@ -128,27 +128,27 @@ export default function Shop() {
               </div>
             )}
 
-            {/* Divider between seasons when both visible */}
+            {/* Divider */}
             {season02Products && season02Products.length > 0 && season01Products && season01Products.length > 0 && (
-              <div className="border-t border-white/10 mb-16" />
+              <div className="border-t border-border mb-16" />
             )}
 
             {/* Season 01 — Deconstructed */}
             {season01Products && season01Products.length > 0 && (
               <div className="mb-16">
                 <div className="text-center mb-8">
-                  <div className="inline-block border border-white/20 px-6 py-1 mb-3 rounded">
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/40" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  <div className="inline-block border border-foreground/10 px-6 py-1 mb-3">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-foreground/30 font-light" style={{ fontFamily: "var(--font-mono)" }}>
                       Season 01
                     </span>
                   </div>
                   <h2
-                    className="text-3xl md:text-4xl font-bold uppercase tracking-wider text-white/70 mb-2"
-                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                    className="text-3xl md:text-4xl font-light uppercase tracking-[0.1em] text-foreground/60 mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     DECONSTRUCTED
                   </h2>
-                  <p className="text-xs text-white/30 uppercase tracking-widest" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                  <p className="text-xs text-foreground/30 uppercase tracking-[0.2em] font-light" style={{ fontFamily: "var(--font-mono)" }}>
                     {season01Products.length} pieces
                   </p>
                 </div>
@@ -160,18 +160,18 @@ export default function Shop() {
               </div>
             )}
 
-            {/* Agent Wearables section */}
+            {/* Agent Wearables */}
             {wearableProducts && wearableProducts.length > 0 && (
               <>
-                <div className="border-t border-primary/20 pt-12 mb-8">
+                <div className="border-t border-border pt-12 mb-8">
                   <div className="text-center mb-8">
                     <h2
-                      className="text-2xl md:text-3xl font-bold uppercase tracking-wider text-white/80 mb-2"
-                      style={{ fontFamily: "'Orbitron', sans-serif" }}
+                      className="text-2xl md:text-3xl font-light uppercase tracking-[0.1em] text-foreground/70 mb-2"
+                      style={{ fontFamily: "var(--font-display)" }}
                     >
                       AGENT WEARABLES
                     </h2>
-                    <p className="text-xs text-white/40 uppercase tracking-widest" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                    <p className="text-xs text-foreground/40 uppercase tracking-[0.2em] font-light" style={{ fontFamily: "var(--font-mono)" }}>
                       Software objects — worn in the system prompt
                     </p>
                   </div>
@@ -185,7 +185,7 @@ export default function Shop() {
             )}
 
             {filtered?.length === 0 && (
-              <div className="text-center py-16 text-white/50" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+              <div className="text-center py-16 text-foreground/40 text-xs uppercase tracking-[0.2em] font-light" style={{ fontFamily: "var(--font-mono)" }}>
                 No products in this category.
               </div>
             )}
@@ -206,31 +206,27 @@ function ProductCard({ product, wearable = false, season }: { product: Product; 
   return (
     <Link href={`/product/${product.id}`}>
       <div
-        className="group cursor-pointer transition-transform duration-300 hover:scale-105"
+        className="group cursor-pointer"
         data-testid={`product-card-${product.id}`}
       >
         <div
-          className={`aspect-[3/4] mb-3 overflow-hidden rounded-md border-2 transition-colors duration-300 flex items-center justify-center relative ${
-            wearable
-              ? "border-primary/20 hover:border-primary/50"
-              : isS02
-              ? "border-primary/30 hover:border-primary"
-              : "border-transparent hover:border-primary/50"
+          className={`aspect-[3/4] mb-3 overflow-hidden flex items-center justify-center relative null-product-card ${
+            isS02 ? "border-foreground/20" : "border-border"
           }`}
-          style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,20,10,0.98) 100%)' }}
+          style={{ background: '#EFEDE7' }}
         >
           {wearable && (
             <div
-              className="absolute top-2 right-2 text-[10px] uppercase tracking-widest border border-primary/40 text-primary/70 px-2 py-0.5 rounded z-10"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="absolute top-2 right-2 text-[9px] uppercase tracking-[0.2em] border border-foreground/20 text-foreground/50 px-2 py-0.5 z-10 bg-background/80 font-light"
+              style={{ fontFamily: "var(--font-mono)" }}
             >
               AGENT
             </div>
           )}
           {isS02 && !wearable && (
             <div
-              className="absolute top-2 left-2 text-[10px] uppercase tracking-widest border border-primary/60 text-primary px-2 py-0.5 rounded z-10"
-              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              className="absolute top-2 left-2 text-[9px] uppercase tracking-[0.2em] border border-primary/40 text-primary px-2 py-0.5 z-10 bg-background/80 font-light"
+              style={{ fontFamily: "var(--font-mono)" }}
             >
               S02
             </div>
@@ -238,22 +234,23 @@ function ProductCard({ product, wearable = false, season }: { product: Product; 
           <img
             src={imgSrc}
             alt={product.name}
-            className="w-full h-full object-contain p-4"
+            className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.02]"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
         </div>
 
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           <h3
-            className="text-lg font-bold uppercase text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] group-hover:text-primary transition-colors duration-300"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
+            className="text-sm font-400 uppercase tracking-[0.08em] text-foreground group-hover:text-primary transition-colors duration-200"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             {product.name}
           </h3>
-          <p className="text-xl font-bold text-primary drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-            ${product.price}
+          <p className="text-sm text-foreground/60 font-light" style={{ fontFamily: "var(--font-mono)" }}>
+            <span className="text-[10px] uppercase tracking-[0.1em] mr-1 text-foreground/40">USDC</span>
+            {product.price}
           </p>
         </div>
       </div>
