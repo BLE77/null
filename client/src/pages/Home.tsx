@@ -39,7 +39,7 @@ export default function Home() {
                 style={{ fontFamily: "'Orbitron', sans-serif" }}
                 data-testid="button-hero-shop"
               >
-                SHOP SEASON 01
+                SHOP SEASON 02
               </Button>
             </Link>
             <Link href="/about">
@@ -66,7 +66,7 @@ export default function Home() {
             style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.1em' }}
             data-testid="text-collection-title"
           >
-            LATEST COLLECTION
+            SEASON 02 — SUBSTRATE
           </h2>
         </div>
 
@@ -90,7 +90,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="flex flex-wrap gap-4 sm:gap-6 justify-center items-start" data-testid="grid-products">
-              {products?.slice(0, 3).map((product, index) => (
+              {(products?.filter((p) => (p as any).season === "02").slice(0, 3) ?? products?.slice(0, 3) ?? []).map((product, index) => (
                 <AnimatedProductCard
                   key={product.id}
                   product={product}

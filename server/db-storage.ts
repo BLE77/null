@@ -136,6 +136,8 @@ export class DbStorage {
       description: p.description,
       price: p.price,
       category: p.category,
+      season: p.season ?? null,
+      collection: p.collection ?? null,
       imageUrl: p.image_url,
       shopImageUrl: p.shop_image_url ?? p.image_url,
       homePageImageUrl: p.home_page_image_url ?? p.images?.[1] ?? p.image_url,
@@ -158,6 +160,8 @@ export class DbStorage {
           images: sql`excluded.images`,
           description: sql`excluded.description`,
           price: sql`excluded.price`,
+          season: sql`excluded.season`,
+          collection: sql`excluded.collection`,
         },
       });
   }

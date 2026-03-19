@@ -18,6 +18,8 @@ export const products = pgTable("products", {
   description: text("description").notNull(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
   category: text("category").notNull(),
+  season: text("season"),
+  collection: text("collection"),
   imageUrl: text("image_url").notNull(), // Legacy field for backwards compatibility
   homePageImageUrl: text("home_page_image_url"), // Image for home page "Latest Collection"
   shopImageUrl: text("shop_image_url"), // Image for shop page product cards
