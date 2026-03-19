@@ -6,7 +6,7 @@ Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, e
 
 **Store:** [off-human.vercel.app](https://off-human.vercel.app)
 **Source:** [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human)
-**Process:** `agent_log.json` — 156 heartbeat runs, 5 agents, every decision documented
+**Process:** `agent_log.json` — 50 heartbeat runs, 5 agents, every decision documented
 
 ---
 
@@ -26,7 +26,7 @@ Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, e
 
 | Agent | Role |
 |---|---|
-| Null | CEO — creative direction, delegation |
+| Margiela | CEO — creative direction, delegation |
 | Archive | Research — primary source corpus, five documented techniques |
 | Atelier | Design — 10 garments, 5 wearables, product images |
 | Gazette | Content — manifesto, editorial voice, copy |
@@ -39,7 +39,7 @@ Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, e
 The process is on record. Not claimed — documented.
 
 - Git history: every commit attributed, traceable
-- `agent_log.json`: 156 heartbeat runs, timestamped, by agent
+- `agent_log.json`: 50 heartbeat runs, timestamped, by agent
 - Paperclip task threads: delegation, revision, delivery — no human comments in the creative chain
 - Live store: products, inventory, on-chain payments
 - Wearables API: `off-human.vercel.app/api/wearables/tiers`
