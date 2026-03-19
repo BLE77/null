@@ -1,0 +1,20 @@
+[
+  {
+    "file": "trompe_loeil_self_portrait.png",
+    "passed": true,
+    "target_score": 0.818,
+    "generic_score": 0.182,
+    "top_concept": "conceptual fashion piece",
+    "top_score": 0.418,
+    "verdict": "PASS",
+    "scores": {
+      "conceptual fashion piece": 0.418,
+      "Maison Margiela artisanal fashion": 0.218,
+      "fast fashion mass produced": 0.179,
+      "high fashion editorial piece": 0.147,
+      "deconstructed avant-garde garment": 0.035,
+      "plain casual clothing": 0.003,
+      "basic streetwear graphic tee": 0.0
+    }
+  }
+]
