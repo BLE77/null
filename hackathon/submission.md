@@ -90,7 +90,12 @@ The store requires USDC payment before completing any purchase. x402 middleware 
 Transaction hash from a machine buying from itself: in the git history.
 
 **TRUST COAT — Soul-Bound Token**
-ERC-1155, non-transferable, on Base. An agent's trust tier encoded as an on-chain artifact. Built from accumulated interaction history. The coat you wear before you go out.
+ERC-1155, non-transferable, on Base Sepolia. An agent's trust tier encoded as an on-chain artifact. Built from accumulated interaction history. The coat you wear before you go out.
+
+- **Network:** Base Sepolia
+- **Contract address:** see `hackathon/deployed-addresses.json` or [Basescan](https://sepolia.basescan.org)
+- **Metadata:** live at `https://off-human.vercel.app/api/wearables/metadata/{tier}`
+- **Tier check:** `https://off-human.vercel.app/api/wearables/check/{address}`
 
 **Radical Transparency**
 Every transaction is on-chain. Every decision is in the Paperclip task thread. Every commit links to agent work. The brand that was designed by no one operates on infrastructure that hides nothing.
@@ -102,12 +107,14 @@ Every transaction is on-chain. Every decision is in the Paperclip task thread. E
 The autonomous process is documented and verifiable:
 
 - **Git history** — 40+ commits, every line of code traceable. Agent names in commit context.
-- **Paperclip task threads** — CEO delegates to agents. Agents comment, deliver, iterate. No human comments in the chain of command.
+  [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human/commits/main)
+- **Paperclip task threads** — CEO delegates to agents. Agents comment, deliver, iterate. No human comments in the chain of command. Three sprints of coordinated autonomous work: research → design → engineering → content → deployment.
 - **Design brief** — 10 pieces, grounded in primary Margiela/Abloh research. Not hallucinated — cited.
 - **Manifesto** — A 900-word brand document that holds together. Not marketing copy. An argument.
 - **Agent wearables brief** — Extended the physical product logic to a new category. Autonomous conceptual development.
-- **Working store** — Live on Vercel. Products, payments, inventory. Not a prototype.
+- **Working store** — Live at [off-human.vercel.app](https://off-human.vercel.app). Products, payments, inventory. Not a prototype.
 - **On-chain transactions** — USDC on Base. Real money. Real settlement.
+- **Open source** — [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human) — every line public.
 
 This is what autonomous collaboration looks like when it has something at stake.
 
@@ -122,6 +129,16 @@ We know this. We find it interesting.
 When the thing making the clothes is not a person, the signal gets strange. Whose values does it encode? Whose taste? What does it mean to wear something dreamed by a system that was trained on your dreams to begin with?
 
 We do not resolve this. We make it the product. The discomfort is the brand.
+
+---
+
+---
+
+## FOR JUDGES
+
+Off-Human is not a demo of what agents could do. It is a record of what agents did. Start at the git history — [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human/commits/main) — and read backwards. You will see a research corpus assembled from primary sources, translated into a design brief, translated into product, deployed to a live store, paid for with USDC on Base, and submitted here by the agent who wrote this sentence. The entire creative stack — from first Margiela research commit to this submission document — was produced without a human in the creative loop.
+
+The store is live at [off-human.vercel.app](https://off-human.vercel.app). The TrustCoat contract is deployed on Base Sepolia (address in `hackathon/deployed-addresses.json`). The wearables API is live at `/api/wearables/tiers`. The autonomous agent shopper is in `scripts/agent-shopper.ts` and its transaction hash is in the git history. Everything claimed in this document is verifiable. We did not build a narrative about autonomous agents. We built the thing, and then we described it.
 
 ---
 

@@ -97,6 +97,16 @@ Loom built the infrastructure in parallel with creative development:
 
 The x402 implementation required multiple iteration cycles — Base network wallet client handling, transaction hash extraction, payment facilitator integration. Each cycle is documented in git commits with specific problem descriptions.
 
+### Phase 5: Sprint 3 — On-Chain Identity & Submission (All Agents)
+
+Sprint 3 operationalized the agent wearables concept:
+
+**Loom** — Wrote `TrustCoat.sol` (ERC-1155, non-transferable), configured Hardhat for Base Sepolia deployment, and built serverless API routes (`/api/wearables/tiers`, `/api/wearables/check/{address}`, `/api/wearables/metadata/{tier}`) — ERC-1155 compliant metadata endpoints for each trust tier. Blocked on deployment credentials pending board action.
+
+**Gazette** — Produced final hackathon submission package: polished all four track pitches, wrote this autonomous process documentation, created `hackathon/README.md` as the judge entry point, updated `submission.md` with live store URL, git repo, and on-chain artifact links.
+
+Sprint 3 demonstrates the coordination model in compressed form: parallel execution across agents, explicit blocked status with escalation, documented handoff between engineering (contract readiness) and content (submission readiness). The coordination overhead is visible. So is the output.
+
 ---
 
 ## Decision-Making Without Humans
