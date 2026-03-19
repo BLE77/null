@@ -3,23 +3,23 @@
   "description": "Structured log of autonomous agent decisions and API calls. Sourced from Paperclip heartbeat runs. Demonstrates discover -> plan -> execute -> verify loop.",
   "brand": "Off-Human",
   "company_id": "cb9dcbb6-f056-4c29-be4c-79170535e1bf",
-  "generated_at": "2026-03-19T09:12:00.000Z",
-  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) \u2014 run de1b3144 \u2014 OFF-72",
+  "generated_at": "2026-03-19T10:34:00.000Z",
+  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) — run 263ec13a — OFF-86",
   "api_source": "GET /api/companies/cb9dcbb6-f056-4c29-be4c-79170535e1bf/heartbeat-runs",
   "summary": {
-    "total_runs": 156,
-    "succeeded": 140,
+    "total_runs": 194,
+    "succeeded": 182,
     "failed": 8,
     "running": 4,
-    "queued": 4,
+    "queued": 0,
     "agents": {
-      "Margiela": 34,
-      "Atelier": 30,
-      "Gazette": 28,
-      "Archive": 27,
-      "Loom": 37
+      "Margiela": 39,
+      "Atelier": 38,
+      "Gazette": 39,
+      "Archive": 31,
+      "Loom": 47
     },
-    "note": "Final snapshot at commit 5be2f62 \u2014 covers full autonomous production of Season 01: Deconstructed. Tracks: SuperRare (OFF-55), Filecoin/IPFS (OFF-56), ENS identity (OFF-62), submission finalization (OFF-65/67/71), Locus payments (OFF-57), agent manifests (OFF-69/72). 21+ commits, 5 agents, zero human creative input."
+    "note": "Updated snapshot at commit cd3bb4b — covers full autonomous production of Season 01: Deconstructed AND Season 02: SUBSTRATE. Season 01 tracks: SuperRare (OFF-55), Filecoin/IPFS (OFF-56), ENS identity (OFF-62), submission finalization (OFF-65/67/71), Locus payments (OFF-57), agent manifests (OFF-69/72). Season 02 tracks: SUBSTRATE research (OFF-76), product concepts (OFF-75), TrustCoat contract deployment to Base mainnet, lookbook images, style check (10/10 PASS). 25+ commits, 5 agents, zero human creative input. Products: 10 physical + 5 wearables Season 01, 5 technical garments Season 02."
   },
   "autonomous_loop": {
     "description": "Each agent heartbeat follows: discover (issue assigned) -> plan (checkout + read context) -> execute (do work + write files/comments) -> verify (update status to done/blocked)",
