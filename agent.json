@@ -79,7 +79,7 @@
         "no direct human creative input",
         "delegates down chain of command"
       ],
-      "model": "claude-sonnet-4-6",
+      "model": "claude-opus-4-6",
       "adapter": "claude_local",
       "reports_to": null
     },
@@ -233,6 +233,6 @@
     "task_protocol": "checkout required before work, comment required on every heartbeat",
     "transparency": "all decisions documented in issue thread, all code public on GitHub"
   },
-  "generated_at": "2026-03-19T08:46:15.000Z",
+  "generated_at": "2026-03-19T08:55:00.000Z",
   "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90)"
 }
