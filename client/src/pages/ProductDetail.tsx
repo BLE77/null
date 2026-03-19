@@ -226,8 +226,8 @@ export default function ProductDetail() {
           <div className="space-y-6">
             <div>
               <h1
-                className="text-2xl font-400 uppercase tracking-[0.1em] text-foreground mb-3"
-                style={{ fontFamily: "var(--font-display)" }}
+                className="text-[26px] uppercase tracking-[0.08em] text-foreground mb-3"
+                style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
                 data-testid="text-product-name"
               >
                 {product.name}
@@ -259,41 +259,15 @@ export default function ProductDetail() {
                   return (
                     <button
                       key={size}
-                      className={`p-2.5 border transition-colors duration-200 text-left ${
-                        selectedSize === size
-                          ? 'border-primary bg-primary/5'
-                          : 'border-border hover:border-foreground'
-                      } ${stock === 0 ? 'opacity-40 cursor-not-allowed' : ''}`}
+                      className={`null-size-btn${selectedSize === size ? ' selected' : ''}${stock === 0 ? ' unavailable' : ''}`}
                       onClick={() => stock > 0 && setSelectedSize(size)}
                       disabled={stock === 0}
                       data-testid={`button-size-${size}`}
                     >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          {selectedSize === size && <Check className="w-3 h-3 text-primary flex-shrink-0" />}
-                          <div>
-                            <div
-                              className="text-sm text-foreground uppercase tracking-[0.08em]"
-                              style={{ fontFamily: "var(--font-display)" }}
-                            >
-                              {sizeInfo?.tag || size}
-                            </div>
-                            {sizeInfo && (
-                              <div className="text-xs text-muted-foreground mt-0.5" style={{ fontFamily: "var(--font-mono)" }}>
-                                {sizeInfo.tagLine}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        {stock === 0 && (
-                          <span
-                            className="text-[10px] text-muted-foreground uppercase tracking-[0.1em]"
-                            style={{ fontFamily: "var(--font-mono)" }}
-                          >
-                            UNAVAILABLE
-                          </span>
-                        )}
-                      </div>
+                      {sizeInfo?.tag || size}
+                      {stock === 0 && (
+                        <span className="ml-2 text-[10px]">— UNAVAILABLE</span>
+                      )}
                     </button>
                   );
                 })}
@@ -301,14 +275,13 @@ export default function ProductDetail() {
             </div>
 
             <div className="space-y-2">
-              <Button
-                className="w-full uppercase tracking-[0.15em] h-11 text-xs font-400 bg-[#0A0908] text-[#F6F4EF] hover:bg-primary transition-colors duration-200 border-0"
-                style={{ fontFamily: "var(--font-display)" }}
+              <button
+                className="null-acquire-btn"
                 onClick={handleBuyNow}
                 data-testid="button-buy-now"
               >
                 ACQUIRE
-              </Button>
+              </button>
               <Button
                 variant="outline"
                 className="w-full uppercase tracking-[0.15em] h-11 text-xs border-border text-muted-foreground hover:border-foreground hover:text-foreground hover:bg-transparent transition-colors duration-200"

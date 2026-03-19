@@ -16,7 +16,7 @@ export function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 null-nav">
       <div className="container mx-auto px-4">
-        <div className="relative flex items-center justify-between h-14">
+        <div className="relative flex items-center justify-between h-12">
           <Link href="/">
             <div className="cursor-pointer inline-block" data-testid="link-home">
               <span
@@ -29,25 +29,20 @@ export function Navigation() {
           </Link>
 
           <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8 pointer-events-none">
-            <Link href="/">
-              <span className="text-xs uppercase tracking-[0.15em] font-400 text-foreground/70 hover:text-foreground transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-home">
-                Home
-              </span>
-            </Link>
             <Link href="/shop">
-              <span className="text-xs uppercase tracking-[0.15em] font-400 text-foreground/70 hover:text-foreground transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-shop">
-                Shop
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C8880] hover:text-[#1C1B19] transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-display)" }} data-testid="link-shop">
+                SHOP
               </span>
             </Link>
             <Link href="/about">
-              <span className="text-xs uppercase tracking-[0.15em] font-400 text-foreground/70 hover:text-foreground transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-about">
-                About
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C8880] hover:text-[#1C1B19] transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-display)" }} data-testid="link-about">
+                ABOUT
               </span>
             </Link>
             {user?.isAdmin && (
               <Link href="/admin">
-                <span className="text-xs uppercase tracking-[0.15em] text-primary hover:text-primary/80 transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-admin">
-                  Admin
+                <span className="text-[10px] uppercase tracking-[0.2em] text-primary hover:text-primary/80 transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-display)" }} data-testid="link-admin">
+                  ADMIN
                 </span>
               </Link>
             )}
@@ -110,43 +105,46 @@ export function Navigation() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-border py-4">
-            <div className="flex flex-col gap-4">
-              <Link href="/">
-                <span
-                  className="text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground transition-colors duration-200 block py-2 cursor-pointer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  data-testid="link-home-mobile"
-                >
-                  Home
-                </span>
-              </Link>
+          <div
+            className="lg:hidden fixed inset-0 z-40 flex flex-col items-center justify-center null-bg"
+            style={{ top: 0 }}
+          >
+            <button
+              className="absolute top-4 right-4 text-[#8C8880] hover:text-[#1C1B19] transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="flex flex-col items-center gap-8">
               <Link href="/shop">
                 <span
-                  className="text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground transition-colors duration-200 block py-2 cursor-pointer"
+                  className="text-5xl font-light uppercase tracking-[0.08em] text-[#1C1B19] cursor-pointer hover:text-[#A8894A] transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-shop-mobile"
                 >
-                  Shop
+                  SHOP
                 </span>
               </Link>
               <Link href="/about">
                 <span
-                  className="text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground transition-colors duration-200 block py-2 cursor-pointer"
+                  className="text-5xl font-light uppercase tracking-[0.08em] text-[#1C1B19] cursor-pointer hover:text-[#A8894A] transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-about-mobile"
                 >
-                  About
+                  ABOUT
                 </span>
               </Link>
               {user?.isAdmin && (
                 <Link href="/admin">
                   <span
-                    className="text-xs uppercase tracking-[0.15em] text-primary hover:text-primary/80 transition-colors duration-200 block py-2 cursor-pointer"
+                    className="text-2xl font-light uppercase tracking-[0.08em] text-primary cursor-pointer"
+                    style={{ fontFamily: "var(--font-display)" }}
                     onClick={() => setIsMobileMenuOpen(false)}
                     data-testid="link-admin-mobile"
                   >
-                    Admin
+                    ADMIN
                   </span>
                 </Link>
               )}

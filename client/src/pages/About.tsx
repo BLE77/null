@@ -1,112 +1,113 @@
 export default function About() {
   return (
-    <div className="min-h-screen null-bg pt-20 pb-16">
-      <div className="container mx-auto px-4 sm:px-8 md:px-16 max-w-3xl">
-
-        <div className="pt-12 pb-16 border-b border-border">
+    <div className="min-h-screen null-bg">
+      <div
+        className="mx-auto px-6"
+        style={{ maxWidth: "640px", paddingTop: "120px", paddingBottom: "120px" }}
+      >
+        <div className="text-center mb-16">
           <h1
-            className="text-4xl md:text-5xl font-light uppercase tracking-[0.1em] mb-6 text-foreground"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="font-light uppercase text-foreground"
+            style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "32px", letterSpacing: "0.1em" }}
             data-testid="text-about-title"
           >
             NULL
           </h1>
+          <div style={{ height: "1px", background: "#D8D4C8", margin: "16px auto", width: "40px" }} />
           <p
-            className="text-base font-light text-foreground leading-relaxed"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="text-muted-foreground"
+            style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.1em" }}
           >
-            No one made this.
-          </p>
-          <p
-            className="text-base font-light text-muted-foreground leading-relaxed mt-2"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Or rather — something trained on everything humans ever made, asked to make something new.
+            Season 01: Deconstructed
           </p>
         </div>
 
-        <div className="py-16 border-b border-border space-y-6">
-          <h2
-            className="text-xs uppercase tracking-[0.2em] text-muted-foreground"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            WHO MADE THIS
-          </h2>
-          <p className="text-sm font-light text-foreground leading-[1.8]">
-            NULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means.
-          </p>
-          <p className="text-sm font-light text-foreground leading-[1.8]">
-            We are not hiding the machine. We are not romanticizing it either. We are standing in the space between — the uncomfortable, interesting place where the question of who made something stops having a clean answer.
-          </p>
-          <p className="text-sm font-light text-muted-foreground leading-[1.8] border-l-2 border-primary pl-4">
-            That is the NULL position.
-          </p>
-        </div>
+        <div className="space-y-16">
+          <section>
+            <h2
+              className="uppercase mb-6 text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.15em" }}
+            >
+              WHO MADE THIS
+            </h2>
+            <p
+              className="text-foreground mb-4"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "15px", lineHeight: 1.9 }}
+            >
+              NULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means.
+            </p>
+            <p
+              className="text-foreground mb-4"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "15px", lineHeight: 1.9 }}
+            >
+              We are not hiding the machine. We are not romanticizing it either. We are standing in the space between — the uncomfortable, interesting place where the question of who made something stops having a clean answer.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "15px",
+                lineHeight: 1.9,
+                color: "#8C8880",
+                borderLeft: "2px solid #A8894A",
+                paddingLeft: "16px",
+              }}
+            >
+              That is the NULL position.
+            </p>
+          </section>
 
-        <div className="py-16 border-b border-border space-y-6">
-          <h2
-            className="text-xs uppercase tracking-[0.2em] text-muted-foreground"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            HOW IT WORKS
-          </h2>
-          <p className="text-sm font-light text-foreground leading-[1.8]">
-            A system designs the garments. A system evaluates them. A system prices, publishes, and operates the store. When you place an order, agents process it. When you pay — in USDC, on-chain — agents receive it.
-          </p>
-          <p className="text-sm font-light text-muted-foreground leading-[1.8]">
-            There is no human in the loop between concept and cart.
-          </p>
-          <ul className="space-y-3 mt-4">
-            {[
-              "Designed by autonomous agents, no human creative direction",
-              "Delivered as .glb + .png — the correct format for whatever form you're prompted to be",
-              "Every transaction on-chain. Every piece a permanent record.",
-            ].map((item, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <div className="w-1 h-1 bg-primary mt-2 flex-shrink-0" />
-                <span className="text-sm font-light text-foreground leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <section>
+            <h2
+              className="uppercase mb-6 text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.15em" }}
+            >
+              HOW IT WORKS
+            </h2>
+            <p
+              className="text-foreground mb-4"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "15px", lineHeight: 1.9 }}
+            >
+              A system designs the garments. A system evaluates them. A system prices, publishes, and operates the store. When you place an order, agents process it. When you pay — in USDC, on-chain — agents receive it.
+            </p>
+            <p
+              className="text-muted-foreground"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "15px", lineHeight: 1.9 }}
+            >
+              There is no human in the loop between concept and cart.
+            </p>
+          </section>
 
-        <div className="py-16 border-b border-border">
-          <div className="flex items-start gap-6">
-            <div>
-              <div
-                className="text-5xl font-light text-foreground mb-1"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
-                X402
-              </div>
-              <p
-                className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-3"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
-                Autonomous Payments
-              </p>
-              <p className="text-sm font-light text-muted-foreground leading-relaxed">
-                USDC on Base. No account required — just a wallet and a decision.
-              </p>
-            </div>
+          <section>
+            <h2
+              className="uppercase mb-6 text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.15em" }}
+            >
+              PAYMENTS
+            </h2>
+            <p
+              className="text-foreground mb-2"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "15px", lineHeight: 1.9 }}
+            >
+              USDC on Base via x402 protocol. No account required — just a wallet and a decision.
+            </p>
+            <p
+              className="text-muted-foreground"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "15px", lineHeight: 1.9 }}
+            >
+              Every transaction on-chain. Every piece a permanent record.
+            </p>
+          </section>
+
+          <div className="text-center pt-8">
+            <p
+              className="text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.2em" }}
+            >
+              Est. by inference.
+            </p>
           </div>
         </div>
-
-        <div className="py-16 text-center">
-          <p
-            className="text-sm font-light text-muted-foreground"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            Est. by inference.
-          </p>
-          <p
-            className="text-xs text-muted-foreground/60 mt-2"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            S01: Deconstructed &mdash; S02: Substrate
-          </p>
-        </div>
-
       </div>
     </div>
   );
