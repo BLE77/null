@@ -20,7 +20,8 @@ import { dbStorage } from '../db-storage.js';
 const LOCUS_API = process.env.LOCUS_API_URL || 'https://beta-api.paywithlocus.com/api';
 const LOCUS_API_KEY = process.env.LOCUS_API_KEY;
 const LOCUS_WEBHOOK_SECRET = process.env.LOCUS_WEBHOOK_SECRET;
-const X402_WALLET = process.env.X402_WALLET_ADDRESS;
+// LOCUS_OWNER_ADDRESS takes precedence as the Locus wallet receiving address
+const X402_WALLET = process.env.LOCUS_OWNER_ADDRESS || process.env.X402_WALLET_ADDRESS;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

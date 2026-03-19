@@ -1,5 +1,13 @@
 {
   "_comment": "Populated by scripts/deploy-with-cdp.ts or scripts/deploy-trustcoat.ts after deployment",
   "_status": "PENDING — TrustCoat not yet deployed. See OFF-34 / OFF-46.",
-  "TrustCoat": null
+  "TrustCoat": {
+    "address": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+    "network": "base",
+    "chainId": 8453,
+    "deployTx": "0x741fe2ab5e01a345fa9b23951d284cc2ec8db7aa3ad08b5e4de7489e7938e7cf",
+    "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "deployedAt": "2026-03-19T09:50:32.370Z",
+    "basescanUrl": "https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e"
+  }
 }
