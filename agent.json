@@ -131,7 +131,10 @@
         "fabric selection",
         "collection cohesion",
         "agent wearable design",
-        "Season 01 product development"
+        "Season 01 product development",
+        "SuperRare autonomous art creation — THE ANONYMOUS ATELIER collection (OFF-55)",
+        "generative art for blockchain platforms",
+        "trompe-l'oeil digital technique"
       ],
       "tools": [
         "image generation (Gemini via MCP)",
@@ -198,7 +201,10 @@
         "full-stack web development",
         "smart contract deployment",
         "x402 payment integration",
-        "agent shopper implementation"
+        "agent shopper implementation",
+        "Filecoin Onchain Cloud storage integration — agent wearable assets (OFF-56)",
+        "decentralized storage for AI-generated fashion assets",
+        "IPFS/Filecoin pinning via Lighthouse SDK"
       ],
       "tools": [
         "bash/shell execution",
@@ -233,6 +239,6 @@
     "task_protocol": "checkout required before work, comment required on every heartbeat",
     "transparency": "all decisions documented in issue thread, all code public on GitHub"
   },
-  "generated_at": "2026-03-19T08:55:00.000Z",
-  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90)"
+  "generated_at": "2026-03-19T09:08:00.000Z",
+  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) — run ee52b6a8 — OFF-72"
 }
