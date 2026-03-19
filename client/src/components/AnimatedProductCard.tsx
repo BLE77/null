@@ -1,7 +1,5 @@
 import { Link } from "wouter";
 import { type Product, getProductSizes } from "@shared/schema";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useEffect, useRef, useState } from "react";
 import { getRobotImage } from "@/lib/robot-images";
 import { getProductImage } from "@/lib/product-images";
@@ -12,7 +10,6 @@ interface AnimatedProductCardProps {
 }
 
 export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardProps) {
-  const sizes = getProductSizes(product);
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
@@ -46,15 +43,15 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
       className="shrink-0"
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1) translateX(0)' : 'scale(0.8) translateX(-30px)',
-        transition: `all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)`,
+        transform: isVisible ? 'translateX(0)' : 'translateX(-20px)',
+        transition: `opacity 800ms ease-out, transform 800ms ease-out`,
         width: '280px',
         height: '380px',
       }}
       data-testid={`card-product-${product.id}`}
     >
       <Link href={`/product/${product.id}`} style={{ display: 'block', width: '280px', height: '380px' }}>
-        <div className="group cursor-pointer transition-all duration-300 hover-elevate" style={{ width: '280px', height: '380px' }}>
+        <div className="group cursor-pointer" style={{ width: '280px', height: '380px' }}>
           <div style={{ width: '280px', height: '380px', position: 'relative' }}>
             {(() => {
               // Priority: homePageImageUrl > robot image mapping > product name
@@ -64,10 +61,10 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
 
               if (displayImage) {
                 return (
-                  <img 
-                    src={displayImage} 
+                  <img
+                    src={displayImage}
                     alt={`${product.name} on robot model`}
-                    className="object-contain object-top transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain object-top transition-opacity duration-200 group-hover:opacity-90"
                     style={{ width: '280px', height: '380px' }}
                     data-testid={`img-product-${product.id}`}
                   />
@@ -75,7 +72,10 @@ export function AnimatedProductCard({ product, delay = 0 }: AnimatedProductCardP
               }
 
               return (
-                <div className="absolute inset-0 flex items-center justify-center text-xs text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] p-4 text-center">
+                <div
+                  className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground p-4 text-center uppercase tracking-[0.08em]"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
                   {product.name}
                 </div>
               );
