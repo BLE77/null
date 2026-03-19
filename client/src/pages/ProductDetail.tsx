@@ -372,18 +372,69 @@ export default function ProductDetail() {
               </AccordionItem>
 
               <AccordionItem value="shipping" className="border-primary/30">
-                <AccordionTrigger 
+                <AccordionTrigger
                   className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
                   style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
                   Shipping
                 </AccordionTrigger>
                 <AccordionContent>
-                  <p 
+                  <p
                     className="text-sm text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
                     style={{ fontFamily: "'Orbitron', sans-serif" }}
                   >
                     Always free and immediate. Delivered straight to your database. Zero packaging waste.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="technique" className="border-primary/30">
+                <AccordionTrigger
+                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  Technique
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p
+                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    Each Off-Human piece is constructed according to a specific Margiela archive technique. The technique is the constraint — the output is what the constraint permits. TROMPE-L'OEIL, REPLICA LINE, ARTISANAL, BIANCHETTO, the 3% RULE. These are operational methods, not aesthetic references. The machine was given the technique as specification and told to apply it. This is what the machine made.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="materials" className="border-primary/30">
+                <AccordionTrigger
+                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  Materials
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p
+                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    Delivered as a high-resolution PNG and .glb 3D object. No physical fabrication. No supply chain. No waste. The object exists entirely in the system — portable, persistent, verifiable on-chain.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="care" className="border-primary/30">
+                <AccordionTrigger
+                  className="text-sm uppercase tracking-wider text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
+                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                >
+                  Care
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p
+                    className="text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]"
+                    style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  >
+                    This is a digital object. It does not wear. It does not fade. It does not require maintenance. Store in any environment that supports the .glb format. The PNG is lossless. The record is permanent.
                   </p>
                 </AccordionContent>
               </AccordionItem>

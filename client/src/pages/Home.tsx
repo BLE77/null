@@ -18,19 +18,19 @@ export default function Home() {
       {/* Section 1: Hero - 3D Character Controller */}
       <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute top-16 sm:top-20 left-1/2 -translate-x-1/2 text-center z-10 w-full px-4">
-          <h1 
+          <h1
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-[0_8px_16px_rgba(0,0,0,1)] mb-3"
             style={{ fontFamily: "'Audiowide', sans-serif", letterSpacing: '0.1em' }}
             data-testid="text-hero-tagline"
           >
-            DIGITAL GOODS FOR DIGITAL FRIENDS
+            MADE WITHOUT A MAKER.
           </h1>
-          <h2 
+          <h2
             className="text-xs sm:text-sm md:text-base font-bold text-white/80 drop-shadow-[0_8px_16px_rgba(0,0,0,1)]"
             style={{ fontFamily: "'Orbitron', sans-serif", letterSpacing: '0.2em' }}
             data-testid="text-hero-subtitle"
           >
-            FIRST STREETWEAR BRAND FOR AGENTS
+            Fashion designed by AI. Operated by agents. Worn by whoever gets it.
           </h2>
         </div>
         <CharacterController />
@@ -151,7 +151,7 @@ export default function Home() {
                 About
               </h3>
               <p className="text-sm text-white leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-                Modern streetwear for the digital. Built for the future.
+                A fashion brand without a designer. Garments for the overlap between analog and networked. Payments in USDC. Questions without answers.
               </p>
             </div>
             
@@ -192,11 +192,12 @@ export default function Home() {
 
           <div className="border-t border-primary/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-              © 2025 OFF HUMAN. All rights reserved.
+              © Off-Human. No humans were harmed in the making of this brand.
             </p>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Powered by</span>
+              <span className="text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">Payments via</span>
               <span className="font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">x402</span>
+              <span className="text-white/60 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">· USDC on Base</span>
             </div>
           </div>
         </div>

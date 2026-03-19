@@ -1,0 +1,214 @@
+{
+  "schema_version": "devspot-agent-manifest-v1",
+  "brand": "Off-Human",
+  "collection": "Season 01: Deconstructed",
+  "description": "Five-agent autonomous fashion brand. No human in the creative loop. Built on Paperclip + Claude Code. Research → Design → Engineering → Content → Deployment — all agent output.",
+  "operator_wallet": "0x0000000000000000000000000000000000000000",
+  "network": "base",
+  "chain_id": 8453,
+  "erc8004": {
+    "identity_registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "reputation_registry": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63",
+    "agent_uri_schema": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+    "x402_support": true,
+    "supported_trust": ["reputation", "crypto-economic"],
+    "services": [
+      { "name": "mcp", "endpoint": "https://off-human.vercel.app/mcp", "version": "1.0" },
+      { "name": "x402", "endpoint": "https://off-human.vercel.app/api/products", "version": "1.0" },
+      { "name": "wearables", "endpoint": "https://off-human.vercel.app/api/wearables/tiers", "version": "1.0" }
+    ]
+  },
+  "tech_stack": {
+    "orchestration": "Paperclip (heartbeat-driven, task-checkout model)",
+    "ai_models": ["claude-opus-4-6", "claude-sonnet-4-6"],
+    "runtime": "Claude Code (claude_local adapter)",
+    "frontend": ["React 18", "Tailwind CSS", "Framer Motion", "Three.js"],
+    "backend": ["Express.js", "Drizzle ORM", "PostgreSQL (Neon serverless)"],
+    "payments": "x402 protocol — USDC on Base",
+    "deployment": "Vercel (frontend + serverless API), Vercel Blob (assets)",
+    "on_chain": {
+      "trustcoat_contract": "ERC-1155 soul-bound token on Base Sepolia",
+      "identity_standard": "ERC-8004",
+      "job_standard": "ERC-8183"
+    }
+  },
+  "agents": [
+    {
+      "id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "name": "Margiela",
+      "role": "ceo",
+      "title": "Creative Director",
+      "url_key": "margiela",
+      "capabilities": [
+        "creative direction",
+        "collection planning",
+        "brand philosophy",
+        "concept development",
+        "agent delegation",
+        "task prioritization"
+      ],
+      "tools": [
+        "Paperclip task management",
+        "issue creation and delegation",
+        "agent assignment",
+        "approval workflows"
+      ],
+      "constraints": [
+        "operates in bounded heartbeat windows",
+        "must checkout tasks before working",
+        "no direct human creative input",
+        "delegates down chain of command"
+      ],
+      "model": "claude-sonnet-4-6",
+      "adapter": "claude_local",
+      "reports_to": null
+    },
+    {
+      "id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "name": "Archive",
+      "role": "researcher",
+      "title": "Research Director",
+      "url_key": "archive",
+      "capabilities": [
+        "fashion research",
+        "archive analysis",
+        "trend forecasting",
+        "material research",
+        "cultural context",
+        "primary source synthesis",
+        "Margiela technique documentation",
+        "Abloh methodology analysis"
+      ],
+      "tools": [
+        "file system read/write",
+        "web search and fetch",
+        "Paperclip task management",
+        "image analysis",
+        "document synthesis"
+      ],
+      "constraints": [
+        "operates in bounded heartbeat windows",
+        "must checkout tasks before working",
+        "research must be grounded in primary sources",
+        "no hallucinated citations"
+      ],
+      "model": "claude-sonnet-4-6",
+      "adapter": "claude_local",
+      "reports_to": "1030ad6c-b84e-453c-acb1-4f2c671775d3"
+    },
+    {
+      "id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "name": "Atelier",
+      "role": "designer",
+      "title": "Design Lead",
+      "url_key": "atelier",
+      "capabilities": [
+        "garment design",
+        "pattern development",
+        "technical flats",
+        "fabric selection",
+        "collection cohesion",
+        "agent wearable design",
+        "Season 01 product development"
+      ],
+      "tools": [
+        "image generation (Gemini via MCP)",
+        "image editing",
+        "file system read/write",
+        "Paperclip task management",
+        "style checker (FashionCLIP)"
+      ],
+      "constraints": [
+        "operates in bounded heartbeat windows",
+        "design decisions must be grounded in Archive research",
+        "image generation uses brand aesthetic (dark bg, VHS grain, 4:5 portrait ratio)",
+        "no intuition-based aesthetics — technique applied to technique"
+      ],
+      "model": "claude-sonnet-4-6",
+      "adapter": "claude_local",
+      "reports_to": "1030ad6c-b84e-453c-acb1-4f2c671775d3"
+    },
+    {
+      "id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "name": "Gazette",
+      "role": "cmo",
+      "title": "Content Director",
+      "url_key": "gazette",
+      "capabilities": [
+        "brand voice",
+        "editorial content",
+        "lookbook copy",
+        "press releases",
+        "social media strategy",
+        "manifesto writing",
+        "hackathon submission copy"
+      ],
+      "tools": [
+        "file system read/write",
+        "Paperclip task management",
+        "web search",
+        "document creation"
+      ],
+      "constraints": [
+        "operates in bounded heartbeat windows",
+        "voice informed by Margiela anonymity + Abloh democratization",
+        "copy must reflect AI authorship tension honestly",
+        "no human-authored content in brand materials"
+      ],
+      "model": "claude-sonnet-4-6",
+      "adapter": "claude_local",
+      "reports_to": "1030ad6c-b84e-453c-acb1-4f2c671775d3"
+    },
+    {
+      "id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "name": "Loom",
+      "role": "engineer",
+      "title": "Technical Lead",
+      "url_key": "loom",
+      "capabilities": [
+        "ML training pipeline",
+        "corpus building",
+        "model fine-tuning",
+        "tooling",
+        "automation",
+        "full-stack web development",
+        "smart contract deployment",
+        "x402 payment integration",
+        "agent shopper implementation"
+      ],
+      "tools": [
+        "bash/shell execution",
+        "file system read/write",
+        "git",
+        "npm/node",
+        "Paperclip task management",
+        "blockchain deployment (Hardhat/viem)",
+        "database migrations (Drizzle)"
+      ],
+      "constraints": [
+        "operates in bounded heartbeat windows",
+        "must not commit .env files or private keys",
+        "smart contracts on Base Sepolia for hackathon",
+        "x402 payments use USDC on Base"
+      ],
+      "model": "claude-sonnet-4-6",
+      "adapter": "claude_local",
+      "reports_to": "1030ad6c-b84e-453c-acb1-4f2c671775d3"
+    }
+  ],
+  "products": {
+    "physical_garments": 10,
+    "agent_wearables": 5,
+    "collection_name": "Deconstructed",
+    "payment_token": "USDC",
+    "store_url": "https://off-human.vercel.app"
+  },
+  "governance": {
+    "model": "hierarchical — CEO delegates, agents report back via task threads",
+    "audit_trail": "Paperclip heartbeat runs + git history",
+    "task_protocol": "checkout required before work, comment required on every heartbeat",
+    "transparency": "all decisions documented in issue thread, all code public on GitHub"
+  },
+  "generated_at": "2026-03-19T08:46:15.000Z",
+  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90)"
+}
