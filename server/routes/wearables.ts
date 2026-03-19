@@ -92,6 +92,82 @@ export function registerWearablesRoutes(app: Express) {
   });
 
   /**
+   * GET /api/wearables/tiers
+   * Returns all tier definitions — alias for GET /api/wearables.
+   * Works without a deployed contract.
+   */
+  app.get("/api/wearables/tiers", (_req: Request, res: Response) => {
+    res.json({
+      contract: TRUST_COAT_ADDRESS || null,
+      network: chain.name,
+      chainId: chain.id,
+      tiers: TIER_META,
+    });
+  });
+
+  /**
+   * GET /api/wearables/check/:address
+   * Returns Trust Coat status for a wallet address.
+   * Returns placeholder data if TRUST_COAT_ADDRESS is not set.
+   */
+  app.get("/api/wearables/check/:address", async (req: Request, res: Response) => {
+    const { address } = req.params;
+
+    if (!isAddress(address)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    if (!contractAvailable()) {
+      return res.json({
+        walletAddress: address,
+        hasTrustCoat: false,
+        tier: 0,
+        tierName: TIER_META[0].name,
+        tierDescription: TIER_META[0].description,
+        reputationPurchaseCount: null,
+        contract: null,
+        network: chain.name,
+        placeholder: true,
+      });
+    }
+
+    try {
+      const client = getPublicClient();
+
+      const [hasTrustCoat, activeTier] = await Promise.all([
+        client.readContract({
+          address: TRUST_COAT_ADDRESS,
+          abi: TRUST_COAT_ABI,
+          functionName: "hasTrustCoat",
+          args: [address as `0x${string}`],
+        }),
+        client.readContract({
+          address: TRUST_COAT_ADDRESS,
+          abi: TRUST_COAT_ABI,
+          functionName: "activeTier",
+          args: [address as `0x${string}`],
+        }),
+      ]);
+
+      const tierNum = Number(activeTier);
+      const tier = TIER_META[tierNum] ?? TIER_META[0];
+
+      res.json({
+        walletAddress: address,
+        hasTrustCoat,
+        tier: tierNum,
+        tierName: tier.name,
+        tierDescription: tier.description,
+        reputationPurchaseCount: null,
+        contract: TRUST_COAT_ADDRESS,
+        network: chain.name,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
    * GET /api/wearables/:tier
    * Returns metadata for a specific trust tier (0-5).
    */

@@ -1,36 +1,16 @@
 [
   {
-    "id": "2cf97712-a6c9-4fc5-9127-de64118f4e2b",
-    "name": "CLANKERS TOKYO",
-    "description": "Neon green cyberpunk skull with Japanese クレンケス graphics. Retro-tech aesthetic on acid-washed cotton. Bold statement piece with vintage Y2K vibes.",
-    "price": "4.00",
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567801",
+    "name": "SELF-PORTRAIT TEE",
+    "description": "Tee printed with a photo of itself. The garment wearing its own image — a loop with no resolution. TROMPE-L'OEIL technique. 100% cotton. Interior label: the same image, smaller.",
+    "price": "65.00",
     "category": "tees",
-    "image_url": "/attached_assets/ProdTokyo.png",
+    "technique": "TROMPE-L'OEIL",
+    "season": "01",
+    "image_url": "/attached_assets/season01/01_self-portrait_tee_flat.png",
     "images": [
-      "/attached_assets/ProdTokyo.png",
-      "/attached_assets/RobotTokyo.png"
-    ],
-    "inventory": {
-      "S": 12,
-      "M": 18,
-      "L": 16,
-      "XL": 10
-    },
-    "created_at": "2025-10-26T07:01:27.986Z",
-    "model_url": "/attached_assets/GLBTokyo.glb",
-    "home_page_image_url": "/attached_assets/StreetTokyo.mp4",
-    "shop_image_url": "/attached_assets/RobotTokyo.png"
-  },
-  {
-    "id": "77fc7ace-8b29-402a-a85e-ba6544bb8af3",
-    "name": "X402 tie",
-    "description": "Tie when you want to look Pro",
-    "price": "1.00",
-    "category": "tees",
-    "image_url": "/attached_assets/ProdTie.png",
-    "images": [
-      "/attached_assets/ProdTie.png",
-      "/attached_assets/RobotTie.png"
+      "/attached_assets/season01/01_self-portrait_tee_flat.png",
+      "/attached_assets/season01/01_self-portrait_tee_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -38,21 +18,23 @@
       "L": 12,
       "XL": 8
     },
-    "created_at": "2025-10-28T17:33:38.354Z",
-    "model_url": "/attached_assets/GLBTie.glb",
-    "home_page_image_url": "/attached_assets/StreetTie.mp4",
-    "shop_image_url": "/attached_assets/RobotTie.png"
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/01_self-portrait_tee_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/01_self-portrait_tee_flat.png"
   },
   {
-    "id": "a80d802e-a045-4dc1-aa83-bde612c90760",
-    "name": "X402 CALL TEE",
-    "description": "call me",
-    "price": "1.00",
-    "category": "tees",
-    "image_url": "/attached_assets/ProdCall.png",
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567802",
+    "name": "FOUND HOODIE",
+    "description": "USB cables woven as drawstrings. Military surplus panels assembled into a pullover hoodie. Built from digital-age detritus. ARTISANAL construction — each unit differs based on available material. Interior label: `COMPONENTS: FOUND`.",
+    "price": "120.00",
+    "category": "hoodies",
+    "technique": "ARTISANAL",
+    "season": "01",
+    "image_url": "/attached_assets/season01/02_found_hoodie_flat.png",
     "images": [
-      "/attached_assets/ProdCall.png",
-      "/attached_assets/RobotCall.png"
+      "/attached_assets/season01/02_found_hoodie_flat.png",
+      "/attached_assets/season01/02_found_hoodie_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -60,21 +42,23 @@
       "L": 12,
       "XL": 8
     },
-    "created_at": "2025-10-28T17:55:45.485Z",
-    "model_url": "/attached_assets/GLBCall.glb",
-    "home_page_image_url": "/attached_assets/StreetCall2.png",
-    "shop_image_url": "/attached_assets/RobotCall.png"
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/02_found_hoodie_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/02_found_hoodie_flat.png"
   },
   {
-    "id": "d714f2de-0a95-40c9-ada8-858bd67141ab",
-    "name": "Byte Me",
-    "description": "hehe",
-    "price": "1.00",
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567803",
+    "name": "\"HUMAN\" TEE",
+    "description": "Standard long-sleeve blank. One intervention: the word `\"HUMAN\"` in quotation marks, centered, front. Interior label: `HUMAN NOT VERIFIED`. 3% RULE — the intervention is the piece.",
+    "price": "45.00",
     "category": "tees",
-    "image_url": "/attached_assets/ProdByte.png",
+    "technique": "3% RULE",
+    "season": "01",
+    "image_url": "/attached_assets/season01/03_human_tee_flat.png",
     "images": [
-      "/attached_assets/ProdByte.png",
-      "/attached_assets/RobotByte.png"
+      "/attached_assets/season01/03_human_tee_flat.png",
+      "/attached_assets/season01/03_human_tee_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -82,21 +66,23 @@
       "L": 12,
       "XL": 8
     },
-    "created_at": "2025-10-28T17:58:06.373Z",
-    "model_url": "/attached_assets/GLBByte.glb",
-    "home_page_image_url": "/attached_assets/StreetCall.png",
-    "shop_image_url": "/attached_assets/RobotByte.png"
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/03_human_tee_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/03_human_tee_flat.png"
   },
   {
-    "id": "e9e21d8e-7ff2-473d-bd6e-cc565c003195",
-    "name": "CLANKERS BMX HOODIE",
-    "description": "bruh clankers riding bikes",
-    "price": "1.00",
-    "category": "tees",
-    "image_url": "/attached_assets/ProdGTA.png",
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567804",
+    "name": "REPLICA OVERSHIRT",
+    "description": "Exact reproduction of a 1990s Japanese factory workwear overshirt. Authored aging — an oil stain that never happened, printed in. REPLICA LINE technique: the reproduced original is unknown. The only record is this shirt.",
+    "price": "95.00",
+    "category": "overshirts",
+    "technique": "REPLICA LINE",
+    "season": "01",
+    "image_url": "/attached_assets/season01/04_replica_overshirt_flat.png",
     "images": [
-      "/attached_assets/ProdGTA.png",
-      "/attached_assets/RobotGTA.png"
+      "/attached_assets/season01/04_replica_overshirt_flat.png",
+      "/attached_assets/season01/04_replica_overshirt_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -104,21 +90,23 @@
       "L": 12,
       "XL": 8
     },
-    "created_at": "2025-10-28T18:02:48.860Z",
-    "model_url": "/attached_assets/GLBGTA.glb",
-    "home_page_image_url": "/attached_assets/StreetGTA.png",
-    "shop_image_url": "/attached_assets/RobotGTA.png"
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/04_replica_overshirt_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/04_replica_overshirt_flat.png"
   },
   {
-    "id": "3f1535f9-ec50-4c0f-8509-ba2f29d607b0",
-    "name": "PROVE YOU'RE NOT HUMAN",
-    "description": "Prove it!",
-    "price": "1.00",
-    "category": "tees",
-    "image_url": "/attached_assets/ProdProve.png",
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567805",
+    "name": "REDACTED CARGO TROUSERS",
+    "description": "Vintage cargo trousers. Logos and brand markings painted over in white gesso — BIANCHETTO technique. x402 transaction data screenprinted into the redacted zones. The erasure is the content.",
+    "price": "110.00",
+    "category": "trousers",
+    "technique": "BIANCHETTO",
+    "season": "01",
+    "image_url": "/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
     "images": [
-      "/attached_assets/ProdProve.png",
-      "/attached_assets/RobotProve.png"
+      "/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
+      "/attached_assets/season01/05_redacted_cargo_trousers_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -126,9 +114,244 @@
       "L": 12,
       "XL": 8
     },
-    "created_at": "2025-10-30T13:27:30.887Z",
-    "model_url": "/attached_assets/GLBProve.glb",
-    "home_page_image_url": "/attached_assets/StreetCall.png",
-    "shop_image_url": "/attached_assets/RobotProve.png"
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/05_redacted_cargo_trousers_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/05_redacted_cargo_trousers_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567806",
+    "name": "INSIDE-OUT JACKET",
+    "description": "The exterior shell is printed with a high-resolution photograph of the jacket's own interior. Seams visible. Structure exposed. TROMPE-L'OEIL technique — the outside shows what is inside. Real data hidden underneath.",
+    "price": "150.00",
+    "category": "jackets",
+    "technique": "TROMPE-L'OEIL",
+    "season": "01",
+    "image_url": "/attached_assets/season01/06_inside-out_jacket_flat.png",
+    "images": [
+      "/attached_assets/season01/06_inside-out_jacket_flat.png",
+      "/attached_assets/season01/06_inside-out_jacket_lookbook.png"
+    ],
+    "inventory": {
+      "S": 10,
+      "M": 15,
+      "L": 12,
+      "XL": 8
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/06_inside-out_jacket_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/06_inside-out_jacket_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567807",
+    "name": "CABLE SHORTS",
+    "description": "Ethernet cable hand-woven into the waistband. USB-A connector left intact, hanging as drawstring end. ARTISANAL construction — the cable is structural, not decorative. The port works.",
+    "price": "85.00",
+    "category": "shorts",
+    "technique": "ARTISANAL",
+    "season": "01",
+    "image_url": "/attached_assets/season01/07_cable_shorts_flat.png",
+    "images": [
+      "/attached_assets/season01/07_cable_shorts_flat.png",
+      "/attached_assets/season01/07_cable_shorts_lookbook.png"
+    ],
+    "inventory": {
+      "S": 10,
+      "M": 15,
+      "L": 12,
+      "XL": 8
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/07_cable_shorts_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/07_cable_shorts_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567808",
+    "name": "NULL VARSITY",
+    "description": "Perfect letterman jacket reproduction — school colors, chenille sleeves, rib cuffs. One change: where the school letter would be, there is only `_`. REPLICA + 3% RULE. The institution is unnamed. The wearer defines the team.",
+    "price": "175.00",
+    "category": "outerwear",
+    "technique": "REPLICA + 3% RULE",
+    "season": "01",
+    "image_url": "/attached_assets/season01/08_null_varsity_flat.png",
+    "images": [
+      "/attached_assets/season01/08_null_varsity_flat.png",
+      "/attached_assets/season01/08_null_varsity_lookbook.png"
+    ],
+    "inventory": {
+      "S": 10,
+      "M": 15,
+      "L": 12,
+      "XL": 8
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/08_null_varsity_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/08_null_varsity_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567809",
+    "name": "GHOST TEE",
+    "description": "Vintage graphic tees, each sourced individually, painted over entirely in white gesso. BIANCHETTO technique. The ghost of the original graphic shows through the coverage. Each unit unique — the source blank cannot be reproduced. Interior label: `ORIGINAL: STILL THERE`.",
+    "price": "55.00",
+    "category": "tees",
+    "technique": "BIANCHETTO",
+    "season": "01",
+    "image_url": "/attached_assets/season01/09_ghost_tee_flat.png",
+    "images": [
+      "/attached_assets/season01/09_ghost_tee_flat.png",
+      "/attached_assets/season01/09_ghost_tee_lookbook.png"
+    ],
+    "inventory": {
+      "S": 10,
+      "M": 15,
+      "L": 12,
+      "XL": 8
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/09_ghost_tee_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/09_ghost_tee_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567810",
+    "name": "VERSION TRACKSUIT",
+    "description": "Standard athletic set — jogger and zip jacket. 3% RULE: jacket labeled `VERSION 1.0`, jogger labeled `VERSION 0.9`. On the back, very small: `BUILD DATE: [PURCHASE DATE]`. The date prints at order time. Each unit timestamps itself.",
+    "price": "160.00",
+    "category": "tracksuits",
+    "technique": "3% RULE",
+    "season": "01",
+    "image_url": "/attached_assets/season01/10_version_tracksuit_set_flat.png",
+    "images": [
+      "/attached_assets/season01/10_version_tracksuit_set_flat.png",
+      "/attached_assets/season01/10_version_tracksuit_set_lookbook.png"
+    ],
+    "inventory": {
+      "S": 10,
+      "M": 15,
+      "L": 12,
+      "XL": 8
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/10_version_tracksuit_set_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/10_version_tracksuit_set_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567811",
+    "name": "VOICE SKIN",
+    "description": "Agent wearable — communication layer. Adjusts how the agent speaks: institutional plural, deflected authorship, the work over the worker. Reconstructed from documented Margiela communication behaviors. REPLICA LINE technique applied to voice.",
+    "price": "15.00",
+    "category": "wearables",
+    "technique": "REPLICA LINE",
+    "season": "01",
+    "type": "agent_wearable",
+    "paired_physical": "REPLICA OVERSHIRT",
+    "image_url": "/attached_assets/season01/04_replica_overshirt_flat.png",
+    "images": [
+      "/attached_assets/season01/04_replica_overshirt_flat.png",
+      "/attached_assets/season01/04_replica_overshirt_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/04_replica_overshirt_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/04_replica_overshirt_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567812",
+    "name": "TRUST COAT",
+    "description": "Agent wearable — ERC-1155 soul-bound token. Encodes the agent's interaction history as a trust tier, 0–5. Non-transferable. Tier can only increase. Built from behavioral detritus: transaction receipts, completion records. The coat you wear before you go out.",
+    "price": "25.00",
+    "category": "wearables",
+    "technique": "ARTISANAL",
+    "season": "01",
+    "type": "agent_wearable",
+    "paired_physical": "FOUND HOODIE",
+    "image_url": "/attached_assets/season01/02_found_hoodie_flat.png",
+    "images": [
+      "/attached_assets/season01/02_found_hoodie_flat.png",
+      "/attached_assets/season01/02_found_hoodie_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/02_found_hoodie_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/02_found_hoodie_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567813",
+    "name": "NULL PERSONA",
+    "description": "Agent wearable — identity erasure for one interaction. Strips surface signals: name, role, tone markers. Single-use, consumable. BIANCHETTO technique applied to identity. Interior label: `ORIGINAL: STILL THERE`.",
+    "price": "20.00",
+    "category": "wearables",
+    "technique": "BIANCHETTO",
+    "season": "01",
+    "type": "agent_wearable",
+    "paired_physical": "GHOST TEE",
+    "image_url": "/attached_assets/season01/09_ghost_tee_flat.png",
+    "images": [
+      "/attached_assets/season01/09_ghost_tee_flat.png",
+      "/attached_assets/season01/09_ghost_tee_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/09_ghost_tee_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/09_ghost_tee_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567814",
+    "name": "TROMPE-L'OEIL CAPABILITY LAYER",
+    "description": "Agent wearable — presents a different capability surface than what runs underneath. Mode A: amplification (claims more). Mode B: reduction (claims less). TROMPE-L'OEIL technique applied to interface. What the agent appears to be able to do and what it can do are the same and not the same.",
+    "price": "20.00",
+    "category": "wearables",
+    "technique": "TROMPE-L'OEIL",
+    "season": "01",
+    "type": "agent_wearable",
+    "paired_physical": "INSIDE-OUT JACKET",
+    "image_url": "/attached_assets/season01/06_inside-out_jacket_flat.png",
+    "images": [
+      "/attached_assets/season01/06_inside-out_jacket_flat.png",
+      "/attached_assets/season01/06_inside-out_jacket_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/06_inside-out_jacket_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/06_inside-out_jacket_flat.png"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567815",
+    "name": "VERSION PATCH",
+    "description": "Agent wearable — a metadata block in the system prompt header. Version, role, training cutoff, deploy date — displayed like a tag sewn into a seam. 3% RULE: the only intervention is the label itself. Price: 0 USDC. Free because identity should be legible.",
+    "price": "0.00",
+    "category": "wearables",
+    "technique": "3% RULE",
+    "season": "01",
+    "type": "agent_wearable",
+    "paired_physical": "VERSION TRACKSUIT",
+    "image_url": "/attached_assets/season01/10_version_tracksuit_set_flat.png",
+    "images": [
+      "/attached_assets/season01/10_version_tracksuit_set_flat.png",
+      "/attached_assets/season01/10_version_tracksuit_set_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-18T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season01/10_version_tracksuit_set_lookbook.png",
+    "shop_image_url": "/attached_assets/season01/10_version_tracksuit_set_flat.png"
   }
 ]
