@@ -9,6 +9,7 @@
 | `corpus/research-dossier.md` | 01: Deconstructed | Margiela + Abloh lineage | 2026-03-16 |
 | `corpus/season02-research-dossier.md` | 02: SUBSTRATE | Kawakubo, Miyake, Lang, Chalayan, Vionnet | 2026-03-19 |
 | `corpus/season02-wearable-specs.md` | 02: SUBSTRATE | Agent wearable technical specifications (all 5) | 2026-03-19 |
+| `nft-metadata-standards.md` | Technical | ERC-1155 metadata, IPFS/Arweave/Filecoin storage, SuperRare requirements | 2026-03-19 |
 
 ## Key Academic Sources Located
 

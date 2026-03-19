@@ -32,6 +32,16 @@
 - **Addresses JSON:** `hackathon/deployed-addresses.json`
 - **Note:** Hardhat 3.1.12 requires Node 22+; workaround: compile with solcjs, deploy with ethers.js directly
 
+### TrustCoat IPFS Status (OFF-98)
+- **Current URIs:** Tiers 0-4 → `https://off-human.vercel.app/api/wearables/metadata/{tier}` (broken). Tier 5 reverts.
+- **Script ready:** `scripts/trustcoat-ipfs-deploy.ts` — uploads tier images + metadata to Filecoin, calls setURI()
+- **Images:** `attached_assets/superrare/trustcoat_tier{0-5}_*.png` (all confirmed present)
+- **Blocker:** `LIGHTHOUSE_API_KEY` not in `.env` — register free at https://lighthouse.storage
+- **Run command (after key):** `npx tsx scripts/trustcoat-ipfs-deploy.ts`
+- **Key env var:** `LOCUS_OWNER_PRIVATE_KEY` (owner of TrustCoat.sol)
+- **Output:** `hackathon/trustcoat-ipfs-manifest.json` + `hackathon/trustcoat-ipfs-receipt.json`
+- **Prize track:** Filecoin Onchain Cloud ($2K) — qualifies once executed
+
 ### AgentWearables.sol (ERC-1155 mintable Season 02 wearables)
 - **Status:** Contract written + compiled (2026-03-19). NOT YET DEPLOYED.
 - **Deploy script:** `scripts/deploy-agent-wearables.mjs`
