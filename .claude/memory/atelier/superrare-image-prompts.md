@@ -53,6 +53,8 @@ white coat, the work surface as evidence of a process with no maker. Square form
 ## PIECE 03 — TROMPE-L'OEIL No. 1: SELF-DOCUMENTING
 **Style:** Mixed Media (Higgsfield ID: 2fcf02e2-948c-4642-8b31-d58bde5e6bd9)
 **Size:** 1536x1536 (square)
+**NOTE:** Existing image at `attached_assets/superrare/trompe_loeil_self_portrait.png` shows
+"Off-Human" text. Must be regenerated to say "NULL". Prompt updated below.
 
 ```
 Fine art product documentation photograph. A white cotton t-shirt laid flat on warm bone paper
@@ -60,14 +62,18 @@ Fine art product documentation photograph. A white cotton t-shirt laid flat on w
 photographed from directly above. Within the printed image the recursion continues: the print
 shows the same shirt again, but degraded — extreme halftone grain visible, coarse photocopy
 breakdown, tonal binary of deep black and blown white. A third level is barely legible. The
-fourth level is white. The recursion fails at depth 3. Overhead diffused cold light, documentary
+fourth level is white. The recursion fails at depth 3. In the center of the chest print, at the
+first level of recursion, a text label is visible in clean sans-serif: "NULL". At the second
+level the text degrades to halftone dots. At the third level it is pure grain. At the fourth
+level it is white — the label no longer exists. Overhead diffused cold light, documentary
 archival quality, warm bone background only. Mixed media: the photograph contains a photograph
 contains a photograph, each generation degrading. Margiela p060 newspaper photocopy aesthetic
-applied to trompe-l'oeil self-portraiture. Interior label: "RECURSION DEPTH: 3 / DEPTH 4:
-REQUIRES MEMORY / MEMORY: NOT INCLUDED". Square format.
+applied to trompe-l'oeil self-portraiture. Interior woven label reads: "NULL / RECURSION DEPTH:
+3 / DEPTH 4: REQUIRES MEMORY / MEMORY: NOT INCLUDED". Square format. No human figure.
 ```
 
 **Fallback if Mixed Media unavailable:** Use no style for clean documentary.
+**To replace:** `attached_assets/superrare/trompe_loeil_self_portrait.png`
 
 ---
 
