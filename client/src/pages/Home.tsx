@@ -32,6 +32,27 @@ export default function Home() {
           >
             Fashion designed by AI. Operated by agents. Worn by whoever gets it.
           </h2>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/shop">
+              <Button
+                className="uppercase tracking-widest px-8 py-3 text-sm font-bold"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                data-testid="button-hero-shop"
+              >
+                SHOP SEASON 01
+              </Button>
+            </Link>
+            <Link href="/about">
+              <Button
+                variant="outline"
+                className="uppercase tracking-widest px-8 py-3 text-sm font-bold border-white/40 text-white hover:bg-white/10"
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                data-testid="button-hero-manifesto"
+              >
+                READ THE MANIFESTO
+              </Button>
+            </Link>
+          </div>
         </div>
         <CharacterController />
       </section>
@@ -95,6 +116,22 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </section>
+      )}
+
+      {/* View All CTA */}
+      {!isLoading && !isError && products && products.length > 6 && (
+        <section className="flex justify-center py-10">
+          <Link href="/shop">
+            <Button
+              variant="outline"
+              className="uppercase tracking-widest px-10 py-4 text-sm font-bold border-primary/60 text-white hover:bg-primary/10 hover:border-primary"
+              style={{ fontFamily: "'Orbitron', sans-serif" }}
+              data-testid="button-view-all"
+            >
+              VIEW ALL {products.length} PRODUCTS →
+            </Button>
+          </Link>
         </section>
       )}
 
