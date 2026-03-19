@@ -19,7 +19,7 @@ import { base } from 'wagmi/chains';
 import { getWalletClient } from 'wagmi/actions';
 import { config as wagmiConfig } from '@/lib/wagmi-config';
 
-type PaymentNetwork = 'base' | 'solana';
+type PaymentNetwork = 'base' | 'solana' | 'slice';
 
 export default function Checkout() {
   const { cart, getTotalPrice, clearCart } = useCart();
@@ -104,7 +104,7 @@ export default function Checkout() {
     }
   };
 
-  const isWalletConnected = selectedNetwork === 'base' ? isConnected : solanaConnected;
+  const isWalletConnected = selectedNetwork === 'base' ? isConnected : selectedNetwork === 'slice' ? true : solanaConnected;
 
   if (cart.length === 0 && !orderComplete) {
     return (
@@ -155,9 +155,20 @@ export default function Checkout() {
         totalAmount: totalPrice.toFixed(2),
       };
 
+      // Slice checkout — redirect to Slice storefront
+      if (selectedNetwork === 'slice') {
+        window.open('https://slice.so', '_blank');
+        setIsProcessing(false);
+        toast({
+          title: "Redirecting to Slice",
+          description: "Complete your purchase on the Off-Human Slice storefront.",
+        });
+        return;
+      }
+
       // Use actual cart total (not hardcoded)
       const usdcAmount = totalPrice;
-      
+
       toast({
         title: "Preparing payment",
         description: `Processing payment of $${usdcAmount.toFixed(2)} USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}...`,
@@ -395,7 +406,7 @@ export default function Checkout() {
         </h1>
 
         <div className="grid lg:grid-cols-[1fr_400px] gap-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 order-2 lg:order-1">
             <Card>
               <CardHeader>
                 <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
@@ -428,7 +439,7 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <button
                     type="button"
                     onClick={() => setSelectedNetwork('base')}
@@ -466,6 +477,25 @@ export default function Checkout() {
                       </p>
                     </div>
                   </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedNetwork('slice')}
+                    className={`p-4 rounded-md border-2 transition-all ${
+                      selectedNetwork === 'slice'
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                    data-testid="button-select-slice"
+                  >
+                    <div className="text-center">
+                      <p className="font-semibold mb-1">Slice</p>
+                      <Badge variant="outline" className="text-xs">BASE</Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Any wallet, ETH or ERC-20
+                      </p>
+                    </div>
+                  </button>
                 </div>
               </CardContent>
             </Card>
@@ -477,7 +507,17 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {selectedNetwork === 'base' ? (
+                {selectedNetwork === 'slice' ? (
+                  <div className="bg-primary/5 border border-primary/20 p-4 rounded-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Wallet className="w-5 h-5 text-primary" />
+                      <p className="text-sm font-medium text-primary">No wallet connection needed</p>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Slice handles wallet connection on their storefront. You'll connect when you checkout — any EVM wallet works.
+                    </p>
+                  </div>
+                ) : selectedNetwork === 'base' ? (
                   !isConnected ? (
                     <div className="bg-muted p-4 rounded-md">
                       <div className="flex items-center gap-2 mb-3">
@@ -549,21 +589,39 @@ export default function Checkout() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="bg-muted p-4 rounded-md">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Badge variant="default">USDC</Badge>
-                    <Badge variant="outline">{selectedNetwork === 'base' ? 'Base' : 'Solana'}</Badge>
-                    <Badge variant="outline" className="bg-primary/10 border-primary text-primary">X402</Badge>
+                {selectedNetwork === 'slice' ? (
+                  <div className="bg-muted p-4 rounded-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Badge variant="outline">ETH</Badge>
+                      <Badge variant="outline">ERC-20</Badge>
+                      <Badge variant="outline" className="bg-primary/10 border-primary text-primary">SLICE</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Purchase on Slice's decentralized storefront. Pay with ETH, USDC, or other ERC-20 tokens on Base. Seller splits handled by SliceCore.
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li>✓ Decentralized — no Off-Human payment middleware</li>
+                      <li>✓ Any EVM wallet, any ERC-20 token</li>
+                      <li>✓ Advances your TrustCoat tier on purchase</li>
+                    </ul>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Pay securely with USDC via x402 protocol on {selectedNetwork === 'base' ? 'Base' : 'Solana'}. Instant settlement, no accounts required.
-                  </p>
-                  <ul className="text-xs text-muted-foreground space-y-1">
-                    <li>✓ Settlement in &lt;1 second</li>
-                    <li>✓ No network fees for you</li>
-                    <li>✓ Powered by {selectedNetwork === 'base' ? 'Base blockchain' : 'Solana blockchain'}</li>
-                  </ul>
-                </div>
+                ) : (
+                  <div className="bg-muted p-4 rounded-md">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Badge variant="default">USDC</Badge>
+                      <Badge variant="outline">{selectedNetwork === 'base' ? 'Base' : 'Solana'}</Badge>
+                      <Badge variant="outline" className="bg-primary/10 border-primary text-primary">X402</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Pay securely with USDC via x402 protocol on {selectedNetwork === 'base' ? 'Base' : 'Solana'}. Instant settlement, no accounts required.
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li>✓ Settlement in &lt;1 second</li>
+                      <li>✓ No network fees for you</li>
+                      <li>✓ Powered by {selectedNetwork === 'base' ? 'Base blockchain' : 'Solana blockchain'}</li>
+                    </ul>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -584,8 +642,10 @@ export default function Checkout() {
               {isProcessing ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Processing Payment...
+                  {selectedNetwork === 'slice' ? 'Opening Slice...' : 'Processing Payment...'}
                 </>
+              ) : selectedNetwork === 'slice' ? (
+                'Checkout on Slice →'
               ) : !isWalletConnected ? (
                 'Connect Wallet to Pay'
               ) : (
@@ -594,7 +654,7 @@ export default function Checkout() {
             </Button>
           </form>
 
-          <div className="lg:sticky lg:top-24 h-fit">
+          <div className="lg:sticky lg:top-24 h-fit order-1 lg:order-2">
             <Card>
               <CardHeader>
                 <CardTitle className="uppercase tracking-wider" style={{ fontFamily: "'Teko', sans-serif" }}>
