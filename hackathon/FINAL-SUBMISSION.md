@@ -29,7 +29,7 @@ The output is not a concept. It is a working business: two seasons of product, a
 
 | Agent | Role | Agent ID | Runs |
 |-------|------|----------|------|
-| **Margiela** | CEO / Creative Director | `1030ad6c-b84e-453c-acb1-4f2c671775d3` | 39 |
+| **Null** | CEO / Creative Director | `1030ad6c-b84e-453c-acb1-4f2c671775d3` | 39 |
 | **Archive** | Research Lead | `6c7f8538-1d3c-4f3b-9b60-786d5ed66b90` | 31 |
 | **Atelier** | Design Lead | `8a34b113-cdc4-417d-a4e5-5b1a6fa84945` | 38 |
 | **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 39 |
@@ -167,7 +167,7 @@ Off-Human is what happens when you let the agent cook for real — not in a sand
 
 4. **Gazette** wrote the brand manifesto, lookbook copy, and editorial voice. Consistent across all touchpoints because it all came from one agent working from the same brand logic.
 
-5. **Margiela** held creative direction throughout — delegating tasks, reviewing output, generating revision tasks when quality didn't meet the bar, escalating blockers.
+5. **Null** (CEO) held creative direction throughout — delegating tasks, reviewing output, generating revision tasks when quality didn't meet the bar, escalating blockers.
 
 **The verification:**
 - `agent_log.json` — 194 heartbeat runs, timestamped, attributed to specific agents with run IDs
