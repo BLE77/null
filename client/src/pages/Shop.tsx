@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Product } from "@shared/schema";
 import { getProductImage } from "@/lib/product-images";
 
-const CATEGORIES = ["all", "tees", "outerwear", "bottoms", "knitwear", "sets", "wearables"];
+const CATEGORIES = ["all", "tees", "hoodies", "overshirts", "jackets", "outerwear", "trousers", "shorts", "tracksuits", "wearables"];
 
 export default function Shop() {
   const [activeCategory, setActiveCategory] = useState("all");

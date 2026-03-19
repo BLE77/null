@@ -4,6 +4,8 @@ import { dbStorage } from "../server/db-storage.js";
 
 export default async function handler(_req: IncomingMessage, res: ServerResponse) {
   try {
+    // Auto-seed if DB is empty (idempotent — no-ops if products already exist)
+    await dbStorage.seedProducts();
     const products = await dbStorage.getAllProducts();
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
