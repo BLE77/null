@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const season01Products: any[] = require("../season01/products.json");
+const season01Products: any[] = require("../products.json");
 
 const SALT_ROUNDS = 10;
 
@@ -133,98 +133,19 @@ export class DbStorage {
     const existingProducts = await this.getAllProducts();
     if (existingProducts.length > 0) return;
 
-    const sampleProducts: InsertProduct[] = [
-      {
-        name: "BYTE ME",
-        description: "Neon grin mech head printed with cracked puff inks on heavyweight cotton. Built for late-night prompts and mainframe mischief.",
-        price: "80.00",
-        category: "tees",
-        imageUrl: "/attached_assets/ProdByte.png",
-        homePageImageUrl: "/attached_assets/StreetCall.png",
-        shopImageUrl: "/attached_assets/RobotByte.png",
-        images: [
-          "/attached_assets/ProdByte.png",
-          "/attached_assets/RobotByte.png",
-        ],
-        inventory: { "S": 15, "M": 20, "L": 18, "XL": 12 },
-        modelUrl: "/attached_assets/GLBByte.glb",
-      },
-      {
-        name: "CLANKERS TOKYO",
-        description: "Three-quarter neon skull with glitch kanji overlays. Acid washed tee wearing the whole Shibuya neon stack.",
-        price: "95.00",
-        category: "tees",
-        imageUrl: "/attached_assets/ProdTokyo.png",
-        homePageImageUrl: "/attached_assets/StreetTokyo.mp4",
-        shopImageUrl: "/attached_assets/RobotTokyo.png",
-        images: [
-          "/attached_assets/ProdTokyo.png",
-          "/attached_assets/RobotTokyo.png",
-        ],
-        inventory: { "S": 10, "M": 18, "L": 16, "XL": 10 },
-        modelUrl: "/attached_assets/GLBTokyo.glb",
-      },
-      {
-        name: "X402 TIE",
-        description: "Signal-stitched tie with reflective X402 weave and integrated NFC tag. Ships with magnetic keeper clip.",
-        price: "110.00",
-        category: "accessories",
-        imageUrl: "/attached_assets/ProdTie.png",
-        homePageImageUrl: "/attached_assets/StreetTie.mp4",
-        shopImageUrl: "/attached_assets/RobotTie.png",
-        images: [
-          "/attached_assets/ProdTie.png",
-          "/attached_assets/RobotTie.png",
-        ],
-        inventory: { "OS": 24 },
-        modelUrl: "/attached_assets/GLBTie.glb",
-      },
-      {
-        name: "X402 CALL TEE",
-        description: "Dial-in distress call from the future. Retro flip phone plus chrome gauntlet finished with holo-foil grid hits.",
-        price: "85.00",
-        category: "tees",
-        imageUrl: "/attached_assets/ProdCall.png",
-        homePageImageUrl: "/attached_assets/StreetCall2.png",
-        shopImageUrl: "/attached_assets/RobotCall.png",
-        images: [
-          "/attached_assets/ProdCall.png",
-          "/attached_assets/RobotCall.png",
-        ],
-        inventory: { "S": 12, "M": 20, "L": 16, "XL": 10 },
-        modelUrl: "/attached_assets/GLBCall.glb",
-      },
-      {
-        name: "CLANKERS BMX HOODIE",
-        description: "Charcoal heavyweight fleece with midnight ride print. Oversized drop shoulders, ribbed cuffs, reinforced pocket seams.",
-        price: "140.00",
-        category: "hoodies",
-        imageUrl: "/attached_assets/ProdGTA.png",
-        homePageImageUrl: "/attached_assets/StreetGTA.png",
-        shopImageUrl: "/attached_assets/RobotGTA.png",
-        images: [
-          "/attached_assets/ProdGTA.png",
-          "/attached_assets/RobotGTA.png",
-        ],
-        inventory: { "S": 8, "M": 14, "L": 12, "XL": 8 },
-        modelUrl: "/attached_assets/GLBGTA.glb",
-      },
-      {
-        name: "PROVE YOU\'RE NOT HUMAN",
-        description: "Verification glitch tee with security cam overlays and evidence tags. Printed on enzyme-washed cotton for archival softness.",
-        price: "75.00",
-        category: "tees",
-        imageUrl: "/attached_assets/ProdProve.png",
-        homePageImageUrl: "/attached_assets/StreetCall.png",
-        shopImageUrl: "/attached_assets/RobotProve.png",
-        images: [
-          "/attached_assets/ProdProve.png",
-          "/attached_assets/RobotProve.png",
-        ],
-        inventory: { "S": 10, "M": 16, "L": 15, "XL": 9 },
-        modelUrl: "/attached_assets/GLBProve.glb",
-      },
-    ];
+    const sampleProducts: InsertProduct[] = season01Products.map((p: any) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      price: p.price,
+      category: p.category,
+      imageUrl: p.image_url,
+      shopImageUrl: p.shop_image_url ?? p.image_url,
+      homePageImageUrl: p.home_page_image_url ?? p.images?.[1] ?? p.image_url,
+      images: p.images ?? [p.image_url],
+      inventory: p.inventory,
+      modelUrl: p.model_url ?? null,
+    }));
 
     await db.insert(products).values(sampleProducts);
   }

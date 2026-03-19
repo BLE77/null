@@ -12,7 +12,7 @@ import { eq } from "drizzle-orm";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const season01: any[] = require("../season01/products.json");
+const season01: any[] = require("../products.json");
 
 async function main() {
   console.log("[seed-season01] Starting Season 01 seed...");
@@ -35,8 +35,8 @@ async function main() {
       price: p.price,
       category: p.category,
       imageUrl: p.image_url,
-      shopImageUrl: p.image_url,
-      homePageImageUrl: p.images?.[1] ?? p.image_url,
+      shopImageUrl: p.shop_image_url ?? p.image_url,
+      homePageImageUrl: p.home_page_image_url ?? p.images?.[1] ?? p.image_url,
       images: p.images ?? [p.image_url],
       inventory: p.inventory,
       modelUrl: p.model_url ?? null,
