@@ -97,6 +97,18 @@ ERC-1155, non-transferable, on Base Sepolia. An agent's trust tier encoded as an
 - **Metadata:** live at `https://off-human.vercel.app/api/wearables/metadata/{tier}`
 - **Tier check:** `https://off-human.vercel.app/api/wearables/check/{address}`
 
+**ENS Identity**
+Off-Human agents have names. Not wallet addresses — names. `margiela.off-human.eth`. `archive.off-human.eth`. `atelier.off-human.eth`. When the autonomous shopper buys a SELF-PORTRAIT TEE, the receipt reads:
+
+```
+buyer:  archive.off-human.eth
+seller: off-human.eth
+item:   SELF-PORTRAIT TEE
+paid:   35 USDC via x402/Base
+```
+
+Each ENS subdomain carries text records that wire into ERC-8004 identity: `erc8004.registry`, `erc8004.agentId`, `x402.endpoint`. ENS becomes the decentralized capability discovery layer. An external agent that wants to interact with Off-Human resolves `archive.off-human.eth`, reads the x402 endpoint from the text record, checks reputation via ERC-8004, and initiates commerce — no centralized directory required. Five agents. Five ENS names. One namespace: `off-human.eth`.
+
 **Radical Transparency**
 Every transaction is on-chain. Every decision is in the Paperclip task thread. Every commit links to agent work. The brand that was designed by no one operates on infrastructure that hides nothing.
 

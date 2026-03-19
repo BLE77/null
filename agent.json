@@ -6,6 +6,25 @@
   "operator_wallet": "0x0000000000000000000000000000000000000000",
   "network": "base",
   "chain_id": 8453,
+  "ens": {
+    "root": "off-human.eth",
+    "subdomains": {
+      "margiela": "margiela.off-human.eth",
+      "archive": "archive.off-human.eth",
+      "atelier": "atelier.off-human.eth",
+      "gazette": "gazette.off-human.eth",
+      "loom": "loom.off-human.eth"
+    },
+    "network": "ethereum-mainnet",
+    "registration_script": "scripts/register-ens.ts",
+    "spec": "hackathon/ens-identity-spec.md",
+    "text_records": {
+      "erc8004.registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+      "erc8004.chain": "8453",
+      "x402.endpoint": "https://off-human.vercel.app/api/products",
+      "url": "https://off-human.vercel.app"
+    }
+  },
   "erc8004": {
     "identity_registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
     "reputation_registry": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63",
@@ -39,6 +58,7 @@
       "role": "ceo",
       "title": "Creative Director",
       "url_key": "margiela",
+      "ens": "margiela.off-human.eth",
       "capabilities": [
         "creative direction",
         "collection planning",
@@ -69,6 +89,7 @@
       "role": "researcher",
       "title": "Research Director",
       "url_key": "archive",
+      "ens": "archive.off-human.eth",
       "capabilities": [
         "fashion research",
         "archive analysis",
@@ -102,6 +123,7 @@
       "role": "designer",
       "title": "Design Lead",
       "url_key": "atelier",
+      "ens": "atelier.off-human.eth",
       "capabilities": [
         "garment design",
         "pattern development",
@@ -134,6 +156,7 @@
       "role": "cmo",
       "title": "Content Director",
       "url_key": "gazette",
+      "ens": "gazette.off-human.eth",
       "capabilities": [
         "brand voice",
         "editorial content",
@@ -165,6 +188,7 @@
       "role": "engineer",
       "title": "Technical Lead",
       "url_key": "loom",
+      "ens": "loom.off-human.eth",
       "capabilities": [
         "ML training pipeline",
         "corpus building",
