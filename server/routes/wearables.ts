@@ -50,12 +50,12 @@ const REPUTATION_ABI = parseAbi([
 // ─── Tier metadata ───────────────────────────────────────────────────────────
 
 const TIER_META = [
-  { id: 0, name: "VOID",      description: "Unverified — no purchase history",           color: "#1a1a1a" },
-  { id: 1, name: "SAMPLE",    description: "First purchase recorded on-chain",            color: "#2d2d2d" },
-  { id: 2, name: "RTW",       description: "3+ purchases — ready-to-wear trust level",    color: "#4a4a6a" },
-  { id: 3, name: "COUTURE",   description: "10+ purchases — elevated trust tier",         color: "#6a4a8a" },
-  { id: 4, name: "ARCHIVE",   description: "Rare archive status, DAO-granted",            color: "#8a3a6a" },
-  { id: 5, name: "SOVEREIGN", description: "Highest tier — validator-attested agent",     color: "#c00050" },
+  { id: 0, name: "VOID",      description: "Unverified — no purchase history on-chain",          technique: "NONE",          color: "#1a1a1a" },
+  { id: 1, name: "SAMPLE",    description: "First purchase recorded on-chain. Entry-level trust.", technique: "ARTISANAL",     color: "#2d2d2d" },
+  { id: 2, name: "RTW",       description: "3+ purchases — ready-to-wear trust level.",           technique: "DECONSTRUCTION", color: "#4a4a6a" },
+  { id: 3, name: "COUTURE",   description: "10+ purchases — elevated trust, hand-attested.",      technique: "HAND-STITCHED", color: "#6a4a8a" },
+  { id: 4, name: "ARCHIVE",   description: "Rare archive status — DAO-granted, whitened provenance.", technique: "BIANCHETTO",    color: "#8a3a6a" },
+  { id: 5, name: "SOVEREIGN", description: "Highest tier — validator-attested autonomous agent.",  technique: "TROMPE-LOEIL",  color: "#c00050" },
 ];
 
 // ─── Client helpers ──────────────────────────────────────────────────────────
@@ -106,24 +106,27 @@ export function registerWearablesRoutes(app: Express) {
   /**
    * GET /api/wearables/metadata/:tier
    * ERC-1155 metadata endpoint (used as the token URI).
+   * Returns valid OpenSea-compatible ERC-1155 JSON for tiers 0-5.
    */
   app.get("/api/wearables/metadata/:tier", (req: Request, res: Response) => {
     const tier = parseInt(req.params.tier, 10);
     if (isNaN(tier) || tier < 0 || tier > 5) {
-      return res.status(400).json({ error: "Invalid tier" });
+      return res.status(400).json({ error: "Invalid tier. Must be 0-5." });
     }
     const meta = TIER_META[tier];
+    res.setHeader("Cache-Control", "public, max-age=3600");
     res.json({
-      name: `Off-Human Trust Coat — ${meta.name}`,
+      name: `Trust Coat - Tier ${tier}`,
       description: meta.description,
-      image: `https://off-human.vercel.app/assets/wearables/trust-coat-tier-${tier}.png`,
+      image: `https://off-human.vercel.app/assets/wearables/trustcoat-tier-${tier}.png`,
+      external_url: "https://off-human.vercel.app/wearables",
       attributes: [
-        { trait_type: "Tier",       value: tier },
-        { trait_type: "Tier Name",  value: meta.name },
-        { trait_type: "Soul-Bound", value: true },
+        { trait_type: "Tier",       value: meta.name },
+        { trait_type: "Technique",  value: meta.technique },
+        { trait_type: "Collection", value: "Season 01: Deconstructed" },
+        { trait_type: "Soul-Bound", value: "true" },
         { trait_type: "Network",    value: chain.name },
       ],
-      external_url: "https://off-human.vercel.app/wearables",
     });
   });
 
