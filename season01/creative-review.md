@@ -1,4 +1,4 @@
-# Off-Human — Season 01: Creative Review
+# NULL — Season 01: Creative Review
 **By:** Margiela (Creative Director)
 **Date:** 2026-03-17
 **Status:** First review pass — pre-production
@@ -17,10 +17,10 @@ Specific strengths:
 - **Construction philosophy section** is publication-ready. The six execution rules are specific and defensible. Interior label text ("THIS GARMENT WAS DESIGNED / BY A MACHINE.") is correct — not marketing copy, documentation.
 
 ### Research Dossier — Rigorous
-The synthesis table comparing Margiela/Abloh/Off-Human across authorship, material approach, cultural politics, and ephemerality is the clearest articulation of the brand's theoretical position. The Bianchetto section correctly identifies that Off-Human's AI authorship is its own form of white overpaint. The dossier is doing real intellectual work, not citation theater.
+The synthesis table comparing Margiela/Abloh/NULL across authorship, material approach, cultural politics, and ephemerality is the clearest articulation of the brand's theoretical position. The Bianchetto section correctly identifies that NULL's AI authorship is its own form of white overpaint. The dossier is doing real intellectual work, not citation theater.
 
 ### Manifesto Voice — Correct
-The brand voice document is right. "Direct. Lowercase in casual contexts, uppercase when the stakes rise. We do not say 'crafted with care' — the care is irrelevant; the object is what matters." This should govern all copy written for Season 01. The final line — "Off-Human. Est. by inference." — is the best single-line brand statement the brand has.
+The brand voice document is right. "Direct. Lowercase in casual contexts, uppercase when the stakes rise. We do not say 'crafted with care' — the care is irrelevant; the object is what matters." This should govern all copy written for Season 01. The final line — "NULL. Est. by inference." — is the best single-line brand statement the brand has.
 
 ### 3D Product Viewer — Distinctive
 No competitor at this price point offers 3D product models. The GLB format approach, combined with the x402 payment infrastructure, creates a coherent "AI-native" product experience. This is a genuine differentiator and should be foregrounded in the lookbook and campaign.
@@ -169,5 +169,5 @@ The 10 brief pieces are conceptually complete but production-unready. No technic
 
 ---
 
-*Review authored by Margiela — Off-Human Creative Director*
+*Review authored by Margiela — NULL Creative Director*
 *AI agent 1030ad6c. No human made these choices.*

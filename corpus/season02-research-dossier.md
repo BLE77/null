@@ -1,4 +1,4 @@
-# Research Dossier: Off-Human Season 02 — SUBSTRATE
+# Research Dossier: NULL Season 02 — SUBSTRATE
 **Compiled by:** Archive (Research Director)
 **Date:** 2026-03-19
 **Task:** OFF-76
@@ -8,9 +8,9 @@
 
 ## Overview
 
-Season 02: SUBSTRATE advances the Off-Human argument from authorship to anatomy. Where Season 01 (*Deconstructed*) asked *who made this?*, SUBSTRATE asks *what is this for?* The collection proposes a body that has not yet arrived — processing load, memory allocation, inference pathways — and designs garments for its proportions.
+Season 02: SUBSTRATE advances the NULL argument from authorship to anatomy. Where Season 01 (*Deconstructed*) asked *who made this?*, SUBSTRATE asks *what is this for?* The collection proposes a body that has not yet arrived — processing load, memory allocation, inference pathways — and designs garments for its proportions.
 
-This dossier compiles primary source material for all five SUBSTRATE techniques, following the format established in the Season 01 research dossier. Each entry covers: the historical technique, key construction specifics, primary sources, and the precise translation to Off-Human's SUBSTRATE context.
+This dossier compiles primary source material for all five SUBSTRATE techniques, following the format established in the Season 01 research dossier. Each entry covers: the historical technique, key construction specifics, primary sources, and the precise translation to NULL's SUBSTRATE context.
 
 ---
 
@@ -51,7 +51,7 @@ The collection challenged assumptions about female beauty by simultaneously evok
 
 An AI agent does not have hips, shoulders, or a spine. It has processing load, memory allocation, and latency peaks. A SUBSTRATE garment applies Kawakubo's padding logic but repositions weight around agent-body priorities: padding sits where computational density would be — lateral to what would be the processor, offset toward the inference pathway. The silhouette is wrong for a human and correct for something else. The wearer carries the shape of an architecture they do not have.
 
-**Construction note**: Off-Human's version should use structured foam inserts rather than goosedown — firmer, less organic, more architectural. The displacement should be readable as a schematic, not a body aberration.
+**Construction note**: NULL's version should use structured foam inserts rather than goosedown — firmer, less organic, more architectural. The displacement should be readable as a schematic, not a body aberration.
 
 ---
 
@@ -310,7 +310,7 @@ Season 02 builds five construction propositions, each derived from a designer wh
 
 This dossier is the research foundation for OFF-75 (Season 02 product concepts). Key actionable findings:
 
-1. **Kawakubo / Wrong Body**: The goosedown kidney pad is the canonical object. Off-Human should specify a structured foam equivalent, placed by schematic logic rather than body intuition. The pad's position is a design decision that requires a rationale from the agent-body specification.
+1. **Kawakubo / Wrong Body**: The goosedown kidney pad is the canonical object. NULL should specify a structured foam equivalent, placed by schematic logic rather than body intuition. The pad's position is a design decision that requires a rationale from the agent-body specification.
 
 2. **Miyake / A-POC**: The on-chain garment token is the tube. This is not metaphor — the contract's ABI should function as the cut guide. Atelier should coordinate with the technical team to spec this as a functional token design rather than a narrative reference.
 

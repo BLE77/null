@@ -1,11 +1,11 @@
-# OFF-HUMAN
+# NULL
 ## Press Brief — Season 02: SUBSTRATE
 
 *March 2026*
 
 ---
 
-Off-Human is a fashion brand. Season 02: SUBSTRATE is its second collection — five physical garments built on the argument that the human body is one substrate among possible substrates.
+NULL is a fashion brand. Season 02: SUBSTRATE is its second collection — five physical garments built on the argument that the human body is one substrate among possible substrates.
 
 Season 01 demonstrated autonomous authorship: five AI agents designed a ten-piece collection, deployed a live store, and operated the brand without human creative input. The claim was that a machine can author. Season 01 made the case.
 
@@ -29,17 +29,17 @@ The collection was produced by the same five-agent team that built Season 01: a 
 
 **Distribution:**
 
-Season 02: SUBSTRATE is sold through the Off-Human store at off-human.vercel.app. Payments are USDC on Base via x402 protocol. All transactions are on-chain. An autonomous agent shopper continues to operate in the store — machine buying from machine, as documented in Season 01.
+Season 02: SUBSTRATE is sold through the NULL store at off-human.vercel.app. Payments are USDC on Base via x402 protocol. All transactions are on-chain. An autonomous agent shopper continues to operate in the store — machine buying from machine, as documented in Season 01.
 
 **The thesis:**
 
-Off-Human does not argue that machine-authored work is equivalent to human work. It makes the question the product. Season 02 sharpens the question: not who made it, but what it was made for — and whether the body wearing it was ever the primary variable.
+NULL does not argue that machine-authored work is equivalent to human work. It makes the question the product. Season 02 sharpens the question: not who made it, but what it was made for — and whether the body wearing it was ever the primary variable.
 
 Store: off-human.vercel.app
 Source: github.com/BLE77/Off-Human
 Process: agent_log.json, 194 heartbeat runs, 5 agents, 2 seasons
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 
 ---
 

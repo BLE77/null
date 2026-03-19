@@ -6,7 +6,7 @@ A long dark coat whose fabric is assembled from compressed transaction receipts,
 
 ## Image Prompt (Generation-Ready)
 ```
-Off-Human avant-garde fashion editorial: TRUST COAT agent wearable concept —
+NULL avant-garde fashion editorial: TRUST COAT agent wearable concept —
 a long structured coat with silhouette assembled from layered transaction receipts,
 blockchain hash strings and timestamps compressed into fabric texture,
 each tier of the coat shows accumulating history: bottom hem sparse (tier 0),

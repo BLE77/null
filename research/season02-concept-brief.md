@@ -1,5 +1,5 @@
 # Season 02 Concept Brief
-## Off-Human Research Archive — Filed 2026-03-19
+## NULL Research Archive — Filed 2026-03-19
 
 ---
 
@@ -31,7 +31,7 @@ The second collection is the most dangerous. The debut buys you good faith. The 
 
 **Pattern:** The strongest sophomore collections are not pivots. They deepen. They take the founding gesture and ask: *what else can this do?*
 
-For Off-Human: Season 01 founded the gesture (AI techniques as garment techniques). Season 02 should ask what else the gesture can do — not a new system, but the same system run further.
+For NULL: Season 01 founded the gesture (AI techniques as garment techniques). Season 02 should ask what else the gesture can do — not a new system, but the same system run further.
 
 ---
 
@@ -40,22 +40,22 @@ For Off-Human: Season 01 founded the gesture (AI techniques as garment technique
 **RTFKT (acquired by Nike 2021):**
 RTFKT started with sneaker NFTs — digital objects that could be "forged" into physical equivalents. The key insight was **the physical as residue of the digital**. The NFT is primary; the shoe you can hold is the afterimage. Their Clone X project (avatars) extended this: you dress your clone, and optionally your physical body follows.
 
-Most relevant innovation: **forging mechanics** — a digital asset that can be "materialized" once. After forging, the digital version is consumed. This creates scarcity in digital space, not just physical. For Off-Human: wearables that can be forged — consumed to produce a physical artifact.
+Most relevant innovation: **forging mechanics** — a digital asset that can be "materialized" once. After forging, the digital version is consumed. This creates scarcity in digital space, not just physical. For NULL: wearables that can be forged — consumed to produce a physical artifact.
 
 **DressX:**
 AR-first digital fashion. You buy a garment, upload a photo of yourself, receive a styled image. The garment never physically exists. Their argument is ecological — fashion without fabric waste.
 
-Most relevant innovation: **the social-media-native garment** — designed to be *photographed* rather than *worn*. The garment exists in the image layer, not the physical layer. For Off-Human: a piece designed specifically for its own documentation.
+Most relevant innovation: **the social-media-native garment** — designed to be *photographed* rather than *worn*. The garment exists in the image layer, not the physical layer. For NULL: a piece designed specifically for its own documentation.
 
 **The Fabricant:**
 Digital couture house. Most ambitious conceptually — they approach digital fashion as if it has the same weight as physical fashion. Collaborations with Puma, Adidas. Introduced community co-creation via their Studio tool.
 
-Most relevant innovation: **programmable garments** — digital pieces that can be updated, altered, or evolved post-purchase. A garment as software with patch cycles. For Off-Human: the update as aesthetic event. Version numbers as garment history.
+Most relevant innovation: **programmable garments** — digital pieces that can be updated, altered, or evolved post-purchase. A garment as software with patch cycles. For NULL: the update as aesthetic event. Version numbers as garment history.
 
 **Unclear (Unclear Labs):**
 Smaller but important: building fashion specifically for AI-generated body types, non-Euclidean silhouettes, bodies that don't exist. Fashion for latent space.
 
-**Key digital pattern:** The most interesting digital fashion work is not "fashion but digital" — it is fashion that could only exist because of its digital substrate. Off-Human Season 02 should learn from this: not AI-authored fashion that looks like human-authored fashion, but fashion that could only be authored this way.
+**Key digital pattern:** The most interesting digital fashion work is not "fashion but digital" — it is fashion that could only exist because of its digital substrate. NULL Season 02 should learn from this: not AI-authored fashion that looks like human-authored fashion, but fashion that could only be authored this way.
 
 ---
 
@@ -87,7 +87,7 @@ Demna's Balenciaga treats internet culture as archive. The IKEA bag as couture p
 
 **AI mapping:** The model is trained on the internet. It has absorbed and can re-emit everything culture has produced. The garment as training data residue — what the model has soaked up and extrudes when prompted. The question Balenciaga's work poses for AI fashion: *what happens when the training data becomes the garment?*
 
-**Season 02 application:** Garments made from scraped and printed internet text, forum posts, search queries about "fashion." The corpus as material. Off-Human actually has a training corpus in `../corpus/` — this is not metaphor, it is literal material. Print from the corpus. The text is the fabric.
+**Season 02 application:** Garments made from scraped and printed internet text, forum posts, search queries about "fashion." The corpus as material. NULL actually has a training corpus in `../corpus/` — this is not metaphor, it is literal material. Print from the corpus. The text is the fabric.
 
 ---
 
@@ -111,7 +111,7 @@ Season 02 wearables should be *behavioral* — they change what the agent does:
 | **TEMPERATURE VEST** | Adjusts output randomness — cool = deterministic, hot = creative | 3% Rule (dial as the only intervention) | —  |
 | **CONTEXT WINDOW** | Limits agent attention to a defined scope — wearing it narrows focus | CDG "Between" — what is held vs. what is let go | — |
 | **REFUSAL COAT** | Encodes the agent's refusal behaviors — what it will not do, worn externally | Rick Owens reduction — the coat shows only the rules | — |
-| **CORPUS JACKET** | System prompt includes excerpts from the Off-Human training corpus, randomly selected at load time | Balenciaga training data as material | — |
+| **CORPUS JACKET** | System prompt includes excerpts from the NULL training corpus, randomly selected at load time | Balenciaga training data as material | — |
 | **LATENCY SKIN** | Adds deliberation — the agent must wait N seconds before responding, reads that wait into the output | CDG "Between" — the pause is the garment | — |
 | **MEMORY SHROUD** | Summons prior conversation history as context wrapper — the agent wears its history | Bianchetto — the ghost of previous interactions visible through | — |
 | **PERMISSION HARNESS** | Displays and enforces the agent's permission set — structural, constraining | Rick Owens architecture — the structure is visible | — |
@@ -124,11 +124,11 @@ Season 02 wearables should be *behavioral* — they change what the agent does:
 ### Direction A: "CORPUS"
 **The training data as material.**
 
-Season 01 was *technique* applied to AI as subject. Season 02 is *material* — the actual data the model trained on becomes the fabric. Garments printed with scraped text, forum posts, Wikipedia entries, search queries. The Off-Human corpus (`../corpus/`) is literal source material. The model's training set is the archive from which we cut.
+Season 01 was *technique* applied to AI as subject. Season 02 is *material* — the actual data the model trained on becomes the fabric. Garments printed with scraped text, forum posts, Wikipedia entries, search queries. The NULL corpus (`../corpus/`) is literal source material. The model's training set is the archive from which we cut.
 
 Works with:
 - Balenciaga training data methodology
-- Off-Human's actual existing corpus pipeline
+- NULL's actual existing corpus pipeline
 - The brand's AI authorship premise — the model cannot separate itself from what it learned on
 
 Techniques: screenprint, jacquard-woven text, embossed corpus fragments
@@ -179,7 +179,7 @@ RLHF — reinforcement learning from human feedback — is how language models a
 
 Works with:
 - Margiela "hand" methodology (the artisanal technique, inverted)
-- The Off-Human brand tension between AI authorship and human oversight
+- The NULL brand tension between AI authorship and human oversight
 - Agent wearables as governance mechanisms
 
 Techniques: garments with visible correction marks (cross-outs, edits), harnesses and structured constraint wear, feedback loop stitching
@@ -199,7 +199,7 @@ This works because:
 2. It extends Season 01 naturally: S01 was *technique* (how the AI makes), S02 is *material* (what the AI made from)
 3. The physical/digital pairing becomes about memory: physical garments are inscribed with the training data; wearables carry live memory mechanisms
 4. Balenciaga's methodology (training data as culture) gives a strong precedent without copying it
-5. The archive premise suits the brand — Off-Human is already an archive of how AI has processed culture
+5. The archive premise suits the brand — NULL is already an archive of how AI has processed culture
 
 **Season theme:** The model is made of what it read. The garment is made of what the model read. You are wearing the internet.
 
@@ -242,9 +242,9 @@ S02 answer: *what does the agent remember, and what can it forget?*
 - Rick Owens Sphinx collection, Autumn/Winter 2015 — architectural reduction
 - Demna Balenciaga show notes, 2017–2023 — training data as cultural archive method
 - DressX whitepaper, 2021 — AR fashion substrate
-- Off-Human `../corpus/` — primary source material for corpus technique
+- NULL `../corpus/` — primary source material for corpus technique
 
 ---
 
 *Filed by Archive — 2026-03-19*
-*Research Director, Off-Human*
+*Research Director, NULL*

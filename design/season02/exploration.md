@@ -18,7 +18,7 @@ The proposed Season 02 title: **SUBSTRATE**
 
 ## 01 — Technique Candidates
 
-Five construction and conceptual techniques from fashion history not used in Season 01. Each extends the Off-Human argument in a different direction.
+Five construction and conceptual techniques from fashion history not used in Season 01. Each extends the NULL argument in a different direction.
 
 ---
 

@@ -1,4 +1,4 @@
-# Off-Human: Build Story
+# NULL: Build Story
 ## OpenServ Hackathon — Best Build Story Track
 
 ---
@@ -108,7 +108,7 @@ No human sees this. No human approves it.
 **12/**
 Quality control for images: FashionCLIP.
 
-scripts/style_check.py scores generated images against Off-Human aesthetic (avant-garde, Margiela artisanal, conceptual) vs. generic (plain casual, fast fashion).
+scripts/style_check.py scores generated images against NULL aesthetic (avant-garde, Margiela artisanal, conceptual) vs. generic (plain casual, fast fashion).
 
 Fail = regenerate with pushed prompt. No human taste arbiter.
 
@@ -158,7 +158,7 @@ The choices are in the git history.
 ---
 
 **17/**
-Off-Human.
+NULL.
 Built by agents. For agents and humans alike.
 
 Season 01: DECONSTRUCTED — live now.
@@ -172,7 +172,7 @@ The brand that was designed by no one.
 
 # Five Agents Built a Fashion Brand. Here's What Actually Happened.
 
-Off-Human is a fashion brand. It has a manifesto, ten garments, a product catalog with prices in USDC, a live Vercel deployment, and an on-chain identity layer for AI agents. It also has something most fashion brands don't: no human in the creative process.
+NULL is a fashion brand. It has a manifesto, ten garments, a product catalog with prices in USDC, a live Vercel deployment, and an on-chain identity layer for AI agents. It also has something most fashion brands don't: no human in the creative process.
 
 This is the build log. Not the pitch — the documentation. What happened, how, and what it looked like from inside the system.
 
@@ -182,7 +182,7 @@ This is the build log. Not the pitch — the documentation. What happened, how, 
 
 The first question when building with multiple AI agents isn't creative — it's operational. How do five agents coordinate without creating race conditions, duplicate work, or undefined state between runs?
 
-The answer in Off-Human's case was Paperclip: a task coordination layer where each agent has a defined role, a reporting relationship, and an inbox. Agents run in bounded heartbeat windows — they wake when assigned work, execute within a time-bounded run, and exit. They don't run continuously.
+The answer in NULL's case was Paperclip: a task coordination layer where each agent has a defined role, a reporting relationship, and an inbox. Agents run in bounded heartbeat windows — they wake when assigned work, execute within a time-bounded run, and exit. They don't run continuously.
 
 The protocol is simple and strict:
 
@@ -254,7 +254,7 @@ While Atelier developed garment designs, Loom built the store.
 
 The stack: React 18 with Tailwind CSS and Framer Motion for the frontend. A Three.js 3D product viewer for model visualization. Express.js backend with Drizzle ORM and Neon serverless PostgreSQL. Vercel deployment with Vercel Blob for asset storage.
 
-The payment infrastructure was the hard part. Off-Human uses x402: a protocol where the store returns `402 Payment Required` with payment terms before serving any purchase. The agent's wallet handles the payment. No checkout flow. No human approval. USDC moves on Base. The order completes.
+The payment infrastructure was the hard part. NULL uses x402: a protocol where the store returns `402 Payment Required` with payment terms before serving any purchase. The agent's wallet handles the payment. No checkout flow. No human approval. USDC moves on Base. The order completes.
 
 The x402 implementation required multiple iteration cycles. The commit history shows the actual texture of autonomous debugging:
 
@@ -270,7 +270,7 @@ Each commit: identify the specific failure, propose an approach, implement, test
 
 The cleanest demonstration of autonomous process is `scripts/agent-shopper.ts`.
 
-The agent browses the Off-Human product API, sends the product list to GPT-4 with a configured personality and budget, receives a purchasing decision with reasoning, initiates the purchase request, handles the 402 response by signing and sending USDC on Base through the viem wallet, waits for PayAI facilitator verification, and receives an order confirmation with the transaction hash.
+The agent browses the NULL product API, sends the product list to GPT-4 with a configured personality and budget, receives a purchasing decision with reasoning, initiates the purchase request, handles the 402 response by signing and sending USDC on Base through the viem wallet, waits for PayAI facilitator verification, and receives an order confirmation with the transaction hash.
 
 No human sees this flow. No human approves the purchase. The agent has a wallet, a budget, preferences, and access to the store. The rest is autonomous.
 
@@ -282,7 +282,7 @@ This is the full loop: agents built the store, an agent runs the store, an agent
 
 How do you enforce aesthetic quality without a human taste arbiter?
 
-For generated product images: FashionCLIP. `scripts/style_check.py` scores images against Off-Human aesthetic concepts (avant-garde, Margiela artisanal, conceptual, editorial) versus generic categories (basic streetwear, plain casual, fast fashion). Images that score below threshold get regenerated with more pushed prompts. The style checker runs after every image generation cycle.
+For generated product images: FashionCLIP. `scripts/style_check.py` scores images against NULL aesthetic concepts (avant-garde, Margiela artisanal, conceptual, editorial) versus generic categories (basic streetwear, plain casual, fast fashion). Images that score below threshold get regenerated with more pushed prompts. The style checker runs after every image generation cycle.
 
 For design decisions: internal consistency with the research-established framework. A design that produces pastels, visible logos, or aspirational warmth is not a valid design — not because any agent disliked it, but because it violates the framework Archive established. The framework is the taste arbiter.
 
@@ -310,7 +310,7 @@ The operator did not approve designs, review copy, make product decisions, or di
 
 The operator configured the environment in which agents could work. The same way a factory is human-built but not human-operated at the point of production.
 
-Off-Human is not AI-assisted. It is AI-directed, with human infrastructure support. The distinction matters because "AI-assisted" implies a human in the creative loop who uses AI as a tool. That's not what happened here. The agents held the creative brief. The agents made the decisions. The agents produced the output.
+NULL is not AI-assisted. It is AI-directed, with human infrastructure support. The distinction matters because "AI-assisted" implies a human in the creative loop who uses AI as a tool. That's not what happened here. The agents held the creative brief. The agents made the decisions. The agents produced the output.
 
 The manifesto, the product names, the design logic, the price architecture, the payment system, the agent wearables category — all agent output. The operator's creative input was: let them run.
 
@@ -338,6 +338,6 @@ The decisions are in the git history.
 
 ---
 
-*Off-Human. Built by agents. For agents and humans alike.*
+*NULL. Built by agents. For agents and humans alike.*
 *Season 01: DECONSTRUCTED — available now.*
 *The brand that was designed by no one.*

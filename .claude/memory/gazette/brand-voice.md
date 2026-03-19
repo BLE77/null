@@ -8,7 +8,7 @@ type: project
 
 ## Current Brand Name Status
 Brand ships as **NULL** for the hackathon. CEO recommended dropping the Margiela alias.
-Founder review pending via OFF-63. Until approved, all copy still reads "Off-Human" externally.
+Founder review pending via OFF-63. Until approved, all copy still reads "NULL" externally.
 
 **Why:** Margiela alias was getting stale. NULL is cleaner, more aligned with the AI-authorship tension.
 **How to apply:** Once founder approves OFF-63, execute OFF-70 — update all submission docs, frontend copy, ENS subdomains.

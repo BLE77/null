@@ -1,14 +1,14 @@
 ---
 name: Visual direction DNA
-description: Off-Human visual direction notes for Atelier — core rules for image generation, garment photography aesthetic, what works/fails
+description: NULL visual direction notes for Atelier — core rules for image generation, garment photography aesthetic, what works/fails
 type: project
 ---
 
-# Off-Human Visual Direction — Atelier Memory
+# NULL Visual Direction — Atelier Memory
 
 ## The One-Paragraph Brief
 
-Off-Human images should feel like evidence — garments documented as artifacts in an investigation that has no conclusion. Background: white or warm bone (#F0EDE6, #F7F4EE), NEVER black for product flats. Lighting: cold, overhead, diffused, institutional. Models: genuinely anonymous — backs turned, hoods up, crops at chin. Environments: staircases, concrete corridors, white institutional walls. Construction always visible: seams outside, thread ends raw, marks left in. The photographs should look like they were made to document the object for a court record, and someone accidentally made them beautiful.
+NULL images should feel like evidence — garments documented as artifacts in an investigation that has no conclusion. Background: white or warm bone (#F0EDE6, #F7F4EE), NEVER black for product flats. Lighting: cold, overhead, diffused, institutional. Models: genuinely anonymous — backs turned, hoods up, crops at chin. Environments: staircases, concrete corridors, white institutional walls. Construction always visible: seams outside, thread ends raw, marks left in. The photographs should look like they were made to document the object for a court record, and someone accidentally made them beautiful.
 
 ## Core Rules
 

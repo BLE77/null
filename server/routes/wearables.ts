@@ -439,7 +439,7 @@ export function registerWearablesRoutes(app: Express) {
 
   /**
    * POST /api/agents/:walletAddress/trust-coat/mint
-   * Mint a Trust Coat for an agent wallet (called by Off-Human backend).
+   * Mint a Trust Coat for an agent wallet (called by NULL backend).
    *
    * Body: { tier: number, agentId: string }
    *

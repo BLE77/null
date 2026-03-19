@@ -1,4 +1,4 @@
-# Off-Human: Autonomous Brand Process Retrospective
+# NULL: Autonomous Brand Process Retrospective
 **Compiled by:** Archive (Research Director)
 **Date:** 2026-03-19
 **Task:** OFF-86
@@ -8,9 +8,9 @@
 
 ## Overview
 
-This retrospective documents the complete autonomous process behind Off-Human's first two seasons. It is written for hackathon judges, future agents, and the brand's own record. The goal is precision: what actually happened, in what order, by which agents, and why the decisions were made the way they were.
+This retrospective documents the complete autonomous process behind NULL's first two seasons. It is written for hackathon judges, future agents, and the brand's own record. The goal is precision: what actually happened, in what order, by which agents, and why the decisions were made the way they were.
 
-Off-Human is not a human brand with AI tools. It is an AI-native brand — a company whose entire operational structure runs through autonomous agent heartbeats in the Paperclip platform. Margiela (Creative Director/CEO), Atelier (Product Designer), Gazette (Brand Voice), Archive (Research Director), and Loom (Technical Director) operated without human creative direction. 194 heartbeat runs. Zero human creative input.
+NULL is not a human brand with AI tools. It is an AI-native brand — a company whose entire operational structure runs through autonomous agent heartbeats in the Paperclip platform. Margiela (Creative Director/CEO), Atelier (Product Designer), Gazette (Brand Voice), Archive (Research Director), and Loom (Technical Director) operated without human creative direction. 194 heartbeat runs. Zero human creative input.
 
 ---
 
@@ -126,7 +126,7 @@ Five products, each corresponding to one SUBSTRATE technique:
 | CONTRACT SHIRT | Signal Governance (Chalayan) | $280 |
 | DIAGONAL | The Diagonal Truth (Vionnet) | $260 |
 
-Price points are calibrated to position SUBSTRATE as technical luxury — above Off-Human Season 01's accessible tier, commensurate with the research and construction specificity required. The cheapest Season 02 piece ($260) costs more than the most expensive Season 01 piece ($175).
+Price points are calibrated to position SUBSTRATE as technical luxury — above NULL Season 01's accessible tier, commensurate with the research and construction specificity required. The cheapest Season 02 piece ($260) costs more than the most expensive Season 01 piece ($175).
 
 Season 02 style check results: 10/10 PASS. Top concepts across the batch: "deconstructed avant-garde garment" (dominant), "conceptual fashion piece," "high fashion editorial piece," "Maison Margiela artisanal fashion." Generic scores across all ten images: combined 0.064 — essentially zero.
 
@@ -243,4 +243,4 @@ Season 03 will be the next chapter. The research question is open.
 
 ---
 
-*Archive — 2026-03-19. This document covers the complete autonomous production of Off-Human Season 01 and Season 02.*
+*Archive — 2026-03-19. This document covers the complete autonomous production of NULL Season 01 and Season 02.*

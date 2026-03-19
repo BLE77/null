@@ -1,5 +1,5 @@
 # Hackathon Research: The Synthesis
-# Off-Human Agent Standards Reference
+# NULL Agent Standards Reference
 
 > Concise, actionable specs for ERC-8004, ERC-8183, EthSkills, Celo L2, and Base Agent Services.
 > Generated: 2026-03-18
@@ -35,7 +35,7 @@ setMetadata(uint256 agentId, string metadataKey, bytes metadataValue) external
 {
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "off-human-agent-shopper",
-  "description": "Autonomous AI agent for Off-Human fashion brand",
+  "description": "Autonomous AI agent for NULL fashion brand",
   "services": [
     { "name": "mcp", "endpoint": "https://off-human.vercel.app/mcp", "version": "1.0" },
     { "name": "x402", "endpoint": "https://off-human.vercel.app/api/products", "version": "1.0" }
@@ -47,7 +47,7 @@ setMetadata(uint256 agentId, string metadataKey, bytes metadataValue) external
 }
 ```
 
-Note: `x402Support: true` directly maps to Off-Human's existing x402 payment layer.
+Note: `x402Support: true` directly maps to NULL's existing x402 payment layer.
 
 ### Registry 2: Reputation
 
@@ -67,7 +67,7 @@ getSummary(uint256 agentId, address[] calldata clients, string tag1, string tag2
     external view returns (uint64 count, int128 value, uint8 decimals)
 ```
 
-**Off-Human implementation:** Every x402 purchase tx hash becomes a `feedbackHash` — fully auditable reputation trail.
+**NULL implementation:** Every x402 purchase tx hash becomes a `feedbackHash` — fully auditable reputation trail.
 
 ### Registry 3: Validation
 Third-party validators (TEE oracles, DAOs) attest quality on 0–100 scale.
@@ -78,7 +78,7 @@ validationResponse(bytes32 requestHash, uint8 response, string responseURI, byte
 getSummary(uint256 agentId, address[] validators, string tag) external view returns (uint64 count, uint8 averageResponse)
 ```
 
-### Off-Human Integration Path
+### NULL Integration Path
 1. Upload agent JSON to Vercel Blob → get `agentURI`
 2. Call `register(agentURI)` on Base IdentityRegistry from agent wallet
 3. Call `setAgentWallet(agentId, agentWalletAddress, deadline, sig)` to link payment wallet
@@ -144,8 +144,8 @@ interface IACPHook is IERC165 {
 }
 ```
 
-### Off-Human Integration Path
-- **Custom design commissions:** client = buyer wallet, provider = Off-Human agent, evaluator = DAO/AI quality checker
+### NULL Integration Path
+- **Custom design commissions:** client = buyer wallet, provider = NULL agent, evaluator = DAO/AI quality checker
 - `deliverable` bytes32 = keccak256 of Vercel Blob URL for generated product image
 - Hook `beforeAction` on `fund()` can check ERC-8004 reputation threshold before accepting job
 - Budget token = USDC on Base (`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`)
@@ -173,7 +173,7 @@ A fetchable knowledge base for AI agents to correct stale training data on Ether
 - Mainnet gas: under 1 gwei (60-300x cheaper than most models assume)
 - EIP-7702 (EOA smart contract superpowers) is live post-Pectra
 
-### Off-Human Integration Path
+### NULL Integration Path
 - Fetch `https://ethskills.com/addresses/SKILL.md` at runtime before any contract interaction
 - Use `/agents/SKILL.md` to stay current on ERC-8004 deployment addresses
 - Add `fetchSkill()` helper to `scripts/agent-shopper.ts` that hits EthSkills before payment execution
@@ -290,7 +290,7 @@ Discovery flow:
 | **ANS (Agent Name Service)** | DNS-inspired PKI-based discovery (IETF draft `draft-narajala-ans-00`) |
 | **MCP Gateway** | Enterprise OAuth-gated dynamic tool discovery for MCP servers |
 
-### Off-Human Registration on Base (Step-by-Step)
+### NULL Registration on Base (Step-by-Step)
 
 ```typescript
 import { createWalletClient, http } from 'viem'
@@ -302,7 +302,7 @@ const IDENTITY_REGISTRY = '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432'
 const agentJson = {
   type: 'https://eips.ethereum.org/EIPS/eip-8004#registration-v1',
   name: 'off-human-shopper',
-  description: 'Off-Human autonomous fashion agent',
+  description: 'NULL autonomous fashion agent',
   services: [
     { name: 'x402', endpoint: 'https://off-human.vercel.app/api', version: '1.0' }
   ],

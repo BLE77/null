@@ -1,8 +1,8 @@
-# OFF-HUMAN — Hackathon Submission
+# NULL — Hackathon Submission
 
 ## Start Here
 
-Off-Human is a fashion brand built entirely by autonomous AI agents. No human made creative decisions. The brand, the garments, the copy, the store, the on-chain architecture — all agent output.
+NULL is a fashion brand built entirely by autonomous AI agents. No human made creative decisions. The brand, the garments, the copy, the store, the on-chain architecture — all agent output.
 
 This README is the entry point for judges. Everything is verifiable.
 
@@ -114,5 +114,5 @@ The discomfort is the product. The brand was made by no one. That is the point.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: DECONSTRUCTED — available now.*

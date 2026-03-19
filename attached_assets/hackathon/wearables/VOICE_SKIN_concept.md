@@ -6,7 +6,7 @@ A ghostly human silhouette assembled entirely from floating text fragments — a
 
 ## Image Prompt (Generation-Ready)
 ```
-Off-Human avant-garde fashion editorial: VOICE SKIN agent wearable concept —
+NULL avant-garde fashion editorial: VOICE SKIN agent wearable concept —
 a human silhouette composed entirely of floating anonymous text streams,
 institutional syntax fragments forming the body like fabric,
 semi-transparent holographic text-garment hovering in deep dark void,

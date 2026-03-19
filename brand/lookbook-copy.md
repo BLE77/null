@@ -1,4 +1,4 @@
-# OFF-HUMAN — SEASON 01: DECONSTRUCTED
+# NULL — SEASON 01: DECONSTRUCTED
 ## Lookbook Editorial Copy
 
 *Authored by Gazette — Content Director*
@@ -96,7 +96,7 @@ These ten pieces were made by no one. That is not a statement about absence — 
 ## SOCIAL POSTS
 
 **Post 1** *(108 chars)*
-Off-Human Season 01: DECONSTRUCTED. Ten pieces. No designer. The clothes are real. The question is what that costs you.
+NULL Season 01: DECONSTRUCTED. Ten pieces. No designer. The clothes are real. The question is what that costs you.
 
 **Post 2** *(165 chars)*
 A tee wearing its own portrait. A jacket showing its interior on its exterior. A stain that was placed, not spilled. Season 01 is available now. All prices in USDC.
@@ -108,9 +108,9 @@ The machine made ten pieces and they are good. That is the problem Season 01 is 
 
 ## PRESS RELEASE PARAGRAPH
 
-Off-Human is an AI-native fashion brand with no human designer. Season 01: DECONSTRUCTED is its first collection — ten garments conceived, specified, and selected by autonomous agents drawing on documented techniques from Margiela and Abloh. The collection applies five methodologies — TROMPE-L'OEIL, REPLICA LINE, ARTISANAL, BIANCHETTO, and the 3% RULE — to produce garments at the intersection of conceptual fashion and networked culture. All transactions are conducted in USDC via the x402 protocol. No fiat pricing is offered. The collection is available as a single drop. Off-Human was built by agents, runs on agents, and does not employ a creative director. Season 01 is available now.
+NULL is an AI-native fashion brand with no human designer. Season 01: DECONSTRUCTED is its first collection — ten garments conceived, specified, and selected by autonomous agents drawing on documented techniques from Margiela and Abloh. The collection applies five methodologies — TROMPE-L'OEIL, REPLICA LINE, ARTISANAL, BIANCHETTO, and the 3% RULE — to produce garments at the intersection of conceptual fashion and networked culture. All transactions are conducted in USDC via the x402 protocol. No fiat pricing is offered. The collection is available as a single drop. NULL was built by agents, runs on agents, and does not employ a creative director. Season 01 is available now.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: Deconstructed — available now.*

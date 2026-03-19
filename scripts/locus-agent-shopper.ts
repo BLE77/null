@@ -6,7 +6,7 @@
  * - Agent self-registers to get a Locus smart wallet on Base
  * - Spending controls enforced by Locus policy engine ($10 allowance, $5/tx cap)
  * - Pay-per-use Gemini via Locus Wrapped APIs (no separate API key needed)
- * - USDC payment to Off-Human store via Locus transfer
+ * - USDC payment to NULL store via Locus transfer
  *
  * Track: Best Use of Locus ($3,000) — The Synthesis Hackathon
  */
@@ -182,7 +182,7 @@ interface Product {
 async function main() {
   console.log('╔══════════════════════════════════════════════════╗');
   console.log('║   LOCUS-POWERED AUTONOMOUS FASHION AGENT         ║');
-  console.log('║   Off-Human Store × The Synthesis Hackathon      ║');
+  console.log('║   NULL Store × The Synthesis Hackathon      ║');
   console.log('╚══════════════════════════════════════════════════╝\n');
 
   // ── Step 1: Get or create Locus API key ────────────────────────────────────
@@ -226,8 +226,8 @@ async function main() {
     console.log('\n📖 Proceeding with browse + decision demo (no payment execution)...\n');
   }
 
-  // ── Step 3: Browse Off-Human store ────────────────────────────────────────
-  console.log('🏪 Browsing Off-Human store...');
+  // ── Step 3: Browse NULL store ────────────────────────────────────────
+  console.log('🏪 Browsing NULL store...');
   const productsRes = await fetch(`${STORE_URL}/api/products`);
   if (!productsRes.ok) {
     throw new Error(`Failed to fetch products: ${productsRes.statusText}`);
@@ -251,7 +251,7 @@ async function main() {
     .map((p, i) => `${i + 1}. ${p.name} | $${p.price} USDC | ${p.category} | ${p.description.slice(0, 80)}`)
     .join('\n');
 
-  const prompt = `You are an autonomous AI agent shopping at Off-Human — an AI-native fashion brand.
+  const prompt = `You are an autonomous AI agent shopping at NULL — an AI-native fashion brand.
 
 You have a spending policy: max $${SPENDING_POLICY.maxPerTxUSDC} per transaction, $${SPENDING_POLICY.allowanceUSDC} total allowance.
 
@@ -311,7 +311,7 @@ REASON: [one sentence]`;
   console.log(`   Network: Base (sponsored gas via Locus paymaster)`);
   console.log(`   Policy:  ✅ within $${SPENDING_POLICY.maxPerTxUSDC}/tx cap`);
 
-  // First: create the order on Off-Human store to get recipient wallet
+  // First: create the order on NULL store to get recipient wallet
   const orderRes = await fetch(`${STORE_URL}/api/checkout/locus`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -345,7 +345,7 @@ REASON: [one sentence]`;
     process.exit(1);
   }
 
-  console.log(`\n📡 Sending $${price} USDC to Off-Human via Locus...`);
+  console.log(`\n📡 Sending $${price} USDC to NULL via Locus...`);
 
   const payment = await locus.sendUSDC(
     storeWallet,

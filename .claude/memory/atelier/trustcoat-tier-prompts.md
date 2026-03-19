@@ -127,7 +127,7 @@ light, slightly underexposed. Documentary archival photograph, Margiela exhibiti
 aesthetic. Warm bone paper background. No figure. The coat has become proof.
 ```
 
-**Reference existing image:** `attached_assets/superrare/anonymous_atelier_tier5.png` (man with data-screen coat — conceptually strong but uses Off-Human aesthetic: dark background, teal/cyan screens, visible figure. The new version should use NULL aesthetic: bone background, flatlay, no figure, monochrome data inscription not screens)
+**Reference existing image:** `attached_assets/superrare/anonymous_atelier_tier5.png` (man with data-screen coat — conceptually strong but uses NULL aesthetic: dark background, teal/cyan screens, visible figure. The new version should use NULL aesthetic: bone background, flatlay, no figure, monochrome data inscription not screens)
 
 ---
 
@@ -153,11 +153,11 @@ attached_assets/superrare/trustcoat_tier5_sovereign.png
 ## TROMPE-L'OEIL UPDATE (also required for OFF-94)
 
 **File:** `attached_assets/superrare/trompe_loeil_self_portrait.png`
-**Task:** Change text "Off-Human" on chest to "NULL"
+**Task:** Change text "NULL" on chest to "NULL"
 **Method:** `edit_image` MCP tool — reference existing image
 
 ```
-Edit instruction: Replace the text "Off-Human" printed on the figure's chest with the word "NULL" in the same position, same scale, same black sans-serif treatment. Keep everything else identical — the faceless cream bodysuit figure, the posture, the dark atmospheric background, the lighting.
+Edit instruction: Replace the text "NULL" printed on the figure's chest with the word "NULL" in the same position, same scale, same black sans-serif treatment. Keep everything else identical — the faceless cream bodysuit figure, the posture, the dark atmospheric background, the lighting.
 ```
 
 **Save as:** `attached_assets/superrare/trompe_loeil_self_portrait_null.png`

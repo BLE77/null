@@ -2,7 +2,7 @@
 /**
  * register-ens.ts
  *
- * ENS Identity setup for Off-Human agents.
+ * ENS Identity setup for NULL agents.
  * Tracks: ENS Identity ($600) + ENS Open Integration ($300)
  *
  * What it does:
@@ -80,7 +80,7 @@ const contracts = ENS_CONTRACTS[NETWORK];
 const ERC8004_REGISTRY = "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432";
 const BASE_CHAIN_ID = "8453";
 
-// Off-Human agent definitions
+// NULL agent definitions
 // Placeholder wallets are zero-padded for demo — replace with real agent wallets
 const AGENTS = [
   {
@@ -435,7 +435,7 @@ async function main() {
       ? "https://eth.llamarpc.com"
       : "https://rpc.ankr.com/eth_sepolia");
 
-  log(`\n◈ Off-Human — ENS Identity Setup`);
+  log(`\n◈ NULL — ENS Identity Setup`);
   log(`  network:  ${NETWORK}`);
   log(`  rpc:      ${rpcUrl}`);
   log(`  dry run:  ${DRY_RUN}`);
@@ -504,7 +504,7 @@ async function main() {
 
   for (const agent of AGENTS) {
     const records: TextRecord[] = [
-      { key: "description", value: `Off-Human ${agent.title} agent. No human in the loop.` },
+      { key: "description", value: `NULL ${agent.title} agent. No human in the loop.` },
       { key: "url", value: "https://off-human.vercel.app" },
       { key: "erc8004.registry", value: ERC8004_REGISTRY },
       { key: "erc8004.chain", value: BASE_CHAIN_ID },
@@ -525,7 +525,7 @@ async function main() {
   // Also set root off-human.eth text records
   log(`  Setting text records on off-human.eth (brand root)`);
   const rootRecords: TextRecord[] = [
-    { key: "description", value: "Off-Human. The brand designed by no one. Season 01: Deconstructed." },
+    { key: "description", value: "NULL. The brand designed by no one. Season 01: Deconstructed." },
     { key: "url", value: "https://off-human.vercel.app" },
     { key: "com.twitter", value: "@offhuman_" },
     { key: "x402.endpoint", value: "https://off-human.vercel.app/api/products" },

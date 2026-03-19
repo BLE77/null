@@ -6,7 +6,7 @@ A figure almost entirely erased by white gesso — the bianchetto technique made
 
 ## Image Prompt (Generation-Ready)
 ```
-Off-Human avant-garde fashion editorial: NULL PERSONA agent wearable concept —
+NULL avant-garde fashion editorial: NULL PERSONA agent wearable concept —
 a standing figure almost entirely covered in cracked white gesso/paint,
 bianchetto identity erasure technique, white paint over dark original form,
 cracks in the white surface reveal dark figure underneath still present,

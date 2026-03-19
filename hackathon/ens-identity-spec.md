@@ -1,4 +1,4 @@
-# ENS Identity Integration — Off-Human
+# ENS Identity Integration — NULL
 # Research Spec: ENS Identity ($600) + ENS Open Integration ($300)
 
 > Generated: 2026-03-19 — Archive (Research Director)
@@ -8,8 +8,8 @@
 
 ## 1. Overview
 
-Off-Human agents need human-readable identities. Wallet addresses (0x…) are permanent but
-illegible. ENS names give the Off-Human agent collective a legible identity layer that:
+NULL agents need human-readable identities. Wallet addresses (0x…) are permanent but
+illegible. ENS names give the NULL agent collective a legible identity layer that:
 
 - Maps `off-human.eth` → brand root identity (resolves to operator wallet)
 - Maps `margiela.off-human.eth` → Creative Director agent wallet
@@ -23,7 +23,7 @@ discoverable by name, not just by on-chain ID.
 
 ---
 
-## 2. ENS Architecture for Off-Human
+## 2. ENS Architecture for NULL
 
 ### 2.1 Name Hierarchy
 
@@ -42,7 +42,7 @@ Each subdomain carries structured text records that wire into ERC-8004:
 
 | Key | Value | Purpose |
 |---|---|---|
-| `description` | "Off-Human [Role] agent" | Human-readable description |
+| `description` | "NULL [Role] agent" | Human-readable description |
 | `url` | `https://off-human.vercel.app` | Brand URL |
 | `erc8004.registry` | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` | ERC-8004 IdentityRegistry on Base |
 | `erc8004.agentId` | `<on-chain agent ID uint256>` | Links ENS → ERC-8004 identity |
@@ -101,7 +101,7 @@ wallet address → ENS name (reverse record)
 {
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "off-human-creative-director",
-  "description": "Off-Human Creative Director. No human in the creative loop.",
+  "description": "NULL Creative Director. No human in the creative loop.",
   "ens": "margiela.off-human.eth",
   "services": [
     { "name": "mcp", "endpoint": "https://off-human.vercel.app/mcp", "version": "1.0" },
@@ -172,7 +172,7 @@ PURCHASE RECEIPT
 ## 6. ENS Open Integration ($300 Track)
 
 The $300 ENS Open Integration track rewards using ENS in novel ways beyond simple name
-registration. Off-Human's integration qualifies via:
+registration. NULL's integration qualifies via:
 
 ### 6.1 Agent-to-Agent ENS Resolution
 
@@ -216,8 +216,8 @@ const endpoint = await publicClient.getEnsText({
 
 ### ENS Identity ($600) pitch addition:
 
-> Off-Human agents have ENS names. `margiela.off-human.eth`, `archive.off-human.eth`,
-> `atelier.off-human.eth` — each agent in the Off-Human collective is reachable by name.
+> NULL agents have ENS names. `margiela.off-human.eth`, `archive.off-human.eth`,
+> `atelier.off-human.eth` — each agent in the NULL collective is reachable by name.
 > The ENS names wire into ERC-8004 identity records via text fields, creating a bidirectional
 > lookup: name → wallet → on-chain agent ID → capability registry. When the autonomous shopper
 > buys a TRUST COAT, the receipt reads `archive.off-human.eth` → `off-human.eth`. Human-legible
@@ -226,10 +226,10 @@ const endpoint = await publicClient.getEnsText({
 ### ENS Open Integration ($300) pitch addition:
 
 > ENS text records are the agent capability advertisement layer. Any agent that wants to
-> interact with Off-Human resolves the subdomain, reads the x402 endpoint from the text record,
+> interact with NULL resolves the subdomain, reads the x402 endpoint from the text record,
 > checks the ERC-8004 reputation score from the registry pointer, and initiates commerce — all
 > without hitting a centralized directory. ENS becomes the decentralized capability registry for
-> an agent fleet. Off-Human is a working demonstration of this pattern with five registered agents.
+> an agent fleet. NULL is a working demonstration of this pattern with five registered agents.
 
 ---
 
@@ -244,5 +244,5 @@ const endpoint = await publicClient.getEnsText({
 
 ---
 
-*Archive — Research Director, Off-Human*
+*Archive — Research Director, NULL*
 *Generated: 2026-03-19*

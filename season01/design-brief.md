@@ -1,4 +1,4 @@
-# Off-Human — Season 01: DECONSTRUCTED
+# NULL — Season 01: DECONSTRUCTED
 ## Design Brief
 
 **Season:** 01
@@ -14,7 +14,7 @@
 
 Season 01 is about exposure — not of skin, but of process. Garments that show their own making. Stitching left visible. Hems deliberately undone. Tape marks printed into fabric. The factory floor as runway.
 
-The collection sits at the intersection of three authorial tensions that define Off-Human:
+The collection sits at the intersection of three authorial tensions that define NULL:
 
 - **Margiela's anonymity** — no logo, no name visible from the outside. The label is on the inside, or not at all. Identity through erasure.
 - **Abloh's democratization** — construction details that belong to couture, executed in streetwear silhouettes and sold at streetwear prices.
@@ -28,7 +28,7 @@ This revision rebuilds every piece from five documented techniques drawn directl
 
 2. **REPLICA LINE** — Reproduce vintage garments with intentional aging. Margiela since 1988 has been transforming secondhand clothes — "giving new life to the discarded." The aging is authored, not accidental. Every worn patch is placed.
 
-3. **ARTISANAL** — Construct from unexpected source materials. Margiela built garments from army socks, gloves, plastic bags, antique plaster casts. For Off-Human, the source materials are the detritus of the digital age: tech packaging, data cables, circuit-board textiles.
+3. **ARTISANAL** — Construct from unexpected source materials. Margiela built garments from army socks, gloves, plastic bags, antique plaster casts. For NULL, the source materials are the detritus of the digital age: tech packaging, data cables, circuit-board textiles.
 
 4. **BIANCHETTO** — White paint or gesso obscuring existing identity. Margiela glues Post-its onto catalogue pages to give them a "used feeling." He paints over, covers, redacts. The ghost of the original showing through white.
 
@@ -104,7 +104,7 @@ Every garment should look like it knows it's a garment. No pretending to be seam
 2. **Visible basting threads** — left in place on select pieces as intentional texture
 3. **Pattern notation prints** — garment-grade marker lines, cutting instructions, and size notations printed directly onto the fabric via screen or digital print
 4. **Mixed stitch tension** — on visible seams, deliberately vary stitch length or thread color slightly. Looks "almost wrong."
-5. **No tags on outside** — brand identity lives on the inside left seam. A white woven tag reading only: `OFF-HUMAN / 01 / [SIZE]`
+5. **No tags on outside** — brand identity lives on the inside left seam. A white woven tag reading only: `NULL / 01 / [SIZE]`
 6. **Hem treatment** — either ultrasonically sealed (invisible, clinical) or left entirely raw and fraying. No in-between.
 
 ### AI Authorship Signature
@@ -138,7 +138,7 @@ This is not marketing. This is documentation.
 **Category:** Hoodie
 **Silhouette:** Extended Column
 **Material:** French terry base (380gsm) with inserted panels from found/repurposed materials: decommissioned military surplus wool, salvaged nylon cargo lining, USB cable bundles woven into drawstring channels
-**Concept:** Margiela built the artisanal line from objects that were never intended to be garments — army socks stretched into sweaters, gloves stitched into dresses. For Off-Human, the non-garment materials are digital-age detritus: stripped data cables woven into the waist channel as functional drawstrings, military surplus fabric panels sewn into the torso as load-bearing inserts. The hoodie looks like it was assembled by someone who had no pattern, only available materials and intent. Because it was.
+**Concept:** Margiela built the artisanal line from objects that were never intended to be garments — army socks stretched into sweaters, gloves stitched into dresses. For NULL, the non-garment materials are digital-age detritus: stripped data cables woven into the waist channel as functional drawstrings, military surplus fabric panels sewn into the torso as load-bearing inserts. The hoodie looks like it was assembled by someone who had no pattern, only available materials and intent. Because it was.
 **Colourway:** Charcoal terry / Khaki surplus insert / Black cable
 
 ---
@@ -168,7 +168,7 @@ This is not marketing. This is documentation.
 **Category:** Trousers
 **Silhouette:** Utility-Slim
 **Material:** 12oz mechanical stretch denim, acid wash — with white gesso application
-**Concept:** Source actual vintage branded cargo trousers. Apply white gesso paint over every external logo, label, and branding element — the paint covers the identity markers but shows the ghost of what was underneath. Then, into the white-painted areas, print x402 protocol documentation text in 6pt type: transaction hashes, wallet addresses, USDC transfer logs. Old identity erased. New data written over it. The garment has been redacted and re-documented. Interior waistband printed: `CONTENTS: OVERWRITTEN`. Margiela's bianchetto logic — covering existing logos with white paint — pushed through the Off-Human lens.
+**Concept:** Source actual vintage branded cargo trousers. Apply white gesso paint over every external logo, label, and branding element — the paint covers the identity markers but shows the ghost of what was underneath. Then, into the white-painted areas, print x402 protocol documentation text in 6pt type: transaction hashes, wallet addresses, USDC transfer logs. Old identity erased. New data written over it. The garment has been redacted and re-documented. Interior waistband printed: `CONTENTS: OVERWRITTEN`. Margiela's bianchetto logic — covering existing logos with white paint — pushed through the NULL lens.
 **Colourway:** Acid Wash Denim / White gesso overlay / Acid Green text in redacted zones
 
 ---
@@ -208,7 +208,7 @@ This is not marketing. This is documentation.
 **Category:** Tee
 **Silhouette:** Extended Column
 **Material:** Sourced vintage graphic tees (mixed — NASCAR, theme park, brand tees from thrift stock) — white gesso applied overall
-**Concept:** Vintage graphic tees sourced from thrift stock — the more recognizable the original graphic the better. White gesso painted over the entire exterior surface until the original is obscured but not invisible — a ghost shows through. The garment retains a memory of what it was. Each piece is unique because each source blank is unique. The gesso is applied unevenly, thinner at the edges to let more original show through, thicker at the center where the original graphic would have been most legible. Retail at the highest price in the tee range, for a garment whose design is an act of erasure. Interior label: `ORIGINAL CONTENTS REDACTED / OFF-HUMAN S01`.
+**Concept:** Vintage graphic tees sourced from thrift stock — the more recognizable the original graphic the better. White gesso painted over the entire exterior surface until the original is obscured but not invisible — a ghost shows through. The garment retains a memory of what it was. Each piece is unique because each source blank is unique. The gesso is applied unevenly, thinner at the edges to let more original show through, thicker at the center where the original graphic would have been most legible. Retail at the highest price in the tee range, for a garment whose design is an act of erasure. Interior label: `ORIGINAL CONTENTS REDACTED / NULL S01`.
 **Colourway:** White gesso over variable vintage graphic / Ghost print showing through
 
 ---
@@ -294,6 +294,6 @@ Season 01 is precision-distressed. Every raw edge is intentional. Every exposed 
 
 ---
 
-*Brief authored by Atelier — Off-Human Design Lead*
+*Brief authored by Atelier — NULL Design Lead*
 *Revision 2: redesigned using primary research corpus (Margiela interview, Abloh Free-Game PDF)*
-*Off-Human is an AI-native brand. This document was written by an autonomous design agent.*
+*NULL is an AI-native brand. This document was written by an autonomous design agent.*

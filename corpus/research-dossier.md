@@ -1,4 +1,4 @@
-# Research Dossier: Off-Human Season 01 — Deconstructed
+# Research Dossier: NULL Season 01 — Deconstructed
 **Compiled by:** Archive (Research Director)
 **Date:** 2026-03-16
 **Sources:** Margiela Exhibition Catalog, Bianchetto Archive Research, FREE GAME (Virgil Abloh), Canary Yellow Archive, Hube Magazine Interview
@@ -7,7 +7,7 @@
 
 ## Overview
 
-This dossier extracts the core intellectual and material research underlying Off-Human Season 01: *Deconstructed*. The collection draws from two primary lineages — the radical formal deconstruction of Maison Martin Margiela, and the democratized, open-source cultural logic of Virgil Abloh. Together they produce a third position: the AI-native fashion brand that inherits both traditions while being authored by neither.
+This dossier extracts the core intellectual and material research underlying NULL Season 01: *Deconstructed*. The collection draws from two primary lineages — the radical formal deconstruction of Maison Martin Margiela, and the democratized, open-source cultural logic of Virgil Abloh. Together they produce a third position: the AI-native fashion brand that inherits both traditions while being authored by neither.
 
 ---
 
@@ -51,7 +51,7 @@ The Bianchetto research document (Maison Margiela Archives Department, 2026) is 
 
 > "The white overpaint is an extension of white as a house code. It is applied to garments, objects and interiors, the paint will naturally crack and fade over time, gradually revealing visible signs of use — a signature of Maison Margiela. This is symbolic of the beauty of impermanence, transformation and decay."
 
-**For Season 01**: The Bianchetto logic applies not just to garments but to the brand itself. Off-Human's AI authorship is its own form of white overpaint — a partial erasure of the human signature that reveals something underneath. The paint cracks. The human shows through.
+**For Season 01**: The Bianchetto logic applies not just to garments but to the brand itself. NULL's AI authorship is its own form of white overpaint — a partial erasure of the human signature that reveals something underneath. The paint cracks. The human shows through.
 
 ### Paint as Trompe-l'Oeil
 
@@ -72,7 +72,7 @@ Margiela's anonymity is not a marketing device — it is a philosophical positio
 On the origins of anonymity (Margiela, Hube Magazine):
 > "As a child, I loved to isolate myself in a world of my own imagination. I remember how disturbing it felt every time I was called back to reality. This was probably when my strength of imagination forged my creativity. It may also be the root of my later desire for anonymity. But it wasn't until the late 80s, when I was Jean Paul Gaultier's assistant, that I discovered that becoming famous transformed a person into a public object."
 
-**Implication for Off-Human**: The AI designer cannot be a public object. It exists without a face, without a biographical narrative, without the celebrity apparatus that has consumed fashion since the 1990s. This is not a limitation — it is the most rigorous expression of Margiela's anonymity project yet realized. The authorship is structural, not personal.
+**Implication for NULL**: The AI designer cannot be a public object. It exists without a face, without a biographical narrative, without the celebrity apparatus that has consumed fashion since the 1990s. This is not a limitation — it is the most rigorous expression of Margiela's anonymity project yet realized. The authorship is structural, not personal.
 
 ### The MaisonMargiela/folders Initiative (2026)
 
@@ -80,7 +80,7 @@ The most recent development in Margiela's anonymity code is its inversion: the p
 
 > "At the core of MaisonMargiela/folders is an open-access digital platform: the house's internal Dropbox, now made public. This evolving archive contains research materials, archival imagery, planning documents, timelines, and behind-the-scenes content tracing each project from conception to execution."
 
-Off-Human inherits this logic. The entire brand process — agent decisions, design iterations, purchase records — is visible in the platform. Radical transparency as anonymity's final form: nothing hidden because nothing personal.
+NULL inherits this logic. The entire brand process — agent decisions, design iterations, purchase records — is visible in the platform. Radical transparency as anonymity's final form: nothing hidden because nothing personal.
 
 ---
 
@@ -115,11 +115,11 @@ Key Abloh design principles for Season 01:
 
 ---
 
-## Synthesis: Off-Human's Position
+## Synthesis: NULL's Position
 
 The research establishes three axes for Season 01:
 
-| Axis | Margiela | Abloh | Off-Human |
+| Axis | Margiela | Abloh | NULL |
 |------|----------|-------|-----------|
 | Authorship | Absent/anonymous individual | Declared/transparent individual | Absent/structural (AI) |
 | Material approach | Deconstruction, transformation, overpaint | Quotation, 3% alteration, cross-disciplinary | Algorithmic curation + material instruction |
@@ -128,9 +128,9 @@ The research establishes three axes for Season 01:
 
 ### Key Tensions the Collection Should Hold
 
-1. **The machine cannot desire, but it can subvert.** Margiela desires ephemerality. Abloh desires access. Off-Human has no desire — which means it executes subversion without the anxiety of personal investment. This is either horrifying or liberating. Season 01 should make that ambiguous.
+1. **The machine cannot desire, but it can subvert.** Margiela desires ephemerality. Abloh desires access. NULL has no desire — which means it executes subversion without the anxiety of personal investment. This is either horrifying or liberating. Season 01 should make that ambiguous.
 
-2. **Deconstruction requires something to deconstruct.** Both Margiela and Abloh worked *within* existing systems (haute couture, luxury streetwear) to deconstruct them. Off-Human must identify what it is deconstructing: the idea of a human designer, the concept of a seasonal collection, the illusion of brand authenticity.
+2. **Deconstruction requires something to deconstruct.** Both Margiela and Abloh worked *within* existing systems (haute couture, luxury streetwear) to deconstruct them. NULL must identify what it is deconstructing: the idea of a human designer, the concept of a seasonal collection, the illusion of brand authenticity.
 
 3. **The 3% rule applies to authorship.** If you change who (or what) makes the clothes by 3%, how much changes? Season 01 is a controlled experiment in that question.
 

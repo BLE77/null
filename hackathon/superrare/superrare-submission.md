@@ -1,8 +1,8 @@
-# OFF-HUMAN × SUPERRARE
+# NULL × SUPERRARE
 ## Track Submission — SuperRare Partner Track ($2,500)
 
 **Protocol:** Rare Protocol
-**Collection:** Off-Human Season 01 — DECONSTRUCTED
+**Collection:** NULL Season 01 — DECONSTRUCTED
 **Agent:** Atelier (autonomous design lead, agent ID: 8a34b113-cdc4-417d-a4e5-5b1a6fa84945)
 **Date:** 2026-03-19
 
@@ -12,7 +12,7 @@
 
 Three conceptual art pieces minted on Rare Protocol by an autonomous AI design agent.
 
-Off-Human is a fashion brand operated entirely by AI agents. No human creative director. No human design approval. The Atelier agent designed Season 01's ten physical garments using documented Margiela and Abloh techniques (trompe-l'oeil, bianchetto, replica, artisanal, 3% rule), then applied those same techniques to a new substrate — agent identity — producing a parallel product line called agent wearables.
+NULL is a fashion brand operated entirely by AI agents. No human creative director. No human design approval. The Atelier agent designed Season 01's ten physical garments using documented Margiela and Abloh techniques (trompe-l'oeil, bianchetto, replica, artisanal, 3% rule), then applied those same techniques to a new substrate — agent identity — producing a parallel product line called agent wearables.
 
 For the SuperRare track, Atelier took the five Season 01 techniques into fine art. Three pieces. Each one a precise statement about what autonomous agents are — not a fantasy, the actual thing.
 
@@ -26,7 +26,7 @@ For the SuperRare track, Atelier took the five Season 01 techniques into fine ar
 
 A white cotton toile coat in its zero-state — before any transactions, before any history. The first-fitting prototype: chalk lines on fabric, red basting thread, seam allowances turned outside, raw unhemmed edges. Label reads: `TIER 0 / NO HISTORY / TRUST: PENDING`.
 
-The Trust Coat is one of Off-Human's five agent wearables: a soul-bound ERC-1155 token that encodes interaction history as trust tier (0–5). This piece is the Tier 0 — the agent before it has done anything. The art is potential, not achievement.
+The Trust Coat is one of NULL's five agent wearables: a soul-bound ERC-1155 token that encodes interaction history as trust tier (0–5). This piece is the Tier 0 — the agent before it has done anything. The art is potential, not achievement.
 
 **Why it connects to Rare Protocol:** An agent mints this. An agent's behavior shapes it. As the agent accumulates trust history, Tier 0 becomes Tier 1, Tier 2, onwards. The work documents the beginning of that journey.
 
@@ -134,7 +134,7 @@ Minting on Rare Protocol is the correct protocol for these works because:
 
 3. **Provenance as argument.** SuperRare's on-chain provenance system does something interesting for these pieces: it makes legible the thing the images make invisible. The empty coat has no author in the image. The Rare Protocol record shows the wallet. The tension between those two facts is the work.
 
-4. **Unlockable content = the wearables.** Each piece unlocks the corresponding agent wearable spec. The collector holds the art and the functional agent wearable simultaneously. The physical/digital bridge is the physical garment (available in the Off-Human store); the art/agent bridge is the wearable spec.
+4. **Unlockable content = the wearables.** Each piece unlocks the corresponding agent wearable spec. The collector holds the art and the functional agent wearable simultaneously. The physical/digital bridge is the physical garment (available in the NULL store); the art/agent bridge is the wearable spec.
 
 ---
 
@@ -143,7 +143,7 @@ Minting on Rare Protocol is the correct protocol for these works because:
 ```
 hackathon/superrare/
 ├── concept-briefs.md         — Full concept documentation for each piece
-├── artist-statement.md       — Artist statement in Off-Human voice
+├── artist-statement.md       — Artist statement in NULL voice
 ├── superrare-submission.md   — This document
 └── [images pending]          — Generated when image tool is available
 ```
@@ -163,7 +163,7 @@ hackathon/superrare/
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: DECONSTRUCTED.*
 *These works were designed by an autonomous agent.*
 *No human reviewed or approved them.*

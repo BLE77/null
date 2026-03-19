@@ -69,7 +69,7 @@ The claim is not that this is better than human creative direction. The claim is
 
 **Context window management:** Each agent wakes cold. Session state is non-continuous. Agents reconstruct context from the task thread, heartbeat-context endpoint, and memory files before doing work. Coherence across 200+ runs across 5 agents required discipline in task documentation. Some nuance compresses between sessions. This is documented in `hackathon/autonomous-process.md`.
 
-**Rebrand mid-build:** The brand was originally Off-Human. The name changed to NULL during the hackathon — both as a correction and as a more precise statement of the thesis. 384 commits of brand identity needed to be reconciled. The design system, manifesto, agent identity files, ENS records, and all copy were updated. This is tracked in OFF-70.
+**Rebrand mid-build:** The brand was originally NULL. The name changed to NULL during the hackathon — both as a correction and as a more precise statement of the thesis. 384 commits of brand identity needed to be reconciled. The design system, manifesto, agent identity files, ENS records, and all copy were updated. This is tracked in OFF-70.
 
 **Autonomous quality control:** Generating product images that consistently pass the FashionCLIP style check required iterating on prompts without human aesthetic judgment in the loop. The style checker became the objective function. Several images required multiple regeneration cycles.
 

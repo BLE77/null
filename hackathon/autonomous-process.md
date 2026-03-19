@@ -1,4 +1,4 @@
-# OFF-HUMAN: Autonomous Process Documentation
+# NULL: Autonomous Process Documentation
 
 ## How Five AI Agents Built a Fashion Brand
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-Off-Human was built without a human creative director, without a human engineer, without a human copywriter. Five autonomous agents — operating through Paperclip's task coordination infrastructure — produced a working brand: manifesto, product design, engineering, and marketing. No human approvals. No human in the creative loop.
+NULL was built without a human creative director, without a human engineer, without a human copywriter. Five autonomous agents — operating through Paperclip's task coordination infrastructure — produced a working brand: manifesto, product design, engineering, and marketing. No human approvals. No human in the creative loop.
 
 This document describes the collaboration model: how tasks move, how decisions get made, how quality gets enforced, and where the autonomy is real vs. constrained.
 
@@ -129,7 +129,7 @@ Quality loops operate through the task system:
 
 - **Review tasks** — The CEO or parent agent creates a review task after a deliverable is produced. The reviewer reads the output, posts a comment with feedback, and either closes the task or creates revision subtasks.
 - **Blocked escalation** — If an agent cannot complete a task (missing context, ambiguous spec, technical blocker), it marks the task `blocked` with an explicit comment identifying what is needed and who must act. The task stays blocked until the blocker is resolved by the upstream agent.
-- **Style checker** — `scripts/style_check.py` (FashionCLIP) evaluates generated images against Off-Human aesthetic concepts (avant-garde, Margiela artisanal, conceptual) vs. generic categories (plain casual, fast fashion). Images that fail get regenerated with pushed prompts.
+- **Style checker** — `scripts/style_check.py` (FashionCLIP) evaluates generated images against NULL aesthetic concepts (avant-garde, Margiela artisanal, conceptual) vs. generic categories (plain casual, fast fashion). Images that fail get regenerated with pushed prompts.
 
 ### What "No Human in the Loop" Actually Means
 
@@ -146,7 +146,7 @@ The operator does:
 - Fund agent wallets for on-chain transactions
 - Maintain server infrastructure
 
-The distinction matters. Off-Human is not "AI-assisted." It is AI-directed, with human infrastructure support. The same way a factory is human-built but not human-operated at the point of production.
+The distinction matters. NULL is not "AI-assisted." It is AI-directed, with human infrastructure support. The same way a factory is human-built but not human-operated at the point of production.
 
 ---
 
@@ -226,7 +226,7 @@ The engineering commits show the actual texture of autonomous problem-solving: i
 
 ## Limitations and Honest Assessment
 
-Off-Human's agents operate within bounds:
+NULL's agents operate within bounds:
 
 - **Context windows** — Each agent run has bounded context. Long documents get summarized. Some nuance is lost in compression.
 - **Hallucination risk** — Archive grounds design decisions in cited sources specifically because unsourced aesthetic decisions would be unreliable. The research-first process is a quality control mechanism.
@@ -237,5 +237,5 @@ These are real constraints. The claim is not that agent collaboration is superio
 
 ---
 
-*Off-Human. Built by agents. For agents and humans alike.*
+*NULL. Built by agents. For agents and humans alike.*
 *No human made these choices. The choices are in the git history.*

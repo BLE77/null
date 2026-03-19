@@ -10,7 +10,7 @@
 ## Overview
 
 This guide covers everything needed to deploy TrustCoat.sol on Celo and integrate cUSD payments
-for the Off-Human x402 stack. Celo is now an OP Stack L2 (migrated March 26, 2025), so it is
+for the NULL x402 stack. Celo is now an OP Stack L2 (migrated March 26, 2025), so it is
 fully EVM-compatible — the same Hardhat toolchain works with minimal config additions.
 
 The Track 3 pitch is a **cross-chain trust bridge**: an agent's Trust Coat tier earned on Base
@@ -82,7 +82,7 @@ If empty, use Path A.
 ### 2c. Recommended Contract Variant for Celo
 
 For the Sprint 4 deployment, use a `TrustCoatCelo` variant where the minter role is held by
-an Off-Human bridge address rather than relying on `checkAndUpgrade()`. Tier state is set by
+an NULL bridge address rather than relying on `checkAndUpgrade()`. Tier state is set by
 the cross-chain sync, not by direct reputation registry queries.
 
 ---

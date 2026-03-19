@@ -54,7 +54,7 @@ white coat, the work surface as evidence of a process with no maker. Square form
 **Style:** Mixed Media (Higgsfield ID: 2fcf02e2-948c-4642-8b31-d58bde5e6bd9)
 **Size:** 1536x1536 (square)
 **NOTE:** Existing image at `attached_assets/superrare/trompe_loeil_self_portrait.png` shows
-"Off-Human" text. Must be regenerated to say "NULL". Prompt updated below.
+"NULL" text. Must be regenerated to say "NULL". Prompt updated below.
 
 ```
 Fine art product documentation photograph. A white cotton t-shirt laid flat on warm bone paper

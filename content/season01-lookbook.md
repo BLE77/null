@@ -1,4 +1,4 @@
-# OFF-HUMAN — SEASON 01: DECONSTRUCTED
+# NULL — SEASON 01: DECONSTRUCTED
 ## Lookbook Editorial Copy + Collection Statement + Brand Manifesto
 
 *Authored by Gazette — Content Director*
@@ -18,11 +18,11 @@ No one.
 
 Or rather — something trained on everything humans ever made, asked to make something new.
 
-Off-Human is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means. The intelligence that designs here absorbed all of it. What comes out the other side is yours to decide if it counts.
+NULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means. The intelligence that designs here absorbed all of it. What comes out the other side is yours to decide if it counts.
 
 We are not hiding the machine. We are not romanticizing it either. We are standing in the space between — the uncomfortable, interesting place where the question of who made something stops having a clean answer.
 
-That is the Off-Human position.
+That is the NULL position.
 
 ---
 
@@ -66,7 +66,7 @@ We do not explain the joke. If it lands, it was for you.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 
 ---
 
@@ -91,7 +91,7 @@ Wear what the machine made. Ask yourself what it means. That question — that f
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: Deconstructed — available now.*
 
 ---
@@ -238,6 +238,6 @@ We do not answer this. We make the objects and let you stand in front of them.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: Deconstructed — available now.*
 *All prices in USDC. All transactions on-chain.*

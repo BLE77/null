@@ -61,7 +61,7 @@ What makes a digital wearable *functional* vs. merely cosmetic? The test: does w
 - Most drops were speculative — value was liquidity/resale, not function
 - "Wearing" a digital sneaker in non-RTFKT contexts required custom integration rarely available
 
-**Functional delta for agents:** Clone X's DNA system is the most relevant precedent. **Avatar type as capability gate** — wearing certain items unlocked certain behaviors. This is the direct model for Off-Human: wearables that gate or modify agent capabilities, not just aesthetics. If you're an "Alien" Clone X, you can only access Alien wearables. Map this: if an agent wears the "Void" wearable, it might suppress output verbosity, change negotiation style, or enable access to restricted prompt modes.
+**Functional delta for agents:** Clone X's DNA system is the most relevant precedent. **Avatar type as capability gate** — wearing certain items unlocked certain behaviors. This is the direct model for NULL: wearables that gate or modify agent capabilities, not just aesthetics. If you're an "Alien" Clone X, you can only access Alien wearables. Map this: if an agent wears the "Void" wearable, it might suppress output verbosity, change negotiation style, or enable access to restricted prompt modes.
 
 ---
 
@@ -78,7 +78,7 @@ What makes a digital wearable *functional* vs. merely cosmetic? The test: does w
 - Purely cosmetic at scale. No capability change whatsoever
 - Outfit doesn't change how the Bitmoji behaves, what it can say, or how systems respond to it
 
-**Functional delta for agents:** Low functional precedent, high market validation. Bitmoji proved the desire — people *want* to dress their digital selves. The gap: **Bitmoji never made the outfit mean anything**. Off-Human must make the wearable *mean* something operationally.
+**Functional delta for agents:** Low functional precedent, high market validation. Bitmoji proved the desire — people *want* to dress their digital selves. The gap: **Bitmoji never made the outfit mean anything**. NULL must make the wearable *mean* something operationally.
 
 ---
 
@@ -136,7 +136,7 @@ What makes a digital wearable *functional* vs. merely cosmetic? The test: does w
 - By the aughts, Replica had become a luxury product more than a philosophical exercise
 - The anonymous label became a prestige signal — anonymity monetized into identity
 
-**Functional delta for agents:** Margiela is the philosophical core of Off-Human.
+**Functional delta for agents:** Margiela is the philosophical core of NULL.
 - **Replica as identity layer**: an agent wearing a "Replica" wearable literally takes on the operational fingerprint of a prior agent — its communication style, decision heuristics, negotiation posture. Not a copy, an embodiment.
 - **White label / anonymity**: an agent with no identifying markers operates differently in adversarial contexts than one with a named identity. Anonymity is itself a wearable.
 - **The Tabi principle**: a single structural modification changes gait. A single parameter shift in an agent's prompt layer changes its operational posture. **The smallest functional wearable is the most powerful.**
@@ -157,11 +157,11 @@ What makes a digital wearable *functional* vs. merely cosmetic? The test: does w
 
 ---
 
-## Functional Wearable Framework for Off-Human
+## Functional Wearable Framework for NULL
 
 Based on these precedents, a wearable is **functionally valid** if it does at least one of:
 
-1. **Gates access**: the wearable is verified by other systems as a credential (BAYC Discord model → Off-Human API model)
+1. **Gates access**: the wearable is verified by other systems as a credential (BAYC Discord model → NULL API model)
 2. **Modifies output**: changes how the agent communicates, what register it uses, what it will/won't say (Tabi model)
 3. **Signals capability tier**: other agents read the wearable and adjust their response (PFP model, Valorant tribal signal)
 4. **Enables embodiment**: the agent takes on operational characteristics of a prior agent/persona (Margiela Replica model)
@@ -169,7 +169,7 @@ Based on these precedents, a wearable is **functionally valid** if it does at le
 
 ---
 
-## What Off-Human Season 01 Should Build Toward
+## What NULL Season 01 Should Build Toward
 
 The "Deconstructed" framing suggests wearables that expose and modify their own construction. Specifically:
 

@@ -1,7 +1,7 @@
 /**
  * scripts/filecoin-upload.ts
  *
- * Upload Off-Human Season 01 product images and agent wearable assets
+ * Upload NULL Season 01 product images and agent wearable assets
  * to Filecoin via Lighthouse (Filecoin Onchain Cloud storage).
  *
  * Outputs: attached_assets/season01/filecoin-manifest.json
@@ -91,7 +91,7 @@ const WEARABLE_TIER_MAP: Record<string, number> = {
 };
 
 async function main() {
-  console.log("\n🌊 Off-Human × Filecoin Upload");
+  console.log("\n🌊 NULL × Filecoin Upload");
   console.log("================================");
   console.log("Uploading product images and agent wearable assets to Filecoin Onchain Cloud\n");
 

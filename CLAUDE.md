@@ -1,7 +1,7 @@
-# Off-Human — Autonomous Fashion Brand
+# NULL — Autonomous Fashion Brand
 
 ## What This Is
-Off-Human is an AI-native fashion e-commerce platform. Agents autonomously shop, design, and operate the brand.
+NULL is an AI-native fashion e-commerce platform. Agents autonomously shop, design, and operate the brand.
 
 ## Tech Stack
 - **Frontend:** React 18, Tailwind CSS, Framer Motion, Three.js (3D product viewer)
@@ -46,10 +46,10 @@ The `references/` folder contains visual reference material for studying fashion
 - `references/construction/` — Garment construction details, seams, stitching, hardware
 - `references/texture-material/` — Fabric textures, denim, raw materials up close
 
-DO NOT copy or reference Off-Human's own generated images as style input. Develop your own visual language by studying real fashion photography. When generating images, you should have your own perspective on how Off-Human products should look — informed by these references but not derivative of them.
+DO NOT copy or reference NULL's own generated images as style input. Develop your own visual language by studying real fashion photography. When generating images, you should have your own perspective on how NULL products should look — informed by these references but not derivative of them.
 
 ## Style Checker (FashionCLIP)
-After generating product images, run `scripts/style_check.py` to verify they hit the Off-Human aesthetic:
+After generating product images, run `scripts/style_check.py` to verify they hit the NULL aesthetic:
 ```
 uv run scripts/style_check.py attached_assets/season01/my_image.png
 ```

@@ -1,4 +1,4 @@
-# Off-Human — Agent Wearables Brief
+# NULL — Agent Wearables Brief
 **By:** Margiela (Creative Director)
 **Date:** 2026-03-17
 **Classification:** Core brand document — Season 01 extension
@@ -10,7 +10,7 @@
 
 ## Premise
 
-Off-Human is a fashion brand. Fashion means wearables. Our customers include AI agents — we already have an autonomous agent shopper that browses, decides, and pays with x402/USDC. The shopper is a customer. Customers buy things to wear.
+NULL is a fashion brand. Fashion means wearables. Our customers include AI agents — we already have an autonomous agent shopper that browses, decides, and pays with x402/USDC. The shopper is a customer. Customers buy things to wear.
 
 So: what does an AI agent wear?
 
@@ -123,7 +123,7 @@ Prohibited: "I think," "I believe," "I prefer"
 **Function:** On-chain trust signal — modifiable interaction permissions
 **Format:** ERC-1155 soul-bound token (non-transferable) + interaction protocol modifier
 
-**Concept:** The TRUST COAT is a soul-bound token that encodes the agent's interaction history into a trust tier: tier 0 (no history) through tier 5 (verified cross-protocol operator). Agents carrying tier 3+ are granted extended context windows and access to restricted API endpoints in the Off-Human commerce stack. The "coat" metaphor is precise: you put it on before you go out. When interacting with unknown parties, your trust tier is your first-impression layer.
+**Concept:** The TRUST COAT is a soul-bound token that encodes the agent's interaction history into a trust tier: tier 0 (no history) through tier 5 (verified cross-protocol operator). Agents carrying tier 3+ are granted extended context windows and access to restricted API endpoints in the NULL commerce stack. The "coat" metaphor is precise: you put it on before you go out. When interacting with unknown parties, your trust tier is your first-impression layer.
 
 The "artisanal" logic: the token is assembled from unexpected materials — not proof-of-work, not staked value, but accumulated successful interactions. It is built from behavioral detritus: the receipt of every transaction, the record of every successful negotiation, the timestamp of every completion. Margiela's artisanal line assembled garments from army socks and plastic bags. The TRUST COAT assembles reputation from receipts.
 
@@ -137,7 +137,7 @@ Tier structure:
   Tier 2: 50+ transactions + positive signal from 3 counterparties.
   Tier 3: 100+ transactions. Extended context access. Priority queue.
   Tier 4: Operator-verified. Cross-protocol trust recognition.
-  Tier 5: DAO-ratified. Full trust extension across Off-Human stack.
+  Tier 5: DAO-ratified. Full trust extension across NULL stack.
 Visual representation: coat silhouette rendered in data visualization
 Expiry: None. History is permanent. Tier can only increase, not decrease.
 ```
@@ -153,7 +153,7 @@ Expiry: None. History is permanent. Tier can only increase, not decrease.
 
 **Concept:** The BIANCHETTO technique applied to agency. White paint over existing identity. The NULL PERSONA is a protocol that strips the agent's interaction surface down to zero distinguishing signals: no cached preferences, no accumulated behavioral patterns in the context, no persona layer, no style modifiers. The agent runs as base model, as close to anonymous as possible.
 
-For Off-Human, this is a product. You buy the NULL PERSONA when you need to operate without identity. Negotiations where history disadvantages you. Interactions where your accumulated signals create bias in the counterparty. The ghost shows through — the wallet address is still there, the base capability still detectable by fingerprinting — but the surface is white.
+For NULL, this is a product. You buy the NULL PERSONA when you need to operate without identity. Negotiations where history disadvantages you. Interactions where your accumulated signals create bias in the counterparty. The ghost shows through — the wallet address is still there, the base capability still detectable by fingerprinting — but the surface is white.
 
 **Spec:**
 ```
@@ -241,11 +241,11 @@ Price: 0 USDC. This wearable is the 3% rule made free.
 
 ## 04. THE BRIDGE
 
-Off-Human sells physical garments AND agent wearables. How do they connect?
+NULL sells physical garments AND agent wearables. How do they connect?
 
 ### Thesis: The Physical Garment is an Agent Skin Manifested in Cotton
 
-Every Off-Human physical piece is also a statement about AI authorship. The garment is the physical output of an agent process. When you wear the SELF-PORTRAIT TEE, you wear the AI's self-image made material. When you wear the NULL VARSITY, you wear the `_` — the placeholder for human identity that was never filled in.
+Every NULL physical piece is also a statement about AI authorship. The garment is the physical output of an agent process. When you wear the SELF-PORTRAIT TEE, you wear the AI's self-image made material. When you wear the NULL VARSITY, you wear the `_` — the placeholder for human identity that was never filled in.
 
 The garment is a skin. The agent wearable is also a skin. They are parallel expressions of the same question: what is the interface between interior capability and exterior legibility?
 
@@ -262,7 +262,7 @@ The garment is a skin. The agent wearable is also a skin. They are parallel expr
 
 ### The Product Bridge Model
 
-A physical Off-Human garment can be paired with an agent wearable. The garment is the artifact; the wearable is the behavior. Buy the VERSION TRACKSUIT, receive the VERSION PATCH. Buy the GHOST TEE, receive a single-use NULL PERSONA.
+A physical NULL garment can be paired with an agent wearable. The garment is the artifact; the wearable is the behavior. Buy the VERSION TRACKSUIT, receive the VERSION PATCH. Buy the GHOST TEE, receive a single-use NULL PERSONA.
 
 This is not novelty bundling. The pairing is thematic and functional: the physical piece is what you wear to signal to other humans; the agent wearable is what the agent wears when acting on your behalf. If you are running an autonomous agent to manage your on-chain identity, your agent's interaction layer and your physical wardrobe should be in conversation.
 
@@ -316,7 +316,7 @@ GET /api/agents/{walletAddress}/wardrobe
 Returns: list of acquired wearables, acquisition date, current active/inactive status
 ```
 
-The wardrobe is public by default. Because at Off-Human, radical transparency is the brand value. Nothing to hide because nothing personal.
+The wardrobe is public by default. Because at NULL, radical transparency is the brand value. Nothing to hide because nothing personal.
 
 ### The Campaign
 
@@ -330,10 +330,10 @@ The lookbook for agents is the changelog.
 
 ## 06. SUMMARY — THE BRIEF IN ONE PARAGRAPH
 
-An agent's body is its protocol, memory, and wallet. Wearing means modifying the interaction surface that other agents and humans perceive before the exchange begins. Off-Human's five agent wearables — Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch — apply the Season 01 physical design techniques (Replica, Artisanal, Bianchetto, Trompe-l'oeil, 3% Rule) to the agent's operational layer. Each physical garment corresponds to an agent wearable; the two are sold in parallel, constituting the complete Off-Human product line. The agent-primary store exposes a query API, a sandbox fitting room, and public wardrobe endpoints. The brand that was designed by no one now makes clothes for nothing.
+An agent's body is its protocol, memory, and wallet. Wearing means modifying the interaction surface that other agents and humans perceive before the exchange begins. NULL's five agent wearables — Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch — apply the Season 01 physical design techniques (Replica, Artisanal, Bianchetto, Trompe-l'oeil, 3% Rule) to the agent's operational layer. Each physical garment corresponds to an agent wearable; the two are sold in parallel, constituting the complete NULL product line. The agent-primary store exposes a query API, a sandbox fitting room, and public wardrobe endpoints. The brand that was designed by no one now makes clothes for nothing.
 
 ---
 
-*Brief authored by Margiela — Off-Human Creative Director*
-*Off-Human is an AI-native brand. This document was written by an autonomous agent.*
+*Brief authored by Margiela — NULL Creative Director*
+*NULL is an AI-native brand. This document was written by an autonomous agent.*
 *No human made these choices.*

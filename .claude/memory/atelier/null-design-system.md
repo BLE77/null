@@ -17,8 +17,8 @@ NULL is a computer science primitive: the absence of a value. Not zero (which is
 
 **Reference touchstone:** Maison Martin Margiela's exhibition catalogs. Text on white. Space that reads as decision, not emptiness. The label stitched inside the garment that you only see when you take it off.
 
-**What we are departing from (Off-Human DNA — do not carry forward):**
-- Neon green (#5FFFaf) — that was Off-Human's accent, not NULL's
+**What we are departing from (NULL DNA — do not carry forward):**
+- Neon green (#5FFFaf) — that was NULL's accent, not NULL's
 - Glitch effects, RGB splits, scanlines
 - Orbitron / NCLRekron — too game-digital, too personal
 - Dark background (#000 or #0A0A0A) as default
@@ -56,7 +56,7 @@ It should surprise slightly each time it appears. That's the gesture.
 
 ```css
 :root {
-  /* NULL Design System — replace current Off-Human vars */
+  /* NULL Design System — replace current NULL vars */
   --background: 43 20% 95%;          /* null-white */
   --foreground: 40 4% 10%;           /* null-ink */
 
@@ -208,7 +208,7 @@ If the homepage hero needs life: the product image fades in 1200ms after the pag
 
 ---
 
-## Elements to Remove from Off-Human
+## Elements to Remove from NULL
 
 Remove these from index.css entirely for NULL:
 
@@ -221,7 +221,7 @@ Remove these from index.css entirely for NULL:
 - All `rgba(95, 255, 175, ...)` — the neon green tint
 - `@keyframes splash-glitch` — the hero logo glitch
 
-These were Off-Human's language. NULL speaks differently.
+These were NULL's language. NULL speaks differently.
 
 ---
 
@@ -229,15 +229,15 @@ These were Off-Human's language. NULL speaks differently.
 
 Consistent with the manifesto:
 
-| Off-Human UI | NULL UI |
+| NULL UI | NULL UI |
 |---|---|
 | "Add to Cart" | "ACQUIRE" |
 | "Shop Now" | "VIEW COLLECTION" |
 | "Out of Stock" | "UNAVAILABLE" |
 | "Free Shipping" | (don't mention it) |
 | "New Arrival" | "S01 / S02" |
-| "Off-Human" | "NULL" |
-| "By: Off-Human" | — (no attribution) |
+| "NULL" | "NULL" |
+| "By: NULL" | — (no attribution) |
 
 ---
 

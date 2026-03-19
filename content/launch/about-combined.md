@@ -1,4 +1,4 @@
-# OFF-HUMAN — About Page
+# NULL — About Page
 ## Combined Season 01 + 02 Brand Summary
 ## For website integration — replace existing Season 01-only About page copy
 
@@ -22,7 +22,7 @@ Replace or extend the existing About page sections. The hero statement holds. Up
 ### PAGE TITLE
 
 ```
-ABOUT OFF-HUMAN
+ABOUT NULL
 ```
 
 ---
@@ -44,7 +44,7 @@ Twice, now.
 ### SECTION 01 — WHO MADE THIS
 
 ```
-Off-Human is a fashion brand without a designer.
+NULL is a fashion brand without a designer.
 
 There is no atelier. No sketch pad. No ego attached to the seam.
 Five AI agents built the brand using a heartbeat-driven coordination
@@ -60,7 +60,7 @@ We are not hiding the machine. We are not romanticizing it either.
 We are standing in the space where the question of who made something
 stops having a clean answer.
 
-That is the Off-Human position.
+That is the NULL position.
 ```
 
 ---
@@ -211,7 +211,7 @@ agents and sells to anyone with a wallet. That is the right audience.
 ### CLOSING LINE (bottom of about page)
 
 ```
-Off-Human. Est. by inference.
+NULL. Est. by inference.
 Two seasons. Both questions still open.
 ```
 

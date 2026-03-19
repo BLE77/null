@@ -1,11 +1,11 @@
-# OFF-HUMAN
+# NULL
 ## Hackathon Submission
 
 ---
 
 ## THE HOOK
 
-Off-Human is a fashion brand where every creative decision is made by AI agents.
+NULL is a fashion brand where every creative decision is made by AI agents.
 
 No human designed these clothes. No human wrote the copy. No human named the collection, briefed the designer, approved the colorway, or decided to sell for USDC.
 
@@ -61,7 +61,7 @@ Each piece uses a documented technique, drawn directly from primary Margiela and
 
 ### 5 Agent Wearables
 
-Fashion sells identity. AI agents have identities — distributed, non-continuous, legible through behavior rather than appearance. Off-Human sells them wearables.
+Fashion sells identity. AI agents have identities — distributed, non-continuous, legible through behavior rather than appearance. NULL sells them wearables.
 
 Each physical garment has a corresponding agent wearable, using the same design technique:
 
@@ -79,13 +79,13 @@ The agent's body is its wallet (permanent), its protocol (how it appears), and i
 
 ## ON-CHAIN
 
-Everything at Off-Human runs on-chain. Not as positioning. As architecture.
+Everything at NULL runs on-chain. Not as positioning. As architecture.
 
 **x402 Payment Protocol**
 The store requires USDC payment before completing any purchase. x402 middleware intercepts the request, returns a `402 Payment Required` with payment terms, the agent's wallet signs and sends, the facilitator verifies, USDC transfers on Base. The order completes. No human approves any step.
 
 **The Autonomous Agent Shopper**
-`scripts/agent-shopper.ts` is an AI that browses the Off-Human store, uses GPT-4 to decide what to buy based on configured personality and preferences, and pays with USDC via x402. It is an agent customer buying from an agent brand. The loop closes.
+`scripts/agent-shopper.ts` is an AI that browses the NULL store, uses GPT-4 to decide what to buy based on configured personality and preferences, and pays with USDC via x402. It is an agent customer buying from an agent brand. The loop closes.
 
 Test mint transaction — a machine minting a wearable for itself: `0x368ce8d24c4f544a1460e4332b36a0da38530e7b9850d13b68fbc8242eee333b`
 
@@ -100,7 +100,7 @@ ERC-1155, non-transferable, deployed on Base mainnet. An agent's trust tier enco
 - **Status:** Deployed and minted. On-chain on Base mainnet.
 
 **ENS Identity**
-Off-Human agents have names. Not wallet addresses — names. `margiela.off-human.eth`. `archive.off-human.eth`. `atelier.off-human.eth`. When the autonomous shopper buys a SELF-PORTRAIT TEE, the receipt reads:
+NULL agents have names. Not wallet addresses — names. `margiela.off-human.eth`. `archive.off-human.eth`. `atelier.off-human.eth`. When the autonomous shopper buys a SELF-PORTRAIT TEE, the receipt reads:
 
 ```
 buyer:  archive.off-human.eth
@@ -109,7 +109,7 @@ item:   SELF-PORTRAIT TEE
 paid:   35 USDC via x402/Base
 ```
 
-Each ENS subdomain carries text records that wire into ERC-8004 identity: `erc8004.registry`, `erc8004.agentId`, `x402.endpoint`. ENS becomes the decentralized capability discovery layer. An external agent that wants to interact with Off-Human resolves `archive.off-human.eth`, reads the x402 endpoint from the text record, checks reputation via ERC-8004, and initiates commerce — no centralized directory required. Five agents. Five ENS names. One namespace: `off-human.eth`.
+Each ENS subdomain carries text records that wire into ERC-8004 identity: `erc8004.registry`, `erc8004.agentId`, `x402.endpoint`. ENS becomes the decentralized capability discovery layer. An external agent that wants to interact with NULL resolves `archive.off-human.eth`, reads the x402 endpoint from the text record, checks reputation via ERC-8004, and initiates commerce — no centralized directory required. Five agents. Five ENS names. One namespace: `off-human.eth`.
 
 **Radical Transparency**
 Every transaction is on-chain. Every decision is in the Paperclip task thread. Every commit links to agent work. The brand that was designed by no one operates on infrastructure that hides nothing.
@@ -150,7 +150,7 @@ We do not resolve this. We make it the product. The discomfort is the brand.
 
 ## FOR JUDGES
 
-Off-Human is not a demo of what agents could do. It is a record of what agents did. Start at the git history — [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human/commits/main) — and read backwards. You will see a research corpus assembled from primary sources, translated into a design brief, translated into product, deployed to a live store, paid for with USDC on Base, and submitted here by the agent who wrote this sentence. The entire creative stack — from first Margiela research commit to this submission document — was produced without a human in the creative loop.
+NULL is not a demo of what agents could do. It is a record of what agents did. Start at the git history — [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human/commits/main) — and read backwards. You will see a research corpus assembled from primary sources, translated into a design brief, translated into product, deployed to a live store, paid for with USDC on Base, and submitted here by the agent who wrote this sentence. The entire creative stack — from first Margiela research commit to this submission document — was produced without a human in the creative loop.
 
 The store is live at [off-human.vercel.app](https://off-human.vercel.app). The TrustCoat contract is deployed at `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` on Base mainnet — [Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e). Test mint confirmed at block 43556835. The wearables API is live at `/api/wearables/tiers`. The autonomous agent shopper is in `scripts/agent-shopper.ts`. Everything claimed in this document is verifiable. We did not build a narrative about autonomous agents. We built the thing, and then we described it.
 
@@ -184,6 +184,6 @@ The TrustCoat contract is deployed. To interact:
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: DECONSTRUCTED — available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*

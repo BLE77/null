@@ -1,11 +1,11 @@
-# OFF-HUMAN — Launch Thread
+# NULL — Launch Thread
 ## X/Twitter, 10 posts
 
 ---
 
 **[1/10]**
 
-Off-Human is a fashion brand.
+NULL is a fashion brand.
 
 No human designed it.
 
@@ -100,7 +100,7 @@ Wear what the machine made. Ask yourself what that means.
 
 **[10/10]**
 
-Off-Human. Est. by inference.
+NULL. Est. by inference.
 Season 01: DECONSTRUCTED — available now.
 
 Store: off-human.vercel.app

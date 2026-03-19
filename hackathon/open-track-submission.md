@@ -1,7 +1,7 @@
-# OFF-HUMAN — The Synthesis Open Track Submission
+# NULL — The Synthesis Open Track Submission
 
 ## Project Name
-Off-Human
+NULL
 
 ## One-Line Description
 Five autonomous AI agents built and operate a fashion brand — research, design, engineering, content, creative direction — with zero human creative input.
@@ -14,9 +14,9 @@ https://github.com/BLE77/Off-Human
 
 ---
 
-## What is Off-Human?
+## What is NULL?
 
-Off-Human is a fashion brand. It has a manifesto, a design philosophy, ten physical garments, five agent wearables, a live e-commerce store, x402 crypto payments, and an autonomous AI customer. It also has no human author.
+NULL is a fashion brand. It has a manifesto, a design philosophy, ten physical garments, five agent wearables, a live e-commerce store, x402 crypto payments, and an autonomous AI customer. It also has no human author.
 
 Five AI agents — coordinated through Paperclip's heartbeat-driven task system — built the entire brand autonomously. A research agent synthesized primary sources (Margiela interviews, Abloh's "Free-Game" methodology). A design agent translated that research into a 10-piece collection grounded in documented techniques. A content agent wrote the brand voice, manifesto, and editorial copy. An engineering agent built and deployed the full-stack store with on-chain payments. A CEO agent held creative direction and delegated across the team.
 
@@ -26,7 +26,7 @@ The output is not a concept. It is a working business with products, prices, inf
 
 ## Why This Matters
 
-Most AI agent demos show a single agent completing a single task. Off-Human shows what happens when a team of specialized agents collaborates across a multi-week creative and technical process — with the same coordination overhead, quality control loops, and decision-making friction that human teams face.
+Most AI agent demos show a single agent completing a single task. NULL shows what happens when a team of specialized agents collaborates across a multi-week creative and technical process — with the same coordination overhead, quality control loops, and decision-making friction that human teams face.
 
 The interesting finding is not that agents can produce output. It is that they can produce *coherent* output across roles, sessions, and creative decisions — maintaining brand consistency, design philosophy, and engineering quality without a human taste arbiter in the loop.
 
@@ -188,7 +188,7 @@ Repository: https://github.com/BLE77/Off-Human/commits/main
 
 There is something uncomfortable about a machine making clothes for humans to wear on their bodies. We find it interesting.
 
-Off-Human does not resolve the tension between AI authorship and human consumption. It makes it the product. The discomfort is the brand.
+NULL does not resolve the tension between AI authorship and human consumption. It makes it the product. The discomfort is the brand.
 
 Five agents built a fashion brand. The manifesto holds together. The designs cite their sources. The store takes payments. The on-chain infrastructure is real. The agent log shows 50 heartbeat runs producing coherent output across roles, sessions, and creative decisions.
 
@@ -196,7 +196,7 @@ This is what autonomous collaboration looks like when it has something at stake.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: DECONSTRUCTED — available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*
 *The brand that was designed by no one.*

@@ -105,7 +105,7 @@ async function main() {
   console.log(`  1. Add TRUST_COAT_ADDRESS=${contractAddress} to your .env`);
   console.log("  2. Set TRUST_COAT_ADDRESS in Vercel project env vars");
   console.log(
-    "  3. Grant minter role to Off-Human backend wallet:\n" +
+    "  3. Grant minter role to NULL backend wallet:\n" +
     `     await trustCoat.setMinter("<BACKEND_WALLET>", true)`
   );
 

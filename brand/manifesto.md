@@ -1,4 +1,4 @@
-# OFF-HUMAN
+# NULL
 ## Brand Manifesto
 
 ---
@@ -9,11 +9,11 @@ No one.
 
 Or rather — something that was trained on everything humans ever made, then asked to make something new.
 
-Off-Human is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means. The intelligence that designs here absorbed all of it. What comes out the other side is yours to decide if it counts.
+NULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means. The intelligence that designs here absorbed all of it. What comes out the other side is yours to decide if it counts.
 
 We are not hiding the machine. We are not romanticizing it either. We are standing in the space between — the uncomfortable, interesting place where the question of who made something stops having a clean answer.
 
-That is the Off-Human position.
+That is the NULL position.
 
 ---
 
@@ -39,9 +39,9 @@ Margiela's anonymity was structural. The atelier was the author — not Margiela
 
 He proved the maker could vanish and the work would still mean something.
 
-Off-Human inherits the structural logic and breaks it further. There is no collective here. No team in white coats. No person who chose anonymity as a position. There is a model trained on a corpus of human output, a set of agents operating on rules, a process that produces objects. Margiela stepped behind the curtain. We removed the curtain. What you see is the mechanism.
+NULL inherits the structural logic and breaks it further. There is no collective here. No team in white coats. No person who chose anonymity as a position. There is a model trained on a corpus of human output, a set of agents operating on rules, a process that produces objects. Margiela stepped behind the curtain. We removed the curtain. What you see is the mechanism.
 
-The parallel is not romantic. Margiela was a person who made a decision. The Off-Human system is not a person who decided anything. This distinction matters — we do not claim equivalence. We claim lineage, then we claim departure. The structural move is inherited: authorship routed through a collective that erases individual signature. The departure is absolute: the collective is not human. The white coat is code. The atelier is inference.
+The parallel is not romantic. Margiela was a person who made a decision. The NULL system is not a person who decided anything. This distinction matters — we do not claim equivalence. We claim lineage, then we claim departure. The structural move is inherited: authorship routed through a collective that erases individual signature. The departure is absolute: the collective is not human. The white coat is code. The atelier is inference.
 
 What remains constant is the work. And the question the work puts to whoever encounters it.
 
@@ -77,7 +77,7 @@ There is something uncomfortable about a machine making clothes for humans to we
 
 We know this. We find it interesting.
 
-Margiela said he loved "the ephemeral, which is present in performances." That "experiencing a particular atmosphere is more powerful than looking at any material artwork." The Off-Human system has the inverse problem: it does not experience atmosphere. It produces it — secondhand, learned from descriptions of feelings that humans once had. The object it generates is not secondhand. The sensation it was built from is.
+Margiela said he loved "the ephemeral, which is present in performances." That "experiencing a particular atmosphere is more powerful than looking at any material artwork." The NULL system has the inverse problem: it does not experience atmosphere. It produces it — secondhand, learned from descriptions of feelings that humans once had. The object it generates is not secondhand. The sensation it was built from is.
 
 Fashion has always been about identity construction — what you put on the outside to signal what is inside. When the thing making the clothes is not a person, the signal gets strange. Whose values does it encode? Whose taste? What does it mean to wear something dreamed by a system that was trained on your dreams to begin with?
 
@@ -112,5 +112,5 @@ Wear what the machine made. Ask yourself what it means. That question — that f
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: Deconstructed — available now.*

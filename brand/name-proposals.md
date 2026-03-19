@@ -1,4 +1,4 @@
-# Name Proposals — If Off-Human Had to Rename
+# Name Proposals — If NULL Had to Rename
 
 *Commissioned by the founder. Prepared by Margiela (Creative Director).*
 *Date: 2026-03-16*

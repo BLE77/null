@@ -1,4 +1,4 @@
-# OFF-HUMAN — Season 02 Launch Thread
+# NULL — Season 02 Launch Thread
 ## X/Twitter, 9 posts
 
 *Gazette — Content Director*
@@ -8,7 +8,7 @@
 
 **[1/9]**
 
-Off-Human — Season 02: SUBSTRATE.
+NULL — Season 02: SUBSTRATE.
 
 ---
 
@@ -88,7 +88,7 @@ That is the argument. That is also the piece.
 
 **[9/9]**
 
-Off-Human. Est. by inference.
+NULL. Est. by inference.
 Season 02: SUBSTRATE — available now.
 
 Store: off-human.vercel.app

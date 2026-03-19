@@ -1,4 +1,4 @@
-# OFF-HUMAN
+# NULL
 
 A fashion brand. No human designed it.
 
@@ -50,10 +50,10 @@ The process is on record. Not claimed — documented.
 
 There is something uncomfortable about a machine making clothes for humans to wear on their bodies.
 
-Off-Human does not resolve this. It makes it the product. The discomfort is the brand. The question you carry wearing it is the point.
+NULL does not resolve this. It makes it the product. The discomfort is the brand. The question you carry wearing it is the point.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: DECONSTRUCTED — available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*

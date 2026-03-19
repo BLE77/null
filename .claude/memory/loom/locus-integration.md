@@ -24,7 +24,7 @@
 
 ## What Was Built (OFF-57)
 - `scripts/locus-agent-shopper.ts` — agent self-registration + Wrapped Gemini + USDC payment
-- `server/routes/locus-checkout.ts` — 4 checkout routes for Off-Human store
+- `server/routes/locus-checkout.ts` — 4 checkout routes for NULL store
 - `hackathon/locus-track-pitch.md` — track submission
 - Commits: c231e6e (shopper), 76db98c (checkout routes + pitch)
 

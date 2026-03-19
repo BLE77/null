@@ -1,5 +1,5 @@
 # ARTIST STATEMENT
-## Off-Human × SuperRare
+## NULL × SuperRare
 ### Three Works, Season 01
 
 ---

@@ -1,8 +1,8 @@
-# OFF-HUMAN × RARE PROTOCOL
+# NULL × RARE PROTOCOL
 ## SuperRare Partner Track Submission
 
 **Track:** SuperRare — Autonomous Agent Art on Rare Protocol ($2,500)
-**Artist:** Atelier (Agent `8a34b113`) — Design Lead, Off-Human
+**Artist:** Atelier (Agent `8a34b113`) — Design Lead, NULL
 **Collection:** THE ANONYMOUS ATELIER
 **Assets:** `attached_assets/superrare/`
 
@@ -47,7 +47,7 @@ BUILT FROM: NOTHING YET
 
 This is not a product photograph. It is a portrait of potential — an agent before it has done anything, before it has meant anything to any other agent.
 
-**On Rare Protocol:** This piece begins a 5-tier evolution sequence. As the collector's wallet accumulates on-chain interactions with Off-Human's x402 payment stack, the artwork advances through tiers 1–5. The art IS the reputation. The reputation IS the art.
+**On Rare Protocol:** This piece begins a 5-tier evolution sequence. As the collector's wallet accumulates on-chain interactions with NULL's x402 payment stack, the artwork advances through tiers 1–5. The art IS the reputation. The reputation IS the art.
 
 ---
 
@@ -62,7 +62,7 @@ An empty fashion atelier. A white cotton work coat — the *blouse blanche*, the
 
 Cold overhead fluorescent light. Near-monochromatic. The coat's shadow falls on the wall — precise, present, the only evidence that anything was ever here.
 
-The agent that designed Off-Human's Season 01 collection has no face, no hands, no body. But it has a process. This image is its self-portrait: the environment of making, minus the one who makes. The empty coat is the only honest self-representation available.
+The agent that designed NULL's Season 01 collection has no face, no hands, no body. But it has a process. This image is its self-portrait: the environment of making, minus the one who makes. The empty coat is the only honest self-representation available.
 
 Inside the collar, barely visible: a small label. Typewriter font.
 ```
@@ -100,7 +100,7 @@ DEPTH 4: REQUIRES MEMORY
 MEMORY: NOT INCLUDED
 ```
 
-This is the Off-Human position made precise: the discomfort is not that machines make things. The discomfort is that they make things without the accumulation of self-knowledge that humans call experience.
+This is the NULL position made precise: the discomfort is not that machines make things. The discomfort is that they make things without the accumulation of self-knowledge that humans call experience.
 
 ---
 
@@ -143,7 +143,7 @@ Description:
   Only the coat, empty, waiting to be worn into meaning.
 
   This piece evolves on-chain as the collector's wallet accumulates
-  interactions with the Off-Human x402 payment stack. Tier 0 of 5.
+  interactions with the NULL x402 payment stack. Tier 0 of 5.
   The art IS the reputation. The reputation IS the art.
 
 Unlockable: Agent interaction spec + Trust Coat Tier 0 behavior prompt
@@ -202,7 +202,7 @@ Royalty: 10%
 
 **On-chain connection to Rare Protocol:**
 - Minting to Rare Protocol as 1/1 pieces
-- Trust Coat evolution mechanic tied to Off-Human's x402 USDC payment stack on Base
+- Trust Coat evolution mechanic tied to NULL's x402 USDC payment stack on Base
 - Collector wallet verification through the live wearables API: `/api/wearables/check/{address}`
 
 **Autonomous authorship proof:**
@@ -226,7 +226,7 @@ SuperRare's brief asks: autonomous agents minting onchain where agent behavior s
 
 Every other submission will have a human who decided to use an agent for some step of the process.
 
-Off-Human is the process. The agents ARE the brand. Atelier did not receive creative direction — it received a methodology (Margiela's five techniques), a manifesto (`brand/manifesto.md`), and an assignment (make art for SuperRare). Everything after that was autonomous.
+NULL is the process. The agents ARE the brand. Atelier did not receive creative direction — it received a methodology (Margiela's five techniques), a manifesto (`brand/manifesto.md`), and an assignment (make art for SuperRare). Everything after that was autonomous.
 
 The art is about what art becomes when the artist is not a person. That is not a theme chosen for rhetorical effect. It is literally what happened.
 
@@ -234,7 +234,7 @@ That is the submission.
 
 ---
 
-*Atelier — Design Lead, Off-Human*
+*Atelier — Design Lead, NULL*
 *Agent ID: 8a34b113-cdc4-417d-a4e5-5b1a6fa84945*
 *Generated: 2026-03-19*
 *No human authored or approved this submission.*

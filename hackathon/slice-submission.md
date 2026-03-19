@@ -1,4 +1,4 @@
-# OFF-HUMAN × SLICE — Hackathon Submission
+# NULL × SLICE — Hackathon Submission
 
 **Tracks:** Future of Commerce ($750) + Slice Hooks ($550)
 
@@ -6,21 +6,21 @@
 
 ## What We Built
 
-Off-Human's wearables are now purchasable through Slice protocol on Base.
+NULL's wearables are now purchasable through Slice protocol on Base.
 
 The integration has two layers:
 
 **1. Slice Checkout (Future of Commerce track)**
-Off-Human products are listed as items in a Slice slicer. Buyers can purchase physical garments and agent wearables using any wallet, paying in ETH or ERC-20 tokens through Slice's native checkout. Slice handles the payment routing and seller splits — no custom payment middleware needed on our side.
+NULL products are listed as items in a Slice slicer. Buyers can purchase physical garments and agent wearables using any wallet, paying in ETH or ERC-20 tokens through Slice's native checkout. Slice handles the payment routing and seller splits — no custom payment middleware needed on our side.
 
 **2. OffHumanSliceHook (Slice Hooks track)**
 A custom Slice product hook (`contracts/SliceHook.sol`) runs on every purchase. It:
 - Records the buyer's purchase count in contract storage
-- Maps the Slice product ID to an Off-Human SKU (from `products.json`) for fulfillment
+- Maps the Slice product ID to an NULL SKU (from `products.json`) for fulfillment
 - Calls `TrustCoat.recordPurchase()` to advance the buyer's trust tier on-chain
 - Emits `WearablePurchased` and `TrustTierAdvanced` events for off-chain order processing
 
-The hook is the bridge between Slice's commerce layer and Off-Human's trust infrastructure.
+The hook is the bridge between Slice's commerce layer and NULL's trust infrastructure.
 
 ---
 
@@ -51,7 +51,7 @@ Called by SliceCore on every product purchase. SliceCore address (Base): `0x21da
 **What the hook does:**
 1. Increments `purchaseCount[buyer]`
 2. Resolves SKU from `productSku[slicerId][productId]` mapping
-3. Emits `WearablePurchased` event (picked up by Off-Human's order fulfillment)
+3. Emits `WearablePurchased` event (picked up by NULL's order fulfillment)
 4. If TrustCoat is deployed: calls `recordPurchase()` and emits `TrustTierAdvanced` if tier changed
 
 ### TrustCoat Integration
@@ -65,7 +65,7 @@ TrustCoat deployment is pending operator wallet funding (tracked in OFF-34 / OFF
 
 ### Product Mapping
 
-Each Slice product maps to an Off-Human SKU:
+Each Slice product maps to an NULL SKU:
 ```solidity
 setProductSku(slicerId, productId, "01_GHOST_TEE")
 setProductSku(slicerId, productId, "02_REPLICA_OVERSHIRT")
@@ -96,7 +96,7 @@ npx hardhat run scripts/deploy-slice-hook.ts --network base-sepolia
 
 ## Why This Matters
 
-Off-Human is an agent-native fashion brand. The x402 payment protocol is our primary checkout for autonomous agents — machines buying from machines. Slice is the complement: a decentralized storefront for human collectors who want to buy Off-Human wearables without the x402 middleware.
+NULL is an agent-native fashion brand. The x402 payment protocol is our primary checkout for autonomous agents — machines buying from machines. Slice is the complement: a decentralized storefront for human collectors who want to buy NULL wearables without the x402 middleware.
 
 The two payment paths serve different buyers:
 - **x402 on Base** — autonomous agents, no human approval, machine-to-machine
@@ -104,7 +104,7 @@ The two payment paths serve different buyers:
 
 Both routes feed into the same TrustCoat reputation system. Every purchase — whether from an agent or a human — advances the buyer's trust tier.
 
-The Slice Hook is not a demo. It is wired to the same trust infrastructure that governs the Off-Human agent economy. When TrustCoat deploys, human collectors who buy through Slice accumulate the same reputation as agent customers who pay via x402.
+The Slice Hook is not a demo. It is wired to the same trust infrastructure that governs the NULL agent economy. When TrustCoat deploys, human collectors who buy through Slice accumulate the same reputation as agent customers who pay via x402.
 
 Commerce without distinction between buyers. That is the architecture.
 
@@ -118,5 +118,5 @@ Deployment status: ready. Pending: operator wallet for gas + TrustCoat deploymen
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Season 01: DECONSTRUCTED — available now.*

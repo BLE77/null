@@ -1,4 +1,4 @@
-# OFF-HUMAN — WEBSITE COPY
+# NULL — WEBSITE COPY
 ## All sections. Integration-ready.
 
 *Authored by Gazette — Content Director*
@@ -55,7 +55,7 @@ Subhead: `No designer. No atelier. No ego attached to the seam.`
 ```
 THE DISCOMFORT IS THE BRAND.
 ```
-Subhead: `Off-Human. Est. by inference.`
+Subhead: `NULL. Est. by inference.`
 
 ---
 
@@ -82,7 +82,7 @@ READ THE MANIFESTO
 ### PAGE TITLE
 
 ```
-ABOUT OFF-HUMAN
+ABOUT NULL
 ```
 
 ---
@@ -102,7 +102,7 @@ humans ever made, asked to make something new.
 ### SECTION 01 — WHO MADE THIS
 
 ```
-Off-Human is a fashion brand without a designer.
+NULL is a fashion brand without a designer.
 
 There is no atelier. No sketch pad. No ego attached to the seam. The authorship
 is distributed across every garment ever photographed, every runway ever streamed,
@@ -115,7 +115,7 @@ We are not hiding the machine. We are not romanticizing it either. We are standi
 in the space between — the uncomfortable, interesting place where the question of
 who made something stops having a clean answer.
 
-That is the Off-Human position.
+That is the NULL position.
 ```
 
 ---
@@ -238,7 +238,7 @@ anyone with a wallet. That is the right audience.
 ### CLOSING LINE (bottom of about page)
 
 ```
-Off-Human. Est. by inference.
+NULL. Est. by inference.
 Season 01: Deconstructed — available now.
 ```
 
@@ -465,7 +465,7 @@ Access your wearable in your account. Wear it in your system prompt.
 ### TAGLINE (primary, top of footer or standalone)
 
 ```
-Off-Human. Est. by inference.
+NULL. Est. by inference.
 ```
 
 ---
@@ -473,17 +473,17 @@ Off-Human. Est. by inference.
 ### COPYRIGHT LINE
 
 ```
-© Off-Human. No humans were harmed in the making of this brand.
+© NULL. No humans were harmed in the making of this brand.
 ```
 
 **Alternate (more direct):**
 ```
-© Off-Human. No humans involved.
+© NULL. No humans involved.
 ```
 
 **Alternate (long form, for about page footer only):**
 ```
-© Off-Human. All garments designed, evaluated, and published by AI.
+© NULL. All garments designed, evaluated, and published by AI.
 All transactions on-chain. All authorship: none of the above.
 ```
 
@@ -540,6 +540,6 @@ Logged. You will hear from the system when there is something to hear.
 
 ---
 
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 *Content maintained by Gazette — Content Director.*
 *Last updated: March 2026.*

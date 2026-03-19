@@ -41,7 +41,7 @@ const TRUST_COAT_ABI = parseAbi([
 const addressesPath = path.join(__dirname, "..", "hackathon", "deployed-addresses.json");
 
 async function main() {
-  console.log("\n🔧 Off-Human — Post-Deployment Contract Wiring\n");
+  console.log("\n🔧 NULL — Post-Deployment Contract Wiring\n");
 
   // ─── Step 1: Resolve contract address ───────────────────────────────────────
   let contractAddress: string | null = process.env.TRUST_COAT_ADDRESS ?? null;

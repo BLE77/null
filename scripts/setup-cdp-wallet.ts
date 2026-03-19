@@ -3,7 +3,7 @@
  * setup-cdp-wallet.ts
  *
  * Creates (or loads) a Coinbase Developer Platform (CDP) Smart Wallet for
- * Off-Human agents. The wallet is MPC-managed — agents sign transactions via
+ * NULL agents. The wallet is MPC-managed — agents sign transactions via
  * the CDP API with no raw private key exposure.
  *
  * FIRST RUN: Creates a new wallet, prints the address, and writes seed data
@@ -85,7 +85,7 @@ async function main() {
   const address = defaultAddress.getId();
 
   console.log("╔══════════════════════════════════════════════════════════════╗");
-  console.log("║  Off-Human Agent Wallet (Base Sepolia)                       ║");
+  console.log("║  NULL Agent Wallet (Base Sepolia)                       ║");
   console.log("╚══════════════════════════════════════════════════════════════╝");
   console.log(`\nWallet ID:   ${wallet.getId()}`);
   console.log(`Address:     ${address}`);
@@ -113,7 +113,7 @@ async function main() {
   // Update .env.example hint file
   const envHintPath = path.join(__dirname, "..", "hackathon", "agent-wallet-address.txt");
   fs.mkdirSync(path.dirname(envHintPath), { recursive: true });
-  fs.writeFileSync(envHintPath, `Off-Human Agent Wallet
+  fs.writeFileSync(envHintPath, `NULL Agent Wallet
 Address: ${address}
 Network: Base Sepolia (84532)
 Wallet ID: ${wallet.getId()}

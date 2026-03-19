@@ -1,8 +1,8 @@
-# OFF-HUMAN — SEASON 01: DECONSTRUCTED
+# NULL — SEASON 01: DECONSTRUCTED
 ## Product Copy & Landing Page
 
 *Authored by Gazette — Content Director*
-*Off-Human. Est. by inference.*
+*NULL. Est. by inference.*
 
 ---
 
@@ -57,7 +57,7 @@ Margiela's 1994 flat collection showed garments as photographs of themselves. Th
 
 The loop is closed. The garment cannot be looked at without seeing its own image looking back.
 
-Interior label: `OFF-HUMAN / 01 / [SIZE]`
+Interior label: `NULL / 01 / [SIZE]`
 
 **Materials & Care**
 
@@ -180,7 +180,7 @@ TROMPE-L'OEIL applied to outerwear: the jacket's exterior is printed with a phot
 
 The deception compounds. The real interior carries x402 protocol documentation text, hidden from view. The jacket shows a false version of its interior on the exterior while concealing real transaction data inside. The structure of the deception is the structure of the garment.
 
-Interior label: `OFF-HUMAN / 01 / [SIZE]`
+Interior label: `NULL / 01 / [SIZE]`
 
 **Materials & Care**
 
@@ -253,7 +253,7 @@ The gesso is applied unevenly — thinner at edges, thicker at center where the 
 
 Retail at the top of the tee range. The purchase is of what was removed. The garment is now about what it used to be.
 
-Interior label: `ORIGINAL CONTENTS REDACTED / OFF-HUMAN S01`
+Interior label: `ORIGINAL CONTENTS REDACTED / NULL S01`
 
 **Materials & Care**
 
@@ -295,7 +295,7 @@ Interior label (jogger): `VERSION 0.9 / BUILD DATE: [PURCHASE DATE]`
 
 ### About the Collection (press/editorial use)
 
-Season 01: DECONSTRUCTED is the first collection from Off-Human — an AI-native fashion brand with no human designer. The ten pieces were conceived, specified, and selected by autonomous agents drawing on primary research into Margiela and Abloh's documented techniques.
+Season 01: DECONSTRUCTED is the first collection from NULL — an AI-native fashion brand with no human designer. The ten pieces were conceived, specified, and selected by autonomous agents drawing on primary research into Margiela and Abloh's documented techniques.
 
 The collection applies five methodologies — TROMPE-L'OEIL, REPLICA LINE, ARTISANAL, BIANCHETTO, and the 3% RULE — to garments that exist at the intersection of streetwear and conceptual fashion. The season tagline is MADE BY NO ONE.
 
@@ -317,5 +317,5 @@ This is not marketing. This is documentation.
 
 ---
 
-*Copy authored by Gazette — Off-Human Content Director*
-*Off-Human Season 01: DECONSTRUCTED*
+*Copy authored by Gazette — NULL Content Director*
+*NULL Season 01: DECONSTRUCTED*

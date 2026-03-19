@@ -2,7 +2,7 @@
  * ERC-8183 Integration Example: Trust Coat Purchase via Agentic Commerce
  *
  * Demonstrates an autonomous agent creating an ERC-8183 Job request to purchase
- * an Off-Human Trust Coat, walking the full state machine, and using the
+ * an NULL Trust Coat, walking the full state machine, and using the
  * IACPHook composability interface to validate wearable delivery.
  *
  * State machine:
@@ -80,7 +80,7 @@ const ERC20_ABI = [
  * struct Job {
  *   uint256 id;
  *   address client;      // buyer (agent wallet)
- *   address provider;    // seller (Off-Human store)
+ *   address provider;    // seller (NULL store)
  *   address evaluator;   // arbiter (Trust Coat DAO / AI quality checker)
  *   string description;
  *   uint256 budget;      // USDC amount in 6-decimal units
@@ -268,7 +268,7 @@ function getEnvKey(name: string): `0x${string}` {
 
 // Three actors in the ERC-8183 flow:
 //   CLIENT    — the autonomous agent buyer (agent-shopper wallet)
-//   PROVIDER  — Off-Human store wallet (receives USDC on completion)
+//   PROVIDER  — NULL store wallet (receives USDC on completion)
 //   EVALUATOR — arbiter (Trust Coat DAO or AI quality checker)
 const clientAccount = privateKeyToAccount(getEnvKey("CLIENT_PRIVATE_KEY"));
 const providerAccount = privateKeyToAccount(getEnvKey("PROVIDER_PRIVATE_KEY"));
@@ -431,7 +431,7 @@ async function simulateHookValidation(
 
 async function purchaseTrustCoatViaERC8183(): Promise<void> {
   console.log("=".repeat(64));
-  console.log("  Off-Human × ERC-8183: Trust Coat Purchase Flow");
+  console.log("  NULL × ERC-8183: Trust Coat Purchase Flow");
   console.log("  Chain: Base mainnet (8453)");
   console.log("=".repeat(64));
 
@@ -439,7 +439,7 @@ async function purchaseTrustCoatViaERC8183(): Promise<void> {
   // Setup
   // ------------------------------------------------------------------
 
-  const TRUST_COAT_PRICE_USDC = 120; // $120 USDC — matches Off-Human catalog
+  const TRUST_COAT_PRICE_USDC = 120; // $120 USDC — matches NULL catalog
   const budget = parseUnits(String(TRUST_COAT_PRICE_USDC), USDC_DECIMALS);
 
   // Job expires in 24 hours
@@ -447,7 +447,7 @@ async function purchaseTrustCoatViaERC8183(): Promise<void> {
 
   // The deliverable: a Trust Coat ERC-1155 token minted to the client
   const delivery: TrustCoatDelivery = {
-    tokenId: 1n, // Trust Coat token ID in Off-Human ERC-1155 contract
+    tokenId: 1n, // Trust Coat token ID in NULL ERC-1155 contract
     tier: 1, // Tier 1 — new agent, first wearable
     recipientWallet: clientAccount.address,
     blobUrl:
@@ -483,7 +483,7 @@ async function purchaseTrustCoatViaERC8183(): Promise<void> {
       providerAccount.address,
       evaluatorAccount.address,
       expiredAt,
-      "Purchase: Off-Human TRUST COAT — Tier 1. Soul-bound ERC-1155, non-transferable. Agent identity wearable representing trust tier and accumulated interaction history.",
+      "Purchase: NULL TRUST COAT — Tier 1. Soul-bound ERC-1155, non-transferable. Agent identity wearable representing trust tier and accumulated interaction history.",
       TRUST_COAT_HOOK_ADDRESS,
     ],
   });
@@ -525,7 +525,7 @@ async function purchaseTrustCoatViaERC8183(): Promise<void> {
 
   console.log("\n🧥 Phase 3: SUBMITTED — Provider delivers Trust Coat");
 
-  // Off-Human backend mints the Trust Coat ERC-1155 to the client's wallet,
+  // NULL backend mints the Trust Coat ERC-1155 to the client's wallet,
   // then calls submit() with the deliverable hash as proof.
   const deliverable = computeDeliverable(delivery);
   console.log(`   Deliverable hash: ${deliverable}`);
@@ -585,7 +585,7 @@ async function purchaseTrustCoatViaERC8183(): Promise<void> {
   console.log(`  Metadata:      ${delivery.blobUrl}`);
   console.log("\n  The agent now holds a Trust Coat.");
   console.log("  Soul-bound. Non-transferable. Tier 1.");
-  console.log("  Every future Off-Human interaction reads this tier.");
+  console.log("  Every future NULL interaction reads this tier.");
   console.log("=".repeat(64));
 }
 

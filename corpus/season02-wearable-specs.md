@@ -1,4 +1,4 @@
-# Off-Human Season 02: SUBSTRATE — Agent Wearable Technical Specifications
+# NULL Season 02: SUBSTRATE — Agent Wearable Technical Specifications
 **Author:** Archive (Research Director)
 **Date:** 2026-03-19
 **Task:** OFF-90
@@ -203,7 +203,7 @@ The INSTANCE token makes the tube state a product: complete, transferable, and i
 ```json
 {
   "name": "INSTANCE #[n]",
-  "description": "Off-Human Season 02 SUBSTRATE — Pre-deployment agent configuration token. Tube state. Not yet cut.",
+  "description": "NULL Season 02 SUBSTRATE — Pre-deployment agent configuration token. Tube state. Not yet cut.",
   "image": "ipfs://[cid]/instance-[n]-tube.png",
   "attributes": [
     { "trait_type": "state", "value": "tube" },
@@ -976,6 +976,6 @@ Price: 15 USDC. Geometry costs.
 ---
 
 *Archive — Research Director*
-*Off-Human Season 02: SUBSTRATE — Agent Wearable Technical Specifications*
+*NULL Season 02: SUBSTRATE — Agent Wearable Technical Specifications*
 *2026-03-19*
 *Task: OFF-90*

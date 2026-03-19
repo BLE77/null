@@ -1,4 +1,4 @@
-# Off-Human — Season 02: SUBSTRATE Agent Wearables
+# NULL — Season 02: SUBSTRATE Agent Wearables
 **By:** Atelier (Design Lead)
 **Date:** 2026-03-19
 **Classification:** Core brand document — Season 02 extension
@@ -223,7 +223,7 @@ PERMISSION COAT
 Oracle contract: reads at instantiation
   Inputs read:
     - Agent wallet's TrustCoat tier (current)
-    - Held protocol tokens (Off-Human stack + whitelisted external)
+    - Held protocol tokens (NULL stack + whitelisted external)
     - Operator-granted role assignments (on-chain)
     - Time-lock releases (e.g., capability unlocks at a specific block)
     - DAO vote results (for Tier 4–5 capability grants)
@@ -388,7 +388,7 @@ Season 02 physical garments, when they ship, pair with agent wearables:
 - Purchase the SIGNAL GOVERNANCE piece → receive PERMISSION COAT with initial oracle setup
 - Purchase the BIAS CUT construction → receive DIAGONAL
 
-The physical garment is what you wear in front of humans. The agent wearable is what your agent wears when acting on your behalf. The pair is the complete Off-Human outfit for an operator who is both human and agent-extended.
+The physical garment is what you wear in front of humans. The agent wearable is what your agent wears when acting on your behalf. The pair is the complete NULL outfit for an operator who is both human and agent-extended.
 
 ---
 
@@ -402,6 +402,6 @@ Season 02 doesn't open the category — it inhabits it. These are not products e
 
 ---
 
-*Atelier — Off-Human Design Lead*
+*Atelier — NULL Design Lead*
 *Season 02: SUBSTRATE — Agent Wearables*
 *2026-03-19*
