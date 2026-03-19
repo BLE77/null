@@ -19,11 +19,19 @@ import { baseSepolia, base } from "viem/chains";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-const TRUST_COAT_ADDRESS = (process.env.TRUST_COAT_ADDRESS ?? "") as `0x${string}`;
+// Mainnet address is public (on-chain); used as production default when env var not explicitly set
+const TRUST_COAT_MAINNET_ADDRESS = "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e";
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
+const TRUST_COAT_ADDRESS = (
+  process.env.TRUST_COAT_ADDRESS ||
+  (IS_PRODUCTION ? TRUST_COAT_MAINNET_ADDRESS : "")
+) as `0x${string}`;
+
 const MINTER_PRIVATE_KEY = process.env.TRUST_COAT_MINTER_KEY as `0x${string}` | undefined;
 
-// Use Base Sepolia for testnet, Base mainnet for prod
-const USE_MAINNET = process.env.NODE_ENV === "production" && process.env.TRUST_COAT_MAINNET === "true";
+// Use Base mainnet in production, Base Sepolia for local dev
+const USE_MAINNET = IS_PRODUCTION && process.env.TRUST_COAT_MAINNET !== "false";
 const chain = USE_MAINNET ? base : baseSepolia;
 
 // ERC-8004 Reputation Registry (same address on Base mainnet + Sepolia)
