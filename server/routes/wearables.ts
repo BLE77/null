@@ -223,7 +223,7 @@ export function registerWearablesRoutes(app: Express) {
     if (!contractAvailable()) {
       return res.status(503).json({
         error: "TrustCoat contract not deployed yet",
-        hint: "Run: npx hardhat run scripts/deploy-trust-coat.ts --network base-sepolia",
+        hint: "Run: npx tsx scripts/deploy-with-cdp.ts (or set TRUST_COAT_ADDRESS in .env)",
       });
     }
 

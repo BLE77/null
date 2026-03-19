@@ -1,0 +1,5 @@
+{
+  "_comment": "Populated by scripts/deploy-with-cdp.ts or scripts/deploy-trustcoat.ts after deployment",
+  "_status": "PENDING — TrustCoat not yet deployed. See OFF-34 / OFF-46.",
+  "TrustCoat": null
+}
