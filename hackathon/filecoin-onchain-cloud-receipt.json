@@ -1,0 +1,39 @@
+{
+  "migratedAt": "2026-03-19T21:09:20.945Z",
+  "network": "filecoin-calibration (chainId 314159)",
+  "contract": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+  "contractChain": "base-mainnet (chain-8453)",
+  "dryRun": true,
+  "tiers": {
+    "0": {
+      "pieceCid": "baga6ea4seaq0EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq0EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "originalCid": "bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y"
+    },
+    "1": {
+      "pieceCid": "baga6ea4seaq1EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq1EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "originalCid": "bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu"
+    },
+    "2": {
+      "pieceCid": "baga6ea4seaq2EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq2EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "originalCid": "bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa"
+    },
+    "3": {
+      "pieceCid": "baga6ea4seaq3EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq3EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "originalCid": "bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y"
+    },
+    "4": {
+      "pieceCid": "baga6ea4seaq4EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq4EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "originalCid": "bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy"
+    },
+    "5": {
+      "pieceCid": "baga6ea4seaq5EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq5EXAMPLE_PIECE_CID_WOULD_BE_HERE",
+      "originalCid": "bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4"
+    }
+  }
+}

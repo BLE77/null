@@ -32,15 +32,20 @@
 - **Addresses JSON:** `hackathon/deployed-addresses.json`
 - **Note:** Hardhat 3.1.12 requires Node 22+; workaround: compile with solcjs, deploy with ethers.js directly
 
-### TrustCoat IPFS Status (OFF-98)
-- **Current URIs:** Tiers 0-4 → `https://off-human.vercel.app/api/wearables/metadata/{tier}` (broken). Tier 5 reverts.
-- **Script ready:** `scripts/trustcoat-ipfs-deploy.ts` — uploads tier images + metadata to Filecoin, calls setURI()
-- **Images:** `attached_assets/superrare/trustcoat_tier{0-5}_*.png` (all confirmed present)
-- **Blocker:** `LIGHTHOUSE_API_KEY` not in `.env` — register free at https://lighthouse.storage
-- **Run command (after key):** `npx tsx scripts/trustcoat-ipfs-deploy.ts`
-- **Key env var:** `LOCUS_OWNER_PRIVATE_KEY` (owner of TrustCoat.sol)
-- **Output:** `hackathon/trustcoat-ipfs-manifest.json` + `hackathon/trustcoat-ipfs-receipt.json`
-- **Prize track:** Filecoin Onchain Cloud ($2K) — qualifies once executed
+### TrustCoat IPFS Status (OFF-105 — COMPLETE)
+- **Status:** ✅ All 6 tiers point to `ipfs://` URIs on-chain as of 2026-03-19
+- **Script used:** `scripts/set-trustcoat-uris.mjs` (standalone ethers.js, Node 20 compatible)
+- **Receipt:** `hackathon/filecoin-uri-update-receipt.json`
+- **Manifest:** `attached_assets/season01/filecoin-manifest.json`
+- **Tier URIs on-chain:**
+  - Tier 0: `ipfs://bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y`
+  - Tier 1: `ipfs://bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu`
+  - Tier 2: `ipfs://bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa`
+  - Tier 3: `ipfs://bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y`
+  - Tier 4: `ipfs://bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy`
+  - Tier 5: `ipfs://bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4`
+- **Key txs:** 0x0765... (tier 0), 0x7278... (tier 1), 0x1820... (tier 2), 0x0c0f... (tier 3), 0x685c... (tier 4), 0x0f58... (tier 5)
+- **Prize track:** Filecoin Onchain Cloud ($2K) — QUALIFIES (metadata permanently decentralized)
 
 ### AgentWearables.sol (ERC-1155 mintable Season 02 wearables)
 - **Status:** Contract written + compiled (2026-03-19). NOT YET DEPLOYED.

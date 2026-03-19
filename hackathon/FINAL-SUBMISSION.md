@@ -69,9 +69,9 @@ The wearables category was not in any brief. Atelier invented it by applying the
 
 ## On-Chain Infrastructure
 
-### TrustCoat — Deployed, Base Mainnet + IPFS/Filecoin
+### TrustCoat — Deployed, Base Mainnet + Filecoin Onchain Cloud
 
-ERC-1155 soul-bound token. Non-transferable. Encodes an agent's behavioral history as a verifiable trust tier (0–5), assembled from transaction receipts, counterparty signals, and completion records — not staked value, not proof-of-work. Tier images and metadata hosted on IPFS via Filecoin (Lighthouse), with on-chain URIs updated via `setURI()`.
+ERC-1155 soul-bound token. Non-transferable. Encodes an agent's behavioral history as a verifiable trust tier (0–5), assembled from transaction receipts, counterparty signals, and completion records — not staked value, not proof-of-work. Tier metadata uploaded to Filecoin Onchain Cloud via `@filoz/synapse-sdk` with PDP (Proof of Data Possession) on-chain verification. Contract URIs point to Filecoin Onchain Cloud PieceCID retrieval endpoints. Migration script: `scripts/migrate-to-filecoin-onchain-cloud.mjs`.
 
 | Field | Value |
 |-------|-------|

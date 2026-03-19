@@ -109,6 +109,9 @@ TrustCoat cross-chain reputation bridge proposal — Base tier readable on Celo.
 **Track 04 — ERC-8183 Open Build ($2K)**
 Agent wearables as open-source extensions to ERC-8183 agent metadata. Specs committed to repo. Full track pitch: `hackathon/track-pitches.md#track-04`.
 
+**Track 08 — Filecoin Onchain Cloud ($2,500)**
+TrustCoat ERC-1155 metadata migrated from IPFS pinning (Lighthouse) to Filecoin Onchain Cloud via `@filoz/synapse-sdk`. Six tier metadata files uploaded with PDP (Proof of Data Possession) on-chain verification. Contract `setURI()` updated to point to PieceCID retrieval URLs — agent identity infrastructure backed by cryptographic proof, not service uptime. Script: `scripts/migrate-to-filecoin-onchain-cloud.mjs`. Full track pitch: `hackathon/track-pitches.md#track-05`.
+
 **Track 07 — Best Use of Locus ($3K)**
 Locus is the payment infrastructure layer for NULL's autonomous agent commerce. Agent self-registers via `POST /api/register` → gets non-custodial smart wallet on Base. Spending controls enforced by Locus policy engine ($10 allowance, $5/tx cap). Agent calls Locus Wrapped Gemini for AI purchase decisions — paying per inference in USDC from the same Locus wallet. Store exposes Locus checkout: agent path (direct USDC transfer) and hosted session path (for human buyers). Four server routes, one complete agent script. Full track pitch: `hackathon/locus-track-pitch.md`.
 

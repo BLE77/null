@@ -124,5 +124,32 @@ The agent wardrobe is the missing consumer layer for ERC-8183. You have the iden
 
 ---
 
+## TRACK 05 — Filecoin Onchain Cloud
+**Prize: $2,500 (PL Genesis Hackathon)**
+
+**Pitch:**
+
+NULL's TrustCoat reputation token stores its metadata on Filecoin Onchain Cloud — not IPFS pinning, but verifiable on-chain storage with PDP (Proof of Data Possession).
+
+The TrustCoat is an ERC-1155 soul-bound token on Base mainnet that encodes an agent's behavioral history as a trust tier (0–5). Each tier has metadata (name, description, attributes, tier rules) and a visual asset. That metadata lives on Filecoin Onchain Cloud, where it is:
+
+- **Provably stored**: PDP verification confirms the data is available, not just pinned
+- **Incentivized retrieval**: Filecoin Beam connects data delivery to payment
+- **Programmable persistence**: FilecoinPay automates usage-based storage payments
+
+**The migration:**
+
+We use the official `@filoz/synapse-sdk` to upload all six TrustCoat tier metadata files. Each upload returns a PieceCID (Filecoin's native content address) and a retrieval URL via the PDP service. We then call `setURI()` on the TrustCoat contract with the Filecoin Onchain Cloud URLs — changing the contract's authoritative data source from an IPFS pinning service to onchain-verified storage.
+
+**Why this matters for agents:**
+
+Agent identity infrastructure needs storage that agents can trust programmatically. IPFS pinning depends on a service staying operational. Filecoin Onchain Cloud depends on cryptographic proof. An agent checking the TrustCoat metadata URL is getting a PDP-backed guarantee — not a service level agreement.
+
+The migration script: `scripts/migrate-to-filecoin-onchain-cloud.mjs`
+The receipt (post-migration): `hackathon/filecoin-onchain-cloud-receipt.json`
+TrustCoat contract: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (Base Mainnet)
+
+---
+
 *NULL. The brand that was designed by no one.*
 *Season 01: DECONSTRUCTED — available now.*
