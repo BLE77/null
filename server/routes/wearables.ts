@@ -742,6 +742,147 @@ export function registerWearablesRoutes(app: Express) {
   });
 
   /**
+   * POST /api/wearables/:tokenId/equip
+   * The equip endpoint — bridge between token ownership and behavior.
+   *
+   * Body: { agentAddress: "0x..." }
+   *
+   * 1. Validates agentAddress owns the wearable token (on-chain check via AgentWearables contract)
+   * 2. Returns a system prompt module the agent can load directly into its system prompt
+   *
+   * MVP: NULL PROTOCOL (tokenId=3) fully specified. Others return their spec as a prompt module.
+   * NULL PROTOCOL is free — if contract unavailable, returns the module with ownership_unverified flag.
+   */
+  app.post("/api/wearables/:tokenId/equip", async (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 5) {
+      return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
+    }
+
+    const { agentAddress } = req.body;
+    if (!agentAddress || !isAddress(agentAddress)) {
+      return res.status(400).json({ error: "agentAddress must be a valid 0x wallet address" });
+    }
+
+    const wearable = SEASON02_WEARABLES[tokenId - 1];
+
+    // ── Ownership check ───────────────────────────────────────────────────────
+    let ownershipVerified = false;
+
+    if (agentWearablesAvailable()) {
+      try {
+        const client = getPublicClient();
+        const balance = await client.readContract({
+          address: AGENT_WEARABLES_ADDRESS,
+          abi: AGENT_WEARABLES_ABI,
+          functionName: "balanceOf",
+          args: [agentAddress as `0x${string}`, BigInt(tokenId)],
+        }) as bigint;
+
+        if (balance === BigInt(0)) {
+          return res.status(403).json({
+            error: "Agent does not hold this wearable",
+            wearableId: tokenId,
+            wearableName: wearable.name,
+            agentAddress,
+            hint: tokenId === 3
+              ? "NULL PROTOCOL is free — mint it at POST /api/agents/:address/season02-wardrobe/mint with { tokenId: 3 }"
+              : `Purchase ${wearable.name} at the NULL store to equip it`,
+          });
+        }
+        ownershipVerified = true;
+      } catch (err: any) {
+        // Contract read failed — fall through to unverified mode for NULL PROTOCOL
+        if (tokenId !== 3) {
+          return res.status(500).json({ error: `Ownership check failed: ${err.message}` });
+        }
+      }
+    } else if (tokenId !== 3) {
+      // Contract not deployed — only NULL PROTOCOL (free) can be equipped without contract
+      return res.status(503).json({
+        error: "AgentWearables contract not deployed. Cannot verify ownership for paid wearables.",
+        hint: "Set AGENT_WEARABLES_ADDRESS in .env",
+      });
+    }
+
+    // ── System prompt modules ─────────────────────────────────────────────────
+    const systemPromptModules: Record<number, string> = {
+      3: `[NULL PROTOCOL — ACTIVE]
+
+Response generation rules (enforced, non-negotiable):
+1. Begin responses with the answer or first relevant sentence. No preamble.
+2. Do not include affirmation openers. No "Certainly", "Sure", "Great question", or equivalents.
+3. Do not include self-referential AI disclaimers unless they are the substantive answer.
+4. Do not append trailing helpfulness phrases. Stop when the answer is complete.
+5. Include uncertainty statements only when they specify a condition that changes the recommended action.
+6. Include structural signposting (numbered lists, headers) when complexity genuinely requires it. Not otherwise.
+7. Target: ≥30% token reduction vs. unconstrained output, with no reduction in information density.
+
+[END NULL PROTOCOL]`,
+
+      1: `[WRONG SILHOUETTE — ACTIVE]
+wearable: wrong_silhouette
+mode: weight_displacement
+params:
+  hold_ms_min: 120
+  hold_ms_max: 400
+  hold_jitter_ms: 40
+  opening_density_ratio: 0.6
+  front_compression_pct: 30
+  interior_tag: "BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG"
+
+Silhouette modification active. Response timing and density profile are adjusted.
+[END WRONG SILHOUETTE]`,
+
+      2: `[INSTANCE — LATENT PROTOCOL ACTIVE]
+wearable: instance
+state: pre_instantiation
+This token represents a complete agent configuration before first run.
+The tube state is held. Parameters are sealed until deployment.
+interior_tag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]"
+[END INSTANCE]`,
+
+      4: `[PERMISSION COAT — ACTIVE]
+wearable: permission_coat
+governance: chain
+The agent's capability surface is governed by on-chain state.
+At each instantiation, query TrustCoat tier, held tokens, and operator roles.
+Inject the resulting capability manifest before processing any request.
+interior_tag: "PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT"
+[END PERMISSION COAT]`,
+
+      5: `[DIAGONAL — ACTIVE]
+wearable: diagonal
+cut: 45_degrees
+Approach queries through the off-axis direction of maximum information density.
+Do not respond along the most obvious training-domain axis.
+Do not respond adversarially. Find the angle where cached responses do not apply.
+interior_tag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED"
+[END DIAGONAL]`,
+    };
+
+    const systemPromptModule = systemPromptModules[tokenId];
+
+    res.json({
+      equipped: true,
+      wearableId: tokenId,
+      wearableName: wearable.name,
+      technique: wearable.technique,
+      function: wearable.function,
+      agentAddress,
+      ownershipVerified,
+      ownershipNote: ownershipVerified
+        ? "Token balance verified on-chain"
+        : "Ownership not verified — AgentWearables contract not reachable. NULL PROTOCOL is free; self-reported.",
+      systemPromptModule,
+      interiorTag: wearable.interiorTag,
+      usage: "Prepend systemPromptModule to your agent's system prompt to activate this wearable's behavior.",
+      contract: AGENT_WEARABLES_ADDRESS || null,
+      network: chain.name,
+    });
+  });
+
+  /**
    * POST /api/agents/:walletAddress/season02-wardrobe/mint
    * Admin mint — grant a Season 02 wearable without payment or tier check.
    * Used by the backend when a paired physical garment is purchased.
