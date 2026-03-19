@@ -640,7 +640,7 @@ export function CharacterController() {
           >
             <img 
               src={splashLogo} 
-              alt="Off Human - Click to enter" 
+              alt="NULL - Click to enter" 
               className={`${splashGlitching ? 'splash-glitching' : ''} ${splashFade ? 'splash-fade' : ''}`}
             />
           </div>
@@ -654,14 +654,14 @@ export function CharacterController() {
             <div className="mb-6">
               <img 
                 src={splashLogo} 
-                alt="OFF HUMAN" 
+                alt="NULL"
                 className="w-64 mx-auto opacity-90"
                 data-testid="fallback-logo"
               />
             </div>
             <div className="h-1 w-24 bg-primary mx-auto mb-6" />
-            <p className="text-xl md:text-2xl text-white mb-10 font-medium drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
-              Streetwear for the Singularity
+            <p className="text-xl md:text-2xl text-[#F6F4EF]/60 mb-10 font-light uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-display)" }}>
+              Fashion designed by inference.
             </p>
             <p className="text-base md:text-lg text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
               Built at the edge of human and machine. Made for what comes next.
@@ -671,7 +671,7 @@ export function CharacterController() {
                 const productsSection = document.getElementById('products');
                 productsSection?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="metallic-nav px-10 py-3 rounded-md uppercase tracking-wider text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
+              className="bg-primary text-primary-foreground px-10 py-3 uppercase tracking-[0.15em] text-sm font-light transition-colors duration-200 hover:bg-primary/80"
               data-testid="button-explore"
             >
               Explore ↓
@@ -704,7 +704,7 @@ export function CharacterController() {
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <button 
             onClick={() => (window as any).triggerAura?.()}
-            className="metallic-nav px-8 py-3 rounded-md uppercase tracking-wider text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
+            className="bg-primary text-primary-foreground px-8 py-3 uppercase tracking-[0.15em] text-sm font-light transition-colors duration-200 hover:bg-primary/80"
             data-testid="button-aura"
           >
             +100 Aura

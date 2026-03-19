@@ -286,12 +286,12 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen digital-matrix-bg pt-24 pb-16">
+    <div className="min-h-screen null-bg pt-24 pb-16">
       <div className="container mx-auto px-8 md:px-16 max-w-7xl">
         <div className="flex justify-between items-center mb-8">
           <h1 
             className="text-4xl md:text-5xl font-bold uppercase tracking-wider text-white drop-shadow-[0_6px_12px_rgba(0,0,0,1)]"
-            style={{ fontFamily: "'Orbitron', sans-serif" }}
+            style={{ fontFamily: "var(--font-display)" }}
             data-testid="text-admin-title"
           >
             ADMIN DASHBOARD
@@ -340,7 +340,7 @@ export default function AdminDashboard() {
                 </div>
                 <h3 
                   className="text-lg font-bold text-white mb-2 drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]"
-                  style={{ fontFamily: "'Orbitron', sans-serif" }}
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   {product.name}
                 </h3>

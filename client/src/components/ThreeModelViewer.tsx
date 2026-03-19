@@ -231,7 +231,7 @@ export function ThreeModelViewer({ src, className = "" }: ThreeModelViewerProps)
         data-testid="three-model-viewer-fallback"
       >
         <div className="text-center p-8">
-          <p className="text-white/70 mb-2" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+          <p className="text-foreground/60 mb-2" style={{ fontFamily: "var(--font-display)" }}>
             3D Viewer requires WebGL
           </p>
           <p className="text-sm text-white/50">
