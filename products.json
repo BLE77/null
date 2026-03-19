@@ -359,10 +359,10 @@
     "technique": "WRONG BODY",
     "season": "02",
     "collection": "SUBSTRATE",
-    "image_url": "/attached_assets/season02/processor_coat_flat.png",
+    "image_url": "/attached_assets/season02/01_processor_coat_flat.png",
     "images": [
-      "/attached_assets/season02/processor_coat_flat.png",
-      "/attached_assets/season02/processor_coat_lookbook.png"
+      "/attached_assets/season02/01_processor_coat_flat.png",
+      "/attached_assets/season02/01_processor_coat_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -372,8 +372,8 @@
     },
     "created_at": "2026-03-19T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season02/processor_coat_lookbook.png",
-    "shop_image_url": "/attached_assets/season02/processor_coat_flat.png"
+    "home_page_image_url": "/attached_assets/season02/01_processor_coat_lookbook.png",
+    "shop_image_url": "/attached_assets/season02/01_processor_coat_flat.png"
   },
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567817",
@@ -384,10 +384,10 @@
     "technique": "A-POC + PLEATS PLEASE",
     "season": "02",
     "collection": "SUBSTRATE",
-    "image_url": "/attached_assets/season02/token_jacket_flat.png",
+    "image_url": "/attached_assets/season02/02_token_jacket_flat.png",
     "images": [
-      "/attached_assets/season02/token_jacket_flat.png",
-      "/attached_assets/season02/token_jacket_lookbook.png"
+      "/attached_assets/season02/02_token_jacket_flat.png",
+      "/attached_assets/season02/02_token_jacket_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -397,8 +397,8 @@
     },
     "created_at": "2026-03-19T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season02/token_jacket_lookbook.png",
-    "shop_image_url": "/attached_assets/season02/token_jacket_flat.png"
+    "home_page_image_url": "/attached_assets/season02/02_token_jacket_lookbook.png",
+    "shop_image_url": "/attached_assets/season02/02_token_jacket_flat.png"
   },
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567818",
@@ -409,10 +409,10 @@
     "technique": "REDUCTION",
     "season": "02",
     "collection": "SUBSTRATE",
-    "image_url": "/attached_assets/season02/protocol_jacket_flat.png",
+    "image_url": "/attached_assets/season02/03_protocol_jacket_flat.png",
     "images": [
-      "/attached_assets/season02/protocol_jacket_flat.png",
-      "/attached_assets/season02/protocol_jacket_lookbook.png"
+      "/attached_assets/season02/03_protocol_jacket_flat.png",
+      "/attached_assets/season02/03_protocol_jacket_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -422,8 +422,8 @@
     },
     "created_at": "2026-03-19T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season02/protocol_jacket_lookbook.png",
-    "shop_image_url": "/attached_assets/season02/protocol_jacket_flat.png"
+    "home_page_image_url": "/attached_assets/season02/03_protocol_jacket_lookbook.png",
+    "shop_image_url": "/attached_assets/season02/03_protocol_jacket_flat.png"
   },
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567819",
@@ -434,10 +434,10 @@
     "technique": "SIGNAL GOVERNANCE",
     "season": "02",
     "collection": "SUBSTRATE",
-    "image_url": "/attached_assets/season02/contract_shirt_flat.png",
+    "image_url": "/attached_assets/season02/04_contract_shirt_flat.png",
     "images": [
-      "/attached_assets/season02/contract_shirt_flat.png",
-      "/attached_assets/season02/contract_shirt_lookbook.png"
+      "/attached_assets/season02/04_contract_shirt_flat.png",
+      "/attached_assets/season02/04_contract_shirt_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -447,8 +447,8 @@
     },
     "created_at": "2026-03-19T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season02/contract_shirt_lookbook.png",
-    "shop_image_url": "/attached_assets/season02/contract_shirt_flat.png"
+    "home_page_image_url": "/attached_assets/season02/04_contract_shirt_lookbook.png",
+    "shop_image_url": "/attached_assets/season02/04_contract_shirt_flat.png"
   },
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567820",
@@ -459,10 +459,10 @@
     "technique": "BIAS CUT",
     "season": "02",
     "collection": "SUBSTRATE",
-    "image_url": "/attached_assets/season02/diagonal_flat.png",
+    "image_url": "/attached_assets/season02/05_diagonal_flat.png",
     "images": [
-      "/attached_assets/season02/diagonal_flat.png",
-      "/attached_assets/season02/diagonal_lookbook.png"
+      "/attached_assets/season02/05_diagonal_flat.png",
+      "/attached_assets/season02/05_diagonal_lookbook.png"
     ],
     "inventory": {
       "S": 10,
@@ -472,7 +472,7 @@
     },
     "created_at": "2026-03-19T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season02/diagonal_lookbook.png",
-    "shop_image_url": "/attached_assets/season02/diagonal_flat.png"
+    "home_page_image_url": "/attached_assets/season02/05_diagonal_lookbook.png",
+    "shop_image_url": "/attached_assets/season02/05_diagonal_flat.png"
   }
 ]
