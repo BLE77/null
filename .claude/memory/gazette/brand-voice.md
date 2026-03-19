@@ -29,6 +29,10 @@ Founder review pending via OFF-63. Until approved, all copy still reads "Off-Hum
 - `hackathon/SUBMIT.md` — Devfolio copy-paste document (OFF-67)
 - Submission docs updated for no-deploy scenario (OFF-65)
 
-## Pending (Blocked)
-- OFF-36, OFF-31: need `DEPLOYER_PRIVATE_KEY` → contract address → final address inserts
+## Pending
 - OFF-70: need founder approval on NULL brand name → then update all brand references
+
+## Completed (Sprint 13)
+- OFF-36, OFF-31: submission.md + track-pitches.md updated with live contract address
+  - TrustCoat: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (Base mainnet)
+  - Commit: `d62a329`

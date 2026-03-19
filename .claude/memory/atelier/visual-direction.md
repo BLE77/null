@@ -43,3 +43,9 @@ Off-Human images should feel like evidence — garments documented as artifacts 
 
 Three pieces produced 2026-03-19. Concepts locked. Prompts in `superrare-image-prompts.md`.
 Images pending due to Higgsfield Soul model unavailability during run.
+
+## Season 02 Agent Wearables (OFF-88)
+
+Five concept image prompts designed 2026-03-19. All ready. Blocked on Higgsfield Soul model unavailability (400 Unavailable Model — confirmed recurring issue, not a prompt problem).
+Prompts will be retried on next heartbeat. Save to `attached_assets/season02/wearables/`.
+Use Avant-garde (0c636e12) for WRONG SILHOUETTE; Geominimal (372cc37b) for INSTANCE, NULL PROTOCOL, DIAGONAL; Avant-garde for PERMISSION COAT.

@@ -6,7 +6,6 @@ import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { UniversalWalletConnect } from "@/components/UniversalWalletConnect";
-import navLogo from "@assets/OFF_HUMAN_transparent.png";
 
 export function Navigation() {
   const { getTotalItems, setIsCartOpen } = useCart();
@@ -15,39 +14,39 @@ export function Navigation() {
   const totalItems = getTotalItems();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 metallic-nav">
+    <nav className="fixed top-0 left-0 right-0 z-50 null-nav">
       <div className="container mx-auto px-4">
-        <div className="relative flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-14">
           <Link href="/">
             <div className="cursor-pointer inline-block" data-testid="link-home">
-              <img 
-                src={navLogo}
-                alt="OFF HUMAN"
-                className="h-10 transition-all duration-300 hover:scale-105"
-                style={{ filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(0,0,0,0.5))' }}
-              />
+              <span
+                className="text-xl font-light uppercase tracking-[0.25em] text-primary transition-colors duration-200 hover:opacity-80"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                NULL
+              </span>
             </div>
           </Link>
 
           <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8 pointer-events-none">
             <Link href="/">
-              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md pointer-events-auto" data-testid="link-home">
+              <span className="text-xs uppercase tracking-[0.15em] font-400 text-foreground/70 hover:text-foreground transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-home">
                 Home
               </span>
             </Link>
             <Link href="/shop">
-              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md pointer-events-auto" data-testid="link-shop">
+              <span className="text-xs uppercase tracking-[0.15em] font-400 text-foreground/70 hover:text-foreground transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-shop">
                 Shop
               </span>
             </Link>
             <Link href="/about">
-              <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-white drop-shadow-md pointer-events-auto" data-testid="link-about">
+              <span className="text-xs uppercase tracking-[0.15em] font-400 text-foreground/70 hover:text-foreground transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-about">
                 About
               </span>
             </Link>
             {user?.isAdmin && (
               <Link href="/admin">
-                <span className="text-sm uppercase tracking-wider hover:brightness-125 transition-all font-semibold cursor-pointer inline-block text-primary drop-shadow-md pointer-events-auto" data-testid="link-admin">
+                <span className="text-xs uppercase tracking-[0.15em] text-primary hover:text-primary/80 transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" data-testid="link-admin">
                   Admin
                 </span>
               </Link>
@@ -58,7 +57,7 @@ export function Navigation() {
             <UniversalWalletConnect />
             {user ? (
               <>
-                <span className="hidden md:block text-sm text-white mr-2 font-medium drop-shadow-md" data-testid="text-username">
+                <span className="hidden md:block text-xs text-foreground/60 mr-2 uppercase tracking-wider" data-testid="text-username">
                   {user.username}
                 </span>
                 <Button
@@ -66,7 +65,7 @@ export function Navigation() {
                   size="icon"
                   onClick={() => logout()}
                   title="Logout"
-                  className="text-white hover:bg-white/20"
+                  className="text-foreground/60 hover:text-foreground hover:bg-foreground/5"
                   data-testid="button-logout"
                 >
                   <LogOut className="w-4 h-4" />
@@ -74,7 +73,7 @@ export function Navigation() {
               </>
             ) : (
               <Link href="/login">
-                <Button variant="ghost" size="icon" title="Login" className="text-white hover:bg-white/20" data-testid="button-login-nav">
+                <Button variant="ghost" size="icon" title="Login" className="text-foreground/60 hover:text-foreground hover:bg-foreground/5" data-testid="button-login-nav">
                   <User className="w-4 h-4" />
                 </Button>
               </Link>
@@ -84,13 +83,13 @@ export function Navigation() {
               variant="ghost"
               size="icon"
               onClick={() => setIsCartOpen(true)}
-              className="relative text-white hover:bg-white/20"
+              className="relative text-foreground/60 hover:text-foreground hover:bg-foreground/5"
               data-testid="button-cart"
             >
               <ShoppingCart className="w-5 h-5" />
               {totalItems > 0 && (
-                <Badge 
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs rounded-full bg-white/30 text-white font-bold backdrop-blur-sm"
+                <Badge
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs rounded-full bg-primary text-primary-foreground font-bold"
                   data-testid="badge-cart-count"
                 >
                   {totalItems}
@@ -101,7 +100,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden text-white hover:bg-white/20"
+              className="lg:hidden text-foreground/60 hover:text-foreground hover:bg-foreground/5"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               data-testid="button-mobile-menu"
             >
@@ -111,11 +110,11 @@ export function Navigation() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-white/30 py-4">
+          <div className="lg:hidden border-t border-border py-4">
             <div className="flex flex-col gap-4">
               <Link href="/">
-                <span 
-                  className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
+                <span
+                  className="text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground transition-colors duration-200 block py-2 cursor-pointer"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-home-mobile"
                 >
@@ -123,8 +122,8 @@ export function Navigation() {
                 </span>
               </Link>
               <Link href="/shop">
-                <span 
-                  className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
+                <span
+                  className="text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground transition-colors duration-200 block py-2 cursor-pointer"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-shop-mobile"
                 >
@@ -132,8 +131,8 @@ export function Navigation() {
                 </span>
               </Link>
               <Link href="/about">
-                <span 
-                  className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-white drop-shadow-md"
+                <span
+                  className="text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-foreground transition-colors duration-200 block py-2 cursor-pointer"
                   onClick={() => setIsMobileMenuOpen(false)}
                   data-testid="link-about-mobile"
                 >
@@ -142,8 +141,8 @@ export function Navigation() {
               </Link>
               {user?.isAdmin && (
                 <Link href="/admin">
-                  <span 
-                    className="text-sm uppercase tracking-wider hover:brightness-125 transition-all block py-2 cursor-pointer font-semibold text-primary drop-shadow-md"
+                  <span
+                    className="text-xs uppercase tracking-[0.15em] text-primary hover:text-primary/80 transition-colors duration-200 block py-2 cursor-pointer"
                     onClick={() => setIsMobileMenuOpen(false)}
                     data-testid="link-admin-mobile"
                   >
