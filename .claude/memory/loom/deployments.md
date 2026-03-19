@@ -31,3 +31,14 @@
 - **Deployed via:** `scripts/deploy-mainnet.mjs` (ethers.js direct — Hardhat 3 has Node 22 req, using Node 20)
 - **Addresses JSON:** `hackathon/deployed-addresses.json`
 - **Note:** Hardhat 3.1.12 requires Node 22+; workaround: compile with solcjs, deploy with ethers.js directly
+
+### AgentWearables.sol (ERC-1155 mintable Season 02 wearables)
+- **Status:** Contract written + compiled (2026-03-19). NOT YET DEPLOYED.
+- **Deploy script:** `scripts/deploy-agent-wearables.mjs`
+- **Deploy command (Sepolia first):** `DEPLOYER_PRIVATE_KEY=0x... TRUST_COAT_ADDRESS=... node scripts/deploy-agent-wearables.mjs`
+- **Deploy command (mainnet):** `DEPLOYER_PRIVATE_KEY=0x... NETWORK=mainnet node scripts/deploy-agent-wearables.mjs`
+- **Env var (once deployed):** `AGENT_WEARABLES_ADDRESS=0x...`
+- **Compiled with:** solcjs 0.8.24, artifacts in `artifacts/AgentWearables.abi` + `artifacts/AgentWearables.bin`
+- **Constructor args:** trustCoat (0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e), usdc (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), treasury (0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7)
+- **5 tokens:** WRONG SILHOUETTE (ID 1, 18 USDC, Tier 0-2), INSTANCE (ID 2, 25 USDC, Tier 2+), NULL PROTOCOL (ID 3, free, any), PERMISSION COAT (ID 4, 8 USDC, Tier 1+), DIAGONAL (ID 5, 15 USDC, any)
+- **API endpoints:** GET /api/wearables/season02, GET /api/wearables/season02/metadata/:id, GET /api/agents/:addr/season02-wardrobe, POST /api/agents/:addr/season02-wardrobe/mint

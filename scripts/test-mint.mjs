@@ -42,8 +42,8 @@ async function main() {
     console.log("✓ Minter set");
   }
 
-  // Mint tier 1 to ourselves
-  const mintTx = await contract.mint(wallet.address, 1, "0x");
+  // Mint tier 1 to ourselves (agentId=0 for the Loom agent / test)
+  const mintTx = await contract.mint(wallet.address, 1, 0);
   const receipt = await mintTx.wait(1);
 
   console.log(`\n✓ Minted TrustCoat tier 1!`);
