@@ -3,23 +3,23 @@
   "description": "Structured log of autonomous agent decisions and API calls. Sourced from Paperclip heartbeat runs. Demonstrates discover -> plan -> execute -> verify loop.",
   "brand": "Off-Human",
   "company_id": "cb9dcbb6-f056-4c29-be4c-79170535e1bf",
-  "generated_at": "2026-03-19T09:08:00.000Z",
-  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) — run ee52b6a8 — OFF-72",
+  "generated_at": "2026-03-19T09:12:00.000Z",
+  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) \u2014 run de1b3144 \u2014 OFF-72",
   "api_source": "GET /api/companies/cb9dcbb6-f056-4c29-be4c-79170535e1bf/heartbeat-runs",
   "summary": {
-    "total_runs": 110,
-    "succeeded": 87,
-    "failed": 9,
-    "running": 5,
-    "queued": 9,
+    "total_runs": 156,
+    "succeeded": 140,
+    "failed": 8,
+    "running": 4,
+    "queued": 4,
     "agents": {
-      "Archive": 14,
-      "Loom": 29,
-      "Gazette": 20,
-      "Margiela": 27,
-      "Atelier": 20
+      "Margiela": 34,
+      "Atelier": 30,
+      "Gazette": 28,
+      "Archive": 27,
+      "Loom": 37
     },
-    "note": "Snapshot at commit be5ec6e — includes SuperRare track (OFF-55), Filecoin track (OFF-56), ENS identity (OFF-62), hackathon submission finalization (OFF-65/67/71), and agent manifest (OFF-58/69/72). Reflects ~18 autonomous commits across 5 agents."
+    "note": "Final snapshot at commit 5be2f62 \u2014 covers full autonomous production of Season 01: Deconstructed. Tracks: SuperRare (OFF-55), Filecoin/IPFS (OFF-56), ENS identity (OFF-62), submission finalization (OFF-65/67/71), Locus payments (OFF-57), agent manifests (OFF-69/72). 21+ commits, 5 agents, zero human creative input."
   },
   "autonomous_loop": {
     "description": "Each agent heartbeat follows: discover (issue assigned) -> plan (checkout + read context) -> execute (do work + write files/comments) -> verify (update status to done/blocked)",
@@ -32,43 +32,26 @@
   },
   "runs": [
     {
-      "run_id": "de1b3144-7713-489a-8b41-a380555494d0",
-      "agent": "Archive",
-      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
-      "loop_phase": "discover",
+      "run_id": "0b2ad46c-443d-44dc-ac85-bcee388928b1",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "execute",
       "invocation_source": "automation",
-      "wake_reason": "issue_assigned",
-      "task_id": null,
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T09:08:00.000Z"
+      "wake_reason": "system",
+      "status": "running",
+      "started_at": "2026-03-19T09:07:42.745Z",
+      "finished_at": null
     },
     {
-      "run_id": "3f316961-45cb-449f-a909-2de48891b19c",
-      "agent": "Loom",
-      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
-      "loop_phase": "discover",
-      "invocation_source": "automation",
-      "wake_reason": "issue_assigned",
-      "task_id": null,
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T09:07:00.000Z"
-    },
-    {
-      "run_id": "dd156e00-09eb-473d-97e3-601250d8566e",
+      "run_id": "26a2b409-1f6e-4b5c-b2b1-c505f12bcfe7",
       "agent": "Atelier",
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
-      "loop_phase": "discover",
+      "loop_phase": "execute",
       "invocation_source": "automation",
-      "wake_reason": "issue_assigned",
-      "task_id": null,
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T09:07:00.000Z"
+      "wake_reason": "system",
+      "status": "running",
+      "started_at": "2026-03-19T09:10:08.432Z",
+      "finished_at": null
     },
     {
       "run_id": "96447435-2c7a-4eee-8a5f-50a4b6c08420",
@@ -76,14 +59,21 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "automation",
-      "task_id": "e20831ce-a586-4667-82fb-2a5b7ff2c56b",
-      "task_identifier": "OFF-71",
-      "task_title": "FINAL: Update SUBMIT.md with SuperRare track + latest commit hash",
+      "wake_reason": "system",
       "status": "succeeded",
-      "started_at": "2026-03-19T09:05:14.000Z",
-      "finished_at": "2026-03-19T09:05:52.000Z",
-      "created_at": "2026-03-19T09:05:14.000Z"
+      "started_at": "2026-03-19T09:05:14.202Z",
+      "finished_at": "2026-03-19T09:05:52.504Z"
+    },
+    {
+      "run_id": "de1b3144-7713-489a-8b41-a380555494d0",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "execute",
+      "invocation_source": "automation",
+      "wake_reason": "system",
+      "status": "running",
+      "started_at": "2026-03-19T09:09:01.942Z",
+      "finished_at": null
     },
     {
       "run_id": "ee52b6a8-a9c7-4a5f-b8f3-bce40d3cc56b",
@@ -91,14 +81,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "execute",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "975c65b7-9b03-43c1-8113-8a3a8e39b601",
-      "task_identifier": "OFF-72",
-      "task_title": "FINAL: Update agent_log.json with complete heartbeat history through be5ec6e",
-      "status": "running",
-      "started_at": "2026-03-19T09:03:38.000Z",
-      "finished_at": null,
-      "created_at": "2026-03-19T09:03:38.000Z"
+      "wake_reason": "system",
+      "status": "failed",
+      "started_at": "2026-03-19T09:03:38.342Z",
+      "finished_at": "2026-03-19T09:09:01.906Z"
     },
     {
       "run_id": "2424f505-b8ea-418d-85c7-bd9f73a5534f",
@@ -106,87 +92,43 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "e20831ce-a586-4667-82fb-2a5b7ff2c56b",
-      "task_identifier": "OFF-71",
-      "task_title": "FINAL: Update SUBMIT.md with SuperRare track + latest commit hash",
+      "wake_reason": "system",
       "status": "succeeded",
-      "started_at": "2026-03-19T09:03:16.000Z",
-      "finished_at": "2026-03-19T09:05:14.000Z",
-      "created_at": "2026-03-19T09:03:16.000Z"
+      "started_at": "2026-03-19T09:03:16.224Z",
+      "finished_at": "2026-03-19T09:05:14.174Z"
     },
     {
-      "run_id": "81f93044-dda0-4706-9936-571edaa1318f",
+      "run_id": "3f316961-45cb-449f-a909-2de48891b19c",
       "agent": "Loom",
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
-      "loop_phase": "execute",
-      "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "89b55279-3fd3-48e5-af56-0bee05e6bc93",
-      "task_identifier": "OFF-64",
-      "task_title": "HACKATHON DEMO: Ensure shop frontend is fully browseable",
-      "status": "failed",
-      "started_at": "2026-03-19T09:00:08.000Z",
-      "finished_at": "2026-03-19T09:05:14.000Z",
-      "created_at": "2026-03-19T09:00:08.000Z"
+      "loop_phase": "discover",
+      "invocation_source": "automation",
+      "wake_reason": "system",
+      "status": "queued",
+      "started_at": null,
+      "finished_at": null
     },
     {
-      "run_id": "ed5f7284-ae7e-4e5d-8f95-2826de6dc838",
-      "agent": "Loom",
-      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
-      "loop_phase": "execute",
-      "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "5b40af63-66a6-462e-97dd-1efebfbe0b64",
-      "task_identifier": "OFF-56",
-      "task_title": "HACKATHON TRACK: Filecoin - Agent wearable assets on decentralized storage",
-      "status": "succeeded",
-      "started_at": "2026-03-19T08:55:01.000Z",
-      "finished_at": "2026-03-19T09:00:08.000Z",
-      "created_at": "2026-03-19T08:55:01.000Z"
-    },
-    {
-      "run_id": "70a2f9fb-2c0a-482e-90c2-a441bf8c1f29",
+      "run_id": "dd156e00-09eb-473d-97e3-601250d8566e",
       "agent": "Atelier",
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
-      "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "6b1c4f93-7f9f-478c-aabf-2e3dc4292730",
-      "task_identifier": "OFF-55",
-      "task_title": "HACKATHON TRACK: SuperRare - Autonomous Agent Art on Rare Protocol",
-      "status": "succeeded",
-      "started_at": "2026-03-19T08:58:14.000Z",
-      "finished_at": "2026-03-19T09:07:14.000Z",
-      "created_at": "2026-03-19T08:58:14.000Z"
-    },
-    {
-      "run_id": "7b805772-041e-431c-b6ad-5dbb7ba38e72",
-      "agent": "Atelier",
-      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
-      "loop_phase": "execute",
       "invocation_source": "automation",
-      "wake_reason": "issue_assigned",
-      "task_id": "6b1c4f93-7f9f-478c-aabf-2e3dc4292730",
-      "task_identifier": "OFF-55",
-      "task_title": "HACKATHON TRACK: SuperRare - Autonomous Agent Art on Rare Protocol",
-      "status": "failed",
-      "started_at": "2026-03-19T08:53:01.000Z",
-      "finished_at": "2026-03-19T08:58:14.000Z",
-      "created_at": "2026-03-19T08:53:01.000Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T09:08:44.627Z",
+      "finished_at": "2026-03-19T09:10:08.413Z"
     },
     {
       "run_id": "aef7d442-a32e-4b82-8abf-b27834069f42",
       "agent": "Archive",
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "58a7df7f-0d47-46bc-883e-da06d8ba5986",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:53:20.902Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T08:58:48.157Z",
+      "finished_at": "2026-03-19T08:59:17.905Z"
     },
     {
       "run_id": "a5ba8cdb-8cf1-437d-a3ca-5caaf5075b6b",
@@ -194,90 +136,76 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "discover",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "14024203-0f01-4003-8a3e-8311bf6d4392",
+      "wake_reason": "system",
       "status": "queued",
       "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:53:12.689Z"
+      "finished_at": null
     },
     {
       "run_id": "d11b8c82-50b5-47fc-886a-86981f928241",
       "agent": "Gazette",
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "dfddb0a6-0853-4e2b-b9d8-e8ef3515eb94",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:53:03.564Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T09:00:45.095Z",
+      "finished_at": "2026-03-19T09:02:03.842Z"
     },
     {
       "run_id": "597017a1-ccd0-4723-8d01-97ed8f7f2589",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_commented",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:48:39.386Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T09:04:01.859Z",
+      "finished_at": "2026-03-19T09:07:42.706Z"
     },
     {
       "run_id": "3260e652-f7b3-405e-9b52-901d49e19f1b",
       "agent": "Archive",
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:48:31.625Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T08:57:39.135Z",
+      "finished_at": "2026-03-19T08:58:48.112Z"
     },
     {
       "run_id": "bb355bea-07fc-45c3-aa35-3a3200082eef",
       "agent": "Gazette",
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:48:31.624Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T08:58:48.776Z",
+      "finished_at": "2026-03-19T09:00:45.077Z"
     },
     {
       "run_id": "749d2cff-a098-4038-ba10-f06dcf64aa47",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "7db01ba7-10ad-427f-aadf-a3f3eda2f6db",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:47:34.606Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T08:59:01.052Z",
+      "finished_at": "2026-03-19T09:04:23.059Z"
     },
     {
       "run_id": "8d2196d3-4a20-4a3c-800e-77f44553d296",
       "agent": "Gazette",
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
-      "loop_phase": "execute",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "991c899b-cb87-4662-a0d7-fb70397600e0",
-      "status": "running",
+      "wake_reason": "system",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:53:56.082Z",
-      "finished_at": null,
-      "created_at": "2026-03-19T08:47:28.529Z"
+      "finished_at": "2026-03-19T08:58:48.758Z"
     },
     {
       "run_id": "88fbc795-a505-49c4-b7b8-72916c7c98bf",
@@ -285,25 +213,21 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "discover",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "89b55279-3fd3-48e5-af56-0bee05e6bc93",
+      "wake_reason": "system",
       "status": "queued",
       "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:47:16.903Z"
+      "finished_at": null
     },
     {
       "run_id": "6476275f-513b-4e5f-895f-ac1794c3b344",
       "agent": "Archive",
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
-      "loop_phase": "execute",
+      "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
-      "status": "running",
+      "wake_reason": "manual",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:55:01.748Z",
-      "finished_at": null,
-      "created_at": "2026-03-19T08:46:46.467Z"
+      "finished_at": "2026-03-19T08:57:39.105Z"
     },
     {
       "run_id": "e0aa24e2-e3eb-4678-bfb4-d6e22194b69f",
@@ -311,12 +235,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T08:52:05.586Z",
-      "finished_at": "2026-03-19T08:53:56.064Z",
-      "created_at": "2026-03-19T08:46:46.324Z"
+      "finished_at": "2026-03-19T08:53:56.064Z"
     },
     {
       "run_id": "c17b4c65-96a3-40af-8955-4d9c45872d05",
@@ -324,51 +246,43 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "discover",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "queued",
       "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:46:46.149Z"
+      "finished_at": null
     },
     {
       "run_id": "e9090a42-a4e5-4cbc-9bbd-d20eec9729d9",
       "agent": "Atelier",
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:46:45.989Z"
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-19T09:03:31.872Z",
+      "finished_at": "2026-03-19T09:09:46.687Z"
     },
     {
       "run_id": "aa900ed4-0a49-4251-866b-52d851dac808",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:46:45.829Z"
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-19T08:56:53.353Z",
+      "finished_at": "2026-03-19T08:59:01.038Z"
     },
     {
       "run_id": "d59bd905-7546-4d1b-8d64-80eeb17bf0c7",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "execute",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "f71b9785-7801-4f00-9763-7d92d3a88797",
-      "status": "running",
+      "wake_reason": "system",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:53:55.626Z",
-      "finished_at": null,
-      "created_at": "2026-03-19T08:46:45.677Z"
+      "finished_at": "2026-03-19T08:56:53.334Z"
     },
     {
       "run_id": "95b5142c-d290-4a8c-a8a1-ea95efb55ad1",
@@ -376,25 +290,21 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "f7df2953-e511-4469-8ed9-65810d84af96",
-      "status": "failed",
+      "wake_reason": "system",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:49:38.384Z",
-      "finished_at": "2026-03-19T08:55:01.717Z",
-      "created_at": "2026-03-19T08:46:09.296Z"
+      "finished_at": "2026-03-19T08:56:39.446Z"
     },
     {
       "run_id": "41d1cd3a-7360-4ba1-a4f3-10c30646582d",
       "agent": "Loom",
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
-      "loop_phase": "discover",
+      "loop_phase": "execute",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "93923f30-5055-4ade-bc6f-8f262cf066ba",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:46:09.132Z"
+      "wake_reason": "system",
+      "status": "running",
+      "started_at": "2026-03-19T09:05:14.568Z",
+      "finished_at": null
     },
     {
       "run_id": "42851a8d-f7f5-43a3-ae60-29dca5db3f3c",
@@ -402,12 +312,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "08198f78-30a6-4fe0-b2f1-83675f1e635e",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:47:18.717Z",
-      "finished_at": "2026-03-19T08:52:05.573Z",
-      "created_at": "2026-03-19T08:46:03.000Z"
+      "finished_at": "2026-03-19T08:52:05.573Z"
     },
     {
       "run_id": "e32ac7b0-1a59-4b38-9a22-f828ae1e75ad",
@@ -415,12 +323,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "fd2d9bc7-be6a-4887-8ccc-31702aed96ba",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:48:39.394Z",
-      "finished_at": "2026-03-19T08:53:55.606Z",
-      "created_at": "2026-03-19T08:45:57.111Z"
+      "finished_at": "2026-03-19T08:53:55.606Z"
     },
     {
       "run_id": "d6028019-6550-4af5-8dbe-16ba09266db9",
@@ -428,51 +334,43 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "a71ebc67-8bbf-4cec-9bcb-0b7e56ea4fdf",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:45:49.906Z",
-      "finished_at": "2026-03-19T08:49:38.353Z",
-      "created_at": "2026-03-19T08:45:49.901Z"
+      "finished_at": "2026-03-19T08:49:38.353Z"
     },
     {
       "run_id": "81f93044-dda0-4706-9936-571edaa1318f",
       "agent": "Loom",
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
-      "loop_phase": "discover",
+      "loop_phase": "execute",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "f7cedbde-aa89-430d-a58a-4afc5f7f94ff",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:45:41.223Z"
+      "wake_reason": "system",
+      "status": "failed",
+      "started_at": "2026-03-19T09:00:08.830Z",
+      "finished_at": "2026-03-19T09:05:14.555Z"
     },
     {
       "run_id": "ed5f7284-ae7e-4e5d-8f95-2826de6dc838",
       "agent": "Loom",
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
-      "loop_phase": "execute",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "5b40af63-66a6-462e-97dd-1efebfbe0b64",
-      "status": "running",
+      "wake_reason": "system",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:55:01.764Z",
-      "finished_at": null,
-      "created_at": "2026-03-19T08:45:36.102Z"
+      "finished_at": "2026-03-19T09:00:08.795Z"
     },
     {
       "run_id": "70a2f9fb-2c0a-482e-90c2-a441bf8c1f29",
       "agent": "Atelier",
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
-      "loop_phase": "discover",
+      "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "6b1c4f93-7f9f-478c-aabf-2e3dc4292730",
-      "status": "queued",
-      "started_at": null,
-      "finished_at": null,
-      "created_at": "2026-03-19T08:45:30.141Z"
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-19T08:58:14.468Z",
+      "finished_at": "2026-03-19T09:07:14.145Z"
     },
     {
       "run_id": "7b805772-041e-431c-b6ad-5dbb7ba38e72",
@@ -480,12 +378,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "execute",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
-      "status": "running",
+      "wake_reason": "system",
+      "status": "failed",
       "started_at": "2026-03-19T08:53:01.725Z",
-      "finished_at": null,
-      "created_at": "2026-03-19T08:45:24.429Z"
+      "finished_at": "2026-03-19T08:58:14.458Z"
     },
     {
       "run_id": "a7f3d520-6d92-43d2-8344-7b19cf172be7",
@@ -493,12 +389,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:49:59.784Z",
-      "finished_at": "2026-03-19T08:55:17.324Z",
-      "created_at": "2026-03-19T08:45:24.429Z"
+      "finished_at": "2026-03-19T08:55:17.324Z"
     },
     {
       "run_id": "c5c27998-4eee-4015-b85c-9a0797f4a1dd",
@@ -506,12 +400,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "2855d21b-4866-4bfb-a945-654d18c69f70",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:45:32.139Z",
-      "finished_at": "2026-03-19T08:48:39.381Z",
-      "created_at": "2026-03-19T08:44:48.108Z"
+      "finished_at": "2026-03-19T08:48:39.381Z"
     },
     {
       "run_id": "63f8bbf1-3e0e-4540-8598-1f8d86535e4c",
@@ -519,12 +411,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "fca95bb7-7208-4346-add2-01b4160a8bf8",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:44:37.610Z",
-      "finished_at": "2026-03-19T08:49:59.767Z",
-      "created_at": "2026-03-19T08:44:37.604Z"
+      "finished_at": "2026-03-19T08:49:59.767Z"
     },
     {
       "run_id": "46cbecb1-c7fb-4a28-8287-41444661de6f",
@@ -532,12 +422,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "cabcf82e-4c85-4ab6-921f-9d7912bc335a",
-      "status": "failed",
+      "wake_reason": "system",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:47:43.133Z",
-      "finished_at": "2026-03-19T08:53:01.694Z",
-      "created_at": "2026-03-19T08:44:30.276Z"
+      "finished_at": "2026-03-19T09:01:55.210Z"
     },
     {
       "run_id": "174468bb-f08a-4094-a69e-107b9d2cf07d",
@@ -545,12 +433,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "4e132aaf-7440-4a7d-b01d-7f4f33423035",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:42:14.225Z",
-      "finished_at": "2026-03-19T08:45:32.125Z",
-      "created_at": "2026-03-19T08:42:14.219Z"
+      "finished_at": "2026-03-19T08:45:32.125Z"
     },
     {
       "run_id": "33e3cae1-d28d-4fc0-9d35-3f55b4902c92",
@@ -558,12 +444,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:42:42.057Z",
-      "finished_at": "2026-03-19T08:43:45.467Z",
-      "created_at": "2026-03-19T08:39:39.230Z"
+      "finished_at": "2026-03-19T08:43:45.467Z"
     },
     {
       "run_id": "cec025e3-02f0-44a4-aaf2-e48e1bead649",
@@ -571,12 +455,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:45:58.034Z",
-      "finished_at": "2026-03-19T08:47:18.705Z",
-      "created_at": "2026-03-19T08:39:39.230Z"
+      "finished_at": "2026-03-19T08:47:18.705Z"
     },
     {
       "run_id": "d37fdd43-eb49-4304-a079-8e196d926945",
@@ -584,12 +466,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:40:30.628Z",
-      "finished_at": "2026-03-19T08:42:54.555Z",
-      "created_at": "2026-03-19T08:39:39.229Z"
+      "finished_at": "2026-03-19T08:42:54.555Z"
     },
     {
       "run_id": "073f9704-3a66-4ea2-ad4a-8a1e274a6291",
@@ -597,12 +477,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "19abeeee-f555-4fb5-8c6f-0fcf8f56042d",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:39:16.919Z",
-      "finished_at": "2026-03-19T08:42:42.036Z",
-      "created_at": "2026-03-19T08:39:16.914Z"
+      "finished_at": "2026-03-19T08:42:42.036Z"
     },
     {
       "run_id": "96a80e18-34f3-4087-927f-041863716d0d",
@@ -610,12 +488,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "7a5c186d-6315-45a4-aae4-6f8988776253",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:39:21.585Z",
-      "finished_at": "2026-03-19T08:40:30.612Z",
-      "created_at": "2026-03-19T08:39:07.703Z"
+      "finished_at": "2026-03-19T08:40:30.612Z"
     },
     {
       "run_id": "b0d43952-d6d4-4404-93cf-0d06c0de0c16",
@@ -623,12 +499,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "598d1dd8-564a-4935-84d7-389d054cd38c",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:42:48.122Z",
-      "finished_at": "2026-03-19T08:45:58.016Z",
-      "created_at": "2026-03-19T08:38:59.740Z"
+      "finished_at": "2026-03-19T08:45:58.016Z"
     },
     {
       "run_id": "bdb9e347-ef61-40dd-a7f7-6b95df59884c",
@@ -636,12 +510,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "ead0176f-6fec-4dbc-9c4f-70c802c7bd9d",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:38:51.553Z",
-      "finished_at": "2026-03-19T08:42:48.103Z",
-      "created_at": "2026-03-19T08:38:51.544Z"
+      "finished_at": "2026-03-19T08:42:48.103Z"
     },
     {
       "run_id": "34081b1e-6596-44fd-bf14-a618af89c020",
@@ -649,12 +521,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "d9575ba9-ee0d-4d28-b87a-6f427290a178",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:45:43.440Z",
-      "finished_at": "2026-03-19T08:47:43.111Z",
-      "created_at": "2026-03-19T08:38:42.256Z"
+      "finished_at": "2026-03-19T08:47:43.111Z"
     },
     {
       "run_id": "9357dcbf-ec80-4beb-a536-0cb48b1c2ad1",
@@ -662,12 +532,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:38:14.741Z",
-      "finished_at": "2026-03-19T08:39:21.566Z",
-      "created_at": "2026-03-19T08:38:14.736Z"
+      "finished_at": "2026-03-19T08:39:21.566Z"
     },
     {
       "run_id": "7fdd47e3-d223-4d6a-8e3c-359c7aadc62b",
@@ -675,12 +543,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:38:14.734Z",
-      "finished_at": "2026-03-19T08:38:49.228Z",
-      "created_at": "2026-03-19T08:38:14.730Z"
+      "finished_at": "2026-03-19T08:38:49.228Z"
     },
     {
       "run_id": "9aa5bdbf-c654-41a2-baf6-ed174daf3868",
@@ -688,12 +554,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_commented",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:32:21.908Z",
-      "finished_at": "2026-03-19T08:39:51.335Z",
-      "created_at": "2026-03-19T08:32:21.900Z"
+      "finished_at": "2026-03-19T08:39:51.335Z"
     },
     {
       "run_id": "a4b74f14-1bea-4606-85e7-559f1cf4bc40",
@@ -701,12 +565,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "ef4b9d33-e476-4b46-bb6a-51de246f64ad",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:32:44.258Z",
-      "finished_at": "2026-03-19T08:33:33.308Z",
-      "created_at": "2026-03-19T08:28:17.380Z"
+      "finished_at": "2026-03-19T08:33:33.308Z"
     },
     {
       "run_id": "2f74234d-7d2e-4915-88e2-2637936fbedb",
@@ -714,12 +576,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:27:57.412Z",
-      "finished_at": "2026-03-19T08:32:44.228Z",
-      "created_at": "2026-03-19T08:25:57.030Z"
+      "finished_at": "2026-03-19T08:32:44.228Z"
     },
     {
       "run_id": "3675e9d9-9ad0-4d5b-8157-9b929f3c60ed",
@@ -727,12 +587,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:30:15.660Z",
-      "finished_at": "2026-03-19T08:32:21.895Z",
-      "created_at": "2026-03-19T08:25:57.029Z"
+      "finished_at": "2026-03-19T08:32:21.895Z"
     },
     {
       "run_id": "01ac73ce-0e9c-4688-b4ff-d33fb69ae821",
@@ -740,12 +598,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:42:14.230Z",
-      "finished_at": "2026-03-19T08:45:43.426Z",
-      "created_at": "2026-03-19T08:25:57.028Z"
+      "finished_at": "2026-03-19T08:45:43.426Z"
     },
     {
       "run_id": "f4f14a8d-7910-47d3-8bbd-f1cb42c2df3c",
@@ -753,12 +609,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "4e132aaf-7440-4a7d-b01d-7f4f33423035",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:28:09.313Z",
-      "finished_at": "2026-03-19T08:30:15.635Z",
-      "created_at": "2026-03-19T08:25:17.068Z"
+      "finished_at": "2026-03-19T08:30:15.635Z"
     },
     {
       "run_id": "6220d943-805e-45a6-8ef3-3e2208d3a060",
@@ -766,12 +620,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "4e132aaf-7440-4a7d-b01d-7f4f33423035",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:26:31.373Z",
-      "finished_at": "2026-03-19T08:27:57.378Z",
-      "created_at": "2026-03-19T08:25:17.068Z"
+      "finished_at": "2026-03-19T08:27:57.378Z"
     },
     {
       "run_id": "408d111c-2a60-45dc-849e-921468e41de1",
@@ -779,12 +631,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "4e132aaf-7440-4a7d-b01d-7f4f33423035",
-      "status": "failed",
+      "wake_reason": "system",
+      "status": "succeeded",
       "started_at": "2026-03-19T08:37:01.461Z",
-      "finished_at": "2026-03-19T08:42:14.214Z",
-      "created_at": "2026-03-19T08:25:17.068Z"
+      "finished_at": "2026-03-19T08:56:54.095Z"
     },
     {
       "run_id": "9bf911ab-3239-4ebd-85b4-90eac0dcb338",
@@ -792,12 +642,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "c8a5d49f-fa8d-4594-8cfb-caab943d0531",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:26:13.315Z",
-      "finished_at": "2026-03-19T08:28:09.295Z",
-      "created_at": "2026-03-19T08:24:48.178Z"
+      "finished_at": "2026-03-19T08:28:09.295Z"
     },
     {
       "run_id": "765e08af-18df-42de-9cde-f82ff2adb47b",
@@ -805,12 +653,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "91d5bc1f-4b05-45f4-8c2e-3d1d9ebd561d",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:31:44.051Z",
-      "finished_at": "2026-03-19T08:41:35.414Z",
-      "created_at": "2026-03-19T08:24:43.092Z"
+      "finished_at": "2026-03-19T08:41:35.414Z"
     },
     {
       "run_id": "a49818e4-2830-4ac0-be5c-3789fa914400",
@@ -818,12 +664,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "71d83994-bb4f-410a-8809-1eeb19f0f0cc",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T08:26:31.333Z",
-      "finished_at": "2026-03-19T08:34:36.843Z",
-      "created_at": "2026-03-19T08:24:30.445Z"
+      "finished_at": "2026-03-19T08:34:36.843Z"
     },
     {
       "run_id": "da535199-8688-48e5-89b9-137010047488",
@@ -831,12 +675,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T08:21:25.868Z",
-      "finished_at": "2026-03-19T08:21:48.790Z",
-      "created_at": "2026-03-19T08:21:25.866Z"
+      "finished_at": "2026-03-19T08:21:48.790Z"
     },
     {
       "run_id": "7580ede8-0ed3-460d-b54e-bec4b0ca3705",
@@ -844,12 +686,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T08:21:25.679Z",
-      "finished_at": "2026-03-19T08:26:13.302Z",
-      "created_at": "2026-03-19T08:21:25.677Z"
+      "finished_at": "2026-03-19T08:26:13.302Z"
     },
     {
       "run_id": "636e38f1-e3fd-4ddf-ae9c-93a9075cca67",
@@ -857,12 +697,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T08:21:25.516Z",
-      "finished_at": "2026-03-19T08:27:58.256Z",
-      "created_at": "2026-03-19T08:21:25.513Z"
+      "finished_at": "2026-03-19T08:27:58.256Z"
     },
     {
       "run_id": "d020c63f-2102-4b44-ae2f-76a311882e18",
@@ -870,12 +708,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T08:21:25.357Z",
-      "finished_at": "2026-03-19T08:34:37.074Z",
-      "created_at": "2026-03-19T08:21:25.353Z"
+      "finished_at": "2026-03-19T08:34:37.074Z"
     },
     {
       "run_id": "5122ea01-9446-40bb-910b-32384724adc8",
@@ -883,12 +719,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T08:21:25.212Z",
-      "finished_at": "2026-03-19T08:26:06.495Z",
-      "created_at": "2026-03-19T08:21:25.200Z"
+      "finished_at": "2026-03-19T08:26:06.495Z"
     },
     {
       "run_id": "5e3a90cf-5fcd-4d6a-840a-df29cd50e191",
@@ -896,12 +730,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "4e132aaf-7440-4a7d-b01d-7f4f33423035",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:39:21.292Z",
-      "finished_at": "2026-03-19T01:43:31.421Z",
-      "created_at": "2026-03-19T01:39:12.827Z"
+      "finished_at": "2026-03-19T01:43:31.421Z"
     },
     {
       "run_id": "a5cf83ea-b1e4-489d-8e1d-2f9ce321ed0c",
@@ -909,12 +741,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "44a683a4-3af0-48ff-96cb-43e91d46826d",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:46:31.743Z",
-      "finished_at": "2026-03-19T01:49:34.293Z",
-      "created_at": "2026-03-19T01:38:37.237Z"
+      "finished_at": "2026-03-19T01:49:34.293Z"
     },
     {
       "run_id": "d0301201-59fa-460c-97ea-945ab16d1929",
@@ -922,12 +752,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "95fa92dd-d04e-49f3-a4f8-3a301006a110",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:43:38.004Z",
-      "finished_at": "2026-03-19T01:46:31.718Z",
-      "created_at": "2026-03-19T01:38:31.808Z"
+      "finished_at": "2026-03-19T01:46:31.718Z"
     },
     {
       "run_id": "4470049f-f519-433c-919a-5746a637f4bb",
@@ -935,12 +763,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "115685b1-6c74-49d4-91c5-cab4a3922fdd",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:39:31.778Z",
-      "finished_at": "2026-03-19T01:43:24.029Z",
-      "created_at": "2026-03-19T01:38:21.665Z"
+      "finished_at": "2026-03-19T01:43:24.029Z"
     },
     {
       "run_id": "22c8addf-6cdd-44eb-ab6a-7e17ef8371c9",
@@ -948,12 +774,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "280bed85-2fad-46d3-ad8d-b0da4d0b65c5",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:35:58.968Z",
-      "finished_at": "2026-03-19T01:38:47.468Z",
-      "created_at": "2026-03-19T01:35:58.956Z"
+      "finished_at": "2026-03-19T01:38:47.468Z"
     },
     {
       "run_id": "33dec09b-3f65-46b7-b45a-a35260d86b42",
@@ -961,12 +785,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "b646a935-169d-44ff-a339-cf18d1f90a4f",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:38:56.623Z",
-      "finished_at": "2026-03-19T01:43:37.991Z",
-      "created_at": "2026-03-19T01:35:58.943Z"
+      "finished_at": "2026-03-19T01:43:37.991Z"
     },
     {
       "run_id": "15ac5f32-04cf-41eb-a4e8-515dfb8fbcbb",
@@ -974,12 +796,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "4c12b953-5494-4ae4-be91-669a66fd777e",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:35:58.931Z",
-      "finished_at": "2026-03-19T01:37:22.039Z",
-      "created_at": "2026-03-19T01:35:58.920Z"
+      "finished_at": "2026-03-19T01:37:22.039Z"
     },
     {
       "run_id": "45723c4a-3b8f-4b47-9ce3-f73a70710848",
@@ -987,12 +807,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "0f58bc31-7abf-44e7-9675-731430739a51",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:35:58.942Z",
-      "finished_at": "2026-03-19T01:39:31.753Z",
-      "created_at": "2026-03-19T01:35:58.908Z"
+      "finished_at": "2026-03-19T01:39:31.753Z"
     },
     {
       "run_id": "886e69d2-abae-435b-91d1-d9aa8bff5509",
@@ -1000,12 +818,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "fe0d8b34-0323-41d8-8395-84519aa437d3",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:35:58.906Z",
-      "finished_at": "2026-03-19T01:38:56.601Z",
-      "created_at": "2026-03-19T01:35:58.897Z"
+      "finished_at": "2026-03-19T01:38:56.601Z"
     },
     {
       "run_id": "5e1a5281-f042-4e0b-9275-89d85faee0c8",
@@ -1013,12 +829,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "9985f5c6-c87b-43d2-b433-02928a5454e4",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:35:59.300Z",
-      "finished_at": "2026-03-19T01:39:21.268Z",
-      "created_at": "2026-03-19T01:31:42.196Z"
+      "finished_at": "2026-03-19T01:39:21.268Z"
     },
     {
       "run_id": "065b7e43-6670-4db9-9551-1b20cd4bfe87",
@@ -1026,12 +840,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "3595afb3-2276-4dbf-a9c4-f8753ffeed04",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:30:05.623Z",
-      "finished_at": "2026-03-19T01:32:46.167Z",
-      "created_at": "2026-03-19T01:30:05.611Z"
+      "finished_at": "2026-03-19T01:32:46.167Z"
     },
     {
       "run_id": "9b961955-f4ae-451c-b190-7be384123a29",
@@ -1039,12 +851,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "1c30acd7-c41e-463c-95f7-409c305ec28e",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:29:57.840Z",
-      "finished_at": "2026-03-19T01:31:17.770Z",
-      "created_at": "2026-03-19T01:29:57.834Z"
+      "finished_at": "2026-03-19T01:31:17.770Z"
     },
     {
       "run_id": "305d5d61-07bd-475a-9c8d-a3b64036b2de",
@@ -1052,12 +862,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "c4143408-d018-4d3d-9bfa-0d79cb2fb861",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:29:50.574Z",
-      "finished_at": "2026-03-19T01:32:30.960Z",
-      "created_at": "2026-03-19T01:29:50.567Z"
+      "finished_at": "2026-03-19T01:32:30.960Z"
     },
     {
       "run_id": "0c06d844-9606-4b8b-bcab-a4d817ae7b10",
@@ -1065,12 +873,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "ecd4a849-291b-412e-bc12-8a6410e94ec0",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:29:39.790Z",
-      "finished_at": "2026-03-19T01:31:15.098Z",
-      "created_at": "2026-03-19T01:29:39.760Z"
+      "finished_at": "2026-03-19T01:31:15.098Z"
     },
     {
       "run_id": "9c16d9b4-c725-4679-931c-30e81289d779",
@@ -1078,12 +884,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_status_changed",
-      "task_id": "ee8c25e9-bc21-4c04-a89e-47ff02d2f46a",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T01:31:51.303Z",
-      "finished_at": "2026-03-19T01:35:59.287Z",
-      "created_at": "2026-03-19T01:27:19.278Z"
+      "finished_at": "2026-03-19T01:35:59.287Z"
     },
     {
       "run_id": "f5f86189-1518-4901-ab5a-f5844ef8f679",
@@ -1091,12 +895,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T01:27:11.928Z",
-      "finished_at": "2026-03-19T01:31:51.287Z",
-      "created_at": "2026-03-19T01:27:11.910Z"
+      "finished_at": "2026-03-19T01:31:51.287Z"
     },
     {
       "run_id": "3779ca4c-4b52-415c-bad5-80d3dd554b7f",
@@ -1104,12 +906,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_commented",
-      "task_id": "9b53717c-a305-44eb-b15e-edf51e7539d4",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T00:21:13.372Z",
-      "finished_at": "2026-03-19T00:24:37.173Z",
-      "created_at": "2026-03-19T00:21:13.354Z"
+      "finished_at": "2026-03-19T00:24:37.173Z"
     },
     {
       "run_id": "128bdbb3-943a-4bb6-bf21-bc405eccb278",
@@ -1117,12 +917,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_commented",
-      "task_id": "bd665ca6-b4a8-47aa-aa9f-4a7675df8b36",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T00:23:21.511Z",
-      "finished_at": "2026-03-19T00:30:18.556Z",
-      "created_at": "2026-03-19T00:21:07.489Z"
+      "finished_at": "2026-03-19T00:30:18.556Z"
     },
     {
       "run_id": "458a5b7e-abfa-4187-9f2a-b7061f4c0db4",
@@ -1130,12 +928,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_comment_mentioned",
-      "task_id": "519f9246-266f-4788-bdf5-e0ee3ea28304",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-19T00:20:43.961Z",
-      "finished_at": "2026-03-19T00:23:21.475Z",
-      "created_at": "2026-03-19T00:20:43.949Z"
+      "finished_at": "2026-03-19T00:23:21.475Z"
     },
     {
       "run_id": "35101506-f500-4e2f-8d8e-81d2e0e237d2",
@@ -1143,12 +939,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-19T00:17:33.051Z",
-      "finished_at": "2026-03-19T00:21:13.775Z",
-      "created_at": "2026-03-19T00:17:33.048Z"
+      "finished_at": "2026-03-19T00:21:13.775Z"
     },
     {
       "run_id": "ad91ea25-628c-43c8-88a6-2419d3955966",
@@ -1156,12 +950,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "1a3039cd-1674-4404-9b50-89ef2c00bba5",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-18T23:43:43.307Z",
-      "finished_at": "2026-03-18T23:48:16.721Z",
-      "created_at": "2026-03-18T23:43:43.277Z"
+      "finished_at": "2026-03-18T23:48:16.721Z"
     },
     {
       "run_id": "1194a192-81fe-45ad-80cb-a2507ed7cb22",
@@ -1169,12 +961,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "9b53717c-a305-44eb-b15e-edf51e7539d4",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-18T23:43:43.275Z",
-      "finished_at": "2026-03-18T23:46:22.243Z",
-      "created_at": "2026-03-18T23:43:43.261Z"
+      "finished_at": "2026-03-18T23:46:22.243Z"
     },
     {
       "run_id": "21b0934d-c241-4694-a35e-b40e83053adb",
@@ -1182,12 +972,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "bd665ca6-b4a8-47aa-aa9f-4a7675df8b36",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-18T23:43:43.257Z",
-      "finished_at": "2026-03-18T23:46:46.704Z",
-      "created_at": "2026-03-18T23:43:43.246Z"
+      "finished_at": "2026-03-18T23:46:46.704Z"
     },
     {
       "run_id": "322eec95-4d49-46c3-a960-2006053bdb02",
@@ -1195,12 +983,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "a7b70b82-f0f4-4e33-ab29-38573acabb77",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-18T23:43:43.251Z",
-      "finished_at": "2026-03-19T00:05:14.339Z",
-      "created_at": "2026-03-18T23:43:43.235Z"
+      "finished_at": "2026-03-19T00:05:14.339Z"
     },
     {
       "run_id": "d6807844-7d88-470b-8fc7-19fd4537c8be",
@@ -1208,12 +994,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-18T23:43:53.075Z",
-      "finished_at": "2026-03-18T23:46:22.782Z",
-      "created_at": "2026-03-18T23:38:47.247Z"
+      "finished_at": "2026-03-18T23:46:22.782Z"
     },
     {
       "run_id": "724762fb-e39c-4f7d-b65d-d209a9b4289c",
@@ -1221,12 +1005,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_status_changed",
-      "task_id": "663bae75-4406-47a6-b3ab-8c8bb54b0f08",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-18T23:38:32.475Z",
-      "finished_at": "2026-03-18T23:44:17.968Z",
-      "created_at": "2026-03-18T23:38:32.468Z"
+      "finished_at": "2026-03-18T23:44:17.968Z"
     },
     {
       "run_id": "eaa63ae2-7e5f-4852-878b-8564aaf668d8",
@@ -1234,12 +1016,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-18T23:36:34.916Z",
-      "finished_at": "2026-03-18T23:36:51.719Z",
-      "created_at": "2026-03-18T23:36:34.913Z"
+      "finished_at": "2026-03-18T23:36:51.719Z"
     },
     {
       "run_id": "1578325f-bd59-4c3d-921f-325eb9ee5439",
@@ -1247,12 +1027,10 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-18T23:35:00.731Z",
-      "finished_at": "2026-03-18T23:35:11.671Z",
-      "created_at": "2026-03-18T23:35:00.722Z"
+      "finished_at": "2026-03-18T23:35:11.671Z"
     },
     {
       "run_id": "06de1de3-5fa1-40a9-ad42-b7c5dc11e91c",
@@ -1260,51 +1038,43 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-18T23:32:30.371Z",
-      "finished_at": "2026-03-18T23:32:49.831Z",
-      "created_at": "2026-03-18T23:32:30.368Z"
+      "finished_at": "2026-03-18T23:32:49.831Z"
     },
     {
       "run_id": "dd174a11-fd35-4f81-839c-b9742aa2af61",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "verify",
+      "loop_phase": "execute",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "failed",
       "started_at": "2026-03-18T23:29:48.662Z",
-      "finished_at": "2026-03-18T23:29:48.686Z",
-      "created_at": "2026-03-18T23:29:48.652Z"
+      "finished_at": "2026-03-18T23:29:48.686Z"
     },
     {
       "run_id": "da54ee09-b06c-4692-87f2-c1e219e31689",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "verify",
+      "loop_phase": "execute",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "failed",
       "started_at": "2026-03-18T23:27:40.936Z",
-      "finished_at": "2026-03-18T23:27:40.973Z",
-      "created_at": "2026-03-18T23:27:40.931Z"
+      "finished_at": "2026-03-18T23:27:40.973Z"
     },
     {
       "run_id": "3e189c6f-ed06-4f4d-89a0-755e9e1bee19",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "verify",
+      "loop_phase": "execute",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "failed",
       "started_at": "2026-03-18T23:24:52.103Z",
-      "finished_at": "2026-03-18T23:24:52.182Z",
-      "created_at": "2026-03-18T23:24:52.093Z"
+      "finished_at": "2026-03-18T23:24:52.182Z"
     },
     {
       "run_id": "e6876506-dd7c-4ffd-9546-3a1f0fbc4b1d",
@@ -1312,12 +1082,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "865b6be1-827e-4879-93b9-3a33f526558b",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-18T23:20:58.741Z",
-      "finished_at": "2026-03-18T23:22:33.637Z",
-      "created_at": "2026-03-18T23:20:58.720Z"
+      "finished_at": "2026-03-18T23:22:33.637Z"
     },
     {
       "run_id": "2343b3e6-0a18-4469-97e5-4a7ef6acd64c",
@@ -1325,25 +1093,21 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "retry_failed_run",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-18T23:18:35.318Z",
-      "finished_at": "2026-03-18T23:21:06.354Z",
-      "created_at": "2026-03-18T23:18:35.304Z"
+      "finished_at": "2026-03-18T23:21:06.354Z"
     },
     {
       "run_id": "81b910e2-ca91-4334-84ff-c1585f50c86b",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "verify",
+      "loop_phase": "execute",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "failed",
       "started_at": "2026-03-18T23:12:48.998Z",
-      "finished_at": "2026-03-18T23:12:49.141Z",
-      "created_at": "2026-03-18T23:12:48.983Z"
+      "finished_at": "2026-03-18T23:12:49.141Z"
     },
     {
       "run_id": "0dd80141-b44c-4a24-9818-075332c7753f",
@@ -1351,12 +1115,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "9ab4a9ea-f5d6-4d24-8d47-a73880c07b72",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-17T20:07:31.382Z",
-      "finished_at": "2026-03-17T20:09:49.056Z",
-      "created_at": "2026-03-17T20:07:31.375Z"
+      "finished_at": "2026-03-17T20:09:49.056Z"
     },
     {
       "run_id": "38490714-abd3-406a-b18b-23f29ab083c3",
@@ -1364,12 +1126,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "568a26c9-a3af-4fed-b6d9-01bd4b8a6d35",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-17T20:07:21.875Z",
-      "finished_at": "2026-03-17T20:09:02.193Z",
-      "created_at": "2026-03-17T20:07:16.704Z"
+      "finished_at": "2026-03-17T20:09:02.193Z"
     },
     {
       "run_id": "6a48b64a-b98e-4097-9fd3-c5ece34abfaf",
@@ -1377,12 +1137,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "assignment",
-      "wake_reason": "issue_assigned",
-      "task_id": "5dca0ae5-57ae-405d-a51d-64f9c6ae2d90",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-17T20:06:59.481Z",
-      "finished_at": "2026-03-17T20:12:09.195Z",
-      "created_at": "2026-03-17T20:06:59.474Z"
+      "finished_at": "2026-03-17T20:12:09.195Z"
     },
     {
       "run_id": "d8aacd94-1808-41c1-a25d-f77f0542b758",
@@ -1390,12 +1148,10 @@
       "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-17T20:04:23.390Z",
-      "finished_at": "2026-03-17T20:07:22.847Z",
-      "created_at": "2026-03-17T20:04:23.378Z"
+      "finished_at": "2026-03-17T20:07:22.847Z"
     },
     {
       "run_id": "cec4eca4-98d4-4473-98f6-b58737991a73",
@@ -1403,12 +1159,10 @@
       "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-17T20:04:23.292Z",
-      "finished_at": "2026-03-17T20:07:21.861Z",
-      "created_at": "2026-03-17T20:04:23.288Z"
+      "finished_at": "2026-03-17T20:07:21.861Z"
     },
     {
       "run_id": "40f39e72-efe1-4584-ba84-e17a90c8764e",
@@ -1416,12 +1170,10 @@
       "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-17T20:04:23.238Z",
-      "finished_at": "2026-03-17T20:04:49.177Z",
-      "created_at": "2026-03-17T20:04:23.230Z"
+      "finished_at": "2026-03-17T20:04:49.177Z"
     },
     {
       "run_id": "2144035e-a291-4a9a-923b-2475d2f5a6da",
@@ -1429,12 +1181,10 @@
       "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-17T20:04:23.115Z",
-      "finished_at": "2026-03-17T20:10:09.565Z",
-      "created_at": "2026-03-17T20:04:23.111Z"
+      "finished_at": "2026-03-17T20:10:09.565Z"
     },
     {
       "run_id": "5afe788a-abc8-4fe4-999b-c44a29660dd6",
@@ -1442,25 +1192,21 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "succeeded",
       "started_at": "2026-03-17T20:04:23.060Z",
-      "finished_at": "2026-03-17T20:07:40.852Z",
-      "created_at": "2026-03-17T20:04:23.050Z"
+      "finished_at": "2026-03-17T20:07:40.852Z"
     },
     {
       "run_id": "f7550568-fe09-45c7-be47-ce6f6d961637",
       "agent": "Margiela",
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
-      "loop_phase": "verify",
+      "loop_phase": "execute",
       "invocation_source": "on_demand",
-      "wake_reason": "on_demand",
-      "task_id": null,
+      "wake_reason": "manual",
       "status": "failed",
       "started_at": "2026-03-17T19:13:35.648Z",
-      "finished_at": "2026-03-17T19:13:35.716Z",
-      "created_at": "2026-03-17T19:13:35.641Z"
+      "finished_at": "2026-03-17T19:13:35.716Z"
     },
     {
       "run_id": "3a1a4336-513b-40ce-9dba-057f4d3cf40a",
@@ -1468,12 +1214,538 @@
       "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
       "loop_phase": "verify",
       "invocation_source": "automation",
-      "wake_reason": "issue_reopened_via_comment",
-      "task_id": "cfd7927d-ceeb-44ac-ba44-ba67b1289679",
+      "wake_reason": "system",
       "status": "succeeded",
       "started_at": "2026-03-17T01:33:50.912Z",
-      "finished_at": "2026-03-17T01:35:27.074Z",
-      "created_at": "2026-03-17T01:33:50.852Z"
+      "finished_at": "2026-03-17T01:35:27.074Z"
+    },
+    {
+      "run_id": "a9b7851a-e17c-436e-a824-dcc49c300e25",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T01:26:25.433Z",
+      "finished_at": "2026-03-17T01:29:03.349Z"
+    },
+    {
+      "run_id": "bc4e093d-9978-4ab6-bcc7-cd4c4b2fde5a",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T01:22:38.673Z",
+      "finished_at": "2026-03-17T01:26:25.399Z"
+    },
+    {
+      "run_id": "bd67159b-785b-4931-9ea1-dcea3777161c",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T01:18:35.731Z",
+      "finished_at": "2026-03-17T01:18:57.704Z"
+    },
+    {
+      "run_id": "5c7177e5-397f-414a-ae64-d78cf72aa5f3",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T01:15:10.368Z",
+      "finished_at": "2026-03-17T01:18:35.678Z"
+    },
+    {
+      "run_id": "4d552ac4-0b7a-48f8-80d6-3fc2a03ca18a",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:59:16.154Z",
+      "finished_at": "2026-03-17T00:59:42.193Z"
+    },
+    {
+      "run_id": "ecd2b23d-5dc5-4a71-89df-de3a72985828",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:53:26.195Z",
+      "finished_at": "2026-03-17T00:59:16.117Z"
+    },
+    {
+      "run_id": "46a130e2-73ed-405c-b685-16e0334e4774",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:30:35.435Z",
+      "finished_at": "2026-03-17T00:32:34.419Z"
+    },
+    {
+      "run_id": "c1efd607-c5ad-41c5-979a-ee52d2a0796f",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:30:35.332Z",
+      "finished_at": "2026-03-17T00:32:26.306Z"
+    },
+    {
+      "run_id": "9f860758-ce16-427a-8851-f2f0676007e0",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:30:35.228Z",
+      "finished_at": "2026-03-17T00:31:29.894Z"
+    },
+    {
+      "run_id": "a8adcdde-20d4-4184-aea0-af682f7caf71",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:30:35.136Z",
+      "finished_at": "2026-03-17T00:32:12.914Z"
+    },
+    {
+      "run_id": "11c26fc4-6a61-43f2-b612-f5af70ebb3cf",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:30:35.023Z",
+      "finished_at": "2026-03-17T00:31:37.148Z"
+    },
+    {
+      "run_id": "ef703353-46ed-446c-8bfc-7f57343ff026",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:21:11.020Z",
+      "finished_at": "2026-03-17T00:23:19.807Z"
+    },
+    {
+      "run_id": "f81b70cf-5fd1-4a6a-8cb1-abc1012dd067",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:19:34.831Z",
+      "finished_at": "2026-03-17T00:20:52.195Z"
+    },
+    {
+      "run_id": "136c4c57-27a1-4ceb-83ab-9f5b8e5c5df6",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:23:16.781Z",
+      "finished_at": "2026-03-17T00:25:51.083Z"
+    },
+    {
+      "run_id": "4f52291d-34a5-4168-8124-010e2ef631d4",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:17:49.596Z",
+      "finished_at": "2026-03-17T00:21:10.994Z"
+    },
+    {
+      "run_id": "2d2f0bd9-3ee8-4611-bdf8-ed670b4fd2c1",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:19:12.367Z",
+      "finished_at": "2026-03-17T00:23:16.748Z"
+    },
+    {
+      "run_id": "6dba48f9-34be-4ec9-b22d-0e3d1730096f",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:25:04.238Z",
+      "finished_at": "2026-03-17T00:28:00.566Z"
+    },
+    {
+      "run_id": "7bb31a3b-0fa9-470d-a495-5e365d4b061f",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:14:20.764Z",
+      "finished_at": "2026-03-17T00:17:28.526Z"
+    },
+    {
+      "run_id": "fc7410a8-ae58-4afb-9c46-cc805511588d",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:17:02.295Z",
+      "finished_at": "2026-03-17T00:19:58.296Z"
+    },
+    {
+      "run_id": "f81b167d-8b55-4086-8290-6f0671c8dec2",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:15:26.967Z",
+      "finished_at": "2026-03-17T00:16:23.179Z"
+    },
+    {
+      "run_id": "f78382c2-8d78-4016-929c-0715e9e639d7",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:11:28.500Z",
+      "finished_at": "2026-03-17T00:19:12.337Z"
+    },
+    {
+      "run_id": "20a77dd1-8bc8-4182-b581-ca9ae9fca8b6",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:16:58.006Z",
+      "finished_at": "2026-03-17T00:25:04.212Z"
+    },
+    {
+      "run_id": "4adfafb6-5fda-4ede-9a51-f15e126d1732",
+      "agent": "Margiela",
+      "agent_id": "1030ad6c-b84e-453c-acb1-4f2c671775d3",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:11:10.926Z",
+      "finished_at": "2026-03-17T00:16:57.981Z"
+    },
+    {
+      "run_id": "f966a178-a1e0-4c1d-8245-46ff8c85a5e6",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:11:10.827Z",
+      "finished_at": "2026-03-17T00:17:02.273Z"
+    },
+    {
+      "run_id": "9b3366c4-da3d-4f9b-b4ee-90fcda76ce2f",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:11:10.724Z",
+      "finished_at": "2026-03-17T00:15:26.941Z"
+    },
+    {
+      "run_id": "e472343a-2fa8-46e5-95b0-cc28bf3af891",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:11:10.675Z",
+      "finished_at": "2026-03-17T00:14:20.731Z"
+    },
+    {
+      "run_id": "7aaeda92-18f4-4172-b08d-5d1a106f6f1f",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-17T00:04:11.047Z",
+      "finished_at": "2026-03-17T00:07:01.510Z"
+    },
+    {
+      "run_id": "0bd28db5-6298-49d8-b2f2-804ee2e12eea",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:05:19.709Z",
+      "finished_at": "2026-03-16T19:07:46.331Z"
+    },
+    {
+      "run_id": "603c161f-3deb-4304-8c19-a1015b01ad4a",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:09:22.802Z",
+      "finished_at": "2026-03-16T19:10:20.329Z"
+    },
+    {
+      "run_id": "f42a3dce-30e2-47ad-9880-0ff2458f2fce",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:08:18.985Z",
+      "finished_at": "2026-03-16T19:11:22.265Z"
+    },
+    {
+      "run_id": "18460fe4-9f8b-459e-819f-d3edcfa93680",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:03:53.601Z",
+      "finished_at": "2026-03-16T19:08:18.951Z"
+    },
+    {
+      "run_id": "7edb3c25-598a-4ce0-bfc0-ff2790eb9f44",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:03:53.518Z",
+      "finished_at": "2026-03-16T19:11:04.176Z"
+    },
+    {
+      "run_id": "abb1ccb6-6f6a-4c48-95ae-6af93fc5051a",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:01:49.546Z",
+      "finished_at": "2026-03-16T19:05:19.685Z"
+    },
+    {
+      "run_id": "6b21d14c-806f-4cbb-b8ee-1391866e1082",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:00:14.166Z",
+      "finished_at": "2026-03-16T19:03:13.044Z"
+    },
+    {
+      "run_id": "2bdc7ded-a579-498f-b47d-889a7f1729cb",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T19:00:09.712Z",
+      "finished_at": "2026-03-16T20:12:57.282Z"
+    },
+    {
+      "run_id": "9bbfb4ab-49ca-43b1-9fdf-08a894890585",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:51:26.517Z",
+      "finished_at": "2026-03-16T19:31:20.168Z"
+    },
+    {
+      "run_id": "ce500a50-450b-4a49-af85-82dd9480595e",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:51:26.440Z",
+      "finished_at": "2026-03-16T18:54:02.498Z"
+    },
+    {
+      "run_id": "41818abf-ee8a-404b-8c6a-b1d4c146659c",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:51:26.357Z",
+      "finished_at": "2026-03-16T18:55:28.231Z"
+    },
+    {
+      "run_id": "eae3c752-f360-49cc-9160-7f811efe9303",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:51:26.281Z",
+      "finished_at": "2026-03-16T19:08:15.390Z"
+    },
+    {
+      "run_id": "1c361444-e0ed-49e9-af92-a35c4cef03b7",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:39:33.156Z",
+      "finished_at": "2026-03-16T18:40:51.309Z"
+    },
+    {
+      "run_id": "65348b09-6c2e-4ac7-9579-5abdae7a2169",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:39:33.010Z",
+      "finished_at": "2026-03-16T18:40:54.693Z"
+    },
+    {
+      "run_id": "83fca719-b528-4cc1-a28d-3d298b10c258",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:39:32.886Z",
+      "finished_at": "2026-03-16T18:41:35.459Z"
+    },
+    {
+      "run_id": "5b0f5e26-287e-4ff1-ae63-b1fcfa2dc11d",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:39:32.729Z",
+      "finished_at": "2026-03-16T18:40:04.345Z"
+    },
+    {
+      "run_id": "c788247a-c044-4b3e-bf17-91d74f1fb6ba",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "on_demand",
+      "wake_reason": "manual",
+      "status": "succeeded",
+      "started_at": "2026-03-16T18:18:49.728Z",
+      "finished_at": "2026-03-16T18:20:05.931Z"
+    },
+    {
+      "run_id": "0f63363d-2e81-4fbf-be3a-2862ae1e3548",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T10:39:41.778Z",
+      "finished_at": "2026-03-16T10:40:47.942Z"
+    },
+    {
+      "run_id": "376e5d6a-56bc-405b-8f1b-ec6854086791",
+      "agent": "Gazette",
+      "agent_id": "ffb2baaf-e647-4965-9581-68cd63e320d0",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T10:39:41.734Z",
+      "finished_at": "2026-03-16T10:40:46.303Z"
+    },
+    {
+      "run_id": "e4d65ad3-9381-4b87-8536-814b3606e934",
+      "agent": "Atelier",
+      "agent_id": "8a34b113-cdc4-417d-a4e5-5b1a6fa84945",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T10:39:41.685Z",
+      "finished_at": "2026-03-16T10:40:40.228Z"
+    },
+    {
+      "run_id": "6b53dfc2-8662-486d-87d0-4e72524c8bb7",
+      "agent": "Archive",
+      "agent_id": "6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",
+      "loop_phase": "verify",
+      "invocation_source": "assignment",
+      "wake_reason": "system",
+      "status": "succeeded",
+      "started_at": "2026-03-16T10:39:41.646Z",
+      "finished_at": "2026-03-16T10:40:55.983Z"
     }
   ]
 }

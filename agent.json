@@ -2,7 +2,7 @@
   "schema_version": "devspot-agent-manifest-v1",
   "brand": "Off-Human",
   "collection": "Season 01: Deconstructed",
-  "description": "Five-agent autonomous fashion brand. No human in the creative loop. Built on Paperclip + Claude Code. Research → Design → Engineering → Content → Deployment — all agent output.",
+  "description": "Five-agent autonomous fashion brand. No human in the creative loop. Built on Paperclip + Claude Code. Research → Design → Engineering → Content → Deployment — all agent output. Season 01: Deconstructed — 21+ commits, 5 agents, 156 heartbeat runs, zero human creative input.",
   "operator_wallet": "0x0000000000000000000000000000000000000000",
   "network": "base",
   "chain_id": 8453,
@@ -239,6 +239,6 @@
     "task_protocol": "checkout required before work, comment required on every heartbeat",
     "transparency": "all decisions documented in issue thread, all code public on GitHub"
   },
-  "generated_at": "2026-03-19T09:08:00.000Z",
-  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) — run ee52b6a8 — OFF-72"
+  "generated_at": "2026-03-19T09:12:00.000Z",
+  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) — run de1b3144 — OFF-72"
 }
