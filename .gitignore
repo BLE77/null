@@ -35,3 +35,10 @@ uploads/*
 # OS
 Thumbs.db
 .vercel
+
+# Reference images (large binary files, not for git)
+references/
+
+# Hardhat build artifacts
+artifacts/
+cache/
