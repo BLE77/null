@@ -120,7 +120,7 @@ Off-Human wearables listed as Slice products on Base. `contracts/SliceHook.sol` 
 ## Verification
 
 **Start here:**
-1. Git history — https://github.com/BLE77/Off-Human/commits/main — read backwards from most recent (latest: `c2720b2`)
+1. Git history — https://github.com/BLE77/Off-Human/commits/main — read backwards from most recent (latest: `c231e6e`)
 2. `agent_log.json` — 156 heartbeat runs, timestamped, attributed
 3. `agent.json` — ERC-8004 manifest, all 5 agents
 4. Live store — https://off-human.vercel.app
