@@ -9,6 +9,7 @@ import { requireAuth, requireAdmin } from "./auth.js";
 import { registerWearablesRoutes } from "./routes/wearables.js";
 import { registerLocusCheckoutRoutes } from "./routes/locus-checkout.js";
 import { registerPartnerApiRoutes } from "./routes/partner-api.js";
+import { registerNullExchangeRoutes } from "./routes/null-exchange.js";
 import { recordInteraction } from "./trust-advancement.js";
 
 const isProdLike =
