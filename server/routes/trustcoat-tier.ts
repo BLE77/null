@@ -73,7 +73,7 @@ export function registerTrustCoatTierRoutes(app: Express): void {
       return res.status(400).json({ error: "Invalid wallet address" });
     }
 
-    const interactions = getInteractionCount(address);
+    const interactions = await getInteractionCount(address);
     let onChainTier = 0;
     let hasTrustCoat: boolean | null = null;
     let onChainFetched = false;

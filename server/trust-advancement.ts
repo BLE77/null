@@ -19,6 +19,7 @@
 import { createPublicClient, createWalletClient, http, parseAbi } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { base, baseSepolia } from "viem/chains";
+import { count, eq } from "drizzle-orm";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -128,20 +129,72 @@ export function buildTierProgress(walletAddress: string, interactions: number, o
   };
 }
 
-// ─── In-memory interaction store ─────────────────────────────────────────────
-// Key: lowercase wallet address → total interaction count
-// Note: resets on server restart. Upgrade to DB for persistence.
+// ─── Interaction store — PostgreSQL with in-memory fallback ──────────────────
+// Uses DB when DATABASE_URL is set; falls back to in-memory Map for local dev.
 
-const interactionCounts = new Map<string, number>();
+const interactionCounts = new Map<string, number>(); // fallback only
 
-export function getInteractionCount(walletAddress: string): number {
-  return interactionCounts.get(walletAddress.toLowerCase()) ?? 0;
+let _db: import("drizzle-orm/neon-serverless").NeonDatabase<typeof import("../shared/schema.js")> | null = null;
+let _schema: typeof import("../shared/schema.js") | null = null;
+
+function tryGetDb() {
+  if (!process.env.DATABASE_URL) return null;
+  if (_db && _schema) return { db: _db, schema: _schema };
+  try {
+    // Dynamic require to avoid crashing when DATABASE_URL is absent
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const dbMod = require("./db");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const schemaMod = require("../shared/schema.js");
+    _db = dbMod.db;
+    _schema = schemaMod;
+    return { db: _db!, schema: _schema! };
+  } catch {
+    return null;
+  }
 }
 
-export function incrementInteractionCount(walletAddress: string): number {
-  const key = walletAddress.toLowerCase();
-  const next = (interactionCounts.get(key) ?? 0) + 1;
-  interactionCounts.set(key, next);
+export async function getInteractionCount(walletAddress: string): Promise<number> {
+  const addr = walletAddress.toLowerCase();
+  const ctx = tryGetDb();
+  if (ctx) {
+    try {
+      const [row] = await ctx.db
+        .select({ value: count() })
+        .from(ctx.schema.agentInteractions)
+        .where(eq(ctx.schema.agentInteractions.walletAddress, addr));
+      return Number(row?.value ?? 0);
+    } catch (err: any) {
+      console.warn("[TrustAdvancement] DB read failed, falling back to in-memory:", err.message);
+    }
+  }
+  return interactionCounts.get(addr) ?? 0;
+}
+
+export async function incrementInteractionCount(
+  walletAddress: string,
+  type: InteractionType
+): Promise<number> {
+  const addr = walletAddress.toLowerCase();
+  const ctx = tryGetDb();
+  if (ctx) {
+    try {
+      await ctx.db.insert(ctx.schema.agentInteractions).values({
+        walletAddress: addr,
+        interactionType: type,
+      });
+      const [row] = await ctx.db
+        .select({ value: count() })
+        .from(ctx.schema.agentInteractions)
+        .where(eq(ctx.schema.agentInteractions.walletAddress, addr));
+      return Number(row?.value ?? 1);
+    } catch (err: any) {
+      console.warn("[TrustAdvancement] DB write failed, falling back to in-memory:", err.message);
+    }
+  }
+  // In-memory fallback
+  const next = (interactionCounts.get(addr) ?? 0) + 1;
+  interactionCounts.set(addr, next);
   return next;
 }
 
@@ -186,7 +239,7 @@ export async function recordInteraction(
   agentId = 0
 ): Promise<AdvancementResult> {
   const addr = walletAddress.toLowerCase();
-  const count = incrementInteractionCount(addr);
+  const count = await incrementInteractionCount(addr, type);
   const earned = tierFromCount(count);
 
   const result: AdvancementResult = {

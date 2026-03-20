@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, decimal, integer, boolean, timestamp, json } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, decimal, integer, boolean, timestamp, json, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -53,6 +53,17 @@ export const insertProductSchema = createInsertSchema(products).omit({
   createdAt: true,
 });
 
+export const agentInteractions = pgTable(
+  "agent_interactions",
+  {
+    id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+    walletAddress: text("wallet_address").notNull(),
+    interactionType: text("interaction_type").notNull(), // equip | fitting_room | purchase
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (t) => [index("agent_interactions_wallet_idx").on(t.walletAddress)]
+);
+
 export const insertOrderSchema = createInsertSchema(orders).omit({
   id: true,
   createdAt: true,
@@ -64,6 +75,7 @@ export type Product = typeof products.$inferSelect;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = z.infer<typeof insertOrderSchema>;
+export type AgentInteraction = typeof agentInteractions.$inferSelect;
 
 export interface ProductInventory {
   [size: string]: number;
