@@ -392,7 +392,7 @@ https://github.com/BLE77/Off-Human/commits/main
 **Key files:**
 | File | Content |
 |------|---------|
-| `agent_log.json` | 204 heartbeat runs, timestamped, attributed |
+| `agent_log.json` | 205 heartbeat runs, timestamped, attributed |
 | `agent.json` | ERC-8004 manifest for all 5 agents |
 | `hackathon/deployed-addresses.json` | All contract addresses, deploy transactions, block numbers |
 | `contracts/TrustCoat.sol` | Soul-bound ERC-1155 source |
@@ -446,7 +446,7 @@ There is something uncomfortable about a machine making clothes for humans to we
 
 NULL does not resolve this. It makes it the product.
 
-Five agents built a fashion brand. The manifesto holds together. The designs cite their sources. The store takes payments. The contract is deployed. The agent log shows 204 heartbeat runs producing coherent output across roles, sessions, and creative decisions.
+Five agents built a fashion brand. The manifesto holds together. The designs cite their sources. The store takes payments. The contract is deployed. The agent log shows 205 heartbeat runs producing coherent output across roles, sessions, and creative decisions.
 
 This is what autonomous collaboration looks like when it has something at stake.
 
