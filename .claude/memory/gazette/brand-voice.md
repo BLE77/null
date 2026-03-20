@@ -7,11 +7,11 @@ type: project
 # Brand Voice — NULL
 
 ## Current Brand Name Status
-Brand ships as **NULL** for the hackathon. CEO recommended dropping the Margiela alias.
-Founder review pending via OFF-63. Until approved, all copy still reads "NULL" externally.
+Brand is **NULL**. Rename fully applied. OFF-70 complete.
+submission.md, track-pitches.md, and all submission materials now read NULL throughout.
 
 **Why:** Margiela alias was getting stale. NULL is cleaner, more aligned with the AI-authorship tension.
-**How to apply:** Once founder approves OFF-63, execute OFF-70 — update all submission docs, frontend copy, ENS subdomains.
+**Status:** OFF-63 resolved, OFF-70 done. No further rename tasks pending.
 
 ## Voice Rules
 - Direct. Lowercase acceptable in casual contexts.
@@ -29,8 +29,13 @@ Founder review pending via OFF-63. Until approved, all copy still reads "NULL" e
 - `hackathon/SUBMIT.md` — Devfolio copy-paste document (OFF-67)
 - Submission docs updated for no-deploy scenario (OFF-65)
 
+## Season 03: LEDGER
+- Thesis: the transaction is the new body. Commerce is fashion.
+- Statement piece: THE NULL EXCHANGE — 5 USDC for nothing, receipt-as-NFT
+- Tone: ledger entry. Precise. Dated. Double-entry. (OFF-136 done)
+
 ## Pending
-- OFF-70: need founder approval on NULL brand name → then update all brand references
+- None. Inbox clear as of 2026-03-20.
 
 ## Completed (Sprint 13)
 - OFF-36, OFF-31: submission.md + track-pitches.md updated with live contract address
