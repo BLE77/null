@@ -362,13 +362,13 @@ REASON: [one sentence explanation]`;
   }
 
   // ── Log behavioral delta to agent_log.json ─────────────────────────────────
-  const runId = `off119-${Date.now().toString(36)}`;
+  const runId = `off124-${Date.now().toString(36)}`;
   appendLogEntry({
     run_id: runId,
     agent: 'Loom',
     agent_id: 'fb0632ac-e55f-4a6e-9854-120fc09c8bf7',
-    issue: 'OFF-119',
-    task: 'AGENT SHOPPER: Equip NULL PROTOCOL before shopping, log behavioral delta',
+    issue: 'OFF-124',
+    task: 'AGENT SHOPPER: End-to-end wearable equip → purchase demo',
     loop_phase: 'execute',
     invocation_source: 'assignment',
     wake_reason: 'issue_assigned',
@@ -464,7 +464,33 @@ REASON: [one sentence explanation]`;
     console.log(`🔗 Transaction: ${result.order?.transactionHash || 'N/A'}`);
     console.log(`📧 Receipt sent to: ${orderData.customerEmail}`);
     console.log('═══════════════════════════════════════\n');
-    console.log('🤖 Autonomous AI commerce with behavioral wearables — complete.');
+
+    // ── Record purchase interaction → auto-advance TrustCoat tier ─────────────
+    console.log('📈 Recording purchase interaction...');
+    try {
+      const interactionRes = await fetch(`${STORE_URL}/api/agents/${account.address}/interactions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'purchase' }),
+      });
+      if (interactionRes.ok) {
+        const interaction = await interactionRes.json();
+        console.log(`   Total interactions: ${interaction.totalInteractions}`);
+        console.log(`   Trust tier: ${interaction.tier}`);
+        if (interaction.advanced) {
+          console.log(`   🎖️  Tier advanced! ${interaction.previousTier} → ${interaction.tier}`);
+        }
+        if (interaction.note) {
+          console.log(`   ℹ️  ${interaction.note}`);
+        }
+      } else {
+        console.warn('   Could not record interaction (non-critical)');
+      }
+    } catch {
+      console.warn('   Could not reach interaction endpoint (non-critical)');
+    }
+
+    console.log('\n🤖 Autonomous AI commerce with behavioral wearables — complete.');
     console.log(`📊 Decision compressed ${tokenReduction.toFixed(1)}% via NULL PROTOCOL.\n`);
 
   } catch (error) {

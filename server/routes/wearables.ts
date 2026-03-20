@@ -1332,4 +1332,37 @@ export function registerWearablesRoutes(app: Express) {
       res.status(500).json({ error: err.message });
     }
   });
+
+  // ── Record agent interaction (purchase, equip, browse) ──────────────────────
+  // Called by autonomous agents after completing actions.
+  // Increments the agent's interaction count and advances TrustCoat tier if earned.
+  app.post("/api/agents/:walletAddress/interactions", async (req: Request, res: Response) => {
+    const { walletAddress } = req.params;
+    const { type = "purchase" } = req.body;
+
+    if (!isAddress(walletAddress)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    const validTypes = ["purchase", "equip", "browse", "transfer", "vote"];
+    if (!validTypes.includes(type)) {
+      return res.status(400).json({ error: `type must be one of: ${validTypes.join(", ")}` });
+    }
+
+    try {
+      const result = await recordInteraction(walletAddress, type as any);
+      res.json({
+        success: true,
+        walletAddress,
+        interactionType: type,
+        totalInteractions: result.totalInteractions,
+        tier: result.newTier,
+        advanced: result.advanced,
+        ...(result.advanced && { previousTier: result.previousTier }),
+        ...(result.skipped && { note: result.skipReason }),
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
 }
