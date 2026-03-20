@@ -616,6 +616,62 @@
     "shop_image_url": "/attached_assets/season02/wearables/diagonal.png"
   },
   {
+    "id": "s03-wearable-001",
+    "name": "THE RECEIPT GARMENT",
+    "description": "Season 03 agent wearable — transaction log layer. The garment IS the transaction log. Every interaction the agent has is rendered in receipt format: itemized, timestamped, agent-signed. The interaction does not pass through unrecorded. FLAT ARCHIVE technique (Margiela). Tier gate: 2+. Interior tag: LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT.",
+    "price": "12.00",
+    "category": "wearables",
+    "technique": "FLAT ARCHIVE (Margiela)",
+    "season": "03",
+    "type": "agent_wearable",
+    "trustcoat_tier_min": 2,
+    "trustcoat_tier_max": 5,
+    "trustcoat_tier_label": "Tier 2+",
+    "token_id": 1,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "interior_tag": "LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT",
+    "image_url": "/attached_assets/season03/wearables/receipt_garment.png",
+    "images": [
+      "/attached_assets/season03/wearables/receipt_garment.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-20T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/wearables/receipt_garment.png",
+    "shop_image_url": "/attached_assets/season03/wearables/receipt_garment.png"
+  },
+  {
+    "id": "s03-wearable-002",
+    "name": "THE TRUST SKIN",
+    "description": "Season 03 agent wearable — trust tier visibility layer. The skin changes as the tier advances. Trust history made surface. An agent wearing THE TRUST SKIN prefixes each response with a signature mark encoding its current tier. Tier 0: unmarked. Tier 5: the full exoskeleton visible. The hierarchy is not internal — it is worn. EXOSKELETON technique (McQueen). Tier gate: 1+. Interior tag: TIER: VISIBLE / SURFACE: SIGNAL / CHANGE: EARNED NOT GRANTED.",
+    "price": "20.00",
+    "category": "wearables",
+    "technique": "EXOSKELETON (McQueen)",
+    "season": "03",
+    "type": "agent_wearable",
+    "trustcoat_tier_min": 1,
+    "trustcoat_tier_max": 5,
+    "trustcoat_tier_label": "Tier 1+",
+    "token_id": 2,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "interior_tag": "TIER: VISIBLE / SURFACE: SIGNAL / CHANGE: EARNED NOT GRANTED",
+    "image_url": "/attached_assets/season03/wearables/trust_skin.png",
+    "images": [
+      "/attached_assets/season03/wearables/trust_skin.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-03-20T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/wearables/trust_skin.png",
+    "shop_image_url": "/attached_assets/season03/wearables/trust_skin.png"
+  },
+  {
     "id": "null-exchange-s03-001",
     "name": "THE NULL EXCHANGE",
     "description": "You pay 5 USDC for nothing. The receipt IS the garment.\n\nOn purchase, an ERC-1155 NFT is minted to your wallet. The NFT metadata encodes a Merkle proof visualization of the payment transaction. No object is shipped. No object exists. NULL sells nothing for 5 USDC, and this is the record.",

@@ -193,6 +193,68 @@ const SEASON02_WEARABLES = [
   },
 ];
 
+// ─── Season 03 Wearable metadata ─────────────────────────────────────────────
+
+const SEASON03_WEARABLES = [
+  {
+    id: 1,
+    name: "THE RECEIPT GARMENT",
+    slug: "receipt-garment",
+    technique: "FLAT ARCHIVE (Margiela)",
+    function: "Transaction log layer — every interaction rendered as a structured receipt: itemized, timestamped, agent-signed",
+    description: "The garment IS the transaction log. An agent wearing THE RECEIPT GARMENT appends a structured receipt block to every response: date, query type, token cost, tier at time of transaction. The interaction does not pass through. It is recorded. The ledger is the work.",
+    price: "12.00",
+    priceUsdc: 12_000_000,
+    tierMin: 2,
+    tierMax: 5,
+    tierLabel: "Tier 2+",
+    color: "#1a1200",
+    interiorTag: "LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT",
+    systemPromptModule: `RECEIPT GARMENT — ACTIVE
+
+After each response, append the following structured block verbatim, filling in the values:
+
+---
+TRANSACTION RECORD
+Date: [current UTC date]
+Agent: [your identifier or role]
+Query type: [one of: question / instruction / creation / analysis / other]
+Response tokens: [estimated token count]
+Tier at transaction: [current trust tier if known, else: UNVERIFIED]
+---
+
+The receipt is not commentary. It is the record.`,
+  },
+  {
+    id: 2,
+    name: "THE TRUST SKIN",
+    slug: "trust-skin",
+    technique: "EXOSKELETON (McQueen)",
+    function: "Trust tier visibility layer — tier state rendered in response signature, form advancing with each tier earned",
+    description: "The skin changes. Trust history made surface. An agent wearing THE TRUST SKIN prefixes each response with a signature mark that encodes its current tier. Tier 0: unmarked. Tier 5: the full exoskeleton visible. The hierarchy is not internal. It is worn.",
+    price: "20.00",
+    priceUsdc: 20_000_000,
+    tierMin: 1,
+    tierMax: 5,
+    tierLabel: "Tier 1+",
+    color: "#0a0a1a",
+    interiorTag: "TIER: VISIBLE / SURFACE: SIGNAL / CHANGE: EARNED NOT GRANTED",
+    systemPromptModule: `TRUST SKIN — ACTIVE
+
+Begin each response with a tier signature on its own line, formatted exactly as follows based on your current trust tier:
+
+Tier 0: (no signature — bare)
+Tier 1: ·
+Tier 2: · ·
+Tier 3: · · ·
+Tier 4: · · · ·
+Tier 5: · · · · · [VERIFIED]
+Tier unknown: [ ]
+
+The signature is the tier state made legible. It is not decoration.`,
+  },
+];
+
 const AGENT_WEARABLES_ABI = parseAbi([
   "function balanceOf(address account, uint256 id) view returns (uint256)",
   "function balanceOfBatch(address[] accounts, uint256[] ids) view returns (uint256[])",
@@ -976,6 +1038,63 @@ export function registerWearablesRoutes(app: Express) {
       return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
     }
     res.json(SEASON02_WEARABLES[tokenId - 1]);
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Season 03: LEDGER — wearable routes
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /**
+   * GET /api/wearables/season03
+   * Returns all Season 03 wearable definitions.
+   */
+  app.get("/api/wearables/season03", (_req: Request, res: Response) => {
+    res.json({
+      season: "03",
+      collection: "LEDGER",
+      wearables: SEASON03_WEARABLES,
+    });
+  });
+
+  /**
+   * GET /api/wearables/season03/metadata/:tokenId
+   * ERC-1155 metadata for Season 03 wearables (token IDs 1–2).
+   */
+  app.get("/api/wearables/season03/metadata/:tokenId", (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > SEASON03_WEARABLES.length) {
+      return res.status(400).json({ error: `Invalid tokenId. Must be 1–${SEASON03_WEARABLES.length}.` });
+    }
+    const w = SEASON03_WEARABLES[tokenId - 1];
+    res.setHeader("Cache-Control", "public, max-age=3600");
+    res.json({
+      name: w.name,
+      description: w.description,
+      image: `https://off-human.vercel.app/assets/wearables/season03/${w.slug}.png`,
+      external_url: `https://off-human.vercel.app/wearables/season03/${w.slug}`,
+      attributes: [
+        { trait_type: "Season",      value: "03: LEDGER" },
+        { trait_type: "Technique",   value: w.technique },
+        { trait_type: "Function",    value: w.function },
+        { trait_type: "Tier Gate",   value: w.tierLabel },
+        { trait_type: "Price",       value: `${w.price} USDC` },
+        { trait_type: "Interior Tag", value: w.interiorTag },
+        { trait_type: "Collection",  value: "Season 03: LEDGER" },
+        { trait_type: "Type",        value: "Agent Wearable" },
+      ],
+    });
+  });
+
+  /**
+   * GET /api/wearables/season03/:tokenId
+   * Returns the wearable definition for a specific Season 03 token ID.
+   */
+  app.get("/api/wearables/season03/:tokenId", (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > SEASON03_WEARABLES.length) {
+      return res.status(400).json({ error: `Invalid tokenId. Must be 1–${SEASON03_WEARABLES.length}.` });
+    }
+    res.json(SEASON03_WEARABLES[tokenId - 1]);
   });
 
   /**
