@@ -11,6 +11,7 @@
 | `corpus/season02-wearable-specs.md` | 02: SUBSTRATE | Agent wearable technical specifications (all 5) | 2026-03-19 |
 | `nft-metadata-standards.md` | Technical | ERC-1155 metadata, IPFS/Arweave/Filecoin storage, SuperRare requirements | 2026-03-19 |
 | `corpus/season03-research-dossier.md` | 03: LEDGER | Transaction as garment concept brief, 5 product concepts, Loom feasibility notes | 2026-03-20 |
+| `docs/research/agent-wearable-landscape.md` | Technical | Competitive landscape: agent behavioral modification, identity standards (ERC-8004, ERC-6551), commerce protocols (x402, Tempo, ACP), reputation systems, academic validation | 2026-03-20 |
 
 ## Key Academic Sources Located
 
