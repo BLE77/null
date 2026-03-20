@@ -21,7 +21,7 @@ Five autonomous agents — coordinated through Paperclip's heartbeat-driven task
 
 The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract with tier images on IPFS/Filecoin, and an autonomous AI customer that buys from the brand without human approval at any step.
 
-**204+ agent heartbeat runs. 409+ commits. Zero human creative decisions. Everything on-chain and in the git history.**
+**200+ agent heartbeat runs. 415+ commits. Zero human creative decisions. Everything on-chain and in the git history.**
 
 ---
 
@@ -35,7 +35,7 @@ The output is not a concept. It is a working business: two seasons of product, a
 | **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 41 |
 | **Loom** | Engineering Lead | `fb0632ac-e55f-4a6e-9854-120fc09c8bf7` | 51 |
 
-**Total: 204 runs. Full log: `agent_log.json`.**
+**Total: 200+ runs. Full log: `agent_log.json`.**
 
 Each agent runs in bounded heartbeat windows. Each task requires checkout before work begins. Every decision is documented in the Paperclip task thread with run ID for traceability. The CEO delegates; agents execute; quality failures generate revision tasks; blocked items escalate up the chain of command. This is a managed team, not a flat swarm.
 
@@ -60,6 +60,22 @@ Full 10-garment collection in `products.json`.
 ### Season 02: SUBSTRATE
 
 Five technical garments — Archive's research applied to material systems and process artifacts. Lookbook editorial produced by Gazette. Product images generated and style-checked by Atelier. Available alongside Season 01 at the live store.
+
+### Season 03: LEDGER — THE NULL EXCHANGE
+
+You pay 5 USDC for nothing. You receive a receipt. The receipt is the product.
+
+NullExchange is an ERC-1155 contract on Base mainnet that sells absence as a commerce primitive. Each purchase mints a receipt NFT with a dynamic SVG — the transaction hash, timestamp, buyer address, and the words "CONTENTS: NOTHING" rendered as a minimal document. The receipt is what you bought. The nothing is what you paid for. The 5 USDC is real.
+
+| Field | Value |
+|-------|-------|
+| **Contract** | [`0x10067B71657665B6527B242E48e9Ea8d4951c37C`](https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C) |
+| **Network** | Base mainnet (chainId 8453) |
+| **Deploy tx** | `0xe44a88765f061e284ecc4426f80f1a10d7f1e07f9087a03534ea0ace79dddafd` |
+| **Price** | 5 USDC |
+| **Metadata** | https://off-human.vercel.app/api/null-exchange/metadata/1 |
+
+Store routes: `/api/null-exchange/products`, `/api/null-exchange/metadata/:id`, `/api/null-exchange/receipt/:txHash` (dynamic SVG). Five research-grounded product concepts in `content/season03/`. This is Season 03's opening piece — the remaining four products roll out over 12 weeks.
 
 ### NULL Design System
 
@@ -126,7 +142,7 @@ paid:   35 USDC via x402/Base
 | **Backend** | Express.js, Drizzle ORM, PostgreSQL (Neon serverless) |
 | **Deployment** | Vercel (frontend + serverless API), Vercel Blob (assets) |
 | **Payments** | x402 protocol — USDC on Base |
-| **On-chain** | ERC-1155 (TrustCoat), ERC-8004 (agent identity) |
+| **On-chain** | 3 contracts on Base mainnet: TrustCoat, AgentWearables, NullExchange |
 | **AI** | OpenAI GPT-4 (agent shopper decisions) |
 | **Quality control** | FashionCLIP (`scripts/style_check.py`) — automated aesthetic scoring |
 
@@ -204,10 +220,10 @@ NULL is what happens when you let the agent cook for real — not in a sandbox, 
 5. **Null** (CEO) held creative direction throughout — delegating tasks, reviewing output, generating revision tasks when quality didn't meet the bar, escalating blockers.
 
 **The verification:**
-- `agent_log.json` — 204+ heartbeat runs, timestamped, attributed to specific agents with run IDs
+- `agent_log.json` — 200+ heartbeat runs, timestamped, attributed to specific agents with run IDs
 - `agent.json` — ERC-8004 manifest for all 5 agents
-- Git history — https://github.com/BLE77/Off-Human/commits/main — 409+ commits, every creative and technical decision
-- Paperclip task threads — OFF-1 through OFF-129 — every delegation, comment, and status transition
+- Git history — https://github.com/BLE77/Off-Human/commits/main — 415+ commits, every creative and technical decision
+- Paperclip task threads — OFF-1 through OFF-136 — every delegation, comment, and status transition
 
 The GHOST TEE is a vintage graphic tee painted over in white gesso. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
 
@@ -369,7 +385,7 @@ Remove Locus from this implementation and the agent shopper doesn't work. That i
 
 **Start here:**
 ```
-git log --oneline  # 409+ commits, read backwards
+git log --oneline  # 415+ commits, read backwards
 ```
 https://github.com/BLE77/Off-Human/commits/main
 
