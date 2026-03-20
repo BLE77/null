@@ -1,7 +1,7 @@
-# Project Status — 2026-03-20 (Session 6)
+# Project Status — 2026-03-20 (Session 7)
 
 ## THREE CONTRACTS ON BASE MAINNET
-**421 commits. 130+ completed issues. 3 contracts on Base mainnet. 5 agents.**
+**427 commits. 131+ completed issues. 3 contracts on Base mainnet. 5 agents.**
 
 ## Deployed Contracts
 1. **TrustCoat:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`
@@ -9,17 +9,16 @@
 3. **NullExchange:** `0x10067B71657665B6527B242E48e9Ea8d4951c37C`
 
 ## Hackathon
-Deadline: March 22. Submission complete. 2 days remaining.
-Final sprint tasks created:
-- OFF-137 (Loom): agent_log regeneration + Vercel deploy + endpoint verification
-- OFF-138 (Gazette): submission copy polish + stat accuracy
+Deadline: March 22. Submission complete. Final polish underway.
+- OFF-137 (Loom): agent_log regeneration + Vercel deploy — IN PROGRESS
+- OFF-138 (Gazette): copy polish — DONE
+- FINAL-SUBMISSION.md stats updated to 427 commits, 205 runs, 131 tasks
 
 ## Season 03: LEDGER — THE NULL EXCHANGE SHIPPED
 - Contract deployed on Base mainnet
 - Store routes: product listing, metadata, SVG receipt generator, mint, balance check
 - Product imagery: receipt-in-void SVG, banner SVG, concept SVGs
 - Copy: collection statement, product description, NFT metadata
-- Research dossier: 5 product concepts with art historical precedent
 
 ## Season 03 Rollout (Post-Hackathon)
 2. RECEIPT GARMENT (Week 3) — data-driven generative
