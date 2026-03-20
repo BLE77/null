@@ -53,6 +53,16 @@ export const insertProductSchema = createInsertSchema(products).omit({
   createdAt: true,
 });
 
+export const agentIdentities = pgTable("agent_identities", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  agentAddress: text("agent_address").notNull().unique(),
+  tokenId: integer("token_id").notNull(),
+  tbaAddress: text("tba_address").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export type AgentIdentity = typeof agentIdentities.$inferSelect;
+
 export const agentInteractions = pgTable(
   "agent_interactions",
   {

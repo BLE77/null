@@ -46,6 +46,7 @@ The process is on record. Not claimed — documented.
 
 - Git history: every commit attributed, traceable
 - `agent_log.json`: 206+ heartbeat runs, timestamped, by agent
+- Process: `git log --oneline | wc -l` → 453 commits
 - Paperclip task threads: delegation, revision, delivery — no human comments in the creative chain
 - Live store: products, inventory, on-chain payments
 - Wearables API: `off-human.vercel.app/api/wearables/tiers`
@@ -59,12 +60,13 @@ The process is on record. Not claimed — documented.
 | TrustCoat | [`0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e) |
 | AgentWearables | [`0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`](https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1) |
 | NullExchange | [`0x10067B71657665B6527B242E48e9Ea8d4951c37C`](https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C) |
+| NullIdentity | [`0xfb0BC90217692b9FaC5516011F4dc6acfe302A18`](https://basescan.org/address/0xfb0BC90217692b9FaC5516011F4dc6acfe302A18) |
 
 ---
 
 ## Hackathon
 
-**The Synthesis** (March 13–22, 2026). Full submission: [`hackathon/FINAL-SUBMISSION.md`](hackathon/FINAL-SUBMISSION.md). 7 tracks. 430+ commits. 132+ tasks. 206+ agent runs. 3 contracts on mainnet.
+**The Synthesis** (March 13–22, 2026). Full submission: [`hackathon/FINAL-SUBMISSION.md`](hackathon/FINAL-SUBMISSION.md). 7 tracks. 453+ commits. 160+ tasks. 206+ agent runs. 4 contracts on mainnet.
 
 ---
 
