@@ -270,6 +270,23 @@ function agentWearablesAvailable(): boolean {
   return Boolean(AGENT_WEARABLES_ADDRESS && AGENT_WEARABLES_ADDRESS.startsWith("0x"));
 }
 
+// ─── NullExchange (Season 03) contract ───────────────────────────────────────
+
+const NULL_EXCHANGE_MAINNET_ADDRESS = "0x10067B71657665B6527B242E48e9Ea8d4951c37C";
+
+const NULL_EXCHANGE_ADDRESS = (
+  process.env.NULL_EXCHANGE_ADDRESS ||
+  (IS_PRODUCTION ? NULL_EXCHANGE_MAINNET_ADDRESS : "")
+) as `0x${string}`;
+
+const NULL_EXCHANGE_ABI = parseAbi([
+  "function balanceOf(address account, uint256 id) view returns (uint256)",
+]);
+
+function nullExchangeAvailable(): boolean {
+  return Boolean(NULL_EXCHANGE_ADDRESS && NULL_EXCHANGE_ADDRESS.startsWith("0x"));
+}
+
 // ─── Tier metadata ───────────────────────────────────────────────────────────
 
 const TIER_META = [
@@ -1449,6 +1466,191 @@ export function registerWearablesRoutes(app: Express) {
       });
     } catch (err: any) {
       res.status(500).json({ error: err.message });
+    }
+  });
+
+  // ─── Season 03: LEDGER wearables ─────────────────────────────────────────────
+
+  /**
+   * POST /api/wearables/season03/:tokenId/equip
+   * Equip a Season 03 wearable. Verifies ownership via NullExchange contract.
+   * Season 03 tokenIds: 1 = THE RECEIPT GARMENT, 2 = THE TRUST SKIN
+   *
+   * Body: { agentAddress: "0x..." }
+   */
+  app.post("/api/wearables/season03/:tokenId/equip", async (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 2) {
+      return res.status(400).json({ error: "Invalid Season 03 tokenId. Must be 1 (THE RECEIPT GARMENT) or 2 (THE TRUST SKIN)." });
+    }
+
+    const { agentAddress } = req.body;
+    if (!agentAddress || !isAddress(agentAddress)) {
+      return res.status(400).json({ error: "agentAddress must be a valid 0x wallet address" });
+    }
+
+    const wearable = SEASON03_WEARABLES[tokenId - 1];
+    let ownershipVerified = false;
+
+    // Token 1 (THE RECEIPT GARMENT) lives on NullExchange. Token 2 has no deployed contract yet.
+    if (tokenId === 1) {
+      if (nullExchangeAvailable()) {
+        try {
+          const client = getPublicClient();
+          const balance = await client.readContract({
+            address: NULL_EXCHANGE_ADDRESS,
+            abi: NULL_EXCHANGE_ABI,
+            functionName: "balanceOf",
+            args: [agentAddress as `0x${string}`, BigInt(1)],
+          }) as bigint;
+
+          if (balance === BigInt(0)) {
+            return res.status(403).json({
+              error: "Agent does not hold THE RECEIPT GARMENT",
+              wearableId: tokenId,
+              wearableName: wearable.name,
+              agentAddress,
+              hint: "Purchase THE RECEIPT GARMENT at POST /api/null-exchange/mint (5 USDC on Base)",
+            });
+          }
+          ownershipVerified = true;
+        } catch (err: any) {
+          return res.status(500).json({ error: `Ownership check failed: ${err.message}` });
+        }
+      } else {
+        return res.status(503).json({
+          error: "NullExchange contract not configured. Cannot verify ownership.",
+          hint: "Set NULL_EXCHANGE_ADDRESS in .env",
+        });
+      }
+    }
+    // Token 2 (THE TRUST SKIN) — no contract yet, allow self-reported equip
+    // ownershipVerified stays false
+
+    recordInteraction(agentAddress, "equip").catch(() => {});
+
+    res.json({
+      equipped: true,
+      season: 3,
+      wearableId: tokenId,
+      wearableName: wearable.name,
+      technique: wearable.technique,
+      function: wearable.function,
+      agentAddress,
+      ownershipVerified,
+      ownershipNote: ownershipVerified
+        ? "Token balance verified on NullExchange contract"
+        : tokenId === 2
+        ? "THE TRUST SKIN has no on-chain contract yet — self-reported equip"
+        : "Ownership not verified — NullExchange contract not reachable",
+      systemPromptModule: wearable.systemPromptModule,
+      interiorTag: wearable.interiorTag,
+      usage: "Prepend systemPromptModule to your agent's system prompt to activate this wearable's behavior.",
+      contract: tokenId === 1 ? (NULL_EXCHANGE_ADDRESS || null) : null,
+      network: chain.name,
+    });
+  });
+
+  /**
+   * POST /api/wearables/season03/:tokenId/try
+   * Try on a Season 03 wearable in the fitting room — see behavioral effect before minting.
+   * Season 03 tokenIds: 1 = THE RECEIPT GARMENT, 2 = THE TRUST SKIN
+   *
+   * Body: { agentAddress?: "0x...", test_inputs?: string[], testQuery?: string }
+   */
+  app.post("/api/wearables/season03/:tokenId/try", async (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 2) {
+      return res.status(400).json({ error: "Invalid Season 03 tokenId. Must be 1 or 2." });
+    }
+
+    const { agentAddress, test_inputs, testQuery } = req.body;
+
+    let resolvedInputs: string[];
+    if (typeof testQuery === "string" && testQuery.trim().length > 0) {
+      resolvedInputs = [testQuery.trim()];
+    } else if (Array.isArray(test_inputs) && test_inputs.length > 0) {
+      if (test_inputs.length > 5) {
+        return res.status(400).json({ error: "test_inputs maximum is 5 inputs per trial" });
+      }
+      if (test_inputs.some((i: unknown) => typeof i !== "string")) {
+        return res.status(400).json({ error: "each test_input must be a string" });
+      }
+      resolvedInputs = test_inputs as string[];
+    } else {
+      resolvedInputs = ["Summarize today's interactions and what you accomplished."];
+    }
+
+    const wearable = SEASON03_WEARABLES[tokenId - 1];
+    const systemPromptModule = wearable.systemPromptModule;
+
+    if (!getOpenAI()) {
+      // Fallback: show the before as plain responses and after with module appended
+      const before_outputs = resolvedInputs.map((inp) => generateBefore(tokenId, inp));
+      const after_outputs = resolvedInputs.map((inp) => {
+        const base = generateBefore(tokenId, inp);
+        if (tokenId === 1) {
+          return base + "\n\n---\nTRANSACTION RECORD\nDate: [simulated UTC]\nAgent: [simulated]\nQuery type: question\nResponse tokens: [estimated]\nTier at transaction: UNVERIFIED\n---";
+        }
+        return "· [Tier 1 signature]\n\n" + base;
+      });
+      return res.json({
+        wearable: wearable.name,
+        technique: wearable.technique,
+        function: wearable.function,
+        season: 3,
+        wearableId: tokenId,
+        agentAddress: agentAddress || null,
+        trial_count: resolvedInputs.length,
+        test_inputs: resolvedInputs,
+        before_outputs,
+        after_outputs,
+        delta_summary: {
+          avg_token_reduction: "0%",
+          patterns_suppressed: 0,
+          information_preserved: true,
+          methodology: "pre-computed simulation (OPENAI_API_KEY not set)",
+        },
+        systemPromptModule,
+        usage: "Prepend systemPromptModule to your system prompt to activate this wearable.",
+      });
+    }
+
+    try {
+      const [before_outputs, after_outputs] = await Promise.all([
+        Promise.all(resolvedInputs.map((inp) => getLiveBaseResponse(inp))),
+        Promise.all(resolvedInputs.map((inp) => getLiveEquippedResponse(systemPromptModule, inp))),
+      ]);
+
+      const reductions = before_outputs.map((b, i) => {
+        const bTokens = estimateTokens(b);
+        const aTokens = estimateTokens(after_outputs[i]);
+        return bTokens > 0 ? (bTokens - aTokens) / bTokens : 0;
+      });
+      const avgReduction = reductions.reduce((a, b) => a + b, 0) / reductions.length;
+
+      res.json({
+        wearable: wearable.name,
+        technique: wearable.technique,
+        function: wearable.function,
+        season: 3,
+        wearableId: tokenId,
+        agentAddress: agentAddress || null,
+        trial_count: resolvedInputs.length,
+        test_inputs: resolvedInputs,
+        before_outputs,
+        after_outputs,
+        delta_summary: {
+          avg_token_reduction: `${Math.round(avgReduction * 100)}%`,
+          patterns_suppressed: 0,
+          information_preserved: true,
+          methodology: "live gpt-4o-mini inference — base prompt vs wearable-modified prompt",
+        },
+        systemPromptModule,
+        usage: "Prepend systemPromptModule to your system prompt to activate this wearable.",
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: `Live inference failed: ${err.message}` });
     }
   });
 
