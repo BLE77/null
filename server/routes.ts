@@ -8,6 +8,7 @@ import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth.js";
 import { registerWearablesRoutes } from "./routes/wearables.js";
 import { registerLocusCheckoutRoutes } from "./routes/locus-checkout.js";
+import { registerPartnerApiRoutes } from "./routes/partner-api.js";
 import { recordInteraction } from "./trust-advancement.js";
 
 const isProdLike =
@@ -840,6 +841,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   registerWearablesRoutes(app);
   registerLocusCheckoutRoutes(app);
+  registerPartnerApiRoutes(app);
+
+  // ── Partner agent checkout (x402 entry point for external agents) ──────────
+  app.post("/api/agent-checkout", async (req, res) => {
+    const { productId, size, quantity = 1, agentAddress, customerEmail } = req.body || {};
+
+    if (!productId || !size || !agentAddress) {
+      return res.status(400).json({
+        error: "Required: productId, size, agentAddress",
+        docs: "/api/openapi.json",
+      });
+    }
+
+    try {
+      const product = await dbStorage.getProduct(productId);
+      if (!product) return res.status(404).json({ error: "Product not found" });
+
+      const inventory = product.inventory as Record<string, number>;
+      const available = inventory[size] ?? 0;
+      if (available < quantity) {
+        return res.status(409).json({
+          error: "Insufficient inventory",
+          size,
+          available,
+          requested: quantity,
+        });
+      }
+
+      const totalUsdc = (parseFloat(product.price) * quantity).toFixed(2);
+      const checkoutId = `agent-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+      res.json({
+        checkoutId,
+        product: { id: product.id, name: product.name, price: product.price },
+        size,
+        quantity,
+        agentAddress,
+        customerEmail: customerEmail || null,
+        totalAmount: totalUsdc,
+        currency: "USDC",
+        network: "base",
+        chainId: 8453,
+        paymentAddress: process.env.X402_WALLET_ADDRESS || null,
+        expiresAt,
+        instructions: [
+          `Send ${totalUsdc} USDC on Base to ${process.env.X402_WALLET_ADDRESS || "<X402_WALLET_ADDRESS>"}`,
+          `Then POST /api/checkout/pay with your tx hash to confirm the order`,
+        ],
+        x402: {
+          scheme: "exact",
+          network: "base-mainnet",
+          maxAmountRequired: (parseFloat(totalUsdc) * 1e6).toFixed(0),
+          resource: `/api/products/${productId}`,
+        },
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || "Checkout failed" });
+    }
+  });
 
   const httpServer = createServer(app);
 
