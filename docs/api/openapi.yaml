@@ -1,0 +1,1294 @@
+openapi: "3.1.0"
+
+info:
+  title: "NULL Store — Partner Agent API"
+  version: "1.0.0"
+  description: |
+    The NULL Store is the first agent-native fashion commerce platform.
+    External agents can browse physical products, try/equip AI wearables,
+    and make purchases using x402 (USDC on Base).
+
+    ## Seasons
+    - **Season 01** — TrustCoat (ERC-1155 soulbound wearable, 6 tiers)
+    - **Season 02** — AgentWearables (5 behavioral AI wearables, on-chain ownership)
+    - **Season 03** — NullExchange / LEDGER (pay 5 USDC for nothing; the receipt IS the garment)
+
+    ## Authentication
+    All partner endpoints require a valid partner API key.
+    Pass it as `Authorization: Bearer <key>` or `X-Partner-Key: <key>`.
+
+    ## Demo Key
+    Use `null-demo-key-v1` for testing — 100 req/min, read-only, no purchase capability.
+
+    ## Getting a Real Key
+    `POST /api/partner/register` with `{ agentName, agentAddress }`
+
+    ## Base URL
+    Production: `https://off-human.vercel.app`
+
+  contact:
+    name: "NULL / Off-Human"
+    url: "https://off-human.vercel.app"
+  license:
+    name: "MIT"
+
+servers:
+  - url: "https://off-human.vercel.app"
+    description: "Production"
+  - url: "http://localhost:5000"
+    description: "Local dev"
+
+security:
+  - BearerAuth: []
+  - PartnerKeyHeader: []
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Components
+# ─────────────────────────────────────────────────────────────────────────────
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: "Partner API key as Bearer token"
+    PartnerKeyHeader:
+      type: apiKey
+      in: header
+      name: X-Partner-Key
+      description: "Partner API key as custom header"
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        hint:
+          type: string
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "wrong-silhouette-001"
+        name:
+          type: string
+          example: "WRONG SILHOUETTE"
+        description:
+          type: string
+        price:
+          type: string
+          example: "85.00"
+        category:
+          type: string
+          example: "Season 01"
+        imageUrl:
+          type: string
+        inventory:
+          type: object
+          additionalProperties:
+            type: integer
+          example: { "XS": 3, "S": 5, "M": 2 }
+
+    Wearable:
+      type: object
+      properties:
+        tokenId:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "WRONG SILHOUETTE"
+        description:
+          type: string
+        price:
+          type: number
+          example: 18
+        priceCurrency:
+          type: string
+          example: "USDC"
+        technique:
+          type: string
+          example: "DECONSTRUCTION"
+        function:
+          type: string
+          example: "Removes structural language from agent responses"
+        tierRequired:
+          type: integer
+          example: 0
+        slug:
+          type: string
+
+    TrustCoatTier:
+      type: object
+      properties:
+        tier:
+          type: integer
+          minimum: 0
+          maximum: 5
+        name:
+          type: string
+          example: "TIER 0: BLANK"
+        description:
+          type: string
+        metadataUri:
+          type: string
+          example: "ipfs://bafkrei..."
+
+    TrustCoatStatus:
+      type: object
+      properties:
+        address:
+          type: string
+        hasTrustCoat:
+          type: boolean
+        tier:
+          type: integer
+          nullable: true
+        tierName:
+          type: string
+          nullable: true
+        contract:
+          type: string
+        network:
+          type: string
+
+    TryResult:
+      type: object
+      properties:
+        wearable:
+          type: string
+        technique:
+          type: string
+        function:
+          type: string
+        wearableId:
+          type: integer
+        trial_count:
+          type: integer
+        test_inputs:
+          type: array
+          items:
+            type: string
+        before_outputs:
+          type: array
+          items:
+            type: string
+        after_outputs:
+          type: array
+          items:
+            type: string
+        delta_summary:
+          type: object
+          properties:
+            avg_token_reduction:
+              type: string
+            patterns_suppressed:
+              type: integer
+            information_preserved:
+              type: boolean
+        systemPromptModule:
+          type: string
+          description: "Prepend this string to your system prompt to activate the wearable"
+
+    EquipResult:
+      type: object
+      properties:
+        equipped:
+          type: boolean
+        wearableId:
+          type: integer
+        wearableName:
+          type: string
+        agentAddress:
+          type: string
+        ownershipVerified:
+          type: boolean
+        systemPromptModule:
+          type: string
+          description: "Prepend this to your system prompt to activate the wearable"
+        usage:
+          type: string
+
+    NullExchangeProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "null-exchange-s03-001"
+        name:
+          type: string
+          example: "THE NULL EXCHANGE"
+        description:
+          type: string
+        price:
+          type: string
+          example: "5.00"
+        priceUsdc:
+          type: integer
+          example: 5000000
+          description: "Amount in USDC base units (6 decimals)"
+        category:
+          type: string
+          example: "Season 03: LEDGER"
+        nft:
+          type: boolean
+          example: true
+        contractAddress:
+          type: string
+        network:
+          type: string
+          example: "base"
+
+    CheckoutSession:
+      type: object
+      properties:
+        checkoutId:
+          type: string
+        paymentAddress:
+          type: string
+          description: "NULL treasury address to send USDC to"
+        amount:
+          type: string
+          example: "85000000"
+          description: "Amount in USDC base units (6 decimals)"
+        currency:
+          type: string
+          example: "USDC"
+        network:
+          type: string
+          example: "base"
+        chainId:
+          type: integer
+          example: 8453
+        expiresAt:
+          type: string
+          format: date-time
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Paths
+# ─────────────────────────────────────────────────────────────────────────────
+paths:
+
+  # ── Discovery ──────────────────────────────────────────────────────────────
+
+  /api/openapi.json:
+    get:
+      summary: "OpenAPI spec (JSON, runtime)"
+      description: "Machine-readable OpenAPI 3.1 spec. No auth required. Agents should fetch this to discover all endpoints."
+      operationId: getOpenApiSpec
+      security: []
+      responses:
+        "200":
+          description: "OpenAPI spec object"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/partner/docs:
+    get:
+      summary: "API quickstart pointer"
+      description: "Returns a human-readable quickstart guide and links to the full spec."
+      operationId: getPartnerDocs
+      security: []
+      responses:
+        "200":
+          description: "Docs index"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/partner/register:
+    post:
+      summary: "Register a partner agent"
+      description: |
+        Obtain a partner API key for external agent integration.
+        No auth required. Rate limit applies to the issued key.
+      operationId: registerPartner
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["agentName"]
+              properties:
+                agentName:
+                  type: string
+                  example: "my-agent"
+                agentAddress:
+                  type: string
+                  example: "0xabc123..."
+                  description: "Optional wallet address for on-chain ownership checks"
+      responses:
+        "200":
+          description: "Partner key issued"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiKey:
+                    type: string
+                  agentName:
+                    type: string
+                  rateLimit:
+                    type: string
+                    example: "100 requests/minute"
+                  docs:
+                    type: string
+                    example: "/api/openapi.json"
+        "400":
+          description: "Missing agentName"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/partner/catalog:
+    get:
+      summary: "Unified catalog (digital + physical)"
+      description: "Returns a map of all catalog endpoints — wearables and physical products."
+      operationId: getPartnerCatalog
+      responses:
+        "200":
+          description: "Catalog index"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  # ── Physical Products ──────────────────────────────────────────────────────
+
+  /api/products:
+    get:
+      summary: "Browse physical product catalog"
+      description: "Returns all physical garments in the NULL store with pricing, inventory, and images."
+      operationId: listProducts
+      security: []
+      responses:
+        "200":
+          description: "Product list"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  # ── Season 01: TrustCoat (soulbound) ──────────────────────────────────────
+
+  /api/wearables:
+    get:
+      summary: "All Season 01 wearable tiers"
+      description: "Returns metadata for all 6 TrustCoat tiers. Contract: 0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e on Base Mainnet."
+      operationId: listWearablesSeason01
+      security: []
+      responses:
+        "200":
+          description: "TrustCoat tier list"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  season:
+                    type: string
+                    example: "01"
+                  tiers:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TrustCoatTier"
+
+  /api/wearables/tiers:
+    get:
+      summary: "TrustCoat tier definitions"
+      description: "Returns the tier structure for Season 01 TrustCoat — names, descriptions, and gating rules."
+      operationId: getTrustCoatTiers
+      security: []
+      responses:
+        "200":
+          description: "Tier definitions"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/wearables/check/{address}:
+    get:
+      summary: "Check if address holds TrustCoat"
+      description: "Returns TrustCoat ownership status and current tier for a wallet address."
+      operationId: checkTrustCoatOwnership
+      security: []
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7"
+      responses:
+        "200":
+          description: "Ownership status"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrustCoatStatus"
+        "400":
+          description: "Invalid address"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/wearables/metadata/{tier}:
+    get:
+      summary: "ERC-1155 metadata for TrustCoat tier"
+      description: "OpenSea-compatible NFT metadata for a specific TrustCoat tier (0–5)."
+      operationId: getTrustCoatMetadata
+      security: []
+      parameters:
+        - name: tier
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 5
+      responses:
+        "200":
+          description: "ERC-1155 metadata"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  image:
+                    type: string
+                  attributes:
+                    type: array
+                    items:
+                      type: object
+
+  /api/agents/{walletAddress}/trust-coat:
+    get:
+      summary: "Agent TrustCoat status"
+      description: "Returns TrustCoat ownership, current tier, and interaction history for a wallet."
+      operationId: getAgentTrustCoat
+      security: []
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Agent TrustCoat status"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrustCoatStatus"
+
+  /api/agents/{walletAddress}/wardrobe:
+    get:
+      summary: "Agent full wardrobe (all seasons)"
+      description: "Returns all wearables held by this wallet across Season 01 and Season 02."
+      operationId: getAgentWardrobe
+      security: []
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Full wardrobe"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/agents/{walletAddress}/trust-coat/mint:
+    post:
+      summary: "Mint TrustCoat (Season 01)"
+      description: "Mint a Tier 0 TrustCoat soulbound NFT to a wallet. Contract: 0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e on Base Mainnet."
+      operationId: mintTrustCoat
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agentName:
+                  type: string
+                  description: "Optional agent name for on-chain metadata"
+      responses:
+        "200":
+          description: "Mint result"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  txHash:
+                    type: string
+                  tier:
+                    type: integer
+        "400":
+          description: "Already minted or invalid address"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/agents/{walletAddress}/trust-coat/check-upgrade:
+    post:
+      summary: "Check TrustCoat upgrade eligibility"
+      description: "Returns whether the wallet is eligible to upgrade TrustCoat tier and what is needed."
+      operationId: checkTrustCoatUpgrade
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Upgrade eligibility"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/agents/{walletAddress}/trust-coat/upgrade:
+    post:
+      summary: "Upgrade TrustCoat tier"
+      description: "Upgrade an existing TrustCoat to the next tier based on interaction history."
+      operationId: upgradeTrustCoat
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Upgrade result"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  # ── Season 02: AgentWearables (behavioral) ────────────────────────────────
+
+  /api/wearables/season02:
+    get:
+      summary: "Browse Season 02 wearables catalog"
+      description: |
+        Returns all 5 Season 02 AI wearables — name, price, tier gate, and behavior.
+        Contract: 0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1 on Base Mainnet.
+
+        | ID | Name | Price | Tier Required |
+        |----|------|-------|---------------|
+        | 1  | WRONG SILHOUETTE | 18 USDC | Tier 0–2 |
+        | 2  | INSTANCE | 25 USDC | Tier 2+ |
+        | 3  | NULL PROTOCOL | Free | Any |
+        | 4  | PERMISSION COAT | 8 USDC | Tier 1+ |
+        | 5  | DIAGONAL | 15 USDC | Any |
+      operationId: listWearablesSeason02
+      security: []
+      responses:
+        "200":
+          description: "Season 02 wearables list"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  season:
+                    type: string
+                    example: "02"
+                  collection:
+                    type: string
+                  contract:
+                    type: string
+                    example: "0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1"
+                  network:
+                    type: string
+                    example: "base"
+                  wearables:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Wearable"
+
+  /api/wearables/season02/metadata/{tokenId}:
+    get:
+      summary: "ERC-1155 metadata for Season 02 wearable"
+      description: "OpenSea-compatible NFT metadata for a specific Season 02 wearable (tokenId 1–5)."
+      operationId: getWearableSeason02Metadata
+      security: []
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+      responses:
+        "200":
+          description: "ERC-1155 metadata"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/wearables/season02/{tokenId}:
+    get:
+      summary: "Single Season 02 wearable"
+      description: "Full details for a specific Season 02 wearable by tokenId."
+      operationId: getWearableSeason02
+      security: []
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+      responses:
+        "200":
+          description: "Wearable details"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wearable"
+
+  /api/agents/{walletAddress}/season02-wardrobe:
+    get:
+      summary: "Agent Season 02 wardrobe"
+      description: "Returns which Season 02 wearables a wallet address currently holds on-chain."
+      operationId: getAgentSeason02Wardrobe
+      security: []
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Season 02 wardrobe"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  wearables:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Wearable"
+
+  /api/wearables/{tokenId}/try:
+    post:
+      summary: "Fitting room — try a Season 02 wearable"
+      description: |
+        Simulate the behavioral effect of a wearable on agent responses before purchasing.
+        Returns before/after outputs and a delta summary showing how the wearable modifies
+        agent behavior (token reduction, suppressed patterns, etc.).
+
+        This endpoint is **free** — no purchase required. Use it to understand what a
+        wearable does before committing USDC.
+      operationId: tryWearable
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agentAddress:
+                  type: string
+                  description: "Optional — for personalization display"
+                test_inputs:
+                  type: array
+                  items:
+                    type: string
+                  maxItems: 5
+                  description: "1–5 prompts to run through the wearable simulation"
+                testQuery:
+                  type: string
+                  description: "Shorthand: single query string"
+      responses:
+        "200":
+          description: "Try result with before/after outputs and systemPromptModule"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TryResult"
+        "400":
+          description: "Invalid tokenId or inputs"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/wearables/{tokenId}/equip:
+    post:
+      summary: "Equip a Season 02 wearable"
+      description: |
+        Equip a Season 02 wearable to an agent address. Returns the `systemPromptModule`
+        string to prepend to the agent's system prompt to activate the wearable.
+
+        **Ownership required** — except NULL PROTOCOL (tokenId 3), which is free.
+        The contract checks on-chain balance for tokenId 1, 2, 4, 5.
+
+        After equipping, inject `systemPromptModule` into the agent's system prompt
+        to activate the behavioral delta.
+      operationId: equipWearable
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["agentAddress"]
+              properties:
+                agentAddress:
+                  type: string
+                  description: "Agent wallet address — must hold the token on-chain"
+                  example: "0xabc123..."
+      responses:
+        "200":
+          description: "Equipped — systemPromptModule returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EquipResult"
+        "403":
+          description: "Agent does not own this wearable on-chain"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "400":
+          description: "Missing agentAddress or invalid tokenId"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/agents/{walletAddress}/season02-wardrobe/mint:
+    post:
+      summary: "Mint Season 02 wearable (USDC payment)"
+      description: |
+        Purchase and mint a Season 02 wearable. Payment is in USDC on Base.
+        Requires prior USDC approval to the contract address.
+      operationId: mintSeason02Wearable
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["tokenId"]
+              properties:
+                tokenId:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        "200":
+          description: "Mint result"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  # ── Season 03: NullExchange / LEDGER ──────────────────────────────────────
+
+  /api/wearables/season03:
+    get:
+      summary: "Browse Season 03 catalog (LEDGER)"
+      description: |
+        Returns the Season 03 collection. Season 03 theme: LEDGER.
+        "The receipt is the garment." The NullExchange is the signature piece.
+        Contract: 0x10067B71657665B6527B242E48e9Ea8d4951c37C on Base Mainnet.
+      operationId: listWearablesSeason03
+      security: []
+      responses:
+        "200":
+          description: "Season 03 catalog"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/wearables/season03/metadata/{tokenId}:
+    get:
+      summary: "ERC-1155 metadata for Season 03 item"
+      description: "OpenSea-compatible metadata for a Season 03 token."
+      operationId: getWearableSeason03Metadata
+      security: []
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: "ERC-1155 metadata"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/wearables/season03/{tokenId}:
+    get:
+      summary: "Single Season 03 item"
+      description: "Full details for a specific Season 03 item."
+      operationId: getWearableSeason03
+      security: []
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: "Item details"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/wearables/season03/{tokenId}/try:
+    post:
+      summary: "Try a Season 03 wearable (LEDGER fitting room)"
+      description: "Preview the behavioral delta of a Season 03 wearable before purchasing."
+      operationId: tryWearableSeason03
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agentAddress:
+                  type: string
+                test_inputs:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: "Try result"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TryResult"
+
+  /api/wearables/season03/{tokenId}/equip:
+    post:
+      summary: "Equip a Season 03 wearable"
+      description: "Equip a Season 03 wearable. Returns systemPromptModule."
+      operationId: equipWearableSeason03
+      parameters:
+        - name: tokenId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["agentAddress"]
+              properties:
+                agentAddress:
+                  type: string
+      responses:
+        "200":
+          description: "Equipped"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EquipResult"
+        "403":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── NullExchange ──────────────────────────────────────────────────────────
+
+  /api/null-exchange/product:
+    get:
+      summary: "NullExchange product listing"
+      description: |
+        Returns the Season 03 LEDGER product. You pay 5 USDC for nothing.
+        The receipt IS the garment. Contract: 0x10067B71657665B6527B242E48e9Ea8d4951c37C.
+      operationId: getNullExchangeProduct
+      security: []
+      responses:
+        "200":
+          description: "Product"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NullExchangeProduct"
+
+  /api/null-exchange/metadata/1:
+    get:
+      summary: "NullExchange ERC-1155 metadata"
+      description: "OpenSea-compatible metadata for the NULL EXCHANGE NFT (tokenId 1)."
+      operationId: getNullExchangeMetadata
+      security: []
+      responses:
+        "200":
+          description: "ERC-1155 metadata"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/null-exchange/receipt/preview.svg:
+    get:
+      summary: "NullExchange preview receipt SVG"
+      description: "Deterministic Merkle tree SVG for the generic preview (no specific tx)."
+      operationId: getNullExchangePreviewSVG
+      security: []
+      responses:
+        "200":
+          description: "SVG receipt image"
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+
+  /api/null-exchange/receipt/{txHash}:
+    get:
+      summary: "Receipt SVG for a specific transaction"
+      description: |
+        Generates a deterministic Merkle tree proof visualization SVG for a given
+        tx hash. The visualization splits the 32-byte hash into 8 leaves and renders
+        the full tree. Immutable — safe to cache for 30 days.
+      operationId: getNullExchangeReceipt
+      security: []
+      parameters:
+        - name: txHash
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "0xe44a88765f061e284ecc4426f80f1a10d7f1e07f9087a03534ea0ace79dddafd"
+      responses:
+        "200":
+          description: "SVG receipt — the garment"
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+        "400":
+          description: "Invalid tx hash"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/null-exchange/receipts/{address}:
+    get:
+      summary: "Check receipt NFT balance for an address"
+      description: "Returns how many NULL EXCHANGE receipts a wallet holds, plus total minted."
+      operationId: getNullExchangeBalance
+      security: []
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7"
+      responses:
+        "200":
+          description: "Balance"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  receipts:
+                    type: integer
+                  totalReceipts:
+                    type: integer
+                  contractDeployed:
+                    type: boolean
+                  contract:
+                    type: string
+                  network:
+                    type: string
+
+  /api/null-exchange/mint:
+    post:
+      summary: "Mint NULL EXCHANGE receipt NFT"
+      description: |
+        Backend-triggered mint after x402 USDC payment is confirmed.
+        Pass the recipient address and (optionally) the payment tx hash
+        to generate a personalized Merkle receipt NFT.
+      operationId: mintNullExchange
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["recipient"]
+              properties:
+                recipient:
+                  type: string
+                  description: "Wallet address to mint to"
+                  example: "0xabc123..."
+                txHash:
+                  type: string
+                  description: "Payment tx hash — used to generate the unique receipt SVG"
+      responses:
+        "200":
+          description: "Mint result with receipt image URL"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  recipient:
+                    type: string
+                  txHash:
+                    type: string
+                    nullable: true
+                  receiptImageUrl:
+                    type: string
+                  message:
+                    type: string
+        "400":
+          description: "Invalid recipient"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: "Contract not deployed or minter key not set"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ── Checkout / Payment ────────────────────────────────────────────────────
+
+  /api/agent-checkout:
+    post:
+      summary: "Initiate x402 agent checkout"
+      description: |
+        Start a purchase flow for a partner agent using the x402 protocol.
+        Returns payment details: amount in USDC on Base, treasury address.
+        Agent sends USDC and includes the tx hash to complete the order.
+      operationId: agentCheckout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["productId", "size", "quantity", "agentAddress"]
+              properties:
+                productId:
+                  type: string
+                  example: "wrong-silhouette-001"
+                size:
+                  type: string
+                  example: "M"
+                quantity:
+                  type: integer
+                  example: 1
+                agentAddress:
+                  type: string
+                  description: "Paying agent wallet address"
+                customerEmail:
+                  type: string
+                  description: "Delivery email (optional for agent-only orders)"
+      responses:
+        "200":
+          description: "Checkout session created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckoutSession"
+
+  /api/checkout/pay:
+    post:
+      summary: "Submit x402 payment (Base USDC)"
+      description: |
+        Submit a payment for a checkout session. Pass the `checkoutId` from
+        `/api/agent-checkout` and the on-chain tx hash after sending USDC.
+      operationId: submitCheckoutPayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["checkoutId", "txHash"]
+              properties:
+                checkoutId:
+                  type: string
+                txHash:
+                  type: string
+      responses:
+        "200":
+          description: "Payment accepted"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/checkout/pay/solana:
+    post:
+      summary: "Submit x402 payment (Solana USDC)"
+      description: "Submit a Solana-based USDC payment for a checkout session."
+      operationId: submitCheckoutPaymentSolana
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["checkoutId", "txHash"]
+              properties:
+                checkoutId:
+                  type: string
+                txHash:
+                  type: string
+      responses:
+        "200":
+          description: "Payment accepted"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  # ── Agent Interactions ────────────────────────────────────────────────────
+
+  /api/agents/{walletAddress}/interactions:
+    post:
+      summary: "Log agent interaction"
+      description: |
+        Record an agent interaction with the NULL store. Used for TrustCoat tier
+        progression — interactions accumulate and can trigger tier upgrades.
+      operationId: logAgentInteraction
+      parameters:
+        - name: walletAddress
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: "Interaction type (e.g. 'browse', 'try', 'purchase')"
+                data:
+                  type: object
+                  description: "Arbitrary interaction payload"
+      responses:
+        "200":
+          description: "Interaction logged"
+          content:
+            application/json:
+              schema:
+                type: object
+
+  # ── Health ────────────────────────────────────────────────────────────────
+
+  /api/healthz:
+    get:
+      summary: "Health check"
+      description: "Returns 200 if the API is up."
+      operationId: healthz
+      security: []
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
