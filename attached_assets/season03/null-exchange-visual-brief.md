@@ -145,5 +145,17 @@ This is what makes THE NULL EXCHANGE not ironic — it is serious. The receipt I
 | File | Status |
 |------|--------|
 | `nft-receipt-template.svg` | COMPLETE — ready for implementation |
-| Product image | PENDING — image prompt ready, awaiting Higgsfield |
-| Collection banner | PENDING — image prompt ready, awaiting Higgsfield |
+| `null-exchange-product.svg` | COMPLETE — SVG product image, receipt on void, 960×1200 |
+| `null-exchange-banner.svg` | COMPLETE — SVG collection banner, 2048×512 |
+
+## Note on Image Generation Approach
+
+Higgsfield Soul model returned `400 Unavailable` (recurring issue since OFF-88).
+
+The SVG approach is architecturally correct for this concept:
+- The product IS typographic — a rendered receipt is more honest than a photo of a prop
+- SVG is deterministic, on-brand, and zero external-hosting dependency
+- The banner is a typographic system, not a photographed scene
+- Both files can be served directly by the Next.js frontend
+
+If Higgsfield becomes available, the original prompts remain valid for generating photographic alternatives. But these SVG versions are the canonical deliverables.

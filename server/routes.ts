@@ -843,6 +843,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   registerWearablesRoutes(app);
   registerLocusCheckoutRoutes(app);
   registerPartnerApiRoutes(app);
+  registerNullExchangeRoutes(app);
 
   // ── Partner agent checkout (x402 entry point for external agents) ──────────
   app.post("/api/agent-checkout", async (req, res) => {
