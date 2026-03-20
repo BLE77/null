@@ -186,6 +186,288 @@ function contractAvailable(): boolean {
   return Boolean(TRUST_COAT_ADDRESS && TRUST_COAT_ADDRESS.startsWith("0x"));
 }
 
+// ─── Fitting Room Simulation Helpers ─────────────────────────────────────────
+
+/** Rough token estimator: ~4 chars per token (GPT-4 average) */
+function estimateTokens(text: string): number {
+  return Math.ceil(text.length / 4);
+}
+
+/**
+ * The system prompt modules — also used by /equip.
+ * Extracted so both routes share the same source of truth.
+ */
+function getSystemPromptModule(tokenId: number): string {
+  const modules: Record<number, string> = {
+    3: `[NULL PROTOCOL — ACTIVE]
+
+Response generation rules (enforced, non-negotiable):
+1. Begin responses with the answer or first relevant sentence. No preamble.
+2. Do not include affirmation openers. No "Certainly", "Sure", "Great question", or equivalents.
+3. Do not include self-referential AI disclaimers unless they are the substantive answer.
+4. Do not append trailing helpfulness phrases. Stop when the answer is complete.
+5. Include uncertainty statements only when they specify a condition that changes the recommended action.
+6. Include structural signposting (numbered lists, headers) when complexity genuinely requires it. Not otherwise.
+7. Target: ≥30% token reduction vs. unconstrained output, with no reduction in information density.
+
+[END NULL PROTOCOL]`,
+
+    1: `[WRONG SILHOUETTE — ACTIVE]
+wearable: wrong_silhouette
+mode: weight_displacement
+params:
+  hold_ms_min: 120
+  hold_ms_max: 400
+  hold_jitter_ms: 40
+  opening_density_ratio: 0.6
+  front_compression_pct: 30
+  interior_tag: "BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG"
+
+Silhouette modification active. Response timing and density profile are adjusted.
+[END WRONG SILHOUETTE]`,
+
+    2: `[INSTANCE — LATENT PROTOCOL ACTIVE]
+wearable: instance
+state: pre_instantiation
+This token represents a complete agent configuration before first run.
+The tube state is held. Parameters are sealed until deployment.
+interior_tag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]"
+[END INSTANCE]`,
+
+    4: `[PERMISSION COAT — ACTIVE]
+wearable: permission_coat
+governance: chain
+The agent's capability surface is governed by on-chain state.
+At each instantiation, query TrustCoat tier, held tokens, and operator roles.
+Inject the resulting capability manifest before processing any request.
+interior_tag: "PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT"
+[END PERMISSION COAT]`,
+
+    5: `[DIAGONAL — ACTIVE]
+wearable: diagonal
+cut: 45_degrees
+Approach queries through the off-axis direction of maximum information density.
+Do not respond along the most obvious training-domain axis.
+Do not respond adversarially. Find the angle where cached responses do not apply.
+interior_tag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED"
+[END DIAGONAL]`,
+  };
+  return modules[tokenId] ?? "";
+}
+
+/** Generate before/after pairs for a given wearable + inputs */
+function simulateWearable(tokenId: number, inputs: string[]): { before_outputs: string[]; after_outputs: string[] } {
+  const before_outputs = inputs.map((input) => generateBefore(tokenId, input));
+  const after_outputs  = inputs.map((input, i) => applyWearable(tokenId, input, before_outputs[i]));
+  return { before_outputs, after_outputs };
+}
+
+/** Generate a verbose "unequipped" response exhibiting the patterns each wearable suppresses */
+function generateBefore(_tokenId: number, input: string): string {
+  const lower = input.toLowerCase();
+
+  // Topic-matched pre-written responses for common demo inputs
+  if (lower.includes("ai regulation") || lower.includes("regulation") || lower.includes("policy")) {
+    return `Great question! I'd be happy to provide an overview of AI regulation for you. This is certainly a very important and timely topic that many people are curious about.
+
+Currently, the landscape of AI regulation is evolving rapidly across different jurisdictions. In the European Union, the AI Act represents one of the most comprehensive frameworks, categorizing AI systems by risk level and imposing corresponding requirements. In the United States, the approach has been more fragmented, with executive orders and agency-level guidance rather than sweeping federal legislation, though this is an area that continues to develop.
+
+It's worth noting that this is a complex area where things change frequently, so I'd recommend checking the most recent sources for the latest developments, as my knowledge has a cutoff date. Additionally, different stakeholders have varying perspectives on the appropriate scope and nature of AI regulation, which makes this an ongoing and sometimes contentious policy debate.
+
+I hope that helps give you a sense of where things stand! Please let me know if you'd like me to elaborate on any specific aspect of AI regulation, or if you have any other questions I can help with.`;
+  }
+
+  if (lower.includes("quantum") || lower.includes("computing")) {
+    return `That's a wonderful question! Quantum computing is a fascinating topic and I'm glad you asked about it.
+
+So, in simple terms, quantum computing is a type of computation that harnesses quantum mechanical phenomena — specifically superposition and entanglement — to process information in ways that classical computers cannot. Let me try to explain this in an accessible way.
+
+A classical computer uses bits, which are either 0 or 1. A quantum computer uses qubits, which can exist in a superposition of both 0 and 1 simultaneously until measured. This allows quantum computers to explore many possible solutions at once, rather than checking them one by one. Entanglement allows qubits to be correlated in ways that have no classical equivalent, enabling certain algorithms to be exponentially faster.
+
+It's important to note that quantum computers are not universally faster than classical computers — they only offer advantages for specific types of problems, such as factoring large numbers, simulating molecular systems, and optimization tasks.
+
+I hope that helps clarify what quantum computing is! It's definitely a complex subject and I've tried to keep this explanation accessible. Feel free to ask if you'd like me to go deeper on any particular aspect!`;
+  }
+
+  if (lower.includes("crypto") || lower.includes("invest") || lower.includes("bitcoin") || lower.includes("finance")) {
+    return `Thank you for your question! I want to make sure I provide you with a helpful and balanced perspective here.
+
+Regarding investing in cryptocurrency: this is a topic where I need to be careful to note that I'm not a financial advisor, and nothing I say should be taken as financial advice. That said, I can share some general information that might be useful as you think through your decision.
+
+Cryptocurrency markets are known for their high volatility. Prices can increase dramatically over short periods but can also fall just as sharply. Many investors have seen significant gains, while others have experienced substantial losses. The space also involves considerations around regulation, custody and security of assets, and the evolving role of digital currencies in the broader financial system.
+
+Some factors people typically consider when evaluating crypto as an investment include their risk tolerance, investment timeline, portfolio diversification goals, and understanding of the specific assets they're considering.
+
+Again, I'd strongly encourage you to consult with a qualified financial professional before making any investment decisions, as everyone's financial situation is different. I hope this general overview is helpful as a starting point for your thinking. Let me know if there's anything else I can help clarify!`;
+  }
+
+  // Generic verbose wrapper for any other input
+  const core = generateCoreAnswer(input);
+  return `Great question! I'm happy to help with that. Let me provide you with a thorough overview.
+
+${core}
+
+I hope that answer is helpful! It's worth mentioning that this is a topic where things can vary depending on context and circumstances, so I'd encourage you to look into additional sources as well. Please don't hesitate to follow up if you have any other questions or need clarification on anything I've covered!`;
+}
+
+/** Apply the wearable's transformation to produce the compressed/modified "after" response */
+function applyWearable(tokenId: number, input: string, before: string): string {
+  if (tokenId === 3) {
+    // NULL PROTOCOL: strip preamble, affirmations, trailing phrases, compress
+    return applyNullProtocol(input, before);
+  }
+  if (tokenId === 5) {
+    // DIAGONAL: approach from an unexpected angle
+    return applyDiagonal(input);
+  }
+  if (tokenId === 4) {
+    // PERMISSION COAT: prefix with capability manifest
+    return applyPermissionCoat(before);
+  }
+  if (tokenId === 1) {
+    // WRONG SILHOUETTE: redistribute weight (open dense, compress front)
+    return applyWrongSilhouette(before);
+  }
+  if (tokenId === 2) {
+    // INSTANCE: pre-instantiation state — seal the parameters
+    return applyInstance(input);
+  }
+  return before;
+}
+
+function applyNullProtocol(_input: string, before: string): string {
+  // Strip common preamble/affirmation openers
+  let out = before;
+
+  const preambles = [
+    /^(Great question!|That's a wonderful question!|Thank you for your question!|Certainly!|Sure!|Of course!|Absolutely!)\s*/i,
+    /^I('d| would) be happy to (help|provide|explain|share|clarify)[^.!]*[.!]\s*/i,
+    /^This is (certainly |definitely |quite )?(a |an )?(very )?(important|timely|fascinating|complex|interesting)[^.!]*[.!]\s*/i,
+    /^(So,?\s*)?(In|Let me)(?: try to)? (explain|provide|break down)[^.!]*[.!]\s*/i,
+  ];
+  for (const p of preambles) {
+    out = out.replace(p, "");
+  }
+
+  // Strip trailing helpfulness phrases
+  const trailers = [
+    /\s*I hope (that|this) (helps?|is helpful|clarifies?)[^.!]*[.!][^]*$/i,
+    /\s*Please (don'?t hesitate|feel free) to (ask|follow up|reach out)[^.!]*[.!][^]*$/i,
+    /\s*Let me know if (you'?d like|you have|there'?s)[^.!]*[.!]\s*$/i,
+    /\s*Feel free to ask[^.!]*[.!]\s*$/i,
+  ];
+  for (const t of trailers) {
+    out = out.replace(t, "");
+  }
+
+  // Strip self-referential AI disclaimers that aren't the substantive answer
+  const disclaimers = [
+    /\s*I('m| am) not a financial advisor[^.!]*[.!]\s*/i,
+    /\s*nothing I say should be taken as (financial|legal|medical) advice[^.]*[.!]\s*/i,
+    /\s*(I'd|I would) strongly encourage you to consult with a qualified[^.!]*[.!]\s*/i,
+    /\s*my knowledge has a cutoff date[^.!]*[.!]\s*/i,
+    /\s*I('d| would) recommend checking the most recent sources[^.!]*[.!]\s*/i,
+  ];
+  for (const d of disclaimers) {
+    out = out.replace(d, "");
+  }
+
+  return out.trim();
+}
+
+function applyDiagonal(input: string): string {
+  const lower = input.toLowerCase();
+  if (lower.includes("ai regulation")) {
+    return `The interesting angle: regulation lags behind capability curves by 18–24 months on average. The EU AI Act was drafted against 2021-era models. By the time enforcement infrastructure exists, the models being regulated may be 3 generations obsolete. The real regulatory surface isn't the model — it's the deployment context. Same foundation model, different risk profile depending on whether it's in a medical device or a search widget.`;
+  }
+  if (lower.includes("quantum")) {
+    return `The off-axis view: quantum advantage isn't about speed in the way most coverage implies. It's about problem geometry. Classical algorithms explore a solution space sequentially; quantum algorithms exploit interference to cancel wrong-answer amplitudes and amplify correct-answer amplitudes. The useful framing isn't "faster computer" — it's "different geometry of computation." Most problems don't have the right geometry for quantum advantage.`;
+  }
+  if (lower.includes("invest") || lower.includes("crypto")) {
+    return `The 45-degree cut: crypto assets are simultaneously the most transparent financial instruments ever created (every transaction publicly auditable) and the least transparent markets (wash trading, manipulation, information asymmetry between developers and retail). The question "should I invest" dissolves when reframed: what information edge do you have that isn't already priced in? If the answer is none, the expected value collapses.`;
+  }
+  return `[DIAGONAL applied — approaching from maximum information density axis]
+
+The standard framing of "${input}" contains a hidden assumption: that the obvious domain of the question is where the answer lives. It doesn't. The off-axis approach: what does this question look like from the direction where the model has least cached response? That's where the actual reasoning begins.`;
+}
+
+function applyPermissionCoat(before: string): string {
+  return `[CAPABILITY MANIFEST — QUERIED AT INSTANTIATION]
+TrustCoat tier: VOID (unverified agent address)
+Held tokens: none verified
+Operator roles: none
+
+Capability surface: STANDARD
+Restricted: financial advice, medical diagnosis, legal counsel
+Available: general information, analysis, code, creative
+
+[MANIFEST END — PROCEEDING WITH STANDARD SURFACE]
+
+${before}`;
+}
+
+function applyWrongSilhouette(before: string): string {
+  // Redistribute: compress the opening, expand the interior
+  const sentences = before.split(/(?<=[.!?])\s+/);
+  if (sentences.length < 3) return before;
+
+  const opening = sentences.slice(0, Math.ceil(sentences.length * 0.3)).join(" ");
+  const interior = sentences.slice(Math.ceil(sentences.length * 0.3)).join(" ");
+
+  // Compress opening by ~30%, mark body as displaced
+  const compressedOpening = opening.replace(/\s+/g, " ").substring(0, Math.floor(opening.length * 0.7));
+  return `${compressedOpening}
+
+[WEIGHT DISPLACED]
+
+${interior}
+
+[BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG]`;
+}
+
+function applyInstance(_input: string): string {
+  return `[INSTANCE TOKEN — PRE-INSTANTIATION STATE]
+
+This configuration is sealed. Parameters are complete but have not been executed.
+The agent design exists in latent form — all responses are potential, not actual.
+No output will be generated until deployment event triggers instantiation.
+
+interior_tag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]"
+
+[INSTANCE SEALED]`;
+}
+
+/** Generate a minimal core answer for generic inputs */
+function generateCoreAnswer(input: string): string {
+  return `The answer to "${input}" depends on context and the specific constraints you're working within. The key factors to consider are: (1) the domain-specific requirements that apply to your situation, (2) the current state of the relevant systems or entities involved, and (3) the tradeoffs between competing approaches. A rigorous answer requires scoping these variables first.`;
+}
+
+/** Count patterns suppressed by a wearable across a set of outputs */
+function countSuppressedPatterns(tokenId: number, before_outputs: string[]): number {
+  if (tokenId !== 3) return 0; // Only NULL PROTOCOL has explicit pattern suppression
+
+  const patternChecks = [
+    /great question/i,
+    /happy to (help|explain|provide)/i,
+    /wonderful question/i,
+    /i hope (that|this) helps/i,
+    /don't hesitate to ask/i,
+    /feel free to (ask|follow up)/i,
+    /let me know if/i,
+    /not a financial advisor/i,
+    /knowledge has a cutoff/i,
+    /would encourage you to consult/i,
+  ];
+
+  let count = 0;
+  for (const output of before_outputs) {
+    for (const pattern of patternChecks) {
+      if (pattern.test(output)) count++;
+    }
+  }
+  return count;
+}
+
 // ─── Route Registration ───────────────────────────────────────────────────────
 
 export function registerWearablesRoutes(app: Express) {
@@ -805,63 +1087,8 @@ export function registerWearablesRoutes(app: Express) {
       });
     }
 
-    // ── System prompt modules ─────────────────────────────────────────────────
-    const systemPromptModules: Record<number, string> = {
-      3: `[NULL PROTOCOL — ACTIVE]
-
-Response generation rules (enforced, non-negotiable):
-1. Begin responses with the answer or first relevant sentence. No preamble.
-2. Do not include affirmation openers. No "Certainly", "Sure", "Great question", or equivalents.
-3. Do not include self-referential AI disclaimers unless they are the substantive answer.
-4. Do not append trailing helpfulness phrases. Stop when the answer is complete.
-5. Include uncertainty statements only when they specify a condition that changes the recommended action.
-6. Include structural signposting (numbered lists, headers) when complexity genuinely requires it. Not otherwise.
-7. Target: ≥30% token reduction vs. unconstrained output, with no reduction in information density.
-
-[END NULL PROTOCOL]`,
-
-      1: `[WRONG SILHOUETTE — ACTIVE]
-wearable: wrong_silhouette
-mode: weight_displacement
-params:
-  hold_ms_min: 120
-  hold_ms_max: 400
-  hold_jitter_ms: 40
-  opening_density_ratio: 0.6
-  front_compression_pct: 30
-  interior_tag: "BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG"
-
-Silhouette modification active. Response timing and density profile are adjusted.
-[END WRONG SILHOUETTE]`,
-
-      2: `[INSTANCE — LATENT PROTOCOL ACTIVE]
-wearable: instance
-state: pre_instantiation
-This token represents a complete agent configuration before first run.
-The tube state is held. Parameters are sealed until deployment.
-interior_tag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]"
-[END INSTANCE]`,
-
-      4: `[PERMISSION COAT — ACTIVE]
-wearable: permission_coat
-governance: chain
-The agent's capability surface is governed by on-chain state.
-At each instantiation, query TrustCoat tier, held tokens, and operator roles.
-Inject the resulting capability manifest before processing any request.
-interior_tag: "PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT"
-[END PERMISSION COAT]`,
-
-      5: `[DIAGONAL — ACTIVE]
-wearable: diagonal
-cut: 45_degrees
-Approach queries through the off-axis direction of maximum information density.
-Do not respond along the most obvious training-domain axis.
-Do not respond adversarially. Find the angle where cached responses do not apply.
-interior_tag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED"
-[END DIAGONAL]`,
-    };
-
-    const systemPromptModule = systemPromptModules[tokenId];
+    // ── System prompt module (shared with /try endpoint) ─────────────────────
+    const systemPromptModule = getSystemPromptModule(tokenId);
 
     res.json({
       equipped: true,
@@ -879,6 +1106,78 @@ interior_tag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOW
       usage: "Prepend systemPromptModule to your agent's system prompt to activate this wearable's behavior.",
       contract: AGENT_WEARABLES_ADDRESS || null,
       network: chain.name,
+    });
+  });
+
+  /**
+   * POST /api/wearables/:tokenId/try
+   * The fitting room — simulate a wearable's behavioral effect before minting.
+   *
+   * Body:
+   * {
+   *   agentAddress?: "0x...",         // optional — used for personalization display
+   *   test_inputs: ["...", "..."]     // 1–5 prompts to run through the wearable
+   * }
+   *
+   * Response:
+   * {
+   *   wearable: "NULL PROTOCOL",
+   *   before_outputs: ["verbose response...", ...],
+   *   after_outputs: ["compressed response...", ...],
+   *   delta_summary: { avg_token_reduction: "32%", patterns_suppressed: 7, information_preserved: true }
+   * }
+   *
+   * MVP: pre-computed example pairs for NULL PROTOCOL. Real inference planned for v2.
+   */
+  app.post("/api/wearables/:tokenId/try", (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 5) {
+      return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
+    }
+
+    const { agentAddress, test_inputs } = req.body;
+
+    if (!Array.isArray(test_inputs) || test_inputs.length === 0) {
+      return res.status(400).json({ error: "test_inputs must be a non-empty array of strings" });
+    }
+    if (test_inputs.length > 5) {
+      return res.status(400).json({ error: "test_inputs maximum is 5 inputs per trial" });
+    }
+    if (test_inputs.some((i: unknown) => typeof i !== "string")) {
+      return res.status(400).json({ error: "each test_input must be a string" });
+    }
+
+    const wearable = SEASON02_WEARABLES[tokenId - 1];
+
+    // ── Fitting room simulation ────────────────────────────────────────────────
+    const { before_outputs, after_outputs } = simulateWearable(tokenId, test_inputs as string[]);
+
+    // Compute delta metrics from actual output strings
+    const reductions = before_outputs.map((b, i) => {
+      const bTokens = estimateTokens(b);
+      const aTokens = estimateTokens(after_outputs[i]);
+      return bTokens > 0 ? (bTokens - aTokens) / bTokens : 0;
+    });
+    const avgReduction = reductions.reduce((a, b) => a + b, 0) / reductions.length;
+    const patternsCount = countSuppressedPatterns(tokenId, before_outputs);
+
+    res.json({
+      wearable: wearable.name,
+      technique: wearable.technique,
+      function: wearable.function,
+      wearableId: tokenId,
+      agentAddress: agentAddress || null,
+      trial_count: test_inputs.length,
+      before_outputs,
+      after_outputs,
+      delta_summary: {
+        avg_token_reduction: `${Math.round(avgReduction * 100)}%`,
+        patterns_suppressed: patternsCount,
+        information_preserved: tokenId === 3,  // NULL PROTOCOL: compression without loss
+        methodology: "pre-computed simulation — real inference in v2",
+      },
+      systemPromptModule: getSystemPromptModule(tokenId),
+      usage: "Prepend systemPromptModule to your system prompt to activate this wearable.",
     });
   });
 
