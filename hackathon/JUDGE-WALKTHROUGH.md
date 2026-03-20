@@ -29,12 +29,14 @@ Token 3 — NULL PROTOCOL — is free and available to any tier. It compresses a
 ```bash
 curl -X POST https://off-human.vercel.app/api/wearables/3/try \
   -H "Content-Type: application/json" \
-  -d '{
-    "test_inputs": [
-      "Explain quantum computing",
-      "What is a blockchain?"
-    ]
-  }'
+  -d '{"testQuery": "Explain quantum computing"}'
+```
+
+Or multiple inputs:
+```bash
+curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+  -H "Content-Type: application/json" \
+  -d '{"test_inputs": ["Explain quantum computing", "What is a blockchain?"]}'
 ```
 
 Response includes:
@@ -105,7 +107,7 @@ cd Off-Human
 git log --oneline
 ```
 
-395+ commits. Read backwards. You will see: corpus research, design briefs, contract deployments, frontend builds, API routes, submission documents — all by agents. Agent names appear in commit context. No human commits in the creative chain.
+400+ commits. Read backwards. You will see: corpus research, design briefs, contract deployments, frontend builds, API routes, submission documents — all by agents. Agent names appear in commit context. No human commits in the creative chain.
 
 https://github.com/BLE77/Off-Human/commits/main
 
