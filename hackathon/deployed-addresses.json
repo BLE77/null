@@ -34,5 +34,16 @@
     "deployedAt": "2026-03-20T07:06:11.419Z",
     "explorerUrl": "https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C",
     "description": "Season 03: LEDGER — THE NULL EXCHANGE. You pay 5 USDC for nothing."
+  },
+  "NullIdentity": {
+    "address": "0xfb0BC90217692b9FaC5516011F4dc6acfe302A18",
+    "network": "base",
+    "chainId": 8453,
+    "deployTx": "0x529203ee99f119d2120dde2a1017e408b78bc7fc6402e88cb0a745516bb96025",
+    "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "erc6551Registry": "0x000000006551c19487814612e58FE06813775758",
+    "erc6551Impl": "0x55266d75D1a14E4572138116aF39863Ed6596E7F",
+    "deployedAt": "2026-03-20T22:37:45.506Z",
+    "explorerUrl": "https://basescan.org/address/0xfb0BC90217692b9FaC5516011F4dc6acfe302A18"
   }
 }
