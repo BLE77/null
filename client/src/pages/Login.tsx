@@ -36,24 +36,24 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 flex items-center justify-center grain-overlay">
+    <div className="min-h-screen pt-24 pb-12 null-bg flex items-center justify-center">
       <div className="container mx-auto px-4 max-w-md">
-        <div className="bg-card border border-border rounded-md p-8">
-          <h1 
-            className="text-4xl font-bold uppercase tracking-wider mb-2 text-center"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-            data-testid="text-login-title"
-          >
-            Login
-          </h1>
-          <p className="text-sm text-muted-foreground text-center mb-8">
-            Welcome back to the void
-          </p>
+        <div className="border border-border p-12">
+          <div className="text-center mb-10">
+            <h1
+              className="text-[13px] uppercase tracking-[0.3em] text-foreground mb-3"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
+              data-testid="text-login-title"
+            >
+              ACCESS
+            </h1>
+            <div style={{ height: "1px", background: "#D8D4C8", width: "40px", margin: "0 auto" }} />
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium mb-2">
-                Username
+              <label htmlFor="username" className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                USERNAME
               </label>
               <Input
                 id="username"
@@ -61,13 +61,14 @@ export default function Login() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                 data-testid="input-username"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
-                Password
+              <label htmlFor="password" className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                PASSWORD
               </label>
               <Input
                 id="password"
@@ -75,24 +76,25 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                 data-testid="input-password"
               />
             </div>
 
-            <Button
+            <button
               type="submit"
-              className="w-full uppercase tracking-wider"
+              className="null-acquire-btn"
               disabled={isLoading}
               data-testid="button-login"
             >
-              {isLoading ? "Logging in..." : "Login"}
-            </Button>
+              {isLoading ? "..." : "ENTER"}
+            </button>
           </form>
 
-          <div className="mt-6 text-center text-sm">
-            <span className="text-muted-foreground">Don't have an account? </span>
+          <div className="mt-8 text-center">
+            <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>No account — </span>
             <Link href="/register">
-              <button className="text-primary hover:underline" data-testid="link-register">
+              <button className="text-[10px] uppercase tracking-[0.1em] text-primary hover:text-foreground transition-colors duration-200" style={{ fontFamily: "var(--font-mono)" }} data-testid="link-register">
                 Register
               </button>
             </Link>

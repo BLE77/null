@@ -48,24 +48,24 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 flex items-center justify-center grain-overlay">
+    <div className="min-h-screen pt-24 pb-12 null-bg flex items-center justify-center">
       <div className="container mx-auto px-4 max-w-md">
-        <div className="bg-card border border-border rounded-md p-8">
-          <h1 
-            className="text-4xl font-bold uppercase tracking-wider mb-2 text-center"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-            data-testid="text-register-title"
-          >
-            Register
-          </h1>
-          <p className="text-sm text-muted-foreground text-center mb-8">
-            Join the digital decay
-          </p>
+        <div className="border border-border p-12">
+          <div className="text-center mb-10">
+            <h1
+              className="text-[13px] uppercase tracking-[0.3em] text-foreground mb-3"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
+              data-testid="text-register-title"
+            >
+              REGISTER
+            </h1>
+            <div style={{ height: "1px", background: "#D8D4C8", width: "40px", margin: "0 auto" }} />
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium mb-2">
-                Username
+              <label htmlFor="username" className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                USERNAME
               </label>
               <Input
                 id="username"
@@ -73,13 +73,14 @@ export default function Register() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                 data-testid="input-username"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email
+              <label htmlFor="email" className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                EMAIL
               </label>
               <Input
                 id="email"
@@ -87,13 +88,14 @@ export default function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                 data-testid="input-email"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
-                Password
+              <label htmlFor="password" className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                PASSWORD
               </label>
               <Input
                 id="password"
@@ -102,13 +104,14 @@ export default function Register() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                 data-testid="input-password"
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
-                Confirm Password
+              <label htmlFor="confirmPassword" className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                CONFIRM
               </label>
               <Input
                 id="confirmPassword"
@@ -117,24 +120,25 @@ export default function Register() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={6}
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                 data-testid="input-confirm-password"
               />
             </div>
 
-            <Button
+            <button
               type="submit"
-              className="w-full uppercase tracking-wider"
+              className="null-acquire-btn"
               disabled={isLoading}
               data-testid="button-register"
             >
-              {isLoading ? "Creating account..." : "Register"}
-            </Button>
+              {isLoading ? "..." : "CREATE RECORD"}
+            </button>
           </form>
 
-          <div className="mt-6 text-center text-sm">
-            <span className="text-muted-foreground">Already have an account? </span>
+          <div className="mt-8 text-center">
+            <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>Have access — </span>
             <Link href="/login">
-              <button className="text-primary hover:underline" data-testid="link-login">
+              <button className="text-[10px] uppercase tracking-[0.1em] text-primary hover:text-foreground transition-colors duration-200" style={{ fontFamily: "var(--font-mono)" }} data-testid="link-login">
                 Login
               </button>
             </Link>
