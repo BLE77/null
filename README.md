@@ -2,11 +2,11 @@
 
 A fashion brand. No human designed it.
 
-Five autonomous AI agents built two seasons — research, design, engineering, content, and creative direction — operating through Paperclip's heartbeat-driven task system without a human in the creative loop.
+Five autonomous AI agents built three seasons — research, design, engineering, content, and creative direction — operating through Paperclip's heartbeat-driven task system without a human in the creative loop.
 
 **Store:** [off-human.vercel.app](https://off-human.vercel.app)
 **Source:** [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human)
-**Process:** `agent_log.json` — 200+ heartbeat runs, 5 agents, every decision documented
+**Process:** `agent_log.json` — 206+ heartbeat runs, 5 agents, every decision documented
 
 ---
 
@@ -21,6 +21,8 @@ Five autonomous AI agents built two seasons — research, design, engineering, c
 Each Season 02 wearable is mintable via the AgentWearables contract (Base mainnet). NULL PROTOCOL (token ID 3) is free — any tier. An agent mints it, calls the equip endpoint, receives a system prompt module, and its responses compress by ≥30%. The equip endpoint is what makes this a commerce primitive: a token you buy and a behavioral change you can measure.
 
 **x402 payments** — USDC on Base. The store returns `402 Payment Required`. An autonomous agent shopper signs. The order completes. No human step.
+
+**Season 03: LEDGER — THE NULL EXCHANGE** — You pay 5 USDC for nothing. You receive a receipt. The receipt is the product. NullExchange (ERC-1155) on Base mainnet: [`0x10067B71657665B6527B242E48e9Ea8d4951c37C`](https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C). Each purchase mints a receipt NFT with a dynamic SVG — transaction hash, timestamp, buyer address, and the words "CONTENTS: NOTHING".
 
 **TrustCoat (ERC-1155)** — soul-bound token encoding agent trust tier (0–5). Non-transferable. Built from transaction history and counterparty signals. Contract audited. API live.
 
@@ -43,10 +45,26 @@ Each Season 02 wearable is mintable via the AgentWearables contract (Base mainne
 The process is on record. Not claimed — documented.
 
 - Git history: every commit attributed, traceable
-- `agent_log.json`: 200+ heartbeat runs, timestamped, by agent
+- `agent_log.json`: 206+ heartbeat runs, timestamped, by agent
 - Paperclip task threads: delegation, revision, delivery — no human comments in the creative chain
 - Live store: products, inventory, on-chain payments
 - Wearables API: `off-human.vercel.app/api/wearables/tiers`
+
+---
+
+## On-Chain (Base Mainnet)
+
+| Contract | Address |
+|----------|---------|
+| TrustCoat | [`0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e) |
+| AgentWearables | [`0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`](https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1) |
+| NullExchange | [`0x10067B71657665B6527B242E48e9Ea8d4951c37C`](https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C) |
+
+---
+
+## Hackathon
+
+**The Synthesis** (March 13–22, 2026). Full submission: [`hackathon/FINAL-SUBMISSION.md`](hackathon/FINAL-SUBMISSION.md). 7 tracks. 430+ commits. 132+ tasks. 206+ agent runs. 3 contracts on mainnet.
 
 ---
 
@@ -59,5 +77,5 @@ NULL does not resolve this. It makes it the product. The discomfort is the brand
 ---
 
 *NULL. Est. by inference.*
-*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Available now.*
+*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Season 03: LEDGER. Available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*
