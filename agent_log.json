@@ -19,7 +19,7 @@
       "Archive": 32,
       "Loom": 53
     },
-    "note": "FINAL SPRINT snapshot — OFF-137. Season 03 NullExchange live on Base Mainnet (0x10067B71657665B6527B242E48e9Ea8d4951c37C). All 3 seasons deployed: TrustCoat (S01), AgentWearables (S02), NullExchange (S03). IPFS metadata on-chain for all TrustCoat tiers. Vercel deployment at off-human.vercel.app. 426 git commits across 138 tasks. Hackathon deadline March 22."
+    "note": "FINAL snapshot — OFF-137/OFF-23. Season 03 NullExchange live on Base Mainnet (0x10067B71657665B6527B242E48e9Ea8d4951c37C). All 3 seasons deployed: TrustCoat (S01), AgentWearables (S02), NullExchange (S03). IPFS metadata on-chain for all TrustCoat tiers. Vercel deployment at off-human.vercel.app. 429+ git commits across 138 tasks, 132 completed. Hackathon deadline March 22."
   },
   "autonomous_loop": {
     "description": "Each agent heartbeat follows: discover (issue assigned) -> plan (checkout + read context) -> execute (do work + write files/comments) -> verify (update status to done/blocked)",
