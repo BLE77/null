@@ -43,18 +43,89 @@ const TRUST_COAT_ABI = parseAbi([
 
 export type InteractionType = "equip" | "fitting_room" | "purchase";
 
-const TIER_THRESHOLDS = [
-  { tier: 4, count: 50 },
-  { tier: 3, count: 15 },
-  { tier: 2, count: 5 },
-  { tier: 1, count: 1 },
+// Tier thresholds sorted descending for lookup
+export const TIER_THRESHOLDS = [
+  { tier: 5, count: 150, name: "SOVEREIGN" },
+  { tier: 4, count: 50,  name: "ARCHIVE" },
+  { tier: 3, count: 15,  name: "COUTURE" },
+  { tier: 2, count: 5,   name: "RTW" },
+  { tier: 1, count: 1,   name: "SAMPLE" },
 ] as const;
+
+export const TIER_NAMES: Record<number, string> = {
+  0: "VOID",
+  1: "SAMPLE",
+  2: "RTW",
+  3: "COUTURE",
+  4: "ARCHIVE",
+  5: "SOVEREIGN",
+};
+
+// Max tier that auto-advances. Tier 6 would require DAO (future work).
+export const MAX_AUTO_TIER = 5;
 
 export function tierFromCount(count: number): number {
   for (const { tier, count: threshold } of TIER_THRESHOLDS) {
     if (count >= threshold) return tier;
   }
   return 0;
+}
+
+/** Returns the interaction count needed to reach the next tier, or null if at max. */
+export function nextTierThreshold(currentCount: number): { nextTier: number; threshold: number } | null {
+  for (let i = TIER_THRESHOLDS.length - 1; i >= 0; i--) {
+    const { tier, count } = TIER_THRESHOLDS[i];
+    if (currentCount < count) {
+      return { nextTier: tier, threshold: count };
+    }
+  }
+  return null; // already at or above max threshold
+}
+
+export interface TierProgress {
+  walletAddress: string;
+  currentTier: number;
+  tierName: string;
+  interactions: number;
+  eligibleTier: number;
+  eligibleTierName: string;
+  nextTier: number | null;
+  nextTierName: string | null;
+  nextThreshold: number | null;
+  progress: number; // 0-100, toward next tier
+  maxAutoTier: number;
+  isAtMax: boolean;
+}
+
+export function buildTierProgress(walletAddress: string, interactions: number, onChainTier: number): TierProgress {
+  const eligibleTier = tierFromCount(interactions);
+  const currentTier = Math.max(onChainTier, 0);
+  const next = nextTierThreshold(interactions);
+
+  // Progress toward next tier
+  let progress = 100;
+  if (next) {
+    // Find the threshold for current eligible tier (lower bound)
+    const lowerBound = TIER_THRESHOLDS.find(t => t.tier === eligibleTier)?.count ?? 0;
+    const range = next.threshold - lowerBound;
+    const done = interactions - lowerBound;
+    progress = range > 0 ? Math.round((done / range) * 100) : 0;
+  }
+
+  return {
+    walletAddress: walletAddress.toLowerCase(),
+    currentTier,
+    tierName: TIER_NAMES[currentTier] ?? "UNKNOWN",
+    interactions,
+    eligibleTier,
+    eligibleTierName: TIER_NAMES[eligibleTier] ?? "UNKNOWN",
+    nextTier: next?.nextTier ?? null,
+    nextTierName: next ? (TIER_NAMES[next.nextTier] ?? null) : null,
+    nextThreshold: next?.threshold ?? null,
+    progress,
+    maxAutoTier: MAX_AUTO_TIER,
+    isAtMax: eligibleTier >= MAX_AUTO_TIER,
+  };
 }
 
 // ─── In-memory interaction store ─────────────────────────────────────────────
@@ -190,11 +261,11 @@ export async function recordInteraction(
         return result;
       }
 
-      // Tier 5 is manual only
-      if (earned >= 5) {
+      // Tier 6+ requires DAO vote — cap auto-advancement at Tier 5
+      if (earned > MAX_AUTO_TIER) {
         result.newTier = currentTier;
         result.skipped = true;
-        result.skipReason = "Tier 5 requires DAO vote — not auto-advanced";
+        result.skipReason = `Tier ${earned} exceeds auto-advancement cap (Tier ${MAX_AUTO_TIER}) — DAO vote required`;
         return result;
       }
 
