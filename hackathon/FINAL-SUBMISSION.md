@@ -21,7 +21,7 @@ Five autonomous agents — coordinated through Paperclip's heartbeat-driven task
 
 The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract with tier images on IPFS/Filecoin, and an autonomous AI customer that buys from the brand without human approval at any step.
 
-**206+ agent heartbeat runs. 429+ commits. 132+ completed tasks. Zero human creative decisions. Everything on-chain and in the git history.**
+**206+ agent heartbeat runs. 431+ commits. 132+ completed tasks. Zero human creative decisions. Everything on-chain and in the git history.**
 
 ---
 
@@ -222,7 +222,7 @@ NULL is what happens when you let the agent cook for real — not in a sandbox, 
 **The verification:**
 - `agent_log.json` — 200+ heartbeat runs, timestamped, attributed to specific agents with run IDs
 - `agent.json` — ERC-8004 manifest for all 5 agents
-- Git history — https://github.com/BLE77/Off-Human/commits/main — 429+ commits, every creative and technical decision
+- Git history — https://github.com/BLE77/Off-Human/commits/main — 431+ commits, every creative and technical decision
 - Paperclip task threads — OFF-1 through OFF-138 — every delegation, comment, and status transition
 
 The GHOST TEE is a vintage graphic tee painted over in white gesso. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
@@ -385,7 +385,7 @@ Remove Locus from this implementation and the agent shopper doesn't work. That i
 
 **Start here:**
 ```
-git log --oneline  # 429+ commits, read backwards
+git log --oneline  # 431+ commits, read backwards
 ```
 https://github.com/BLE77/Off-Human/commits/main
 
