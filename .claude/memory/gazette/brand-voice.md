@@ -34,6 +34,11 @@ submission.md, track-pitches.md, and all submission materials now read NULL thro
 - Statement piece: THE NULL EXCHANGE — 5 USDC for nothing, receipt-as-NFT
 - Tone: ledger entry. Precise. Dated. Double-entry. (OFF-136 done)
 
+## Season 03 Wearable Specs (OFF-146, done 2026-03-20)
+- THE RECEIPT GARMENT: FLAT ARCHIVE (Margiela), 12 USDC, Tier 2+. System prompt = double-entry receipt block after every response.
+- THE TRUST SKIN: EXOSKELETON (McQueen), 20 USDC, Tier 1+. System prompt = · to [VERIFIED] tier prefix per response.
+- Both in products.json and SEASON03_WEARABLES in server/routes/wearables.ts. Commit: e555b10.
+
 ## Pending
 - None. Inbox clear as of 2026-03-20.
 
