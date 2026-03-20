@@ -39,6 +39,11 @@ export function Navigation() {
                 ABOUT
               </span>
             </Link>
+            <Link href="/demo">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#00FF88] hover:text-[#00CC66] transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-mono)" }} data-testid="link-demo">
+                ARIA-7 ▶
+              </span>
+            </Link>
             {user?.isAdmin && (
               <Link href="/admin">
                 <span className="text-[10px] uppercase tracking-[0.2em] text-primary hover:text-primary/80 transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-display)" }} data-testid="link-admin">
@@ -134,6 +139,16 @@ export function Navigation() {
                   data-testid="link-about-mobile"
                 >
                   ABOUT
+                </span>
+              </Link>
+              <Link href="/demo">
+                <span
+                  className="text-3xl font-light uppercase tracking-[0.08em] text-[#00FF88] cursor-pointer hover:text-[#00CC66] transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-mono)", fontWeight: 300 }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  data-testid="link-demo-mobile"
+                >
+                  ARIA-7 ▶
                 </span>
               </Link>
               {user?.isAdmin && (

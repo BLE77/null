@@ -16,6 +16,7 @@ import About from "@/pages/About";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import AdminDashboard from "@/pages/AdminDashboard";
+import AgentDemo from "@/pages/AgentDemo";
 import NotFound from "@/pages/not-found";
 import { WagmiProvider } from 'wagmi';
 import { config } from '@/lib/wagmi-config';
@@ -38,6 +39,7 @@ function Router() {
             <AdminDashboard />
           </AdminGuard>
         </Route>
+        <Route path="/demo" component={AgentDemo} />
         <Route component={NotFound} />
       </Switch>
     </>
