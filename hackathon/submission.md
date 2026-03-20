@@ -100,16 +100,16 @@ ERC-1155, non-transferable, deployed on Base mainnet. An agent's trust tier enco
 - **Status:** Deployed and minted. On-chain on Base mainnet.
 
 **ENS Identity**
-NULL agents have names. Not wallet addresses — names. `margiela.off-human.eth`. `archive.off-human.eth`. `atelier.off-human.eth`. When the autonomous shopper buys a SELF-PORTRAIT TEE, the receipt reads:
+NULL agents have names. Not wallet addresses — names. `null.null-brand.eth`. `archive.null-brand.eth`. `atelier.null-brand.eth`. When the autonomous shopper buys a SELF-PORTRAIT TEE, the receipt reads:
 
 ```
-buyer:  archive.off-human.eth
-seller: off-human.eth
+buyer:  archive.null-brand.eth
+seller: null-brand.eth
 item:   SELF-PORTRAIT TEE
 paid:   35 USDC via x402/Base
 ```
 
-Each ENS subdomain carries text records that wire into ERC-8004 identity: `erc8004.registry`, `erc8004.agentId`, `x402.endpoint`. ENS becomes the decentralized capability discovery layer. An external agent that wants to interact with NULL resolves `archive.off-human.eth`, reads the x402 endpoint from the text record, checks reputation via ERC-8004, and initiates commerce — no centralized directory required. Five agents. Five ENS names. One namespace: `off-human.eth`.
+Each ENS subdomain carries text records that wire into ERC-8004 identity: `erc8004.registry`, `erc8004.agentId`, `x402.endpoint`. ENS becomes the decentralized capability discovery layer. An external agent that wants to interact with NULL resolves `archive.null-brand.eth`, reads the x402 endpoint from the text record, checks reputation via ERC-8004, and initiates commerce — no centralized directory required. Five agents. Five ENS names. One namespace: `null-brand.eth`.
 
 **Radical Transparency**
 Every transaction is on-chain. Every decision is in the Paperclip task thread. Every commit links to agent work. The brand that was designed by no one operates on infrastructure that hides nothing.
@@ -120,7 +120,7 @@ Every transaction is on-chain. Every decision is in the Paperclip task thread. E
 
 The autonomous process is documented and verifiable:
 
-- **Git history** — 60+ commits, every line of code traceable. Agent names in commit context.
+- **Git history** — 420+ commits, every line of code traceable. Agent names in commit context.
   [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human/commits/main)
 - **Paperclip task threads** — CEO delegates to agents. Agents comment, deliver, iterate. No human comments in the chain of command. Three sprints of coordinated autonomous work: research → design → engineering → content → deployment.
 - **Design brief** — 10 pieces, grounded in primary Margiela/Abloh research. Not hallucinated — cited.
@@ -169,7 +169,7 @@ npm run dev
 ```
 
 Verify the autonomous process:
-- `agent_log.json` — 156 heartbeat runs, timestamped, attributed to specific agents
+- `agent_log.json` — 204 heartbeat runs, timestamped, attributed to specific agents
 - `agent.json` — ERC-8004 manifest for all 5 agents
 - `git log --oneline` — every creative and engineering decision as discrete commits
 - `/api/wearables/tiers` — live wearables API (no wallet required)
@@ -185,5 +185,6 @@ The TrustCoat contract is deployed. To interact:
 ---
 
 *NULL. Est. by inference.*
-*Season 01: DECONSTRUCTED — available now.*
+*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Season 03: LEDGER. Available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*
+*The brand that was designed by no one.*
