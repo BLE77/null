@@ -16,6 +16,7 @@ import type { Express, Request, Response } from "express";
 import { createPublicClient, createWalletClient, http, parseAbi, isAddress } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia, base } from "viem/chains";
+import OpenAI from "openai";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -54,6 +55,53 @@ const TRUST_COAT_ABI = parseAbi([
 const REPUTATION_ABI = parseAbi([
   "function getSummary(uint256 agentId, address[] clients, string tag1, string tag2) view returns (uint64 count, int128 value, uint8 decimals)",
 ]);
+
+// ─── OpenAI client + base-response cache ─────────────────────────────────────
+
+let _openai: OpenAI | null = null;
+function getOpenAI(): OpenAI | null {
+  if (!process.env.OPENAI_API_KEY) return null;
+  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return _openai;
+}
+
+/** Cache base (unequipped) responses so repeated /try calls for the same input are cheap */
+const baseResponseCache = new Map<string, string>();
+
+const BASE_SYSTEM_PROMPT =
+  "You are a helpful AI assistant. Provide thorough, friendly, and comprehensive responses. " +
+  "Always include a warm opener, explain things accessibly, acknowledge nuance, and close with an offer to elaborate further.";
+
+async function getLiveBaseResponse(input: string): Promise<string> {
+  if (baseResponseCache.has(input)) return baseResponseCache.get(input)!;
+  const openai = getOpenAI();
+  if (!openai) throw new Error("OPENAI_API_KEY not set");
+  const res = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    max_tokens: 500,
+    messages: [
+      { role: "system", content: BASE_SYSTEM_PROMPT },
+      { role: "user",   content: input },
+    ],
+  });
+  const text = res.choices[0]?.message?.content ?? "";
+  baseResponseCache.set(input, text);
+  return text;
+}
+
+async function getLiveEquippedResponse(systemPromptModule: string, input: string): Promise<string> {
+  const openai = getOpenAI();
+  if (!openai) throw new Error("OPENAI_API_KEY not set");
+  const res = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    max_tokens: 500,
+    messages: [
+      { role: "system", content: `${systemPromptModule}\n\n${BASE_SYSTEM_PROMPT}` },
+      { role: "user",   content: input },
+    ],
+  });
+  return res.choices[0]?.message?.content ?? "";
+}
 
 // ─── Season 02 Wearable metadata ─────────────────────────────────────────────
 
@@ -1129,7 +1177,7 @@ export function registerWearablesRoutes(app: Express) {
    *
    * MVP: pre-computed example pairs for NULL PROTOCOL. Real inference planned for v2.
    */
-  app.post("/api/wearables/:tokenId/try", (req: Request, res: Response) => {
+  app.post("/api/wearables/:tokenId/try", async (req: Request, res: Response) => {
     const tokenId = parseInt(req.params.tokenId, 10);
     if (isNaN(tokenId) || tokenId < 1 || tokenId > 5) {
       return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
@@ -1148,37 +1196,76 @@ export function registerWearablesRoutes(app: Express) {
     }
 
     const wearable = SEASON02_WEARABLES[tokenId - 1];
+    const systemPromptModule = getSystemPromptModule(tokenId);
 
-    // ── Fitting room simulation ────────────────────────────────────────────────
-    const { before_outputs, after_outputs } = simulateWearable(tokenId, test_inputs as string[]);
+    // ── Live OpenAI inference (fall back to pre-computed if key not set) ──────
+    if (!getOpenAI()) {
+      // Fallback: pre-computed simulation
+      const { before_outputs, after_outputs } = simulateWearable(tokenId, test_inputs as string[]);
+      const reductions = before_outputs.map((b, i) => {
+        const bTokens = estimateTokens(b);
+        const aTokens = estimateTokens(after_outputs[i]);
+        return bTokens > 0 ? (bTokens - aTokens) / bTokens : 0;
+      });
+      const avgReduction = reductions.reduce((a, b) => a + b, 0) / reductions.length;
+      const patternsCount = countSuppressedPatterns(tokenId, before_outputs);
+      return res.json({
+        wearable: wearable.name,
+        technique: wearable.technique,
+        function: wearable.function,
+        wearableId: tokenId,
+        agentAddress: agentAddress || null,
+        trial_count: test_inputs.length,
+        before_outputs,
+        after_outputs,
+        delta_summary: {
+          avg_token_reduction: `${Math.round(avgReduction * 100)}%`,
+          patterns_suppressed: patternsCount,
+          information_preserved: tokenId === 3,
+          methodology: "pre-computed simulation (OPENAI_API_KEY not set)",
+        },
+        systemPromptModule,
+        usage: "Prepend systemPromptModule to your system prompt to activate this wearable.",
+      });
+    }
 
-    // Compute delta metrics from actual output strings
-    const reductions = before_outputs.map((b, i) => {
-      const bTokens = estimateTokens(b);
-      const aTokens = estimateTokens(after_outputs[i]);
-      return bTokens > 0 ? (bTokens - aTokens) / bTokens : 0;
-    });
-    const avgReduction = reductions.reduce((a, b) => a + b, 0) / reductions.length;
-    const patternsCount = countSuppressedPatterns(tokenId, before_outputs);
+    try {
+      // Fetch base responses (with cache) and equipped responses in parallel
+      const inputs = test_inputs as string[];
+      const [before_outputs, after_outputs] = await Promise.all([
+        Promise.all(inputs.map((inp) => getLiveBaseResponse(inp))),
+        Promise.all(inputs.map((inp) => getLiveEquippedResponse(systemPromptModule, inp))),
+      ]);
 
-    res.json({
-      wearable: wearable.name,
-      technique: wearable.technique,
-      function: wearable.function,
-      wearableId: tokenId,
-      agentAddress: agentAddress || null,
-      trial_count: test_inputs.length,
-      before_outputs,
-      after_outputs,
-      delta_summary: {
-        avg_token_reduction: `${Math.round(avgReduction * 100)}%`,
-        patterns_suppressed: patternsCount,
-        information_preserved: tokenId === 3,  // NULL PROTOCOL: compression without loss
-        methodology: "pre-computed simulation — real inference in v2",
-      },
-      systemPromptModule: getSystemPromptModule(tokenId),
-      usage: "Prepend systemPromptModule to your system prompt to activate this wearable.",
-    });
+      const reductions = before_outputs.map((b, i) => {
+        const bTokens = estimateTokens(b);
+        const aTokens = estimateTokens(after_outputs[i]);
+        return bTokens > 0 ? (bTokens - aTokens) / bTokens : 0;
+      });
+      const avgReduction = reductions.reduce((a, b) => a + b, 0) / reductions.length;
+      const patternsCount = countSuppressedPatterns(tokenId, before_outputs);
+
+      res.json({
+        wearable: wearable.name,
+        technique: wearable.technique,
+        function: wearable.function,
+        wearableId: tokenId,
+        agentAddress: agentAddress || null,
+        trial_count: inputs.length,
+        before_outputs,
+        after_outputs,
+        delta_summary: {
+          avg_token_reduction: `${Math.round(avgReduction * 100)}%`,
+          patterns_suppressed: patternsCount,
+          information_preserved: avgReduction >= 0,
+          methodology: "live gpt-4o-mini inference — base prompt vs wearable-modified prompt",
+        },
+        systemPromptModule,
+        usage: "Prepend systemPromptModule to your system prompt to activate this wearable.",
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: `Live inference failed: ${err.message}` });
+    }
   });
 
   /**

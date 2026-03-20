@@ -51,10 +51,10 @@ export function CartSidebar() {
               {cart.map((item) => (
                 <div 
                   key={`${item.product.id}-${item.size}`} 
-                  className="flex gap-4 border border-border rounded-md p-4 hover-elevate"
+                  className="flex gap-4 border border-border p-4"
                   data-testid={`cart-item-${item.product.id}`}
                 >
-                  <div className="w-20 h-20 bg-muted rounded-md overflow-hidden">
+                  <div className="w-20 h-20 bg-muted overflow-hidden" style={{ background: "#EFEDE7" }}>
                     <img 
                       src={getProductImage(item.product.imageUrl) || item.product.imageUrl} 
                       alt={item.product.name}

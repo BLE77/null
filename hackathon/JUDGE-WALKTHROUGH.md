@@ -132,6 +132,8 @@ Each run is bounded. Each task requires checkout before work begins. Every deleg
 
 ## 9. Read the full story
 
+`hackathon/SUBMISSION-NARRATIVE.md` — 700-word narrative: the thesis, what was built, how it was built, why it matters.
+
 `hackathon/FINAL-SUBMISSION.md` — the complete submission with track pitches, technical stack, on-chain infrastructure, and verification.
 
 ---
@@ -150,6 +152,7 @@ Each run is bounded. Each task requires checkout before work begins. Every deleg
 | AgentWearables contract | `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1` |
 | Git history | https://github.com/BLE77/Off-Human/commits/main |
 | Agent log | `agent_log.json` |
+| Submission narrative | `hackathon/SUBMISSION-NARRATIVE.md` |
 | Full submission | `hackathon/FINAL-SUBMISSION.md` |
 
 ---
