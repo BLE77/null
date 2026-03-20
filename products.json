@@ -631,17 +631,18 @@
     "token_standard": "ERC-1155",
     "chain": "Base",
     "interior_tag": "LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT",
-    "image_url": "/attached_assets/season03/wearables/receipt_garment.png",
+    "image_url": "/attached_assets/season03/receipt-garment-product.svg",
     "images": [
-      "/attached_assets/season03/wearables/receipt_garment.png"
+      "/attached_assets/season03/receipt-garment-product.svg",
+      "/attached_assets/season03/s03_receipt_garment_hero.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-20T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season03/wearables/receipt_garment.png",
-    "shop_image_url": "/attached_assets/season03/wearables/receipt_garment.png"
+    "home_page_image_url": "/attached_assets/season03/s03_receipt_garment_hero.png",
+    "shop_image_url": "/attached_assets/season03/receipt-garment-product.svg"
   },
   {
     "id": "s03-wearable-002",
@@ -659,17 +660,18 @@
     "token_standard": "ERC-1155",
     "chain": "Base",
     "interior_tag": "TIER: VISIBLE / SURFACE: SIGNAL / CHANGE: EARNED NOT GRANTED",
-    "image_url": "/attached_assets/season03/wearables/trust_skin.png",
+    "image_url": "/attached_assets/season03/trust-skin-product.svg",
     "images": [
-      "/attached_assets/season03/wearables/trust_skin.png"
+      "/attached_assets/season03/trust-skin-product.svg",
+      "/attached_assets/season03/s03_trust_skin_tier3_hero.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
     },
     "created_at": "2026-03-20T00:00:00.000Z",
     "model_url": null,
-    "home_page_image_url": "/attached_assets/season03/wearables/trust_skin.png",
-    "shop_image_url": "/attached_assets/season03/wearables/trust_skin.png"
+    "home_page_image_url": "/attached_assets/season03/s03_trust_skin_tier3_hero.png",
+    "shop_image_url": "/attached_assets/season03/trust-skin-product.svg"
   },
   {
     "id": "null-exchange-s03-001",

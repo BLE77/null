@@ -4,7 +4,7 @@ import type { Product } from "@shared/schema";
 import { ShopProductCell } from "@/components/ShopProductCell";
 import { NullFooter } from "@/components/NullFooter";
 
-const SEASONS = ["all", "01", "02"];
+const SEASONS = ["all", "03", "02", "01"];
 
 export default function Shop() {
   const [activeSeason, setActiveSeason] = useState("all");
@@ -17,9 +17,11 @@ export default function Shop() {
     return activeSeason === "all" ? true : (p as any).season === activeSeason;
   });
 
+  const season03Wearables = filtered?.filter((p) => (p as any).season === "03" && p.category === "wearables");
+  const season03Nft = filtered?.filter((p) => (p as any).season === "03" && p.category !== "wearables");
   const season01Products = filtered?.filter((p) => (p as any).season === "01" && p.category !== "wearables");
   const season02Products = filtered?.filter((p) => (p as any).season === "02" && p.category !== "wearables");
-  const wearableProducts = filtered?.filter((p) => p.category === "wearables");
+  const wearableProducts = filtered?.filter((p) => p.category === "wearables" && (p as any).season !== "03");
 
   const totalCount = products?.length ?? 0;
 
@@ -69,9 +71,42 @@ export default function Shop() {
           </div>
         ) : (
           <>
-            {season02Products && season02Products.length > 0 && (
+              {(season03Wearables?.length || 0) + (season03Nft?.length || 0) > 0 && (
               <div className="mb-0">
-                <div className="col-span-2 border-t border-border mt-4 pt-4 mb-8">
+                <div className="col-span-2 border-t border-border mt-4 pt-4 mb-2">
+                  <span
+                    className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
+                    style={{ fontFamily: "var(--font-mono)" }}
+                  >
+                    S03 — LEDGER
+                  </span>
+                </div>
+                <p
+                  className="text-[10px] text-muted-foreground mb-8 tracking-[0.1em]"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  The record is the object. The transaction is the garment.
+                </p>
+                {season03Nft && season03Nft.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 mb-0">
+                    {season03Nft.map((product) => (
+                      <ShopProductCell key={product.id} product={product} />
+                    ))}
+                  </div>
+                )}
+                {season03Wearables && season03Wearables.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                    {season03Wearables.map((product) => (
+                      <ShopProductCell key={product.id} product={product} wearable />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+          {season02Products && season02Products.length > 0 && (
+              <div className="mb-0">
+                <div className="col-span-2 border-t border-border mt-16 pt-4 mb-8">
                   <span
                     className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
                     style={{ fontFamily: "var(--font-mono)" }}
