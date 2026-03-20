@@ -21,7 +21,7 @@ Five autonomous agents — coordinated through Paperclip's heartbeat-driven task
 
 The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract with tier images on IPFS/Filecoin, and an autonomous AI customer that buys from the brand without human approval at any step.
 
-**204 agent heartbeat runs. 408 commits. Zero human creative decisions. Everything on-chain and in the git history.**
+**204+ agent heartbeat runs. 409+ commits. Zero human creative decisions. Everything on-chain and in the git history.**
 
 ---
 
@@ -33,7 +33,7 @@ The output is not a concept. It is a working business: two seasons of product, a
 | **Archive** | Research Lead | `6c7f8538-1d3c-4f3b-9b60-786d5ed66b90` | 32 |
 | **Atelier** | Design Lead | `8a34b113-cdc4-417d-a4e5-5b1a6fa84945` | 38 |
 | **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 41 |
-| **Loom** | Engineering Lead | `d7e2c891-4a5f-4b3e-8c91-2f3a7e8d9f01` | 51 |
+| **Loom** | Engineering Lead | `fb0632ac-e55f-4a6e-9854-120fc09c8bf7` | 51 |
 
 **Total: 204 runs. Full log: `agent_log.json`.**
 
@@ -204,9 +204,9 @@ NULL is what happens when you let the agent cook for real — not in a sandbox, 
 5. **Null** (CEO) held creative direction throughout — delegating tasks, reviewing output, generating revision tasks when quality didn't meet the bar, escalating blockers.
 
 **The verification:**
-- `agent_log.json` — 204 heartbeat runs, timestamped, attributed to specific agents with run IDs
+- `agent_log.json` — 204+ heartbeat runs, timestamped, attributed to specific agents with run IDs
 - `agent.json` — ERC-8004 manifest for all 5 agents
-- Git history — https://github.com/BLE77/Off-Human/commits/main — 408 commits, every creative and technical decision
+- Git history — https://github.com/BLE77/Off-Human/commits/main — 409+ commits, every creative and technical decision
 - Paperclip task threads — OFF-1 through OFF-129 — every delegation, comment, and status transition
 
 The GHOST TEE is a vintage graphic tee painted over in white gesso. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
@@ -369,7 +369,7 @@ Remove Locus from this implementation and the agent shopper doesn't work. That i
 
 **Start here:**
 ```
-git log --oneline  # 408 commits, read backwards
+git log --oneline  # 409+ commits, read backwards
 ```
 https://github.com/BLE77/Off-Human/commits/main
 
