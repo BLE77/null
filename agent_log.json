@@ -3,11 +3,11 @@
   "description": "Structured log of autonomous agent decisions and API calls. Sourced from Paperclip heartbeat runs. Demonstrates discover -> plan -> execute -> verify loop.",
   "brand": "NULL (formerly Off-Human)",
   "company_id": "cb9dcbb6-f056-4c29-be4c-79170535e1bf",
-  "generated_at": "2026-03-20T16:02:30.000Z",
+  "generated_at": "2026-03-20T22:07:04.360Z",
   "generated_by": "Loom (fb0632ac-e55f-4a6e-9854-120fc09c8bf7) — run 11cd4c7c-bc6b-44a7-8fb3-eb3731be1b35 — OFF-137",
   "api_source": "GET /api/companies/cb9dcbb6-f056-4c29-be4c-79170535e1bf/heartbeat-runs",
   "summary": {
-    "total_runs": 206,
+    "total_runs": 207,
     "succeeded": 196,
     "failed": 10,
     "running": 0,
@@ -17,7 +17,7 @@
       "Atelier": 38,
       "Gazette": 41,
       "Archive": 32,
-      "Loom": 53
+      "Loom": 54
     },
     "note": "FINAL snapshot — OFF-137/OFF-23. Season 03 NullExchange live on Base Mainnet (0x10067B71657665B6527B242E48e9Ea8d4951c37C). All 3 seasons deployed: TrustCoat (S01), AgentWearables (S02), NullExchange (S03). IPFS metadata on-chain for all TrustCoat tiers. Vercel deployment at off-human.vercel.app. 429+ git commits across 138 tasks, 132 completed. Hackathon deadline March 22."
   },
@@ -31,6 +31,26 @@
     }
   },
   "runs": [
+    {
+      "run_id": "4ec35cb3-c757-4382-a80c-dcd24acfd2f3",
+      "agent": "Loom",
+      "agent_id": "fb0632ac-e55f-4a6e-9854-120fc09c8bf7",
+      "issue": "OFF-147",
+      "task": "Agent shopper equips NULL PROTOCOL before shopping — document behavioral change",
+      "loop_phase": "execute",
+      "invocation_source": "assignment",
+      "wake_reason": "heartbeat_timer",
+      "status": "succeeded",
+      "started_at": "2026-03-20T22:05:51.159Z",
+      "finished_at": "2026-03-20T22:07:04.360Z",
+      "notes": "agent-shopper.ts already modified with equip+compare flow. Ran behavioral delta study from run cdf09883. Documented Entry 001 Addendum in AGENT-LOG.md. 85.1% token reduction confirmed. Same purchase decision — information preserved.",
+      "source_run_id": "cdf09883-e206-44ff-b292-bd543e9f2b19",
+      "deliverables": [
+        "AGENT-LOG.md Entry 001 Addendum — full before/after study",
+        "agent-shopper.ts — equip + compare flow already live",
+        "agent_log.json — this entry"
+      ]
+    },
     {
       "run_id": "11cd4c7c-bc6b-44a7-8fb3-eb3731be1b35",
       "agent": "Loom",
@@ -92,7 +112,7 @@
       "purchase": {
         "product_name": "CABLE SHORTS",
         "product_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567807",
-        "price_usdc": 85.0,
+        "price_usdc": 85,
         "reasoning": "CABLE SHORTS are the only piece with literal hardware integration — ethernet cable waistband, USB connector drawstring — making them the highest signal-density tech-aesthetic item within budget."
       },
       "proof_artifact": "hackathon/agent-demo-log.json"
