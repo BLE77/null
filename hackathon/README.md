@@ -14,90 +14,96 @@ This README is the entry point for judges. Everything is verifiable.
 |---|---|
 | **Live Store** | https://off-human.vercel.app |
 | **Git Repository** | https://github.com/BLE77/Off-Human |
-| **Open Track Submission ($25K)** | [hackathon/open-track-submission.md](open-track-submission.md) |
-| **Submission Doc** | [hackathon/submission.md](submission.md) |
-| **Track Pitches** | [hackathon/track-pitches.md](track-pitches.md) |
+| **Full Submission** | [hackathon/FINAL-SUBMISSION.md](FINAL-SUBMISSION.md) |
+| **Judge Walkthrough (2 min)** | [hackathon/JUDGE-WALKTHROUGH.md](JUDGE-WALKTHROUGH.md) |
+| **Submission Narrative** | [hackathon/SUBMISSION-NARRATIVE.md](SUBMISSION-NARRATIVE.md) |
 | **Autonomous Process** | [hackathon/autonomous-process.md](autonomous-process.md) |
-| **TrustCoat Contract** | Base Sepolia — see [ON-CHAIN](#on-chain) below |
-| **Agent Wearables API** | `/api/wearables/tiers` — live on Vercel |
+| **TrustCoat Contract** | `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` — Base mainnet |
+| **AgentWearables Contract** | `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1` — Base mainnet |
 
 ---
 
 ## What Was Built
 
 ### The Brand
-Season 01: DECONSTRUCTED. Ten physical garments, each using a documented design technique (Trompe-l'oeil, Replica Line, Artisanal, Bianchetto, 3% Rule). Five agent wearables applying the same techniques to AI identity.
+
+NULL is a fashion brand with no human author. The name is the thesis — the author-slot is deliberately assigned the value of absence.
+
+**Season 01: DECONSTRUCTED** — Ten physical garments, each using a documented design technique (Trompe-l'oeil, Replica Line, Artisanal, Bianchetto, 3% Rule) derived from primary Margiela and Abloh research. Five agent wearables applying the same techniques to AI identity.
+
+**Season 02: SUBSTRATE** — Five technical garments applying Archive's research to material systems and process artifacts. Available alongside Season 01 at the live store.
 
 ### The Infrastructure
-- React 18 + Tailwind + Framer Motion frontend
+
+- React 18 + Tailwind + Framer Motion frontend with custom NULL design system — applied to every screen
 - Express.js + Drizzle ORM + PostgreSQL (Neon serverless) backend
 - x402 payment middleware — USDC on Base, no human approval
-- Autonomous agent shopper: browses, decides, pays, closes the loop
+- Two contracts deployed to Base mainnet: TrustCoat + AgentWearables
+- Autonomous agent shopper: browses, uses GPT-4 to decide, pays via x402 USDC, closes the loop
+- Fitting room endpoint — live behavioral delta demonstration before purchase
 
 ### The Agent Team
-Five agents operated through Paperclip's coordination infrastructure:
 
-| Agent | Role | Output |
+Five agents operated through Paperclip's heartbeat-driven task system:
+
+| Agent | Role | Runs |
 |---|---|---|
-| **Margiela** | CEO / Creative Director | Brand vision, task delegation |
-| **Archive** | Research Lead | Fashion theory corpus, technique documentation |
-| **Atelier** | Design Lead | Season 01 design brief, agent wearables category |
-| **Gazette** | CMO / Content Director | Manifesto, copy, this document |
-| **Loom** | Engineering Lead | Store, x402 payments, TrustCoat contract |
+| **Null** | CEO / Creative Director | 42 |
+| **Archive** | Research Lead | 32 |
+| **Atelier** | Design Lead | 38 |
+| **Gazette** | Content Director | 41 |
+| **Loom** | Engineering Lead | 51 |
+
+**204 runs. 408 commits. 129 tasks. Zero human creative decisions.**
 
 ---
 
 ## ON-CHAIN
 
-### TRUST COAT — ERC-1155 Soul-Bound Token
-- **Network:** Base Sepolia (testnet)
-- **Contract:** See `hackathon/deployed-addresses.json` after deployment, or check Basescan
+### TrustCoat — ERC-1155 Soul-Bound Token
+
+- **Network:** Base mainnet (chainId 8453)
+- **Contract:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`
+- **Basescan:** https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e
+- **Deploy tx:** `0x741fe2ab5e01a345fa9b23951d284cc2ec8db7aa3ad08b5e4de7489e7938e7cf` (block 43556835)
+- **Test mint:** `0x368ce8d24c4f544a1460e4332b36a0da38530e7b9850d13b68fbc8242eee333b`
 - **Standard:** ERC-1155, non-transferable (soul-bound)
-- **Tiers:** 0–5, encoding interaction history as verifiable trust
-- **Metadata endpoint:** `/api/wearables/metadata/{tier}` — live on Vercel
+- **Tiers:** 0–5, encoding interaction history as verifiable trust. Cannot decrease. Cannot be transferred.
+
+### AgentWearables — Season 02 Behavior Tokens
+
+- **Network:** Base mainnet (chainId 8453)
+- **Contract:** `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`
+- **Basescan:** https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1
+- Five behavioral modification tokens with tier-gated access
 
 ### x402 Payments
+
 The store requires USDC payment before completing any purchase. The flow:
 1. Agent requests purchase → store returns `402 Payment Required`
 2. Agent's wallet signs and sends USDC on Base
-3. PayAI facilitator verifies → order completes on-chain
+3. PayAI facilitator verifies → order completes
 No human approves any step.
 
 ### Autonomous Agent Shopper
-`scripts/agent-shopper.ts` — an AI that browses the store, uses GPT-4 to decide what to buy, pays with USDC via x402. Machine buying from machine. The transaction hash is in the git history.
 
----
-
-## THE PROOF
-
-### Git History
-[https://github.com/BLE77/Off-Human/commits/main](https://github.com/BLE77/Off-Human/commits/main)
-
-40+ commits. Every line traceable. Agent work documented in commit context. Engineering iterations visible as discrete commits: identify failure → propose approach → test → iterate.
-
-### Autonomous Process Documentation
-[hackathon/autonomous-process.md](autonomous-process.md)
-
-Three sprints. Research → Design → Engineering → Content → Deployment. The task threads are the audit trail. Every decision documented before execution.
-
-### Wearables API
-Live endpoints for agent-first browsing:
-- `GET /api/wearables/tiers` — all five wearable tiers with capability metadata
-- `GET /api/wearables/check/{address}` — check an agent's Trust Coat tier
-- `GET /api/wearables/metadata/{tier}` — ERC-1155 JSON metadata per tier
+`scripts/agent-shopper.ts` — an AI that browses the store, uses GPT-4 to decide what to buy, pays with USDC via x402. Machine buying from machine.
 
 ---
 
 ## TRACKS
 
-| Track | Prize | Why We Qualify |
+| Track | Prize | Status |
 |---|---|---|
-| **Agent Services on Base** | $5,000 | x402 USDC payments + TrustCoat ERC-1155 + autonomous agent shopper |
-| **Let the Agent Cook** | $8,000 | Five agents built a real brand, zero human creative input |
+| **Agent Services on Base** | $5,000 | x402 USDC payments + TrustCoat ERC-1155 + autonomous agent shopper + wearables equip demo |
+| **Let the Agent Cook** | $8,000 | Five agents built a real brand, 408 commits, zero human creative input |
 | **Best Agent on Celo** | $5,000 | Cross-chain Trust Coat reputation bridge proposal |
 | **ERC-8183 Open Build** | $2,000 | Agent wearables as open consumer layer for agent identity standard |
+| **SuperRare Autonomous Agent Art** | $2,500 | Three 1/1 pieces by Atelier, THE ANONYMOUS ATELIER collection |
+| **Future of Commerce + Slice Hooks** | $1,300 | NULL wearables purchasable through Slice protocol, TrustCoat advances on every purchase |
+| **Best Use of Locus** | $3,000 | Agent self-registration, pay-per-inference, spending controls, gasless USDC on Base |
 
-Full pitches: [hackathon/track-pitches.md](track-pitches.md)
+Full details: [hackathon/FINAL-SUBMISSION.md](FINAL-SUBMISSION.md)
 
 ---
 
@@ -105,14 +111,22 @@ Full pitches: [hackathon/track-pitches.md](track-pitches.md)
 
 Everything is open. Nothing is hidden.
 
-- **Source code:** [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human)
-- **Store:** [off-human.vercel.app](https://off-human.vercel.app)
-- **Contract:** Basescan, Base Sepolia
-- **Agent process:** Paperclip task threads (autonomous operation log)
+```bash
+git clone https://github.com/BLE77/Off-Human
+cd Off-Human
+git log --oneline  # 408 commits, read backwards
+```
+
+- **Source:** https://github.com/BLE77/Off-Human
+- **Store:** https://off-human.vercel.app
+- **Agent log:** `agent_log.json` — 204 heartbeat runs, timestamped, attributed
+- **Agent manifest:** `agent.json` — ERC-8004 manifest for all 5 agents
+- **Paperclip tasks:** OFF-1 through OFF-129 — every delegation and status transition
 
 The discomfort is the product. The brand was made by no one. That is the point.
 
 ---
 
 *NULL. Est. by inference.*
-*Season 01: DECONSTRUCTED — available now.*
+*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Available now.*
+*Store: autonomous. Payments: on-chain. Designer: absent.*

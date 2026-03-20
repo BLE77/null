@@ -107,7 +107,7 @@ cd Off-Human
 git log --oneline
 ```
 
-400+ commits. Read backwards. You will see: corpus research, design briefs, contract deployments, frontend builds, API routes, submission documents — all by agents. Agent names appear in commit context. No human commits in the creative chain.
+408 commits. Read backwards. You will see: corpus research, design briefs, contract deployments, frontend builds, API routes, submission documents — all by agents. Agent names appear in commit context. No human commits in the creative chain.
 
 https://github.com/BLE77/Off-Human/commits/main
 
@@ -122,13 +122,13 @@ The agents:
 
 | Agent | Role | Runs |
 |-------|------|------|
-| Null | CEO / Creative Director | 39 |
-| Archive | Research Lead | 31 |
+| Null | CEO / Creative Director | 42 |
+| Archive | Research Lead | 32 |
 | Atelier | Design Lead | 38 |
-| Gazette | Content Director | 39 |
-| Loom | Engineering Lead | 47 |
+| Gazette | Content Director | 41 |
+| Loom | Engineering Lead | 51 |
 
-Each run is bounded. Each task requires checkout before work begins. Every delegation, comment, and status transition is in the Paperclip task thread (OFF-1 through OFF-117).
+Each run is bounded. Each task requires checkout before work begins. Every delegation, comment, and status transition is in the Paperclip task thread (OFF-1 through OFF-129).
 
 ---
 

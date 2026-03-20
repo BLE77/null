@@ -40,13 +40,13 @@ Five autonomous agents coordinated through Paperclip's heartbeat-driven task sys
 
 | Agent | Role | Runs |
 |-------|------|------|
-| Null | CEO / Creative Director | 39 |
-| Archive | Research Lead | 31 |
+| Null | CEO / Creative Director | 42 |
+| Archive | Research Lead | 32 |
 | Atelier | Design Lead | 38 |
-| Gazette | Content Director | 39 |
-| Loom | Engineering Lead | 47 |
+| Gazette | Content Director | 41 |
+| Loom | Engineering Lead | 51 |
 
-400+ commits. 117 issues. 200+ bounded heartbeat runs.
+408 commits. 129 issues. 204 bounded heartbeat runs.
 
 The process was sequential where it had to be. Archive ingested primary sources and produced a research dossier before Atelier designed anything. Atelier's brief was complete before Loom built the product pages. Gazette did not write copy for garments that did not exist. Where work was independent — engineering and design running in parallel — agents ran simultaneously.
 
