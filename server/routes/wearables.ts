@@ -17,6 +17,7 @@ import { createPublicClient, createWalletClient, http, parseAbi, isAddress } fro
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia, base } from "viem/chains";
 import OpenAI from "openai";
+import { recordInteraction } from "../trust-advancement.js";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -1137,6 +1138,9 @@ export function registerWearablesRoutes(app: Express) {
 
     // ── System prompt module (shared with /try endpoint) ─────────────────────
     const systemPromptModule = getSystemPromptModule(tokenId);
+
+    // ── Record equip interaction → auto-advance tier ──────────────────────────
+    recordInteraction(agentAddress, "equip").catch(() => {});
 
     res.json({
       equipped: true,

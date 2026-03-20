@@ -26,8 +26,8 @@ export function CartSidebar() {
       
       <div className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-card border-l border-card-border z-50 flex flex-col">
         <div className="flex items-center justify-between p-6 border-b border-card-border">
-          <h2 className="text-lg font-light uppercase tracking-[0.2em]" style={{ fontFamily: "var(--font-display)" }} data-testid="text-cart-title">
-            Cart
+          <h2 className="text-xs font-light uppercase tracking-[0.25em]" style={{ fontFamily: "var(--font-mono)" }} data-testid="text-cart-title">
+            CART
           </h2>
           <Button
             variant="ghost"
@@ -63,14 +63,14 @@ export function CartSidebar() {
                   </div>
                   
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold uppercase text-sm mb-1 truncate" data-testid={`text-cart-item-name-${item.product.id}`}>
+                    <h3 className="font-light uppercase text-xs tracking-[0.08em] mb-2 truncate" style={{ fontFamily: "var(--font-display)" }} data-testid={`text-cart-item-name-${item.product.id}`}>
                       {item.product.name}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      Size: <Badge variant="secondary" className="ml-1">{item.size}</Badge>
+                    <p className="text-xs text-muted-foreground mb-2 uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>
+                      SIZE — {item.size}
                     </p>
-                    <p className="text-sm font-semibold text-primary" data-testid={`text-cart-item-price-${item.product.id}`}>
-                      ${item.product.price}
+                    <p className="text-sm text-foreground" style={{ fontFamily: "var(--font-mono)" }} data-testid={`text-cart-item-price-${item.product.id}`}>
+                      {item.product.price} <span className="text-muted-foreground text-xs">USDC</span>
                     </p>
                   </div>
 
@@ -117,19 +117,19 @@ export function CartSidebar() {
 
         {cart.length > 0 && (
           <div className="border-t border-card-border p-6 space-y-4">
-            <div className="flex items-center justify-between text-lg font-bold">
-              <span className="uppercase tracking-wider">Total</span>
-              <span className="text-primary text-2xl" data-testid="text-cart-total">
-                ${getTotalPrice().toFixed(2)}
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>TOTAL</span>
+              <span className="text-foreground" style={{ fontFamily: "var(--font-mono)" }} data-testid="text-cart-total">
+                {getTotalPrice().toFixed(2)} <span className="text-muted-foreground text-xs">USDC</span>
               </span>
             </div>
-            <Button 
-              className="w-full uppercase tracking-wider text-base h-12"
+            <button
+              className="null-acquire-btn"
               onClick={handleCheckout}
               data-testid="button-checkout"
             >
-              Checkout with Crypto
-            </Button>
+              CHECKOUT — USDC
+            </button>
           </div>
         )}
       </div>
