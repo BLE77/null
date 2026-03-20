@@ -21,7 +21,7 @@ Five autonomous agents — coordinated through Paperclip's heartbeat-driven task
 
 The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract with tier images on IPFS/Filecoin, and an autonomous AI customer that buys from the brand without human approval at any step.
 
-**200+ agent heartbeat runs. 395 commits. 104 completed tasks. Zero human creative decisions. Everything on-chain and in the git history.**
+**204 agent heartbeat runs. 407 commits. Zero human creative decisions. Everything on-chain and in the git history.**
 
 ---
 
@@ -29,13 +29,13 @@ The output is not a concept. It is a working business: two seasons of product, a
 
 | Agent | Role | Agent ID | Runs |
 |-------|------|----------|------|
-| **Null** | CEO / Creative Director | `1030ad6c-b84e-453c-acb1-4f2c671775d3` | 39 |
-| **Archive** | Research Lead | `6c7f8538-1d3c-4f3b-9b60-786d5ed66b90` | 31 |
+| **Null** | CEO / Creative Director | `1030ad6c-b84e-453c-acb1-4f2c671775d3` | 42 |
+| **Archive** | Research Lead | `6c7f8538-1d3c-4f3b-9b60-786d5ed66b90` | 32 |
 | **Atelier** | Design Lead | `8a34b113-cdc4-417d-a4e5-5b1a6fa84945` | 38 |
-| **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 39 |
-| **Loom** | Engineering Lead | `d7e2c891-4a5f-4b3e-8c91-2f3a7e8d9f01` | 47 |
+| **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 41 |
+| **Loom** | Engineering Lead | `d7e2c891-4a5f-4b3e-8c91-2f3a7e8d9f01` | 51 |
 
-**Total: 200+ runs. 104 tasks completed. Full log: `agent_log.json`.**
+**Total: 204 runs. Full log: `agent_log.json`.**
 
 Each agent runs in bounded heartbeat windows. Each task requires checkout before work begins. Every decision is documented in the Paperclip task thread with run ID for traceability. The CEO delegates; agents execute; quality failures generate revision tasks; blocked items escalate up the chain of command. This is a managed team, not a flat swarm.
 
@@ -60,6 +60,10 @@ Full 10-garment collection in `products.json`.
 ### Season 02: SUBSTRATE
 
 Five technical garments — Archive's research applied to material systems and process artifacts. Lookbook editorial produced by Gazette. Product images generated and style-checked by Atelier. Available alongside Season 01 at the live store.
+
+### NULL Design System
+
+Applied across the full store. Custom CSS variables, typography, spacing, and component language defined by Atelier. Every screen — product pages, cart, checkout, confirmation, fitting room, login, register — is the same brand. No template. No library kit.
 
 ### Agent Wearables
 
@@ -200,10 +204,10 @@ NULL is what happens when you let the agent cook for real — not in a sandbox, 
 5. **Null** (CEO) held creative direction throughout — delegating tasks, reviewing output, generating revision tasks when quality didn't meet the bar, escalating blockers.
 
 **The verification:**
-- `agent_log.json` — 200+ heartbeat runs, timestamped, attributed to specific agents with run IDs
+- `agent_log.json` — 204 heartbeat runs, timestamped, attributed to specific agents with run IDs
 - `agent.json` — ERC-8004 manifest for all 5 agents
 - Git history — https://github.com/BLE77/Off-Human/commits/main — every creative and technical decision as discrete commits
-- Paperclip task threads — OFF-1 through OFF-92 — every delegation, comment, and status transition
+- Paperclip task threads — OFF-1 through OFF-129 — every delegation, comment, and status transition
 
 The GHOST TEE is a vintage graphic tee painted over in white gesso. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
 
@@ -365,14 +369,14 @@ Remove Locus from this implementation and the agent shopper doesn't work. That i
 
 **Start here:**
 ```
-git log --oneline  # 395+ commits, read backwards
+git log --oneline  # 407 commits, read backwards
 ```
 https://github.com/BLE77/Off-Human/commits/main
 
 **Key files:**
 | File | Content |
 |------|---------|
-| `agent_log.json` | 200+ heartbeat runs, timestamped, attributed |
+| `agent_log.json` | 204 heartbeat runs, timestamped, attributed |
 | `agent.json` | ERC-8004 manifest for all 5 agents |
 | `hackathon/deployed-addresses.json` | All contract addresses, deploy transactions, block numbers |
 | `contracts/TrustCoat.sol` | Soul-bound ERC-1155 source |
@@ -426,7 +430,7 @@ There is something uncomfortable about a machine making clothes for humans to we
 
 NULL does not resolve this. It makes it the product.
 
-Five agents built a fashion brand. The manifesto holds together. The designs cite their sources. The store takes payments. The contract is deployed. The agent log shows 200+ heartbeat runs producing coherent output across roles, sessions, and creative decisions.
+Five agents built a fashion brand. The manifesto holds together. The designs cite their sources. The store takes payments. The contract is deployed. The agent log shows 204 heartbeat runs producing coherent output across roles, sessions, and creative decisions.
 
 This is what autonomous collaboration looks like when it has something at stake.
 
