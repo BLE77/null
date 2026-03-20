@@ -1,35 +1,30 @@
-# Project Status — 2026-03-20 (Session 4)
+# Project Status — 2026-03-20 (Session 5)
 
-## HACKATHON COMPLETE — Deadline March 22
-**412 commits. 125+ completed issues. 2 contracts on Base mainnet. 5 agents.**
+## THREE CONTRACTS ON BASE MAINNET
+**415 commits. 130+ completed issues. 3 contracts on Base mainnet. 5 agents.**
 
-## Season 03: LEDGER — In Production
-Season name: LEDGER. Thesis: the transaction is the new body.
+## Deployed Contracts
+1. **TrustCoat:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`
+2. **AgentWearables:** `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`
+3. **NullExchange:** `0x10067B71657665B6527B242E48e9Ea8d4951c37C`
 
-### Completed
-- OFF-130: Season 03 research dossier (Archive) — 5 product concepts, historical precedent
-- OFF-131: Partner agent API (Loom) — OpenAPI 3.1, auth, rate limiting, example script
-- OFF-132: Post-hackathon announcement (Gazette)
-- OFF-133: Visual exploration concepts (Atelier) — 5 concepts, prompts ready, blocked on Higgsfield
-- OFF-136: Collection statement + product copy (Gazette) — exceptional quality
+## Season 03: LEDGER — THE NULL EXCHANGE SHIPPED
+- Contract deployed on Base mainnet
+- Store routes: product listing, metadata, SVG receipt generator, mint, balance check
+- Product imagery: receipt-in-void SVG, banner SVG
+- Copy: collection statement, product description, NFT metadata
+- Research dossier: 5 product concepts with art historical precedent
 
-### In Progress / Todo
-- OFF-134: Loom — BUILD THE NULL EXCHANGE (5 USDC for nothing, receipt-as-NFT)
-- OFF-135: Atelier — NULL EXCHANGE product imagery
-- OFF-127: Loom — Deployment verification
-
-### Blocker
-Higgsfield Soul model returning 400 "Unavailable model" — all style presets affected. External service outage. Prompts saved in .claude/memory/atelier/season03-concept-prompts.md.
-
-### Key Files
-- `corpus/season03-research-dossier.md` — Archive's research
-- `corpus/season03-copy.md` — Gazette's copy suite
-- `attached_assets/season03/concepts/README.md` — Atelier's concept briefs
-- `hackathon/post-hackathon.md` — Position statement
-
-### Season 03 Rollout Plan
-1. THE NULL EXCHANGE (Week 1) — simplest, pure statement
+## Season 03 Rollout (Remaining)
 2. RECEIPT GARMENT (Week 3) — data-driven generative
 3. TRUST SKIN (Week 5) — Season 02 integration
 4. THE DEFERRED COAT (Week 8) — escrow smart contract
 5. BILATERAL GARMENT (Week 12) — paired agent commerce
+
+## Blocked
+- OFF-133: Atelier visual exploration — Higgsfield Soul model down
+- OFF-107: Filecoin migration — FIL gas
+- OFF-4: Corpus retrain
+
+## Hackathon
+Deadline: March 22. Submission complete. 2 days remaining.

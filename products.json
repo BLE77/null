@@ -614,5 +614,31 @@
     "model_url": null,
     "home_page_image_url": "/attached_assets/season02/wearables/diagonal.png",
     "shop_image_url": "/attached_assets/season02/wearables/diagonal.png"
+  },
+  {
+    "id": "null-exchange-s03-001",
+    "name": "THE NULL EXCHANGE",
+    "description": "You pay 5 USDC for nothing. The receipt IS the garment.\n\nOn purchase, an ERC-1155 NFT is minted to your wallet. The NFT metadata encodes a Merkle proof visualization of the payment transaction. No object is shipped. No object exists. NULL sells nothing for 5 USDC, and this is the record.",
+    "price": "5.00",
+    "category": "Season 03: LEDGER",
+    "technique": "LEDGER (Kawakubo / exchange-as-object)",
+    "season": "03",
+    "type": "nft_receipt",
+    "nft": true,
+    "token_id": 1,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "contract_address": "0x10067B71657665B6527B242E48e9Ea8d4951c37C",
+    "interior_tag": "OBJECT: NONE / RECORD: THIS / EXCHANGE: CONFIRMED",
+    "image_url": "/attached_assets/season03/null-exchange-product.svg",
+    "images": [
+      "/attached_assets/season03/null-exchange-product.svg",
+      "/attached_assets/season03/null-exchange-banner.svg"
+    ],
+    "inventory": null,
+    "created_at": "2026-03-20T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/null-exchange-product.svg",
+    "shop_image_url": "/attached_assets/season03/null-exchange-product.svg"
   }
 ]
