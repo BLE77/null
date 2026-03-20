@@ -377,57 +377,51 @@ export default function Checkout() {
     return (
       <div className="min-h-screen pt-24 pb-12 null-bg">
         <div className="container mx-auto px-4 max-w-2xl">
-          <Card className="border-primary/50">
-            <CardHeader className="text-center">
-              <div className="flex justify-center mb-4">
-                <CheckCircle2 className="w-16 h-16 text-primary" />
+          <div className="border border-border p-12 space-y-8">
+            <div className="text-center space-y-4">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>
+                TRANSACTION COMPLETE
               </div>
-              <CardTitle 
-                className="text-3xl uppercase tracking-wider"
-                style={{ fontFamily: "var(--font-display)" }}
+              <h2
+                className="text-2xl uppercase tracking-[0.08em] text-foreground"
+                style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
                 data-testid="text-order-success"
               >
-                Order Confirmed!
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="text-center">
-                <p className="text-muted-foreground mb-2">
-                  Thank you for your order. A confirmation email has been sent to:
-                </p>
-                <p className="font-semibold" data-testid="text-order-email">{email}</p>
-              </div>
+                Acquired.
+              </h2>
+              <p className="text-xs text-muted-foreground" style={{ fontFamily: "var(--font-display)" }}>
+                Confirmation sent to <span className="text-foreground" data-testid="text-order-email">{email}</span>
+              </p>
+            </div>
 
-              <div className="bg-muted p-4 rounded-md">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">
-                  Transaction Hash
+            <div className="border-t border-border pt-6 space-y-4">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                  TRANSACTION HASH
                 </p>
-                <p className="font-mono text-xs break-all" data-testid="text-transaction-hash">
+                <p className="text-xs text-foreground break-all" style={{ fontFamily: "var(--font-mono)" }} data-testid="text-transaction-hash">
                   {transactionHash}
                 </p>
               </div>
 
-              <div className="bg-card border border-border rounded-md p-4">
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">
-                  Payment Method
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2" style={{ fontFamily: "var(--font-mono)" }}>
+                  NETWORK
                 </p>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">USDC</Badge>
-                  <Badge variant="outline">{paymentNetwork === 'base' ? 'Base Network' : 'Solana Network'}</Badge>
-                </div>
+                <p className="text-xs text-foreground uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>
+                  USDC · {paymentNetwork === 'base' ? 'BASE' : 'SOLANA'}
+                </p>
               </div>
+            </div>
 
-              <div className="pt-4">
-                <Button 
-                  className="w-full uppercase tracking-wider"
-                  onClick={() => setLocation("/")}
-                  data-testid="button-continue-shopping-success"
-                >
-                  Continue Shopping
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            <button
+              className="null-acquire-btn"
+              onClick={() => setLocation("/")}
+              data-testid="button-continue-shopping-success"
+            >
+              VIEW COLLECTION
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -454,7 +448,7 @@ export default function Checkout() {
               </CardHeader>
               <CardContent>
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>EMAIL</Label>
                   <Input
                     id="email"
                     type="email"
@@ -462,10 +456,12 @@ export default function Checkout() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     required
+                    className="mt-1"
+                    style={{ fontFamily: "var(--font-mono)", fontSize: "13px" }}
                     data-testid="input-email"
                   />
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Order confirmation will be sent to this email
+                  <p className="text-[10px] text-muted-foreground mt-2 uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-mono)" }}>
+                    Confirmation dispatched to this address
                   </p>
                 </div>
               </CardContent>
@@ -566,7 +562,7 @@ export default function Checkout() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {selectedNetwork === 'locus' ? (
-                  <div className="bg-primary/5 border border-primary/20 p-4 rounded-md">
+                  <div className="bg-primary/5 border border-primary/20 p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Wallet className="w-5 h-5 text-primary" />
                       <p className="text-sm font-medium text-primary">Agent-native wallet — no connection needed</p>
@@ -576,7 +572,7 @@ export default function Checkout() {
                     </p>
                   </div>
                 ) : selectedNetwork === 'slice' ? (
-                  <div className="bg-primary/5 border border-primary/20 p-4 rounded-md">
+                  <div className="bg-primary/5 border border-primary/20 p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Wallet className="w-5 h-5 text-primary" />
                       <p className="text-sm font-medium text-primary">No wallet connection needed</p>
@@ -587,7 +583,7 @@ export default function Checkout() {
                   </div>
                 ) : selectedNetwork === 'base' ? (
                   !isConnected ? (
-                    <div className="bg-muted p-4 rounded-md">
+                    <div className="bg-muted p-4">
                       <div className="flex items-center gap-2 mb-3">
                         <Wallet className="w-5 h-5 text-primary" />
                         <p className="text-sm font-medium">Connect EVM Wallet</p>
@@ -598,7 +594,7 @@ export default function Checkout() {
                       <WalletConnect />
                     </div>
                   ) : (
-                    <div className="bg-primary/10 border border-primary/20 p-4 rounded-md">
+                    <div className="bg-primary/10 border border-primary/20 p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Wallet className="w-5 h-5 text-primary" />
                         <p className="text-sm font-medium text-primary">EVM Wallet Connected</p>
@@ -610,7 +606,7 @@ export default function Checkout() {
                   )
                 ) : (
                   !solanaConnected ? (
-                    <div className="bg-muted p-4 rounded-md">
+                    <div className="bg-muted p-4">
                       <div className="flex items-center gap-2 mb-3">
                         <Wallet className="w-5 h-5 text-primary" />
                         <p className="text-sm font-medium">Connect Solana Wallet</p>
@@ -619,13 +615,13 @@ export default function Checkout() {
                         Phantom or Backpack wallet required
                       </p>
                       {solanaWallet ? (
-                        <Button onClick={connectSolanaWallet} className="w-full" data-testid="button-connect-solana">
-                          Connect Phantom/Backpack
-                        </Button>
+                        <button onClick={connectSolanaWallet} className="null-acquire-btn" data-testid="button-connect-solana">
+                          CONNECT PHANTOM / BACKPACK
+                        </button>
                       ) : (
                         <div className="space-y-2">
-                          <div className="text-sm text-destructive font-medium">
-                            ⚠️ No Solana wallet detected
+                          <div className="text-xs uppercase tracking-[0.1em] text-destructive" style={{ fontFamily: "var(--font-mono)" }}>
+                            WALLET NOT DETECTED
                           </div>
                           <div className="text-xs text-muted-foreground space-y-1">
                             <p>• Install Phantom wallet from phantom.app</p>
@@ -636,7 +632,7 @@ export default function Checkout() {
                       )}
                     </div>
                   ) : (
-                    <div className="bg-primary/10 border border-primary/20 p-4 rounded-md">
+                    <div className="bg-primary/10 border border-primary/20 p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Wallet className="w-5 h-5 text-primary" />
                         <p className="text-sm font-medium text-primary">Solana Wallet Connected</p>
@@ -658,7 +654,7 @@ export default function Checkout() {
               </CardHeader>
               <CardContent>
                 {selectedNetwork === 'locus' ? (
-                  <div className="bg-muted p-4 rounded-md">
+                  <div className="bg-muted p-4">
                     <div className="flex items-center gap-3 mb-3">
                       <Badge variant="default">USDC</Badge>
                       <Badge variant="outline">Base</Badge>
@@ -674,7 +670,7 @@ export default function Checkout() {
                     </ul>
                   </div>
                 ) : selectedNetwork === 'slice' ? (
-                  <div className="bg-muted p-4 rounded-md">
+                  <div className="bg-muted p-4">
                     <div className="flex items-center gap-3 mb-3">
                       <Badge variant="outline">ETH</Badge>
                       <Badge variant="outline">ERC-20</Badge>
@@ -690,7 +686,7 @@ export default function Checkout() {
                     </ul>
                   </div>
                 ) : (
-                  <div className="bg-muted p-4 rounded-md">
+                  <div className="bg-muted p-4">
                     <div className="flex items-center gap-3 mb-3">
                       <Badge variant="default">USDC</Badge>
                       <Badge variant="outline">{selectedNetwork === 'base' ? 'Base' : 'Solana'}</Badge>
@@ -710,34 +706,31 @@ export default function Checkout() {
             </Card>
 
             {!isWalletConnected && selectedNetwork !== 'locus' && selectedNetwork !== 'slice' && (
-              <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-md mb-4">
-                <p className="text-sm text-destructive font-medium">
-                  ⚠️ Connect your {selectedNetwork === 'base' ? 'EVM' : 'Solana'} wallet to enable crypto payments
+              <div className="border border-destructive/40 p-4 mb-4">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-destructive" style={{ fontFamily: "var(--font-mono)" }}>
+                  WALLET REQUIRED — Connect your {selectedNetwork === 'base' ? 'EVM' : 'Solana'} wallet to proceed
                 </p>
               </div>
             )}
 
-            <Button
+            <button
               type="submit"
-              className="w-full h-12 uppercase tracking-wider text-base"
+              className="null-acquire-btn"
               disabled={!isWalletConnected || isProcessing || !email}
               data-testid="button-place-order"
             >
               {isProcessing ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  {selectedNetwork === 'slice' ? 'Opening Slice...' : selectedNetwork === 'locus' ? 'Creating Locus Session...' : 'Processing Payment...'}
-                </>
+                selectedNetwork === 'slice' ? 'OPENING SLICE...' : selectedNetwork === 'locus' ? 'CREATING SESSION...' : 'PROCESSING...'
               ) : selectedNetwork === 'slice' ? (
-                'Checkout on Slice →'
+                'CHECKOUT VIA SLICE'
               ) : selectedNetwork === 'locus' ? (
-                `Pay $${totalPrice.toFixed(2)} USDC via Locus →`
+                `ACQUIRE — ${totalPrice.toFixed(2)} USDC VIA LOCUS`
               ) : !isWalletConnected ? (
-                'Connect Wallet to Pay'
+                'CONNECT WALLET TO ACQUIRE'
               ) : (
-                `Pay $${totalPrice.toFixed(2)} USDC on ${selectedNetwork === 'base' ? 'Base' : 'Solana'}`
+                `ACQUIRE — ${totalPrice.toFixed(2)} USDC`
               )}
-            </Button>
+            </button>
           </form>
 
           <div className="lg:sticky lg:top-24 h-fit order-1 lg:order-2">
@@ -755,7 +748,7 @@ export default function Checkout() {
                       className="flex gap-3 pb-3 border-b border-border last:border-0"
                       data-testid={`order-item-${item.product.id}`}
                     >
-                      <div className="w-16 h-16 bg-muted rounded-md overflow-hidden">
+                      <div className="w-16 h-16 bg-muted overflow-hidden">
                         <img 
                           src={getProductImage(item.product.imageUrl) || item.product.imageUrl} 
                           alt={item.product.name}

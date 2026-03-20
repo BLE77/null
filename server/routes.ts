@@ -8,6 +8,7 @@ import passport from "passport";
 import { requireAuth, requireAdmin } from "./auth.js";
 import { registerWearablesRoutes } from "./routes/wearables.js";
 import { registerLocusCheckoutRoutes } from "./routes/locus-checkout.js";
+import { recordInteraction } from "./trust-advancement.js";
 
 const isProdLike =
   process.env.NODE_ENV === "production" ||
@@ -388,7 +389,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       console.log("[Base Payment] ✅ Order created:", order.id);
-      
+
+      // Record purchase interaction for trust tier advancement
+      if (verifyResult?.payer) {
+        recordInteraction(verifyResult.payer, "purchase").catch(() => {});
+        console.log("[Base Payment] 📈 Purchase interaction recorded for", verifyResult.payer);
+      }
+
       // Send delivery email with product files
       try {
         const { sendOrderConfirmationEmail } = await import('./email.js');
