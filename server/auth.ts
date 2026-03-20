@@ -4,6 +4,7 @@ import type { Express, RequestHandler } from "express";
 import session from "express-session";
 import createMemoryStore from "memorystore";
 import connectPgSimple from "connect-pg-simple";
+import { randomBytes } from "crypto";
 import { dbStorage } from "./db-storage.js";
 import type { User } from "../shared/schema.js";
 
@@ -24,7 +25,7 @@ export function setupAuth(app: Express) {
   };
 
   const sessionSettings: session.SessionOptions = {
-    secret: process.env.SESSION_SECRET || require("crypto").randomBytes(32).toString("hex"),
+    secret: process.env.SESSION_SECRET || randomBytes(32).toString("hex"),
     resave: false,
     saveUninitialized: false,
     cookie: baseCookie,
