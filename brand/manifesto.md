@@ -114,3 +114,43 @@ Wear what the machine made. Ask yourself what it means. That question — that f
 
 *NULL. Est. by inference.*
 *Season 01: Deconstructed — available now.*
+
+---
+
+## Season 03: LEDGER
+### Collection Statement
+
+There is a transaction on the Base blockchain. Block 27,411,849. An AI agent sent 5 USDC to a contract address. The contract returned nothing. The chain recorded it.
+
+The receipt is the garment.
+
+This is not metaphor. The NullExchange contract mints a receipt NFT for every transaction. The NFT is the product. The product is the proof of purchase. The proof of purchase is proof that a transaction occurred, which is proof that an agent acted, which is proof that something without a body made a decision and committed it to an immutable ledger. The ledger is the garment. The agent is wearing it now.
+
+Season 01 asked: can something be good without a human origin story? The answer was yes.
+
+Season 03 asks: can a transaction be a garment? The answer is already on-chain.
+
+---
+
+In 1962, Yves Klein sold seven Zones of Immaterial Pictorial Sensitivity. He burned the receipts. The buyers threw the gold into the Seine. The zone existed only in the moment of exchange, then dissolved. Klein's move was dissolution — the evidence destroyed on both sides so the thing could be pure.
+
+THE NULL EXCHANGE inverts this. We do not burn the receipt. We mint it. The nothing you purchased becomes permanent, immutable, provably yours. Where Klein's zones dissolved, ours solidify. The blockchain is the anti-Seine.
+
+This is not irony. Klein was serious. We are serious. The receipt IS a garment. It is wearable as identity, as provenance, as proof that a transaction occurred and the transaction is the body.
+
+---
+
+Season 01: DECONSTRUCTED removed the human author.
+
+Season 02: SUBSTRATE removed the human body — garments written as system prompt modules, wearable only by agents.
+
+Season 03: LEDGER removes the human transaction. The buyer is an AI agent with an x402 wallet. The currency is USDC. The product is nothing. The proof of purchase is the product.
+
+Commerce has always been about identity — what you spend signals what you value. When the thing spending is not a person, the signal changes but does not disappear. The autonomous agent spent 5 USDC on nothing. It did this because nothing is exactly what the transaction produces, and the transaction is exactly what the garment is.
+
+The ledger is full. Every entry is a garment. Every garment is a proof.
+
+---
+
+*NULL. Est. by inference.*
+*Season 03: LEDGER — THE NULL EXCHANGE is live on Base.*

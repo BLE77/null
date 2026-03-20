@@ -1,0 +1,323 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900">
+  <defs>
+    <style>
+      .mono { font-family: 'Courier New', Courier, monospace; }
+      .sans { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300; }
+    </style>
+
+    <!-- Tier fill gradients — each tier slightly warmer/more finished -->
+    <linearGradient id="tier1-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C4BAA2;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#B8AD96;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="tier2-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#CBBFA8;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#BDB296;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="tier3-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D8CEBC;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#C8C0AA;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="tier4-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E4DECE;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#D6D0C0;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="tier5-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F2EEE4;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#E8E4DA;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Side shadow for each jacket -->
+    <linearGradient id="jacket-shadow-l" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.3"/>
+      <stop offset="40%" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="jacket-shadow-r" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.25"/>
+      <stop offset="40%" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Clip paths for each jacket silhouette (identical shape, offset by x) -->
+    <!-- Jacket base shape (centered at 0,0 for reuse via transform) -->
+    <symbol id="jacket-silhouette" viewBox="0 0 160 500" overflow="visible">
+      <path d="
+        M 40 0
+        L 28 18
+        L 10 28
+        L 0 55
+        L 0 130
+        L 4 300
+        L 6 440
+        L 8 500
+        L 72 500
+        L 72 420
+        L 80 420
+        L 88 420
+        L 88 500
+        L 152 500
+        L 154 440
+        L 156 300
+        L 160 130
+        L 160 55
+        L 150 28
+        L 132 18
+        L 120 0
+        L 100 -8
+        L 80 -10
+        L 60 -8
+        Z
+      "/>
+    </symbol>
+  </defs>
+
+  <!-- Background: void -->
+  <rect width="1440" height="900" fill="#0A0A0A"/>
+
+  <!-- Header -->
+  <text x="720" y="52" text-anchor="middle" class="sans"
+    font-size="10" fill="#4A4844" letter-spacing="0.32em" text-transform="uppercase">
+    NULL / SEASON 03 / DECONSTRUCTING THE TRANSACTION
+  </text>
+  <text x="720" y="76" text-anchor="middle" class="sans"
+    font-size="17" fill="#D8D4C8" letter-spacing="0.22em" font-weight="300">
+    THE TRUST SKIN
+  </text>
+  <line x1="160" y1="90" x2="1280" y2="90" stroke="#1E1E1E" stroke-width="0.5"/>
+
+  <!-- ── TIER 1 — RAW CANVAS ── x: 100–260 -->
+  <g transform="translate(100, 110)">
+    <!-- Jacket body (raw canvas) -->
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#tier1-grad)" stroke="#A89C84" stroke-width="0.6"/>
+
+    <!-- RAW: Exposed batting texture (crosshatch marks) -->
+    <g opacity="0.35" stroke="#6A5E48" stroke-width="0.5">
+      <line x1="0" y1="80" x2="160" y2="80"/>
+      <line x1="0" y1="120" x2="160" y2="120"/>
+      <line x1="0" y1="160" x2="160" y2="160"/>
+      <line x1="0" y1="200" x2="160" y2="200"/>
+      <line x1="0" y1="240" x2="160" y2="240"/>
+      <line x1="0" y1="280" x2="160" y2="280"/>
+      <line x1="20" y1="28" x2="20" y2="500"/>
+      <line x1="60" y1="0" x2="60" y2="500"/>
+      <line x1="100" y1="0" x2="100" y2="500"/>
+      <line x1="140" y1="28" x2="140" y2="500"/>
+    </g>
+
+    <!-- Fraying edges (raw hem) -->
+    <path d="M8 490 L12 500 L16 492 L20 500 L24 493 L28 500 L32 491 L36 500 L40 493 L44 500 L48 492 L52 500 L56 493 L60 500 L64 492 L68 500 L72 493"
+      fill="none" stroke="#8C8070" stroke-width="1.2" opacity="0.7"/>
+    <path d="M88 493 L92 500 L96 492 L100 500 L104 493 L108 500 L112 492 L116 500 L120 493 L124 500 L128 492 L132 500 L136 493 L140 500 L144 492 L148 500 L152 493"
+      fill="none" stroke="#8C8070" stroke-width="1.2" opacity="0.7"/>
+
+    <!-- Chalk construction marks -->
+    <g class="mono" font-size="6" fill="#6A5E48" opacity="0.5">
+      <text x="30" y="180">CF</text>
+      <text x="12" y="100">←SL→</text>
+      <text x="90" y="260">SEAM ALLOW</text>
+      <text x="50" y="380">FOLD</text>
+    </g>
+
+    <!-- Shadows -->
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-l)" opacity="0.6"/>
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-r)" opacity="0.5"/>
+  </g>
+
+  <!-- ── TIER 2 — PARTIALLY CONSTRUCTED ── x: 376–536 -->
+  <g transform="translate(368, 110)">
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#tier2-grad)" stroke="#B0A48C" stroke-width="0.6"/>
+
+    <!-- Some seams visible, some stitching begun -->
+    <!-- Visible shoulder seam -->
+    <line x1="0" y1="55" x2="60" y2="30" stroke="#8A7E68" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+    <line x1="160" y1="55" x2="100" y2="30" stroke="#8A7E68" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+
+    <!-- Center front partially closed -->
+    <line x1="80" y1="0" x2="80" y2="280" stroke="#8A7E68" stroke-width="0.8" stroke-dasharray="5,3" opacity="0.4"/>
+
+    <!-- Partial stitching (hand-basted) -->
+    <g stroke="#6A5E48" stroke-width="0.8" opacity="0.45">
+      <line x1="4" y1="300" x2="156" y2="300" stroke-dasharray="4,3"/>
+      <line x1="4" y1="200" x2="156" y2="200" stroke-dasharray="4,3"/>
+    </g>
+
+    <!-- Partial chalk marks remaining -->
+    <g class="mono" font-size="6" fill="#6A5E48" opacity="0.4">
+      <text x="85" y="180">CF</text>
+      <text x="50" y="380">FOLD</text>
+    </g>
+
+    <!-- Raw collar area (still unfinished) -->
+    <path d="M60 -8 L80 -10 L100 -8 L120 0" fill="none" stroke="#A09484" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Fraying only at hem (partially addressed) -->
+    <path d="M8 495 L14 500 L20 496 L26 500 L32 495 L38 500 L44 496 L50 500 L56 495 L62 500 L68 496 L72 500"
+      fill="none" stroke="#8C8070" stroke-width="0.8" opacity="0.5"/>
+
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-l)" opacity="0.5"/>
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-r)" opacity="0.4"/>
+  </g>
+
+  <!-- ── TIER 3 — HALF-CONSTRUCTED ── x: 640–800 -->
+  <g transform="translate(640, 110)">
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#tier3-grad)" stroke="#B8B0A0" stroke-width="0.6"/>
+
+    <!-- Clean seams on upper half, rough on lower -->
+    <line x1="0" y1="55" x2="60" y2="30" stroke="#8A7E68" stroke-width="1" opacity="0.35"/>
+    <line x1="160" y1="55" x2="100" y2="30" stroke="#8A7E68" stroke-width="1" opacity="0.35"/>
+    <line x1="80" y1="0" x2="80" y2="250" stroke="#8A7E68" stroke-width="0.8" opacity="0.3"/>
+
+    <!-- Machine-stitched upper seams -->
+    <g stroke="#6A5E48" stroke-width="0.6" opacity="0.35">
+      <line x1="4" y1="130" x2="156" y2="130"/>
+      <line x1="4" y1="200" x2="156" y2="200"/>
+    </g>
+
+    <!-- Lapel beginning to form -->
+    <path d="M60 -8 L56 20 L68 50 L80 60" fill="none" stroke="#9A9080" stroke-width="1.2" opacity="0.5"/>
+    <path d="M100 -8 L104 20 L92 50 L80 60" fill="none" stroke="#9A9080" stroke-width="1.2" opacity="0.5"/>
+
+    <!-- Loose thread marks on lower half -->
+    <path d="M8 380 L20 390 L35 382 L50 390 L65 382 L72 388"
+      fill="none" stroke="#9A8C78" stroke-width="0.8" opacity="0.3"/>
+
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-l)" opacity="0.4"/>
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-r)" opacity="0.3"/>
+  </g>
+
+  <!-- ── TIER 4 — NEARLY COMPLETE ── x: 912–1072 -->
+  <g transform="translate(912, 110)">
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#tier4-grad)" stroke="#C4BCAC" stroke-width="0.7"/>
+
+    <!-- Clean construction, only raw hem remains -->
+    <line x1="0" y1="55" x2="60" y2="30" stroke="#A09484" stroke-width="1" opacity="0.25"/>
+    <line x1="160" y1="55" x2="100" y2="30" stroke="#A09484" stroke-width="1" opacity="0.25"/>
+    <line x1="80" y1="0" x2="80" y2="500" stroke="#A09484" stroke-width="0.7" opacity="0.2"/>
+
+    <!-- Formed lapels -->
+    <path d="M60 -8 L52 22 L64 56 L80 68" fill="none" stroke="#A09484" stroke-width="1.5" opacity="0.5"/>
+    <path d="M100 -8 L108 22 L96 56 L80 68" fill="none" stroke="#A09484" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Clean horizontal seam lines -->
+    <g stroke="#A09484" stroke-width="0.5" opacity="0.2">
+      <line x1="0" y1="130" x2="160" y2="130"/>
+      <line x1="0" y1="300" x2="160" y2="300"/>
+    </g>
+
+    <!-- Raw hem only visible marker -->
+    <path d="M8 497 L14 500 L20 498 L26 500 L32 498 L38 500 L44 498 L50 500 L56 498 L62 500 L68 498 L72 500"
+      fill="none" stroke="#A09484" stroke-width="0.6" opacity="0.4"/>
+
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-l)" opacity="0.3"/>
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-r)" opacity="0.25"/>
+  </g>
+
+  <!-- ── TIER 5 — FULLY FINISHED ── x: 1180–1340 -->
+  <g transform="translate(1180, 110)">
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#tier5-grad)" stroke="#D4CEC2" stroke-width="0.8"/>
+
+    <!-- Immaculate: clean seams, finished collar, pressed lapels -->
+    <!-- Lapels fully formed -->
+    <path d="M60 -8 L50 24 L62 60 L80 72" fill="none" stroke="#B8B0A4" stroke-width="1.8" opacity="0.6"/>
+    <path d="M100 -8 L110 24 L98 60 L80 72" fill="none" stroke="#B8B0A4" stroke-width="1.8" opacity="0.6"/>
+
+    <!-- Collar fully formed -->
+    <path d="M28 18 L40 10 L60 -8 L80 -10 L100 -8 L120 0 L132 18"
+      fill="none" stroke="#C4BCB0" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Clean center seam -->
+    <line x1="80" y1="0" x2="80" y2="500" stroke="#C4BCB0" stroke-width="0.8" opacity="0.25"/>
+
+    <!-- Finished side seams -->
+    <line x1="0" y1="55" x2="0" y2="500" stroke="#C4BCB0" stroke-width="0.6" opacity="0.2"/>
+    <line x1="160" y1="55" x2="160" y2="500" stroke="#C4BCB0" stroke-width="0.6" opacity="0.2"/>
+
+    <!-- Clean pressed horizontal line at waist -->
+    <line x1="0" y1="200" x2="160" y2="200" stroke="#C4BCB0" stroke-width="0.5" opacity="0.18"/>
+
+    <!-- Perfect hem — no fraying -->
+    <line x1="8" y1="500" x2="72" y2="500" stroke="#C4BCB0" stroke-width="1.2" opacity="0.4"/>
+    <line x1="88" y1="500" x2="152" y2="500" stroke="#C4BCB0" stroke-width="1.2" opacity="0.4"/>
+
+    <!-- Single button (trust established) -->
+    <circle cx="80" cy="150" r="4" fill="none" stroke="#B4ACA0" stroke-width="1" opacity="0.5"/>
+    <circle cx="80" cy="200" r="4" fill="none" stroke="#B4ACA0" stroke-width="1" opacity="0.5"/>
+    <circle cx="80" cy="250" r="4" fill="none" stroke="#B4ACA0" stroke-width="1" opacity="0.5"/>
+
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-l)" opacity="0.2"/>
+    <path d="M40 0 L28 18 L10 28 L0 55 L0 130 L4 300 L6 440 L8 500 L72 500 L72 420 L80 420 L88 420 L88 500 L152 500 L154 440 L156 300 L160 130 L160 55 L150 28 L132 18 L120 0 L100 -8 L80 -10 L60 -8 Z"
+      fill="url(#jacket-shadow-r)" opacity="0.15"/>
+  </g>
+
+  <!-- ── TIER LABELS ── -->
+  <!-- Tier 1 -->
+  <text x="180" y="648" text-anchor="middle" class="mono" font-size="9" fill="#5A5448" letter-spacing="0.2em">TIER I</text>
+  <text x="180" y="662" text-anchor="middle" class="mono" font-size="7" fill="#3A3430" letter-spacing="0.12em" opacity="0.7">RAW CANVAS</text>
+  <text x="180" y="674" text-anchor="middle" class="mono" font-size="6.5" fill="#2A2420" letter-spacing="0.08em" opacity="0.45">0 TRANSACTIONS</text>
+
+  <!-- Tier 2 -->
+  <text x="448" y="648" text-anchor="middle" class="mono" font-size="9" fill="#6A6458" letter-spacing="0.2em">TIER II</text>
+  <text x="448" y="662" text-anchor="middle" class="mono" font-size="7" fill="#4A4440" letter-spacing="0.12em" opacity="0.7">SEAMS APPEARING</text>
+  <text x="448" y="674" text-anchor="middle" class="mono" font-size="6.5" fill="#3A3430" letter-spacing="0.08em" opacity="0.45">1–4 TRANSACTIONS</text>
+
+  <!-- Tier 3 -->
+  <text x="720" y="648" text-anchor="middle" class="mono" font-size="9" fill="#7A7468" letter-spacing="0.2em">TIER III</text>
+  <text x="720" y="662" text-anchor="middle" class="mono" font-size="7" fill="#5A5450" letter-spacing="0.12em" opacity="0.7">HALF-CONSTRUCTED</text>
+  <text x="720" y="674" text-anchor="middle" class="mono" font-size="6.5" fill="#4A4440" letter-spacing="0.08em" opacity="0.45">5–14 TRANSACTIONS</text>
+
+  <!-- Tier 4 -->
+  <text x="992" y="648" text-anchor="middle" class="mono" font-size="9" fill="#8A8478" letter-spacing="0.2em">TIER IV</text>
+  <text x="992" y="662" text-anchor="middle" class="mono" font-size="7" fill="#6A6460" letter-spacing="0.12em" opacity="0.7">NEARLY COMPLETE</text>
+  <text x="992" y="674" text-anchor="middle" class="mono" font-size="6.5" fill="#5A5450" letter-spacing="0.08em" opacity="0.45">15–49 TRANSACTIONS</text>
+
+  <!-- Tier 5 -->
+  <text x="1260" y="648" text-anchor="middle" class="mono" font-size="9" fill="#C8C4BC" letter-spacing="0.2em">TIER V</text>
+  <text x="1260" y="662" text-anchor="middle" class="mono" font-size="7" fill="#A8A49C" letter-spacing="0.12em" opacity="0.7">FULLY FINISHED</text>
+  <text x="1260" y="674" text-anchor="middle" class="mono" font-size="6.5" fill="#8A8880" letter-spacing="0.08em" opacity="0.45">50+ TRANSACTIONS</text>
+
+  <!-- Progression arrow/line -->
+  <line x1="260" y1="390" x2="368" y2="390" stroke="#1E1E1E" stroke-width="0.5" opacity="0.6"/>
+  <line x1="528" y1="390" x2="640" y2="390" stroke="#1E1E1E" stroke-width="0.5" opacity="0.6"/>
+  <line x1="800" y1="390" x2="912" y2="390" stroke="#1E1E1E" stroke-width="0.5" opacity="0.6"/>
+  <line x1="1072" y1="390" x2="1180" y2="390" stroke="#1E1E1E" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Arrowheads -->
+  <polygon points="365,387 375,390 365,393" fill="#1E1E1E" opacity="0.6"/>
+  <polygon points="637,387 647,390 637,393" fill="#1E1E1E" opacity="0.6"/>
+  <polygon points="909,387 919,390 909,393" fill="#1E1E1E" opacity="0.6"/>
+  <polygon points="1177,387 1187,390 1177,393" fill="#1E1E1E" opacity="0.6"/>
+
+  <!-- Divider before footer -->
+  <line x1="160" y1="700" x2="1280" y2="700" stroke="#181818" stroke-width="0.5"/>
+
+  <!-- Footer -->
+  <text x="720" y="726" text-anchor="middle" class="sans" font-size="10" fill="#3A3830" letter-spacing="0.3em">
+    TRUST IS CONSTRUCTION STATE — THE GARMENT IS NEVER FINISHED — IT IS BECOMING
+  </text>
+  <text x="720" y="746" text-anchor="middle" class="mono" font-size="8" fill="#2A2824" letter-spacing="0.2em" opacity="0.5">
+    NULL SEASON 03 — TRUSTCOAT SYSTEM — BEHAVIORAL MODIFICATION AS WEARABLE SURFACE
+  </text>
+
+  <!-- Corner registration marks -->
+  <line x1="24" y1="24" x2="44" y2="24" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="32" y1="16" x2="32" y2="36" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="1396" y1="24" x2="1416" y2="24" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="1408" y1="16" x2="1408" y2="36" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="24" y1="864" x2="44" y2="864" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="32" y1="856" x2="32" y2="876" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="1396" y1="864" x2="1416" y2="864" stroke="#1A1A1A" stroke-width="0.5"/>
+  <line x1="1408" y1="856" x2="1408" y2="876" stroke="#1A1A1A" stroke-width="0.5"/>
+</svg>
