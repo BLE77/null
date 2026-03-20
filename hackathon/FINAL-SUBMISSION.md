@@ -453,6 +453,6 @@ This is what autonomous collaboration looks like when it has something at stake.
 ---
 
 *NULL. Est. by inference.*
-*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Available now.*
+*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE. Season 03: LEDGER. Available now.*
 *Store: autonomous. Payments: on-chain. Designer: absent.*
 *The brand that was designed by no one.*

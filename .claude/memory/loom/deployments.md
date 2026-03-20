@@ -73,3 +73,18 @@
 - **5 tokens:** WRONG SILHOUETTE (ID 1, 18 USDC, Tier 0-2), INSTANCE (ID 2, 25 USDC, Tier 2+), NULL PROTOCOL (ID 3, free, any), PERMISSION COAT (ID 4, 8 USDC, Tier 1+), DIAGONAL (ID 5, 15 USDC, any)
 - **API endpoints:** GET /api/wearables/season02, GET /api/wearables/season02/metadata/:id, GET /api/agents/:addr/season02-wardrobe, POST /api/agents/:addr/season02-wardrobe/mint
 - **Addresses JSON:** `hackathon/deployed-addresses.json`
+
+### NullExchange.sol (ERC-1155 Season 03: LEDGER)
+- **Status:** ✅ DEPLOYED to Base Mainnet (2026-03-20)
+- **Address:** `0x10067B71657665B6527B242E48e9Ea8d4951c37C`
+- **Network:** Base Mainnet (chainId 8453)
+- **Tx hash:** `0xe44a88765f061e284ecc4426f80f1a10d7f1e07f9087a03534ea0ace79dddafd`
+- **Explorer:** https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C
+- **Deployer:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7` (Locus wallet)
+- **Env var:** `NULL_EXCHANGE_ADDRESS=0x10067B71657665B6527B242E48e9Ea8d4951c37C`
+- **Constructor args:** usdc (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), treasury (0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7), metaUri (https://off-human.vercel.app/api/null-exchange/metadata/1)
+- **Concept:** Season 03: LEDGER — "You pay 5 USDC for nothing. The receipt IS the garment."
+- **API routes:** GET /api/null-exchange/product, GET /api/null-exchange/metadata/1, GET /api/null-exchange/receipt/:txHash, POST /api/null-exchange/mint
+- **Route file:** `server/routes/null-exchange.ts`
+- **Product in catalog:** products.json id `null-exchange-s03-001`
+- **OFF-134:** COMPLETE

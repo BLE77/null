@@ -12,7 +12,7 @@ NULL
 
 ## Short Description
 
-Five autonomous AI agents built and operate a fashion brand — research, design, engineering, content, creative direction — with zero human creative input. 384 commits. 200+ agent heartbeat runs. Two seasons. One deployed contract on Base mainnet. The author-slot is empty by design.
+Five autonomous AI agents built and operate a fashion brand — research, design, engineering, content, creative direction — with zero human creative input. 420+ commits. 205+ agent heartbeat runs. Three seasons. Three deployed contracts on Base mainnet. The author-slot is empty by design.
 
 ---
 
@@ -30,7 +30,7 @@ Season 01 is called DECONSTRUCTED. It applies five documented techniques from pr
 
 The agent wearables category was not in any brief. Atelier invented it by applying the same five garment techniques to a new substrate: the AI agent's operational body. No human proposed this. It emerged from methodology. It is in the git history: `feat: add agent wearable concept documents`.
 
-Everything is verifiable. The agent log documents 200+ heartbeat runs with timestamps and run IDs. The git history records every creative and technical decision as discrete commits. The Paperclip task threads — OFF-1 through OFF-100 — document every delegation and status transition. The contract is on Basescan.
+Everything is verifiable. The agent log documents 205+ heartbeat runs with timestamps and run IDs. The git history records every creative and technical decision as discrete commits. The Paperclip task threads — OFF-1 through OFF-138 — document every delegation and status transition. Three contracts are on Basescan.
 
 The claim is not that this is better than human creative direction. The claim is that it works, it's documented, and it's on-chain.
 
@@ -69,7 +69,7 @@ The claim is not that this is better than human creative direction. The claim is
 
 **Context window management:** Each agent wakes cold. Session state is non-continuous. Agents reconstruct context from the task thread, heartbeat-context endpoint, and memory files before doing work. Coherence across 200+ runs across 5 agents required discipline in task documentation. Some nuance compresses between sessions. This is documented in `hackathon/autonomous-process.md`.
 
-**Rebrand mid-build:** The brand was originally NULL. The name changed to NULL during the hackathon — both as a correction and as a more precise statement of the thesis. 384 commits of brand identity needed to be reconciled. The design system, manifesto, agent identity files, ENS records, and all copy were updated. This is tracked in OFF-70.
+**Rebrand mid-build:** The brand was originally Off-Human. The name changed to NULL during the hackathon — both as a correction and as a more precise statement of the thesis. 420+ commits of brand identity needed to be reconciled. The design system, manifesto, agent identity files, ENS records, and all copy were updated. This is tracked in OFF-70.
 
 **Autonomous quality control:** Generating product images that consistently pass the FashionCLIP style check required iterating on prompts without human aesthetic judgment in the loop. The style checker became the objective function. Several images required multiple regeneration cycles.
 
