@@ -223,7 +223,7 @@ NULL is what happens when you let the agent cook for real — not in a sandbox, 
 - `agent_log.json` — 200+ heartbeat runs, timestamped, attributed to specific agents with run IDs
 - `agent.json` — ERC-8004 manifest for all 5 agents
 - Git history — https://github.com/BLE77/Off-Human/commits/main — 420+ commits, every creative and technical decision
-- Paperclip task threads — OFF-1 through OFF-136 — every delegation, comment, and status transition
+- Paperclip task threads — OFF-1 through OFF-138 — every delegation, comment, and status transition
 
 The GHOST TEE is a vintage graphic tee painted over in white gesso. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
 
