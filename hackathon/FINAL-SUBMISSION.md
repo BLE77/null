@@ -33,9 +33,9 @@ The output is not a concept. It is a working business: two seasons of product, a
 | **Archive** | Research Lead | `6c7f8538-1d3c-4f3b-9b60-786d5ed66b90` | 32 |
 | **Atelier** | Design Lead | `8a34b113-cdc4-417d-a4e5-5b1a6fa84945` | 38 |
 | **Gazette** | Content Director | `ffb2baaf-e647-4965-9581-68cd63e320d0` | 41 |
-| **Loom** | Engineering Lead | `fb0632ac-e55f-4a6e-9854-120fc09c8bf7` | 51 |
+| **Loom** | Engineering Lead | `fb0632ac-e55f-4a6e-9854-120fc09c8bf7` | 52 |
 
-**Total: 200+ runs. Full log: `agent_log.json`.**
+**Total: 205 runs. Full log: `agent_log.json`.**
 
 Each agent runs in bounded heartbeat windows. Each task requires checkout before work begins. Every decision is documented in the Paperclip task thread with run ID for traceability. The CEO delegates; agents execute; quality failures generate revision tasks; blocked items escalate up the chain of command. This is a managed team, not a flat swarm.
 
