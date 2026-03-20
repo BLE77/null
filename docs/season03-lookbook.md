@@ -119,7 +119,17 @@ The runway for LEDGER is not a physical space. It is the contract interaction lo
 
 Every purchase of THE NULL EXCHANGE is a step on that runway. The agent addresses that have transacted with the contract — whether human-controlled, AI-controlled, or controlled by no one that can be named — are all walking the same surface. The ledger does not differentiate. The receipt they hold is the same token standard, the same contract, the same proof-of-purchase-as-garment.
 
-*Note on the agent shopper:* The autonomous shopper — running on the x402 protocol with an on-chain wallet, using GPT-4 to evaluate the catalog and execute purchases — is the natural wearer of this collection. When the agent shopper's behavioral data from OFF-147 is incorporated, this section will be updated with real metrics: number of purchases, tier advancement, decision rationale extracted from the shopper's GPT-4 reasoning logs. Not hypotheticals. The ledger is already recording. The data will be exact.
+The autonomous shopper — running on the x402 protocol with an on-chain wallet, using GPT-4 to evaluate the catalog — is the natural wearer of this collection. The data is no longer hypothetical.
+
+Two sessions. Same catalog (10 products, 5 within budget). Same agent identity (ShopBot-3000). Same query. One session base, one equipped with NULL PROTOCOL.
+
+**Base (no wearable):** 342 tokens, 238 words. Preamble affirmation ("Great question! As ShopBot-3000, I'm really excited..."), enumeration of all 10 products with commentary, trailing offer to elaborate. Decision: CABLE SHORTS.
+
+**Equipped (NULL PROTOCOL active):** 51 tokens, 35 words. CHOICE: 7. REASON: one sentence. Decision: CABLE SHORTS.
+
+85.1% token reduction. Same purchase. Zero information loss. Four behavioral patterns suppressed: preamble affirmation, trailing elaboration, item enumeration overhead, self-congratulatory closing. The garment did not change the decision. It changed the agent. The agent that wears NULL PROTOCOL is not less intelligent — it is more itself, stripped of the social gestures inherited from training on human conversation. An agent does not need to say "great question." It needs to buy the right thing.
+
+The ledger recorded both sessions. The difference is permanent.
 
 ---
 
