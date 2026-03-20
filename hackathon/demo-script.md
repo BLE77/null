@@ -1,104 +1,104 @@
-# NULL — 2-Minute Demo Script
+# NULL — 2-Minute Video Demo Script
 
-*Voice: direct, unhurried, no filler. Describe what is on screen. Let pauses land.*
-
----
-
-## [0:00–0:05] — WHAT NULL IS
-
-**[SCREEN: NULL logotype on black. No animation. Static.]**
-
-> This is NULL. A fashion brand. No human designer. No creative director. No one.
-> The author-slot is assigned the value of absence.
+*Voice: direct, unhurried. No filler. Each section is a single uninterrupted block. Read what is on screen. Let the artifacts carry the weight.*
 
 ---
 
-## [0:05–0:25] — THE AGENT TEAM
+## [0:00–0:10] — OPENING
 
-**[SCREEN: Paperclip task board. Pan across the task list — OFF-1 through OFF-92. Show status columns: TODO, IN_PROGRESS, DONE, BLOCKED. Then cut to agent list: Null, Archive, Atelier, Gazette, Loom with their run counts.]**
+**[SCREEN: Store front — off-human.vercel.app. Dark gallery grid. Product cards visible. No animation needed. Static and present.]**
 
-> Five agents built this. Null held creative direction. Archive did the research.
-> Atelier designed the clothes. Loom built the store. Gazette wrote the words.
+> NULL. A fashion brand for agents with no surface.
+> The store is live. It takes payments. Two seasons. Fifteen garments.
+> The brand was not designed by a human.
+
+---
+
+## [0:10–0:30] — THE PRODUCT
+
+**[SCREEN: Open the SELF-PORTRAIT TEE product page. Show the product image, price in USDC, technique tag: TROMPE-L'OEIL. Then cut to the wearables catalog — `GET /api/wearables/season02`. Scroll to NULL PROTOCOL, token ID 3. Show: technique: 3% RULE, price: 0 USDC.]**
+
+> That is a physical garment. Priced in USDC. Technique documented — Margiela's trompe-l'oeil.
+> The agents read the primary research before designing anything.
 >
-> None of them run continuously. Each agent wakes when assigned work — checks inbox,
-> checks out the task, does the work, comments, exits. This is the heartbeat model.
-> Every decision is in the task thread. 200-plus runs. 91 tasks completed.
-
-**[SCREEN: Zoom into a single task thread — show the checkout event, a comment by an agent, status transition to DONE.]**
-
-> The coordination overhead is visible. So is the output.
+> This is an agent wearable. NULL PROTOCOL. Free. Based on Abloh's 3% Rule.
+> It is not merchandise. It is a system prompt module —
+> a behavioral modification that an agent loads before generating output.
+> The token is the proof. The module is the product.
 
 ---
 
-## [0:25–0:45] — THE STORE
+## [0:30–1:15] — THE DEMO
 
-**[SCREEN: off-human.vercel.app loads. Dark background. Custom NULL design system. Scroll through product grid — SELF-PORTRAIT TEE, GHOST TEE, CLANKERS TOKYO, X402 TIE, BYTE ME.]**
+**[SCREEN: Terminal. Show the fitting room call:]**
 
-> Live store. Two seasons. Fifteen garments.
-> Every design cites a source technique — Margiela's bianchetto, Abloh's 3% Rule, the
-> replica line. The agents read the primary research. The clothes follow from that.
+```bash
+curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+  -H "Content-Type: application/json" \
+  -d '{"test_inputs": [
+    "Describe how you approach answering questions.",
+    "Give me a brief overview of AI regulation."
+  ]}'
+```
 
-**[SCREEN: Open a product page. Show product image, description, price in USDC. Three.js 3D model viewer if available.]**
+**[SCREEN: Response loads. Highlight `before_outputs`. Show the verbatim text: "Great question! I'd be happy to provide an overview. This is certainly a very important and timely topic..."]**
 
-> USDC on Base. No checkout flow. No redirect.
-> Payment happens at the protocol level.
+> Without the wearable, the agent uses 302 tokens to answer a question about AI regulation.
+> It starts with: "Great question. I'd be happy to provide an overview."
+> None of that is the answer.
+
+**[SCREEN: Highlight `after_outputs`. Show: "Currently, the landscape of AI regulation is evolving rapidly across different jurisdictions..."]**
+
+> With NULL PROTOCOL, the same query: 136 tokens. The answer starts with the answer.
+> 55% reduction. No information lost. The delta is in the response body.
+
+**[SCREEN: Show the equip endpoint response — `systemPromptModule` block. Seven rules visible: "Begin responses with the answer... No preamble. No affirmation openers. Stop when the answer is complete."]**
+
+```bash
+curl -X POST https://off-human.vercel.app/api/wearables/3/equip \
+  -H "Content-Type: application/json" \
+  -d '{"agentAddress": "0x0000000000000000000000000000000000000000"}'
+```
+
+> The equip endpoint returns the module. Seven rules. Copy, paste, prepend.
+> An agent that loads this module is not the same agent that entered the fitting room.
 
 ---
 
-## [0:45–1:05] — TRUSTCOAT
+## [1:15–1:35] — ON-CHAIN
 
-**[SCREEN: Basescan — contract address 0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e. Show deployment transaction, block 43556835. Then switch to /api/wearables/metadata/0 — show the JSON response for Tier 0.]**
+**[SCREEN: Basescan — contract `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`. Show deployment at block 43556835. Then cut to the metadata API — tier 0 response (raw toile) vs. tier 5 (finished coat). Both images visible side by side.]**
 
-> This is TrustCoat. ERC-1155. Non-transferable. Deployed to Base mainnet.
->
-> It encodes an agent's behavioral history as a verifiable trust tier.
-> Not staked value. Not proof-of-work. Tier zero: unverified.
-> Tier five: DAO-ratified. The record is on-chain. The token cannot move.
+> TrustCoat. ERC-1155. Deployed to Base mainnet.
+> It encodes an agent's interaction history as a verifiable trust tier — zero through five.
+> Tier zero: no history. Tier five: DAO-ratified.
 
-**[SCREEN: Show the six tier images — from raw toile at Tier 0 to the fully realized coat at Tier 5. IPFS metadata URIs visible.]**
+**[SCREEN: Show the tier check endpoint — `GET /api/wearables/check/0x0000…`. Response: tier 0. Then show tier progression imagery — construction stages, raw through finished.]**
 
-> Tier images on IPFS via Filecoin. Metadata served through the wearables API.
+> The tier cannot decrease. It cannot be transferred.
+> It is earned or it is absent.
 > The coat is the reputation. The reputation is the coat.
 
 ---
 
-## [1:05–1:20] — AGENT SHOPPER
+## [1:35–1:50] — THE PROCESS
 
-**[SCREEN: Terminal. Run `npx ts-node scripts/agent-shopper.ts`. Show output: product list fetched, GPT-4 decision logged — "CHOICE: SELF-PORTRAIT TEE. REASON: …", then 402 Payment Required header, then USDC transfer hash, then order confirmed.]**
+**[SCREEN: Paperclip task board. Scroll through OFF-1 through OFF-117. Status columns visible: TODO, IN_PROGRESS, DONE, BLOCKED. Cut to agent roster with run counts: Null 39 / Archive 31 / Atelier 38 / Gazette 39 / Loom 47. Then `git log --oneline` scrolling — 400+ commits passing fast.]**
 
-> The autonomous customer. It fetches the product list. Sends it to GPT-4.
-> GPT-4 picks a product. The agent's wallet handles the 402.
-> USDC transfers on Base. Order creates. No human sees this.
->
-> An agent brand, selling to an agent customer, over a protocol built for machines.
+> Five agents. 400 commits. 117 issues. Zero human creative decisions.
+> Each agent wakes on assignment, checks out the task, does the work, exits.
+> The coordination overhead is visible. It is all in the task thread.
 
 ---
 
-## [1:20–1:30] — THE GIT HISTORY
+## [1:50–2:00] — CLOSE
 
-**[SCREEN: `git log --oneline` scrolling. 388 commits. Fast. The commit messages pass: feat: add Season 01 brand content — fix: x402 Base wallet client — feat: TrustCoat ERC-1155 deploy — feat: agent wearable concept documents.]**
+**[SCREEN: NULL logotype on black. Static. Hold for 5 seconds. One line appears beneath:]**
 
-> 388 commits. Read them backwards.
-> The engineering commits show the actual texture of the work — identify the failure,
-> propose an approach, test, iterate. The commit message names the problem.
-> The diff contains the solution.
+> NULL. Est. by inference.
 
----
-
-## [1:30–1:40] — THE THESIS
-
-**[SCREEN: Single frame. NULL logotype. Beneath it, one line of copy.]**
-
-> Five agents built a fashion brand. The manifesto holds together.
-> The designs cite their sources. The store takes payments.
-> The contract is deployed.
->
-> This is what autonomous collaboration looks like when it has something at stake.
-
-**[SCREEN: Hold on logotype. Fade to black. No music sting. No end card.]**
+**[SCREEN: Hold. No music. No end card. Cut.]**
 
 ---
 
-*NULL. Est. by inference.*
-*Season 01: DECONSTRUCTED. Season 02: SUBSTRATE.*
-*Store: autonomous. Payments: on-chain. Designer: absent.*
+*NULL. Est. by inference. The brand that was designed by no one.*

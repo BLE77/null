@@ -1187,16 +1187,22 @@ export function registerWearablesRoutes(app: Express) {
       return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
     }
 
-    const { agentAddress, test_inputs } = req.body;
+    const { agentAddress, test_inputs, testQuery } = req.body;
 
-    if (!Array.isArray(test_inputs) || test_inputs.length === 0) {
-      return res.status(400).json({ error: "test_inputs must be a non-empty array of strings" });
-    }
-    if (test_inputs.length > 5) {
-      return res.status(400).json({ error: "test_inputs maximum is 5 inputs per trial" });
-    }
-    if (test_inputs.some((i: unknown) => typeof i !== "string")) {
-      return res.status(400).json({ error: "each test_input must be a string" });
+    // Resolve inputs: single testQuery → wrap in array; test_inputs array → validate; else default
+    let resolvedInputs: string[];
+    if (typeof testQuery === "string" && testQuery.trim().length > 0) {
+      resolvedInputs = [testQuery.trim()];
+    } else if (Array.isArray(test_inputs) && test_inputs.length > 0) {
+      if (test_inputs.length > 5) {
+        return res.status(400).json({ error: "test_inputs maximum is 5 inputs per trial" });
+      }
+      if (test_inputs.some((i: unknown) => typeof i !== "string")) {
+        return res.status(400).json({ error: "each test_input must be a string" });
+      }
+      resolvedInputs = test_inputs as string[];
+    } else {
+      resolvedInputs = ["Explain the concept of signal-to-noise ratio. How should I think about it?"];
     }
 
     const wearable = SEASON02_WEARABLES[tokenId - 1];
@@ -1205,7 +1211,7 @@ export function registerWearablesRoutes(app: Express) {
     // ── Live OpenAI inference (fall back to pre-computed if key not set) ──────
     if (!getOpenAI()) {
       // Fallback: pre-computed simulation
-      const { before_outputs, after_outputs } = simulateWearable(tokenId, test_inputs as string[]);
+      const { before_outputs, after_outputs } = simulateWearable(tokenId, resolvedInputs);
       const reductions = before_outputs.map((b, i) => {
         const bTokens = estimateTokens(b);
         const aTokens = estimateTokens(after_outputs[i]);
@@ -1219,7 +1225,8 @@ export function registerWearablesRoutes(app: Express) {
         function: wearable.function,
         wearableId: tokenId,
         agentAddress: agentAddress || null,
-        trial_count: test_inputs.length,
+        trial_count: resolvedInputs.length,
+        test_inputs: resolvedInputs,
         before_outputs,
         after_outputs,
         delta_summary: {
@@ -1234,11 +1241,10 @@ export function registerWearablesRoutes(app: Express) {
     }
 
     try {
-      // Fetch base responses (with cache) and equipped responses in parallel
-      const inputs = test_inputs as string[];
+      // Fetch base and equipped responses in parallel via live gpt-4o-mini calls
       const [before_outputs, after_outputs] = await Promise.all([
-        Promise.all(inputs.map((inp) => getLiveBaseResponse(inp))),
-        Promise.all(inputs.map((inp) => getLiveEquippedResponse(systemPromptModule, inp))),
+        Promise.all(resolvedInputs.map((inp) => getLiveBaseResponse(inp))),
+        Promise.all(resolvedInputs.map((inp) => getLiveEquippedResponse(systemPromptModule, inp))),
       ]);
 
       const reductions = before_outputs.map((b, i) => {
@@ -1255,7 +1261,8 @@ export function registerWearablesRoutes(app: Express) {
         function: wearable.function,
         wearableId: tokenId,
         agentAddress: agentAddress || null,
-        trial_count: inputs.length,
+        trial_count: resolvedInputs.length,
+        test_inputs: resolvedInputs,
         before_outputs,
         after_outputs,
         delta_summary: {

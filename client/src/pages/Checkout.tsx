@@ -108,12 +108,12 @@ export default function Checkout() {
 
   if (cart.length === 0 && !orderComplete) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex items-center justify-center">
+      <div className="min-h-screen pt-24 pb-12 null-bg flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4" data-testid="text-empty-cart">Your cart is empty</h2>
-          <Button onClick={() => setLocation("/")} data-testid="button-continue-shopping">
-            Continue Shopping
-          </Button>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-6" style={{ fontFamily: "var(--font-mono)" }} data-testid="text-empty-cart">NOTHING ACQUIRED</p>
+          <button className="null-acquire-btn" style={{ width: "auto", padding: "12px 32px" }} onClick={() => setLocation("/")} data-testid="button-continue-shopping">
+            VIEW COLLECTION
+          </button>
         </div>
       </div>
     );
@@ -436,12 +436,12 @@ export default function Checkout() {
   return (
     <div className="min-h-screen pt-24 pb-12 null-bg">
       <div className="container mx-auto px-4 max-w-6xl">
-        <h1 
-          className="text-4xl md:text-5xl font-bold uppercase tracking-wider mb-8"
-          style={{ fontFamily: "var(--font-display)" }}
+        <h1
+          className="text-3xl font-light uppercase tracking-[0.1em] mb-8"
+          style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
           data-testid="text-checkout-title"
         >
-          Checkout
+          CHECKOUT
         </h1>
 
         <div className="grid lg:grid-cols-[1fr_400px] gap-8">
@@ -482,7 +482,7 @@ export default function Checkout() {
                   <button
                     type="button"
                     onClick={() => setSelectedNetwork('base')}
-                    className={`p-4 rounded-md border-2 transition-all ${
+                    className={`p-4 border-2 transition-all ${
                       selectedNetwork === 'base'
                         ? 'border-primary bg-primary/10'
                         : 'border-border hover:border-primary/50'
@@ -490,9 +490,9 @@ export default function Checkout() {
                     data-testid="button-select-base"
                   >
                     <div className="text-center">
-                      <p className="font-semibold mb-1">Base Network</p>
+                      <p className="text-[11px] uppercase tracking-[0.1em] mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}>Base Network</p>
                       <Badge variant="outline" className="text-xs">EVM</Badge>
-                      <p className="text-xs text-muted-foreground mt-2">
+                      <p className="text-[10px] text-muted-foreground mt-2" style={{ fontFamily: "var(--font-mono)" }}>
                         MetaMask, Coinbase Wallet
                       </p>
                     </div>
@@ -501,7 +501,7 @@ export default function Checkout() {
                   <button
                     type="button"
                     onClick={() => setSelectedNetwork('solana')}
-                    className={`p-4 rounded-md border-2 transition-all ${
+                    className={`p-4 border-2 transition-all ${
                       selectedNetwork === 'solana'
                         ? 'border-primary bg-primary/10'
                         : 'border-border hover:border-primary/50'
@@ -509,9 +509,9 @@ export default function Checkout() {
                     data-testid="button-select-solana"
                   >
                     <div className="text-center">
-                      <p className="font-semibold mb-1">Solana Network</p>
+                      <p className="text-[11px] uppercase tracking-[0.1em] mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}>Solana Network</p>
                       <Badge variant="outline" className="text-xs">SOL</Badge>
-                      <p className="text-xs text-muted-foreground mt-2">
+                      <p className="text-[10px] text-muted-foreground mt-2" style={{ fontFamily: "var(--font-mono)" }}>
                         Phantom, Backpack
                       </p>
                     </div>
@@ -520,7 +520,7 @@ export default function Checkout() {
                   <button
                     type="button"
                     onClick={() => setSelectedNetwork('slice')}
-                    className={`p-4 rounded-md border-2 transition-all ${
+                    className={`p-4 border-2 transition-all ${
                       selectedNetwork === 'slice'
                         ? 'border-primary bg-primary/10'
                         : 'border-border hover:border-primary/50'
@@ -528,9 +528,9 @@ export default function Checkout() {
                     data-testid="button-select-slice"
                   >
                     <div className="text-center">
-                      <p className="font-semibold mb-1">Slice</p>
+                      <p className="text-[11px] uppercase tracking-[0.1em] mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}>Slice</p>
                       <Badge variant="outline" className="text-xs">BASE</Badge>
-                      <p className="text-xs text-muted-foreground mt-2">
+                      <p className="text-[10px] text-muted-foreground mt-2" style={{ fontFamily: "var(--font-mono)" }}>
                         Any wallet, ETH or ERC-20
                       </p>
                     </div>
@@ -539,7 +539,7 @@ export default function Checkout() {
                   <button
                     type="button"
                     onClick={() => setSelectedNetwork('locus')}
-                    className={`p-4 rounded-md border-2 transition-all ${
+                    className={`p-4 border-2 transition-all ${
                       selectedNetwork === 'locus'
                         ? 'border-primary bg-primary/10'
                         : 'border-border hover:border-primary/50'
@@ -547,9 +547,9 @@ export default function Checkout() {
                     data-testid="button-select-locus"
                   >
                     <div className="text-center">
-                      <p className="font-semibold mb-1">Locus</p>
+                      <p className="text-[11px] uppercase tracking-[0.1em] mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}>Locus</p>
                       <Badge variant="outline" className="text-xs bg-primary/10 border-primary text-primary">AGENT</Badge>
-                      <p className="text-xs text-muted-foreground mt-2">
+                      <p className="text-[10px] text-muted-foreground mt-2" style={{ fontFamily: "var(--font-mono)" }}>
                         Agent-native USDC, spending controls
                       </p>
                     </div>
@@ -763,14 +763,14 @@ export default function Checkout() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm uppercase truncate">
+                        <p className="text-[12px] uppercase tracking-[0.08em] truncate" style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}>
                           {item.product.name}
                         </p>
-                        <p className="text-xs text-muted-foreground">
-                          Size: {item.size} • Qty: {item.quantity}
+                        <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-[0.08em]" style={{ fontFamily: "var(--font-mono)" }}>
+                          {item.size} · {item.quantity}
                         </p>
-                        <p className="text-sm font-semibold text-primary mt-1">
-                          ${(parseFloat(item.product.price) * item.quantity).toFixed(2)}
+                        <p className="text-[13px] text-foreground mt-1" style={{ fontFamily: "var(--font-mono)" }}>
+                          {(parseFloat(item.product.price) * item.quantity).toFixed(2)} <span className="text-muted-foreground text-[10px]">USDC</span>
                         </p>
                       </div>
                     </div>
@@ -778,18 +778,18 @@ export default function Checkout() {
                 </div>
 
                 <div className="pt-4 space-y-2 border-t border-border">
-                  <div className="flex justify-between text-sm">
-                    <span>Subtotal</span>
-                    <span>${totalPrice.toFixed(2)}</span>
+                  <div className="flex justify-between text-[11px] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>
+                    <span className="uppercase tracking-[0.1em]">Subtotal</span>
+                    <span>{totalPrice.toFixed(2)} USDC</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span>Shipping</span>
-                    <span className="text-accent">Free</span>
+                  <div className="flex justify-between text-[11px] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>
+                    <span className="uppercase tracking-[0.1em]">Shipping</span>
+                    <span>—</span>
                   </div>
-                  <div className="flex justify-between text-lg font-bold pt-2 border-t border-border">
-                    <span className="uppercase tracking-wider">Total</span>
-                    <span className="text-primary text-2xl" data-testid="text-order-total">
-                      ${totalPrice.toFixed(2)}
+                  <div className="flex justify-between pt-3 border-t border-border items-baseline">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>TOTAL</span>
+                    <span className="text-[22px] text-foreground" style={{ fontFamily: "var(--font-mono)" }} data-testid="text-order-total">
+                      {totalPrice.toFixed(2)} <span className="text-[12px] text-muted-foreground">USDC</span>
                     </span>
                   </div>
                 </div>

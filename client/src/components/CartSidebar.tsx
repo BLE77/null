@@ -42,9 +42,8 @@ export function CartSidebar() {
         <div className="flex-1 overflow-y-auto p-6">
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <div className="text-6xl mb-4 opacity-20">✕</div>
-              <p className="text-muted-foreground text-lg" data-testid="text-empty-cart">Nothing here yet</p>
-              <p className="text-sm text-muted-foreground mt-2">Start adding items to your cart</p>
+              <div className="text-2xl mb-6 text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }}>—</div>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground" style={{ fontFamily: "var(--font-mono)" }} data-testid="text-empty-cart">NOTHING ACQUIRED</p>
             </div>
           ) : (
             <div className="space-y-6">
