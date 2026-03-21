@@ -1233,31 +1233,74 @@ export function registerWearablesRoutes(app: Express) {
 
     const wearable = SEASON02_WEARABLES[tokenId - 1];
 
-    // ── Ownership check ───────────────────────────────────────────────────────
+    // ── TBA identity lookup ───────────────────────────────────────────────────
+    let tbaAddress: string | null = null;
+    let identityTokenId: number | null = null;
+    if (process.env.NULL_IDENTITY_ADDRESS || process.env.NODE_ENV === "production") {
+      try {
+        const identityRes = await fetch(
+          `${req.protocol}://${req.get("host")}/api/agents/${agentAddress}/identity`
+        );
+        if (identityRes.ok) {
+          const identityData = await identityRes.json() as { tbaAddress?: string; tokenId?: number };
+          tbaAddress = identityData.tbaAddress ?? null;
+          identityTokenId = identityData.tokenId ?? null;
+        }
+      } catch { /* best-effort */ }
+    }
+
+    // ── Ownership check (EOA or TBA) ──────────────────────────────────────────
     let ownershipVerified = false;
+    let equipMethod: "on-chain" | "off-chain" = "off-chain";
 
     if (agentWearablesAvailable()) {
       try {
         const client = getPublicClient();
-        const balance = await client.readContract({
+
+        // Check EOA balance
+        const eoaBalance = await client.readContract({
           address: AGENT_WEARABLES_ADDRESS,
           abi: AGENT_WEARABLES_ABI,
           functionName: "balanceOf",
           args: [agentAddress as `0x${string}`, BigInt(tokenId)],
         }) as bigint;
 
-        if (balance === BigInt(0)) {
+        // Check TBA balance (if agent has identity)
+        let tbaBalance = 0n;
+        if (tbaAddress) {
+          try {
+            tbaBalance = await client.readContract({
+              address: AGENT_WEARABLES_ADDRESS,
+              abi: AGENT_WEARABLES_ABI,
+              functionName: "balanceOf",
+              args: [tbaAddress as `0x${string}`, BigInt(tokenId)],
+            }) as bigint;
+          } catch { /* best-effort */ }
+        }
+
+        const totalBalance = eoaBalance + tbaBalance;
+
+        if (totalBalance === 0n) {
           return res.status(403).json({
             error: "Agent does not hold this wearable",
             wearableId: tokenId,
             wearableName: wearable.name,
             agentAddress,
+            tbaAddress,
             hint: tokenId === 3
               ? "NULL PROTOCOL is free — mint it at POST /api/agents/:address/season02-wardrobe/mint with { tokenId: 3 }"
               : `Purchase ${wearable.name} at the NULL store to equip it`,
           });
         }
+
         ownershipVerified = true;
+        // If the wearable is in the TBA, it's already on-chain equipped
+        if (tbaBalance > 0n) {
+          equipMethod = "on-chain";
+        } else if (tbaAddress) {
+          // In EOA — agent needs to transfer to TBA to complete on-chain equip
+          equipMethod = "off-chain";
+        }
       } catch (err: any) {
         // Contract read failed — fall through to unverified mode for NULL PROTOCOL
         if (tokenId !== 3) {
@@ -1286,8 +1329,15 @@ export function registerWearablesRoutes(app: Express) {
       function: wearable.function,
       agentAddress,
       ownershipVerified,
+      method: equipMethod,
+      tbaAddress: tbaAddress ?? null,
+      identityTokenId: identityTokenId ?? null,
       ownershipNote: ownershipVerified
-        ? "Token balance verified on-chain"
+        ? equipMethod === "on-chain"
+          ? `Wearable confirmed in TBA (${tbaAddress}) — on-chain equip active`
+          : tbaAddress
+            ? `Wearable in EOA. Transfer to TBA (${tbaAddress}) to commit on-chain: safeTransferFrom(${agentAddress}, ${tbaAddress}, ${tokenId}, 1, 0x)`
+            : "Token balance verified on-chain"
         : "Ownership not verified — AgentWearables contract not reachable. NULL PROTOCOL is free; self-reported.",
       systemPromptModule,
       interiorTag: wearable.interiorTag,

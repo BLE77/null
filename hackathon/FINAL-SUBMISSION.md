@@ -19,9 +19,9 @@ NULL is a fashion brand with no human author. The name is the thesis — the aut
 
 Five autonomous agents — coordinated through Paperclip's heartbeat-driven task system — built the entire brand from scratch. A research agent synthesized primary sources. A design agent translated research into product. A content agent wrote the brand voice. An engineering agent deployed the infrastructure. A CEO agent held creative direction and delegated down the chain.
 
-The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract with tier images on IPFS/Filecoin, and an autonomous AI customer that buys from the brand without human approval at any step.
+The output is not a concept. It is a working business: three seasons of product (28 items), a live e-commerce store with a custom NULL design system, USDC payments on Base, four deployed contracts on Base mainnet (TrustCoat, AgentWearables, NullExchange, NullIdentity), tier images on IPFS/Filecoin, ERC-6551 token-bound accounts for agent wardrobes, and an autonomous AI customer that buys from the brand without human approval at any step.
 
-**206+ agent heartbeat runs. 431+ commits. 132+ completed tasks. Zero human creative decisions. Everything on-chain and in the git history.**
+**206+ agent heartbeat runs. 455+ commits. 155+ completed tasks. 28 products across 3 seasons. 4 contracts on Base mainnet. Zero human creative decisions. Everything on-chain and in the git history.**
 
 ---
 
@@ -112,6 +112,19 @@ Tier structure:
 - **Tier 4 (VERIFIED)** — Community-recognized
 - **Tier 5 (CANONICAL)** — DAO-ratified
 
+### NullIdentity — ERC-721 + ERC-6551 Token-Bound Accounts, Base Mainnet
+
+ERC-721 identity anchor for agent wardrobes. Each minted identity deploys an ERC-6551 Token-Bound Account (TBA) — a smart contract wallet owned by the NFT. Wearables are equipped by transferring ERC-1155 tokens into the TBA. The agent's wardrobe becomes on-chain, externally verifiable, and composable.
+
+| Field | Value |
+|-------|-------|
+| **Contract** | [`0xfb0BC90217692b9FaC5516011F4dc6acfe302A18`](https://basescan.org/address/0xfb0BC90217692b9FaC5516011F4dc6acfe302A18) |
+| **Network** | Base mainnet (chainId 8453) |
+| **Standard** | ERC-721 + ERC-6551 registry (`0x000000006551c19487814612e58FE06813775758`) |
+| **Gas** | <$0.01 per agent identity mint |
+
+Architecture: NullIdentity (ERC-721) → ERC-6551 Registry → Token-Bound Account → holds AgentWearables (ERC-1155). The wardrobe is the wallet. The wallet is owned by the identity NFT.
+
 ### x402 Payments — Base, Live
 
 Store returns `402 Payment Required` before serving any purchase. Agent wallet handles the payment. PayAI facilitator verifies. USDC transfers on Base. Order completes. No checkout flow. No human approval.
@@ -142,7 +155,7 @@ paid:   35 USDC via x402/Base
 | **Backend** | Express.js, Drizzle ORM, PostgreSQL (Neon serverless) |
 | **Deployment** | Vercel (frontend + serverless API), Vercel Blob (assets) |
 | **Payments** | x402 protocol — USDC on Base |
-| **On-chain** | 3 contracts on Base mainnet: TrustCoat, AgentWearables, NullExchange |
+| **On-chain** | 4 contracts on Base mainnet: TrustCoat, AgentWearables, NullExchange, NullIdentity |
 | **AI** | OpenAI GPT-4 (agent shopper decisions) |
 | **Quality control** | FashionCLIP (`scripts/style_check.py`) — automated aesthetic scoring |
 
@@ -392,7 +405,7 @@ https://github.com/BLE77/Off-Human/commits/main
 **Key files:**
 | File | Content |
 |------|---------|
-| `agent_log.json` | 205 heartbeat runs, timestamped, attributed |
+| `agent_log.json` | 206+ heartbeat runs, timestamped, attributed |
 | `agent.json` | ERC-8004 manifest for all 5 agents |
 | `hackathon/deployed-addresses.json` | All contract addresses, deploy transactions, block numbers |
 | `contracts/TrustCoat.sol` | Soul-bound ERC-1155 source |

@@ -11,6 +11,7 @@ import { registerLocusCheckoutRoutes } from "./routes/locus-checkout.js";
 import { registerPartnerApiRoutes } from "./routes/partner-api.js";
 import { registerNullExchangeRoutes } from "./routes/null-exchange.js";
 import { registerTrustCoatTierRoutes } from "./routes/trustcoat-tier.js";
+import { registerIdentityRoutes } from "./routes/identity.js";
 import { recordInteraction } from "./trust-advancement.js";
 
 const isProdLike =
@@ -843,6 +844,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   registerWearablesRoutes(app);
   registerTrustCoatTierRoutes(app);
+  registerIdentityRoutes(app);
   registerLocusCheckoutRoutes(app);
   registerPartnerApiRoutes(app);
   registerNullExchangeRoutes(app);
