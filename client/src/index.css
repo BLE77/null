@@ -287,6 +287,109 @@
     }
   }
 
+  /* Brutalist compartment grid — gap:1px hairline technique */
+  .null-agent-grid {
+    display: grid;
+    gap: 1px;
+    background: #D8D4C8;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .null-agent-grid > .null-agent-cell {
+    background: #F6F4EF;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .null-agent-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* TrustCoat 6-tier bento grid */
+  .null-trustcoat-grid {
+    display: grid;
+    gap: 1px;
+    background: #D8D4C8;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    .null-trustcoat-grid {
+      grid-template-columns: 1fr;
+    }
+    .null-tier-cell--full {
+      grid-column: span 1 !important;
+      flex-direction: column !important;
+    }
+  }
+
+  .null-tier-cell {
+    background: #F6F4EF;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 280px;
+  }
+
+  .null-tier-cell--full {
+    min-height: 200px;
+    flex-direction: row;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .null-tier-visual {
+    flex: 1;
+    background: #EFEDE7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    min-height: 120px;
+  }
+
+  .null-tier-abstraction {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    line-height: 1.6;
+    color: #8C8880;
+    letter-spacing: 0.05em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+    text-align: center;
+  }
+
+  .null-tier-data {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    margin: 0;
+  }
+
+  .null-tier-data dt {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #8C8880;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .null-tier-data dd {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #1C1B19;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
   /* Shop grid cell */
   .null-shop-cell {
     background: #EFEDE7;
