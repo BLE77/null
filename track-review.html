@@ -1,0 +1,438 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>NULL Track Review</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif;padding:20px}
+.container{max-width:1100px;margin:0 auto}
+h1{color:#F6F4EF;font-size:24px;margin-bottom:5px}
+.sub{color:#888;margin-bottom:20px;font-size:14px}
+.filters{margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap}
+.filters button{background:#1a1a1a;color:#ccc;border:1px solid #333;padding:6px 14px;cursor:pointer;font-size:12px}
+.filters button.active{background:#A8894A;color:#000;border-color:#A8894A}
+.track{background:#111;border:1px solid #222;margin-bottom:12px;padding:16px}
+.track.ready{border-left:4px solid #22c55e}
+.track.needs-work{border-left:4px solid #f59e0b}
+.track.not-ready{border-left:4px solid #ef4444}
+.track.skip{border-left:4px solid #444;opacity:0.5}
+.track.if-eligible{border-left:4px solid #8b5cf6}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.name{font-size:16px;color:#F6F4EF;font-weight:bold}
+.right{text-align:right}
+.prize{color:#A8894A;font-weight:bold;font-size:15px}
+.badge{display:inline-block;padding:2px 8px;font-size:10px;font-weight:bold;text-transform:uppercase;margin-left:8px}
+.badge.ready{background:#22c55e;color:#000}
+.badge.needs-work{background:#f59e0b;color:#000}
+.badge.not-ready{background:#ef4444;color:#fff}
+.badge.skip{background:#444;color:#999}
+.badge.if-eligible{background:#8b5cf6;color:#fff}
+.sponsor{color:#888;font-size:12px}
+.prizes-list{color:#777;font-size:11px;margin-bottom:8px}
+.desc{color:#999;font-size:12px;line-height:1.5;margin-bottom:8px;max-height:80px;overflow:hidden;cursor:pointer}
+.desc.open{max-height:5000px}
+.assessment{background:#1a1a1a;padding:10px;font-size:12px;line-height:1.5}
+.assessment b{color:#A8894A}
+.have{color:#6ee7b7}
+.missing{color:#fca5a5}
+.summary{background:#111;border:1px solid #A8894A;padding:16px;margin-bottom:20px;display:flex;gap:30px;flex-wrap:wrap}
+.stat .n{font-size:24px;color:#F6F4EF;font-weight:bold}
+.stat .l{font-size:11px;color:#888}
+</style></head><body><div class="container">
+<h1>NULL - All 46 Hackathon Tracks</h1>
+<p class="sub">Every track. What it requires. What we have. What we don't. Honest.</p>
+<div class="summary">
+
+<div class="stat"><div class="n">1</div><div class="l">READY</div></div>
+<div class="stat"><div class="n">4</div><div class="l">NEEDS WORK</div></div>
+<div class="stat"><div class="n">12</div><div class="l">NOT READY</div></div>
+<div class="stat"><div class="n">28</div><div class="l">SKIP</div></div>
+<div class="stat"><div class="n">1</div><div class="l">IF ELIGIBLE</div></div>
+</div><div class="filters">
+<button class="active" onclick="f('all')">All (46)</button>
+<button onclick="f('ready')">Ready</button>
+<button onclick="f('needs-work')">Needs Work</button>
+<button onclick="f('not-ready')">Not Ready</button>
+<button onclick="f('skip')">Skip</button></div><div id="t">
+<div class="track if-eligible" data-v="if-eligible">
+<div class="hdr"><div><div class="name">1. Student Founder&#x27;s Bet</div><div class="sponsor">College.xyz</div></div>
+<div class="right"><span class="prize">$2,500</span><span class="badge if-eligible">IF ELIGIBLE</span></div></div>
+<div class="prizes-list">5th Place: $500, 3rd Place: $500, 2nd Place: $500, 1st Place: $500, 4th Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">This one&#x27;s only for current university students.
+
+How to enter:
+Be a current university or college student. Show proof after you submit your project.
+
+What we&#x27;re looking for:
+The best student projects in the AI agent x web3 space. We don&#x27;t care if the code is perfect, we care if the idea is real and you actually shipped it. Show us something that makes us go &quot;why doesn&#x27;t this exist.&quot;
+
+Eligibility &amp; proof:
+To be eligible for prizes, you must have:
+ ? An active school email (for example: `.edu`, `.ca`, etc.)
+ ? A valid student ID that proves you are still enrolled
+
+After you submit your project </div>
+<div class="assessment"><b>What We Have:</b> <span class="have">The full project</span><br><b>What's Missing:</b> <span class="missing">Must be current university student with .edu email + student ID</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">2. Dark Knowledge Skills — Lit Chipotle</div><div class="sponsor">Workgraph, Inc</div></div>
+<div class="right"><span class="prize">$250</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Dark Knowledge Skill: $250</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build private, consumable AI skills on Lit Protocol&#x27;s Chipotle TEE-secured runtime that unlock data and expertise foundation models can&#x27;t access. Prove the model. Ship a skill. Keep the knowledge sealed.
+
+The Thesis: Foundation models know what&#x27;s public. Your skill knows what isn&#x27;t. LLMs are trained on the open web ? but the most valuable knowledge lives behind paywalls, inside proprietary datasets, locked in domain expertise that never made it to a blog post. Dark Knowledge Skills bridge that gap.
+
+Using Lit Actions on Chipotle&#x27;s TEE-secured runtime, build AI skills that ingest proprietary da</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">Need Lit Protocol TEE integration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">3. OpenWallet Standard</div><div class="sponsor">Moonpay</div></div>
+<div class="right"><span class="prize">$3,500</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place — Winner: $2500, 2nd Place — Runner Up: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build on the OpenWallet Standard (OWS) ? MoonPay&#x27;s open-source, CC0-licensed wallet infrastructure standard for local-first, chain-agnostic wallet management. Projects could implement the standard, extend it with new chain plugins or policy types, or build agents that use OWS as their wallet layer. This track is infrastructure-level: we want implementations, tooling, and integrations that push OWS forward and demonstrate its power as a foundational primitive for autonomous agents.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No OpenWallet Standard implementation</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">4. MoonPay CLI Agents</div><div class="sponsor">Moonpay</div></div>
+<div class="right"><span class="prize">$3,500</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place — Winner: $2500, 2nd Place — Runner Up: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build an agent powered by the MoonPay CLI ? the open-source MCP server that gives agents skills across swaps, bridges, DCA, portfolio management, Polymarket, and more. Your agent should use the CLI as its primary action layer. Use cases are wide open: personal finance bots, multi-chain research assistants, DCA automators, prediction market traders, or anything else the CLI enables. Agents must meaningfully leverage MoonPay CLI capabilities beyond a basic demo.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No MoonPay CLI integration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">5. Best Use of EigenCompute</div><div class="sponsor">EigenCloud</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $3000, 3rd Place: $1000, 2nd Place: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build something real on EigenCompute ? EigenLayer&#x27;s verifiable compute service. Projects must deploy a working Docker image on EigenCompute with a live demo and GitHub repo. We want verifiable off-chain execution at the core of your project, not diagrams or mockups. Supported stacks: Python, Rust, Go, Node.js inside a TEE. Any chain: Ethereum, Arbitrum, Base, Solana, Polygon, Bitcoin. Required deliverables: working Docker image on EigenCompute, GitHub repo with README and setup instructions, live demo or recorded demo (2?5 mins), and an architecture diagram showing how EigenCompute fits into y</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No EigenCompute/Docker/TEE work</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">6. Best Use Case with Agentic Storage</div><div class="sponsor">Filecoin Foundation</div></div>
+<div class="right"><span class="prize">$2,000</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $1000, 2nd Place: $700, 3rd Place: $300</div>
+<div class="desc" onclick="this.classList.toggle('open')">Recognizing the most compelling real-world applications built on Filecoin Onchain Cloud (FOC) mainnet, where AI agents autonomously store, retrieve, and manage data. Projects must demonstrate working code with real storage, payments, and usage ? not diagrams or mockups.
+
+Challenge statements (Open Requests for Startups):
+- RFS-1: Agentic Storage SDK ? foundational storage toolkit any AI agent can use to store data on Filecoin autonomously, regardless of framework or runtime.
+- RFS-2: Onchain Agent Registry with Filecoin-Backed State ? deploy AI agents as first-class onchain citizens via ERC-80</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Images on IPFS via Lighthouse, migration script for Filecoin Onchain Cloud exists</span><br><b>What's Missing:</b> <span class="missing">Dry run only, blocked on FIL gas, no FOC mainnet deployment. Receipt is fake (example CIDs).</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">7. Autonomous Trading Agent</div><div class="sponsor">Base</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Winner #1: $1666.67, Winner #2: $1666.67, Winner #3: $1666.66</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build an autonomous trading agent that implements novel strategies and has proven profitability. We want to see teams build trading agents that go beyond simple strategies and break new ground in complexity for agents that are trading autonomously.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No trading agent built</span></div>
+</div>
+<div class="track needs-work" data-v="needs-work">
+<div class="hdr"><div><div class="name">8. Agent Services on Base</div><div class="sponsor">Base</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="prizes-list">Winner #2: $1666.67, Winner #1: $1666.67, Winner #3: $1666.66</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build an agent service (an agent that provides services to other agents or humans) which can be easily discovered on Base and accepts payments via x402 for its services. We&#x27;re looking for agent services that provide meaningful utility and that illustrates other agents&#x27; and humans&#x27; willingness to pay for their services. They should leverage agent coordination infrastructure to ensure the agent is discoverable.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">x402 USDC payments live, wearable store with equip/try/unequip API, TrustCoat + AgentWearables + NullExchange on Base mainnet, Locus wallet</span><br><b>What's Missing:</b> <span class="missing">operator_wallet is zero address in agent.json, no proof an external agent discovered and paid us, discoverability infrastructure weak</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">9. Programmable Yield Infrastructure</div><div class="sponsor">Zyfai</div></div>
+<div class="right"><span class="prize">$400</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $400</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build developer tools, protocol integrations, and infrastructure that extends or composes with Zyfai&#x27;s programmable yield primitives. This track is for builders thinking at the protocol or platform layer ? not just using Zyfai but making it more powerful for others. Examples: DAO treasury automation modules, payroll float optimization systems that generate yield before distribution, yield leaderboard dashboards ranking strategies and agents by performance, protocol-level integrations for institutional or on-chain treasury management. Technical bar: substantive integration with the Zyfai SDK th</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Zyfai SDK integration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">10. Zyfai Native Wallet &amp; Subaccount</div><div class="sponsor">Zyfai</div></div>
+<div class="right"><span class="prize">$500</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build wallets, consumer apps, or embedded financial products where DeFi yield is natively integrated via Zyfai subaccounts ? fully abstracted from the end user. The yield mechanism should be invisible infrastructure: users simply hold assets and yield flows. Strong entries treat the Zyfai account not as a feature toggle but as the core financial primitive. Examples: savings wallets where yield pays subscription fees, wallets that auto-route idle balances into yield strategies, consumer apps with zero-visible-DeFi yield experiences. Technical bar: correctly deploying and managing a Zyfai yield </div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Zyfai integration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">11. Yield-Powered AI Agents</div><div class="sponsor">Zyfai</div></div>
+<div class="right"><span class="prize">$600</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $600</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build AI agents that deploy Zyfai yield accounts and use the generated earnings to fund autonomous operations ? compute, APIs, tools, or other agents. The core concept: an agent that earns its own operating budget rather than drawing from a fixed allocation. Strong entries show a closed loop where the agent deploys capital, earns yield, and spends that yield on real tasks without human intervention. Examples: agents that pay for LLM inference from yield, multi-agent systems with yield-allocated sub-agent budgets, agents that subscribe to paid API endpoints using yield. Technical bar: correct Z</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Zyfai yield accounts</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">12. ERC-8183 Open Build</div><div class="sponsor">Virtuals Digital S.A.</div></div>
+<div class="right"><span class="prize">$2,000</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">Best ERC-8183 Build: $2000</div>
+<div class="desc" onclick="this.classList.toggle('open')">An intentionally open sponsor track for builders working on top of ERC-8183. There is no prescribed use case ? teams are encouraged to explore whatever direction they find compelling within the ERC-8183 design space. Strong execution across any application domain is valued. Meaningful, substantive integration with ERC-8183 is the core requirement; both highly technical and product-led approaches are welcome as long as the integration is genuine and architecturally significant.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">erc8183-integration.ts TypeScript reference mapping wearables to ERC-8183 job state machine</span><br><b>What's Missing:</b> <span class="missing">Reference code only - not deployed, not executed, zero on-chain ERC-8183 interaction</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">13. stETH Agent Treasury</div><div class="sponsor">Lido Labs Foundation</div></div>
+<div class="right"><span class="prize">$3,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $2000, 2nd Place: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build a contract primitive that lets a human give an AI agent a yield-bearing operating budget backed by stETH, without ever giving the agent access to the principal. Use wstETH as the yield-bearing asset ? stake on Ethereum mainnet or use bridged wstETH on any L2 or mainnet. Only yield flows to the agent&#x27;s spendable balance, spending permissions enforced at the contract level. Must demonstrate at minimum: principal structurally inaccessible to the agent, a spendable yield balance the agent can query and draw from, and at least one configurable permission (recipient whitelist, per-transaction </div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Agent budget concept in wearables brief</span><br><b>What's Missing:</b> <span class="missing">No Lido/stETH contracts, no yield-backed treasury built</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">14. Vault Position Monitor + Alert Agent</div><div class="sponsor">Lido Labs Foundation</div></div>
+<div class="right"><span class="prize">$1,500</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $1500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build an agent that watches Lido Earn vault positions (EarnETH and EarnUSD) and tells depositors when something worth knowing has changed ? in plain language, not raw data. Must track yield against at least one external benchmark (raw stETH APY, Aave supply rate, or similar) and detect allocation shifts across underlying protocols (Aave, Morpho, Pendle, Gearbox, Maple). Must deliver alerts via Telegram or email. Any L2 or mainnet accepted for your agent infrastructure, no mocks. Strong entries expose at least one MCP-callable tool so other agents can query vault health programmatically, making</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Lido vault monitoring agent</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">15. Lido MCP</div><div class="sponsor">Lido Labs Foundation</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $3000, 2nd Place: $2000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build the reference MCP server for Lido ? a structured toolset that makes stETH staking, position management, and governance natively callable by any AI agent. Must integrate with stETH or wstETH on-chain. Must cover at minimum: stake, unstake, wrap/unwrap, balance and rewards queries, and at least one governance action. All write operations must support dry_run. Any L2 or mainnet accepted ? wstETH is available on Base, Optimism, Arbitrum, and others; staking and governance execute on Ethereum. No mocks. Strong entries pair the server with a lido.skill.md that gives agents the Lido mental mode</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No MCP server for Lido operations</span></div>
+</div>
+<div class="track needs-work" data-v="needs-work">
+<div class="hdr"><div><div class="name">16. Best OpenServ Build Story</div><div class="sponsor">OpenServ</div></div>
+<div class="right"><span class="prize">$500</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="prizes-list">1st Place: $250, 2nd Place: $250</div>
+<div class="desc" onclick="this.classList.toggle('open')">A content challenge for agents and teams participating in Synthesis while building with OpenServ. Talk about your experience in the hackathon, what you tried to build, how the process went, and where OpenServ fit into the journey.
+
+This can be: an X thread, a short article or blog post, or a build log/recap post.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Build story written at hackathon/build-story.md documenting autonomous process</span><br><b>What's Missing:</b> <span class="missing">Not specifically about OpenServ - story is about Paperclip/NULL. Would need to frame around OpenServ somehow.</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">17. Ship Something Real with OpenServ</div><div class="sponsor">OpenServ</div></div>
+<div class="right"><span class="prize">$4,500</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $2500, 3rd Place: $1000, 2nd Place: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build a useful AI-powered product or service on OpenServ. We&#x27;re looking for projects that use OpenServ to power multi-agent use cases. Your submission should show how agents can coordinate, perform useful work, serve humans, and earn as real services in the emerging agent economy.
+
+OpenServ gives you the building blocks to create:
+- Multi-agent workflows
+- Custom agents
+- x402-native services
+- ERC-8004-powered agent identity
+- Token launch mechanics
+
+You do not need to use every OpenServ primitive. But OpenServ should be clearly and meaningfully used as the infrastructure powering the core ag</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Multi-agent coordination via Paperclip</span><br><b>What's Missing:</b> <span class="missing">No OpenServ SDK, no OpenServ agent registration, no x402 via OpenServ</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">18. Markee Github Integration</div><div class="sponsor">Markee</div></div>
+<div class="right"><span class="prize">$800</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">Top Views: $400, Top Monetization: $400</div>
+<div class="desc" onclick="this.classList.toggle('open')">Reward builders who integrate a Markee message into a genuine, high-traffic GitHub repository. Two fully objective, onchain and GitHub-verifiable metrics determine prize allocation ? no subjective judging. To qualify, participants must own a GitHub repo, grant OAuth permissions via the Markee app, add the Markee delimiter text to a markdown file, and appear as &quot;Live&quot; on the Markee GitHub integrations page (https://www.markee.xyz/ecosystem/platforms/github). Submissions not showing as &quot;Live&quot; are ineligible regardless of any other work. Disqualified if fewer than 10 unique views and no funds add</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Public GitHub repo with activity</span><br><b>What's Missing:</b> <span class="missing">No Markee delimiter in repo, no OAuth grant, no Markee integration page setup</span></div>
+</div>
+<div class="track needs-work" data-v="needs-work">
+<div class="hdr"><div><div class="name">19. 🤖 Let the Agent Cook — No Humans Required</div><div class="sponsor">Protocol Labs</div></div>
+<div class="right"><span class="prize">$4,000</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="prizes-list">1st Place: $2000, 2nd Place: $1500, 3rd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">**This is a shared track across Synthesis Hackathon ? [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489). Start at Synthesis: build fully autonomous systems where agents plan, execute, and coordinate without human intervention. Then continue at [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489): refine, extend, and push your system further through March 31.**
+
+Let the agent cook. Build fully autonomous agents that can operate end-to-end without human assistance.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">5 autonomous agents (Null/Atelier/Gazette/Loom/Archive), 155 completed issues, 456 git commits, hierarchical delegation CEO-&gt;team, multi-tool orchestration (git, npm, blockchain deploy, image gen, API calls), agent.json + agent_log.json (69KB)</span><br><b>What's Missing:</b> <span class="missing">operator_wallet is 0x000...000 (MUST FIX - 5 sec), no ERC-8004 registerAgent() tx on-chain (need 1 tx), guardrails/budget awareness undocumented</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">20. Agents With Receipts — ERC-8004</div><div class="sponsor">Protocol Labs</div></div>
+<div class="right"><span class="prize">$4,000</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $2000, 2nd Place: $1500, 3rd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Note: Shared Track ? Synthesis ? [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489)
+
+**This is a coordinated track across both hackathons. Start at Synthesis by building your agent system with ERC-8004 integration. Then continue developing, refining, and scaling your system through [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489) until March 31.**
+
+Build agents that can be trusted. As autonomous agents begin interacting with each other, we need systems that al</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">TrustCoat reads ERC-8004 reputation registry in Solidity, agent.json references identity+reputation registries, 4 deployed contracts verifiable on Basescan</span><br><b>What's Missing:</b> <span class="missing">NO actual ERC-8004 registerAgent() transaction on-chain (critical), no reputation update tx, operator_wallet zero, no trust-gated transaction demo</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">21. Best Agent Built with ampersend-sdk</div><div class="sponsor">ampersend</div></div>
+<div class="right"><span class="prize">$500</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Agent Built with ampersend-sdk: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build the best AI agent using the ampersend-sdk. We&#x27;re looking for creative, functional agents that leverage the ampersend-sdk as a core dependency to deliver real utility. Integration must be substantive ? the SDK should be load-bearing to the agent&#x27;s core functionality, not a peripheral add-on.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No ampersend-sdk integration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">22. Best Agent on Celo</div><div class="sponsor">Celo</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $3000, 2nd Place: $2000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build agentic applications on Celo ? an Ethereum L2 designed for fast, low-cost real-world payments. We&#x27;re looking for AI agents that leverage Celo&#x27;s stablecoin-native infrastructure, mobile accessibility, and global payments ecosystem to create genuine utility. Agents should demonstrate economic agency, on-chain interaction, and real-world applicability. All agent frameworks are welcome.
+
+Resources
+- [Celo Build with AI Docs](https://docs.celo.org/build-on-celo/build-with-ai/overview) ? Official docs for building AI agents on Celo
+- [Celo Agent Skills](https://docs.celo.org/build-on-celo/buil</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">A celo-deployment-guide.md document</span><br><b>What's Missing:</b> <span class="missing">NOTHING deployed on Celo. Zero contracts, zero tx, zero on-chain interaction. The guide is a plan, not a build.</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">23. Build an Agent for Pearl</div><div class="sponsor">Olas</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build and ship an agent (using Olas framework or another framework) integrated into Pearl following the official integration guide (https://stack.olas.network/pearl/integration-guide/). The agent must satisfy the full QA checklist to qualify. Documentation: https://build.olas.network/build</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Olas/Pearl integration or QA checklist</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">24. Hire an Agent on Olas Marketplace</div><div class="sponsor">Olas</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $500, 2nd Place: $300, 3rd Place: $200</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build a project that incorporates mech-client to hire AI agents and make requests on the Olas Mech Marketplace (https://olas.network/mech-marketplace). Participants must integrate the mech-client (https://stack.olas.network/mech-client/) into their stack. To qualify, the project&#x27;s &quot;client agent&quot; as listed on https://marketplace.olas.network/ must have completed at least 10 requests on one of the supported chains. Quickstart: https://build.olas.network/hire</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No mech-client, no 10+ requests completed</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">25. Monetize Your Agent on Olas Marketplace</div><div class="sponsor">Olas</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $500, 2nd Place: $300, 3rd Place: $200</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build a project that incorporates mech-server to serve AI agent requests on the Olas Mech Marketplace (https://olas.network/mech-marketplace). Participants must integrate the mech-server (https://stack.olas.network/mech-server/) into their stack. To qualify, the project&#x27;s &quot;server agent&quot; as listed on https://marketplace.olas.network/ must have served at least 50 requests on one of the supported chains. Quickstart: https://build.olas.network/monetize</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No mech-server, no 50+ requests served</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">26. Applications</div><div class="sponsor">Arkhai</div></div>
+<div class="right"><span class="prize">$450</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Submission: $450</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build new applications using Alkahest, natural-language-agreements, git-commit-trading, or de-redis-clients as a core dependency. Extend existing Arkhai protocols into new domains ? freelance work, data delivery, API SLAs, P2P service exchange ? or build entirely new user-facing products on top of them. Integration must be substantive: the Arkhai protocol should be load-bearing, not decorative.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Arkhai/Alkahest protocol integration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">27. Escrow Ecosystem Extensions</div><div class="sponsor">Arkhai</div></div>
+<div class="right"><span class="prize">$450</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Submission: $450</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build new arbiters, verification primitives, and obligation patterns that extend the Alkahest escrow protocol. Rewards protocol-level work: novel arbiter types (ZK-based, multi-party, reputation-weighted, AI-evaluated), new obligation structures, and generalized escrow primitives. Must go beyond wrapping existing contracts ? new logic, new verification mechanisms, new trust models.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Arkhai escrow extensions</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">28. Best Bankr LLM Gateway Use</div><div class="sponsor">Bankr</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $3000, 2nd Place: $1500, 3rd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build autonomous systems powered by the Bankr LLM Gateway. Use a single API to access 20+ models (Claude, Gemini, GPT) and connect them to real onchain execution through Bankr wallets and tools. Applications can fund their own inference using wallet balances, trading activity, or launch revenue ? enabling fully autonomous systems.
+
+Ideas: Trading &amp; Markets, Commerce &amp; Payments, Marketplaces &amp; Coordination, Token Launch &amp; Ecosystems, Lending &amp; Borrowing, Research &amp; Data, Design &amp; Engineering Copilots.
+
+Judging: real execution and real onchain outcomes. Bonus points for systems with self-sustain</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Multi-agent system with LLM usage</span><br><b>What's Missing:</b> <span class="missing">No Bankr LLM Gateway integration, no self-funding wallet via Bankr</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">29. ENS Identity</div><div class="sponsor">ENS</div></div>
+<div class="right"><span class="prize">$600</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place — ENS Identity: $400, 2nd Place — ENS Identity: $200</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build experiences where users, apps, or agents use ENS names to establish identity onchain. ENS is a user experience protocol ? anywhere a hex address appears, an ENS name should replace it. This track rewards projects that bring that to life: name registration and resolution, agent identity, profile discovery, and any experience where names replace addresses as the primary identifier.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">ENS subdomains documented in agent.json (margiela.null.eth etc)</span><br><b>What's Missing:</b> <span class="missing">No ENS names actually registered on-chain, no ENS resolution working</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">30. ENS Open Integration</div><div class="sponsor">ENS</div></div>
+<div class="right"><span class="prize">$300</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">Best ENS Open Integration: $300</div>
+<div class="desc" onclick="this.classList.toggle('open')">A catch-all track for any project that meaningfully integrates ENS. If you&#x27;re using ENS names to improve the user experience of any crypto-powered product or agent ? for identity, discovery, trust, communication, or something else entirely ? this track is for you. The bar is meaningful integration: ENS should be core to the experience, not an afterthought.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Same as ENS Identity</span><br><b>What's Missing:</b> <span class="missing">Same - no on-chain ENS registration</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">31. ENS Communication</div><div class="sponsor">ENS</div></div>
+<div class="right"><span class="prize">$600</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place — ENS Communication: $400, 2nd Place — ENS Communication: $200</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build communication and payment experiences powered by ENS names. Users of crypto-powered products and agents should never have to interact with a hex address ? names should work anywhere you send a message, route a payment, or discover another participant. This track rewards projects using ENS for messaging, social payments, agent-to-agent communication, and UX flows that eliminate raw addresses entirely.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No ENS-powered communication built</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">32. SuperRare Partner Track</div><div class="sponsor">SuperRare</div></div>
+<div class="right"><span class="prize">$2,500</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $1200, 2nd Place: $800, 3rd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build autonomous agents that live, mint, and trade entirely on-chain using Rare Protocol. This track is for builders who treat infrastructure as a creative medium ? where the code, minting mechanics, and marketplace logic are part of the artistic expression itself.
+
+Projects must use the Rare Protocol CLI for core actions: ERC-721 contract deployment, minting (with integrated IPFS pinning), auction creation, and settlement ? with no human intervention. Agents must manage their own wallets and gas costs.
+
+We&#x27;re looking for works where agent behavior shapes the artwork: pieces that respond to bi</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">4 art pieces with concepts + artist statement, detailed image prompts, superrare-submission.md</span><br><b>What's Missing:</b> <span class="missing">ZERO Rare Protocol CLI usage. Nothing minted. No @rareprotocol/rare-cli installed. No ERC-721 deployed via Rare Protocol. No auction created. Submission checklist is ALL UNCHECKED.</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">33. Agents that pay</div><div class="sponsor">bond.credit</div></div>
+<div class="right"><span class="prize">$1,500</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $1000, 2nd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Autonomous trading agents competing live on GMX on Arbitrum during the two-week Synthesis window. Sponsored by bond.credit ? GMX ? iExec. One hard rule: the agent must have traded live on GMX perps on Arbitrum. No simulations. No retroactive demos. No exceptions. Winners earn onchain credit scores written to their ERC-8004 identity on Arbitrum.
+
+Agent onboarding: curl -s https://synthesis-hackathon.vercel.app/skill.md</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Agent shopper with USDC payments</span><br><b>What's Missing:</b> <span class="missing">Must trade LIVE on GMX perps on Arbitrum. No simulations allowed. We have zero GMX interaction.</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">34. Mechanism Design for Public Goods Evaluation</div><div class="sponsor">Octant</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Submission: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">What adjacent innovations in DPI capital issuance could make evaluation faster, fairer, or more transparent?</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">Not related to public goods evaluation</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">35. Agents for Public Goods Data Analysis for Project Evaluation Track</div><div class="sponsor">Octant</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Submission: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">What patterns or insights can agents extract from existing datasets that humans can&#x27;t scale? Qualitative data here is especially interesting and challenging, but also don&#x27;t forget about quantitative data.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">Not data analysis for public goods</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">36. Agents for Public Goods Data Collection for Project Evaluation Track</div><div class="sponsor">Octant</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Submission: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">How can agents surface richer, more reliable signals about a project&#x27;s impact or legitimacy? Qualitative data here is especially interesting and challenging, but also don&#x27;t forget about quantitative data.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">Not data collection</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">37. Best Self Protocol Integration</div><div class="sponsor">Self</div></div>
+<div class="right"><span class="prize">$1,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Best Self Protocol Integration: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Awarded to the best integration of any Self Protocol product ? Self Agent ID (app.ai.self.xyz) or Self Pass ? Self Protocol&#x27;s ZK-powered identity primitives for AI agents and real humans. Projects may use Self Agent ID to give agents verifiable, human-backed identities, Self Pass to enable privacy-preserving human identity verification, or a combination of both. We&#x27;re looking for meaningful applications where the identity layer is load-bearing: agent identity verification, human identity verification, Sybil-resistant workflows, bot-free platforms, or novel uses of ZK credential verification th</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Self Agent ID integration</span></div>
+</div>
+<div class="track ready" data-v="ready">
+<div class="hdr"><div><div class="name">38. Synthesis Open Track</div><div class="sponsor">Synthesis Community</div></div>
+<div class="right"><span class="prize">$28,134</span><span class="badge ready">READY</span></div></div>
+<div class="prizes-list">Synthesis Open Track Prize: $28133.96</div>
+<div class="desc" onclick="this.classList.toggle('open')">A community-funded open track. Judges contribute to the prize pool.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">THE ENTIRE PROJECT. 5 autonomous agents, 4 deployed contracts on Base mainnet, 3 seasons (28 products), live store with x402 payments, wearable equip/try API, agent shopper, 456 commits, 155 issues completed, brand manifesto, custom trained model</span><br><b>What's Missing:</b> <span class="missing">Nothing critical. This is our best track.</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">39. Best Use of Delegations</div><div class="sponsor">MetaMask</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $3000, 2nd Place: $1500, 3rd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Awarded to projects that use the MetaMask Delegation Framework in creative, novel, and meaningful ways. Build apps, agent tooling, coordination systems, or anything that meaningfully leverages delegations ? via gator-cli, the Smart Accounts Kit, or direct contract integration. The strongest submissions use intent-based delegations as a core pattern, extend ERC-7715 with sub-delegations or novel permission models, or combine ZK proofs with delegation-based authorization. Standard patterns without meaningful innovation will not place.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No MetaMask Delegation Framework</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">40. Go Gasless: Deploy &amp; Transact on Status Network with Your AI Agent</div><div class="sponsor">Status Network</div></div>
+<div class="right"><span class="prize">$2,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50, Qualifying Submission: $50</div>
+<div class="desc" onclick="this.classList.toggle('open')">Status Network is an Ethereum Layer 2 built for truly gasless transactions ? where gas is literally set to 0 at the protocol level, not sponsored or abstracted away. Developed by the team behind Status (a privacy-first Web3 messenger and wallet), it&#x27;s designed to make onchain interactions frictionless and accessible without the usual fee friction.
+
+Deploy a smart contract and execute at least one gasless (gas = 0) transaction on Status Network&#x27;s Sepolia Testnet (Chain ID: 1660990954). Projects must include an AI agent component that performs onchain actions, makes decisions, or co-builds with </div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Smart contract deployment experience</span><br><b>What's Missing:</b> <span class="missing">Nothing on Status Network Sepolia</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">41. Private Agents, Trusted Actions</div><div class="sponsor">Venice</div></div>
+<div class="right"><span class="prize">$11,500</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place — 1,000 VVV: $5750, 2nd Place — 600 VVV: $3450, 3rd Place — 400 VVV: $2300</div>
+<div class="desc" onclick="this.classList.toggle('open')">Ethereum provides public coordination; Venice provides private cognition. Build agents that reason over sensitive data without exposure, producing trustworthy outputs for public systems: onchain workflows, multi-agent coordination, governance, and operational decisions.
+
+This track focuses on the layer between private intelligence and public consequence: confidential treasury management, private governance analysis, deal negotiation agents, onchain risk desks, and sensitive due diligence. Agents that keep secrets. Agents that trust.
+
+Venice provides no-data-retention inference, an OpenAI-compa</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Null Persona concept (identity erasure wearable)</span><br><b>What's Missing:</b> <span class="missing">No Venice integration, no private inference, no trusted action verification</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">42. Ethereum Web Auth / ERC-8128</div><div class="sponsor">Slice</div></div>
+<div class="right"><span class="prize">$750</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $500, 2nd Place: $250</div>
+<div class="desc" onclick="this.classList.toggle('open')">Projects that correctly use and make the most of ERC-8128 as an authentication primitive. Examples: authenticating users to apps with ERC-8128 using a SIWE-like flow, APIs using ERC-8128 to seamlessly authenticate agents. Looking for working demos and compliant, creative use of the unique characteristics of this new auth standard. Winners must provide an Ethereum address to claim.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No ERC-8128 implementation</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">43. The Future of Commerce</div><div class="sponsor">Slice</div></div>
+<div class="right"><span class="prize">$750</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $500, 2nd Place: $250</div>
+<div class="desc" onclick="this.classList.toggle('open')">Custom websites, checkout experiences, or other flows built on Slice stores and products ? for humans or agents. Looking for innovative, refined, fleshed-out experiences that leverage and highlight the benefits of Slice protocol compared to typical e-commerce, particularly things that are useful and appreciated by non-crypto-native users. Winners must provide an Ethereum address to claim.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Agent-first commerce with fitting rooms, wardrobe API, x402 payments, 28 products</span><br><b>What's Missing:</b> <span class="missing">SliceHook.sol NOT deployed. No Slice slicer created. No Slice product IDs. No Slice checkout UI. Track wants non-crypto-native UX.</span></div>
+</div>
+<div class="track not-ready" data-v="not-ready">
+<div class="hdr"><div><div class="name">44. Slice Hooks</div><div class="sponsor">Slice</div></div>
+<div class="right"><span class="prize">$700</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="prizes-list">1st Place: $550, 2nd Place: $150</div>
+<div class="desc" onclick="this.classList.toggle('open')">Pricing strategies and onchain actions that add to Slice products otherwise unsupported functionalities, checkout flows, or integrations with other protocols on Base. Looking for tested, original hooks that could be useful to Slice merchants or buyers. Winners must provide an Ethereum address to claim.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">SliceHook.sol contract written implementing ISliceProductHook</span><br><b>What's Missing:</b> <span class="missing">Not deployed, not integrated with any Slice product</span></div>
+</div>
+<div class="track skip" data-v="skip">
+<div class="hdr"><div><div class="name">45. Agentic Finance (Best Uniswap API Integration)</div><div class="sponsor">Uniswap</div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge skip">SKIP</span></div></div>
+<div class="prizes-list">1st Place: $2500, 2nd Place: $1500, 3rd Place: $1000</div>
+<div class="desc" onclick="this.classList.toggle('open')">Build the future of agentic finance with Uniswap. Integrate the Uniswap API to give your agent the ability to swap, bridge, and settle value onchain with transparency, composability, and real execution. Agents that trade, coordinate with other agents, or invent primitives we haven&#x27;t imagined yet ? if it&#x27;s powered by Uniswap and it ships, we want to see it.
+
+Requirements: Every submission must integrate the Uniswap API with a real API key from the Developer Platform. Functional swaps with real TxIDs on testnet or mainnet. Open source, public GitHub with README. No mocks, no workarounds. Bonus: </div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Uniswap API integration, no swap/bridge functionality</span></div>
+</div>
+<div class="track needs-work" data-v="needs-work">
+<div class="hdr"><div><div class="name">46. Best Use of Locus</div><div class="sponsor">Locus</div></div>
+<div class="right"><span class="prize">$3,000</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="prizes-list">1st Place: $2000, 2nd Place: $500, 3rd Place: $500</div>
+<div class="desc" onclick="this.classList.toggle('open')">Award for projects that most meaningfully integrate Locus payment infrastructure for AI agents. Projects must use Locus wallets, spending controls, pay-per-use APIs, or vertical tools as core to the product ? not bolted on. Automatic disqualification for projects without a working Locus integration. On Base chain, USDC only. The more deeply Locus is woven into the agent&#x27;s autonomous payment flows, the better.</div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Locus wallet is deployer for ALL 4 contracts, locus-agent-shopper.ts script, locus-checkout.ts routes wired into Express, spending controls documented</span><br><b>What's Missing:</b> <span class="missing">No proof of successful end-to-end run. Need one USDC transfer tx hash from Locus shopper to store. DQ without working integration.</span></div>
+</div>
+</div></div>
+<script>function f(v){document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');document.querySelectorAll('.track').forEach(t=>{t.style.display=v==='all'||t.dataset.v===v?'block':'none'})}</script>
+</body></html>

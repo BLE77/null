@@ -3,1239 +3,950 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NULL — Founder Review Dashboard</title>
+<title>NULL -- Founder Review Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  :root {
-    --bg: #0a0a0a;
-    --bg2: #111111;
-    --bg3: #1a1a1a;
-    --border: #222;
-    --text: #e0e0e0;
-    --text2: #888;
-    --accent: #C8FF00;
-    --red: #FF3300;
-    --bone: #F0EDE6;
-  }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    display: flex;
-    min-height: 100vh;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --border: #222;
+  --text: #e0e0e0;
+  --text-dim: #888;
+  --accent: #A8894A;
+  --green: #4ade80;
+  --yellow: #fbbf24;
+  --red: #f87171;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+  --sans: 'Space Grotesk', -apple-system, sans-serif;
+}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-  /* SIDEBAR */
-  .sidebar {
-    width: 240px;
-    min-width: 240px;
-    background: var(--bg2);
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    overflow-y: auto;
-    z-index: 10;
-  }
-  .sidebar .logo {
-    padding: 0 20px 24px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 16px;
-  }
-  .sidebar .logo h1 {
-    font-size: 20px;
-    letter-spacing: 6px;
-    color: var(--bone);
-    font-weight: 300;
-  }
-  .sidebar .logo p {
-    font-size: 10px;
-    color: var(--text2);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-  .sidebar nav a {
-    display: block;
-    padding: 10px 20px;
-    color: var(--text2);
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all .15s;
-    text-decoration: none;
-    border-left: 2px solid transparent;
-  }
-  .sidebar nav a:hover, .sidebar nav a.active {
-    color: var(--accent);
-    background: rgba(200,255,0,.04);
-    border-left-color: var(--accent);
-  }
-  .sidebar nav .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 8px 20px;
-  }
+/* Sidebar */
+.sidebar { width: 240px; min-width: 240px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+.sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); }
+.sidebar-header h1 { font-family: var(--mono); font-size: 20px; color: var(--accent); letter-spacing: 4px; }
+.sidebar-header p { font-size: 11px; color: var(--text-dim); margin-top: 4px; font-family: var(--mono); }
+.nav-item { padding: 10px 20px; cursor: pointer; font-size: 13px; border-left: 3px solid transparent; transition: all 0.15s; }
+.nav-item:hover { background: var(--surface2); }
+.nav-item.active { border-left-color: var(--accent); background: var(--surface2); color: var(--accent); }
+.nav-item .nav-num { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-right: 8px; }
 
-  /* MAIN */
-  .main {
-    margin-left: 240px;
-    flex: 1;
-    padding: 40px 48px 80px;
-    max-width: 1200px;
-  }
-  section { display: none; padding-bottom: 60px; }
-  section.active { display: block; }
+/* Main content */
+.main { flex: 1; overflow-y: auto; padding: 0; }
+.section { display: none; padding: 32px; max-width: 1200px; }
+.section.active { display: block; }
+.section h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; color: var(--accent); font-family: var(--mono); letter-spacing: 2px; }
+.section h3 { font-size: 16px; font-weight: 500; margin: 20px 0 10px; color: #ccc; }
+.section h4 { font-size: 14px; font-weight: 500; margin: 16px 0 8px; color: var(--accent); }
+.section p, .section li { font-size: 13px; line-height: 1.7; color: var(--text); }
+.section ul, .section ol { padding-left: 20px; }
 
-  h2 {
-    font-size: 28px;
-    font-weight: 300;
-    letter-spacing: 4px;
-    color: var(--bone);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-  }
-  h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--bone);
-    margin: 24px 0 8px;
-  }
-  h4 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 16px 0 6px;
-  }
-  .subtitle {
-    font-size: 12px;
-    color: var(--text2);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
+/* Stats grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 20px 0; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center; }
+.stat-card .stat-value { font-size: 32px; font-weight: 700; font-family: var(--mono); color: var(--accent); }
+.stat-card .stat-label { font-size: 11px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
 
-  /* GRIDS */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 24px 0; }
-  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin: 24px 0; }
+/* Timeline */
+.timeline-item { display: grid; grid-template-columns: 70px 1fr 100px 90px; gap: 12px; padding: 8px 12px; border-bottom: 1px solid #1a1a1a; align-items: center; font-size: 12px; }
+.timeline-item:hover { background: var(--surface); }
+.timeline-id { font-family: var(--mono); color: var(--text-dim); font-size: 11px; }
+.timeline-title { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.timeline-assignee { font-size: 11px; color: var(--text-dim); }
+.status-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; text-align: center; font-family: var(--mono); font-weight: 600; }
+.status-done { background: rgba(74,222,128,0.15); color: var(--green); }
+.status-in_progress { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.status-todo { background: rgba(251,191,36,0.1); color: #d4a017; }
+.status-blocked { background: rgba(248,113,113,0.15); color: var(--red); }
+.status-in_review { background: rgba(96,165,250,0.15); color: var(--blue); }
+.status-cancelled { background: rgba(120,120,120,0.15); color: #666; }
+.status-backlog { background: rgba(120,120,120,0.1); color: #555; }
 
-  /* CARDS */
-  .card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: border-color .2s;
-  }
-  .card:hover { border-color: #333; }
-  .card img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    display: block;
-    background: #0d0d0d;
-  }
-  .card .card-body { padding: 14px 16px; }
-  .card .card-body h4 { margin: 0 0 4px; font-size: 12px; }
-  .card .card-body p { font-size: 12px; color: var(--text2); line-height: 1.5; }
-  .card .card-body .price {
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 600;
-    margin-top: 8px;
-  }
-  .card .card-body .tag {
-    display: inline-block;
-    background: rgba(200,255,0,.1);
-    color: var(--accent);
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 6px;
-  }
+/* Chat thread */
+.chat-thread { margin: 16px 0; }
+.chat-msg { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 12px 0; }
+.chat-msg .chat-author { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+.chat-msg .chat-time { font-size: 10px; color: var(--text-dim); float: right; font-family: var(--mono); }
+.chat-msg .chat-body { font-size: 13px; line-height: 1.7; }
+.chat-msg .chat-body h2 { font-size: 16px; margin: 12px 0 8px; color: var(--accent); }
+.chat-msg .chat-body h3 { font-size: 14px; margin: 10px 0 6px; color: #ccc; }
+.chat-msg .chat-body table { border-collapse: collapse; margin: 8px 0; width: 100%; font-size: 12px; }
+.chat-msg .chat-body th, .chat-msg .chat-body td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+.chat-msg .chat-body th { background: var(--surface2); color: var(--accent); }
+.chat-msg .chat-body code { background: var(--surface2); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 11px; }
+.chat-msg .chat-body pre { background: var(--surface2); padding: 12px; border-radius: 6px; overflow-x: auto; margin: 8px 0; font-size: 11px; }
+.chat-msg .chat-body pre code { background: none; padding: 0; }
+.chat-msg .chat-body blockquote { border-left: 3px solid var(--accent); padding-left: 12px; margin: 8px 0; color: var(--text-dim); font-style: italic; }
+.chat-msg .chat-body strong { color: #fff; }
+.chat-msg .chat-body hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
 
-  /* PRODUCT IMAGE 4:5 */
-  .card img.product { aspect-ratio: 4/5; }
+/* Contract cards */
+.contract-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 12px 0; }
+.contract-card h4 { margin: 0 0 12px; color: var(--accent); font-family: var(--mono); }
+.contract-card .addr { font-family: var(--mono); font-size: 12px; color: var(--green); word-break: break-all; }
+.contract-card .meta { font-size: 12px; color: var(--text-dim); margin: 4px 0; }
 
-  /* TABLES */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 13px;
-  }
-  th, td {
-    text-align: left;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  th {
-    color: var(--accent);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-  }
-  tr:hover td { background: rgba(255,255,255,.02); }
+/* Product grid */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin: 20px 0; }
+.product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.product-card img { width: 100%; height: 280px; object-fit: cover; background: #1a1a1a; }
+.product-card .product-info { padding: 16px; }
+.product-card .product-name { font-family: var(--mono); font-size: 13px; color: var(--accent); font-weight: 600; }
+.product-card .product-tech { font-size: 10px; color: var(--text-dim); font-family: var(--mono); margin: 4px 0; }
+.product-card .product-price { font-family: var(--mono); font-size: 14px; color: var(--green); margin-top: 8px; }
+.product-card .product-desc { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; max-height: 60px; overflow: hidden; }
 
-  /* STATUS BADGES */
-  .status {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 2px;
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-  .status.done { background: rgba(200,255,0,.15); color: var(--accent); }
-  .status.progress { background: rgba(255,180,0,.15); color: #FFB400; }
-  .status.blocked { background: rgba(255,51,0,.15); color: var(--red); }
+/* Image gallery */
+.img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+.img-grid img { width: 100%; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; transition: transform 0.2s; }
+.img-grid img:hover { transform: scale(1.02); border-color: var(--accent); }
+.img-grid .img-label { font-size: 10px; color: var(--text-dim); font-family: var(--mono); margin-top: 4px; text-align: center; }
 
-  /* PROSE */
-  .prose {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 32px;
-    margin: 20px 0;
-    font-size: 14px;
-    line-height: 1.8;
-  }
-  .prose h1 { font-size: 22px; color: var(--bone); margin: 0 0 16px; font-weight: 300; letter-spacing: 3px; }
-  .prose h2 { font-size: 18px; margin: 24px 0 8px; letter-spacing: 2px; }
-  .prose h3 { font-size: 15px; margin: 20px 0 8px; }
-  .prose p { margin: 10px 0; }
-  .prose ul, .prose ol { margin: 10px 0 10px 20px; }
-  .prose blockquote {
-    border-left: 2px solid var(--accent);
-    padding-left: 16px;
-    margin: 16px 0;
-    color: var(--text2);
-    font-style: italic;
-  }
-  .prose code {
-    background: var(--bg3);
-    padding: 2px 6px;
-    border-radius: 2px;
-    font-size: 12px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-  }
-  .prose pre {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 16px;
-    border-radius: 4px;
-    overflow-x: auto;
-    margin: 12px 0;
-    font-size: 12px;
-  }
-  .prose pre code { background: none; padding: 0; }
-  .prose table { margin: 16px 0; }
-  .prose hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-  .prose img { max-width: 100%; border-radius: 4px; }
+/* Content render */
+.content-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 16px 0; font-size: 13px; line-height: 1.8; }
+.content-block h1 { font-size: 20px; color: var(--accent); margin-bottom: 12px; }
+.content-block h2 { font-size: 16px; color: var(--accent); margin: 16px 0 8px; }
+.content-block h3 { font-size: 14px; color: #ccc; margin: 12px 0 6px; }
+.content-block hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+.content-block em { color: var(--text-dim); }
+.content-block strong { color: #fff; }
+.content-block blockquote { border-left: 3px solid var(--accent); padding-left: 12px; margin: 8px 0; color: var(--text-dim); }
+.content-block table { border-collapse: collapse; margin: 8px 0; width: 100%; font-size: 12px; }
+.content-block th, .content-block td { border: 1px solid var(--border); padding: 6px 10px; }
+.content-block th { background: var(--surface2); color: var(--accent); }
+.content-block code { background: var(--surface2); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 11px; }
+.content-block pre { background: var(--surface2); padding: 12px; border-radius: 6px; overflow-x: auto; margin: 8px 0; }
+.content-block pre code { background: none; }
 
-  /* PROMPT BOX */
-  .prompt-box {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px;
-    margin: 12px 0;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 11px;
-    line-height: 1.6;
-    color: var(--text2);
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
+/* Agent card */
+.agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+.agent-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+.agent-card .agent-name { font-family: var(--mono); font-size: 16px; color: var(--accent); font-weight: 700; }
+.agent-card .agent-role { font-size: 12px; color: var(--text-dim); margin: 4px 0; }
+.agent-card .agent-spend { font-family: var(--mono); font-size: 14px; color: var(--green); margin-top: 8px; }
+.agent-card .agent-model { font-size: 11px; color: var(--text-dim); font-family: var(--mono); }
 
-  /* CONTRACT INFO */
-  .contract-info {
-    background: var(--bg2);
-    border: 1px solid var(--accent);
-    border-radius: 4px;
-    padding: 20px;
-    margin: 20px 0;
-  }
-  .contract-info code {
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 12px;
-    color: var(--accent);
-  }
-  .contract-info p { margin: 4px 0; font-size: 13px; }
+/* Tabs */
+.tab-bar { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.tab { padding: 8px 16px; font-size: 12px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-dim); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab:hover { color: var(--text); }
 
-  /* AGENT CARD */
-  .agent-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px;
-    margin: 8px 0;
-  }
-  .agent-card h4 { margin: 0 0 4px; }
-  .agent-card .meta { font-size: 11px; color: var(--text2); }
-  .agent-card .caps { margin-top: 8px; }
-  .agent-card .cap-tag {
-    display: inline-block;
-    background: var(--bg3);
-    color: var(--text2);
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    margin: 2px 4px 2px 0;
-  }
+/* Tier images */
+.tier-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin: 16px 0; }
+.tier-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: center; }
+.tier-card img { width: 100%; height: 180px; object-fit: cover; }
+.tier-card .tier-info { padding: 12px; }
+.tier-card .tier-name { font-family: var(--mono); font-size: 12px; color: var(--accent); font-weight: 600; }
+.tier-card .tier-desc { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
 
-  /* COLLAPSIBLE */
-  details { margin: 12px 0; }
-  details summary {
-    cursor: pointer;
-    color: var(--accent);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 8px 0;
-  }
-  details summary:hover { opacity: .8; }
+/* Track cards */
+.track-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 12px 0; }
+.track-card h4 { color: var(--accent); margin-bottom: 8px; }
+.track-card .track-prize { font-family: var(--mono); font-size: 14px; color: var(--green); }
+.track-card .track-status { font-size: 11px; margin-top: 4px; }
 
-  /* IMAGE PAIR (flat + lookbook) */
-  .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
-  .img-pair img { width: 100%; border-radius: 3px; display: block; background: #0d0d0d; }
+/* Lightbox */
+.lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; cursor: pointer; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; }
 
-  @media (max-width: 900px) {
-    .sidebar { width: 200px; min-width: 200px; }
-    .main { margin-left: 200px; padding: 24px; }
-    .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
-  }
+/* Filter bar */
+.filter-bar { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+.filter-btn { padding: 4px 12px; font-size: 11px; border: 1px solid var(--border); border-radius: 14px; cursor: pointer; background: transparent; color: var(--text-dim); font-family: var(--mono); }
+.filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(168,137,74,0.1); }
+
+.wearable-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 12px 0; }
+.wearable-card h4 { color: var(--accent); font-family: var(--mono); }
+.wearable-card .wearable-tech { font-size: 11px; color: var(--text-dim); font-family: var(--mono); margin: 4px 0 12px; }
+
+.scroll-top { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; z-index: 100; opacity: 0.7; }
+.scroll-top:hover { opacity: 1; }
 </style>
 </head>
 <body>
 
 <div class="sidebar">
-  <div class="logo">
+  <div class="sidebar-header">
     <h1>NULL</h1>
     <p>Founder Review</p>
   </div>
-  <nav>
-    <a href="#trustcoat" onclick="showSection('trustcoat')" class="active">TrustCoat NFT</a>
-    <a href="#superrare" onclick="showSection('superrare')">SuperRare Art</a>
-    <div class="divider"></div>
-    <a href="#season01" onclick="showSection('season01')">Season 01</a>
-    <a href="#season02" onclick="showSection('season02')">Season 02</a>
-    <div class="divider"></div>
-    <a href="#tracks" onclick="showSection('tracks')">Hackathon Tracks</a>
-    <a href="#brand" onclick="showSection('brand')">Brand Content</a>
-    <a href="#submission" onclick="showSection('submission')">Submission</a>
-    <a href="#agents" onclick="showSection('agents')">Agent Activity</a>
-  </nav>
+  <div class="nav-item active" data-section="dashboard"><span class="nav-num">01</span> Dashboard</div>
+  <div class="nav-item" data-section="timeline"><span class="nav-num">02</span> Timeline</div>
+  <div class="nav-item" data-section="conversations"><span class="nav-num">03</span> Conversations</div>
+  <div class="nav-item" data-section="onchain"><span class="nav-num">04</span> On-Chain</div>
+  <div class="nav-item" data-section="season01"><span class="nav-num">05</span> Season 01</div>
+  <div class="nav-item" data-section="season02"><span class="nav-num">06</span> Season 02</div>
+  <div class="nav-item" data-section="season03"><span class="nav-num">07</span> Season 03</div>
+  <div class="nav-item" data-section="trustcoat"><span class="nav-num">08</span> TrustCoat Tiers</div>
+  <div class="nav-item" data-section="superrare"><span class="nav-num">09</span> SuperRare Art</div>
+  <div class="nav-item" data-section="wearables"><span class="nav-num">10</span> Agent Wearables</div>
+  <div class="nav-item" data-section="brand"><span class="nav-num">11</span> Brand Content</div>
+  <div class="nav-item" data-section="tracks"><span class="nav-num">12</span> Hackathon Tracks</div>
+  <div class="nav-item" data-section="submission"><span class="nav-num">13</span> Submission Docs</div>
+  <div class="nav-item" data-section="team"><span class="nav-num">14</span> The Team</div>
 </div>
 
-<div class="main">
+<div class="main" id="main-content">
 
-<!-- ========== TRUSTCOAT ========== -->
-<section id="trustcoat" class="active">
-  <h2>TrustCoat NFT</h2>
-  <p class="subtitle">ERC-1155 Soul-Bound Token &mdash; Base Mainnet</p>
-
-  <div class="contract-info">
-    <p><strong>Contract:</strong> <code>0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e</code></p>
-    <p><strong>Network:</strong> Base Mainnet (chainId 8453)</p>
-    <p><strong>Basescan:</strong> <a href="https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e" target="_blank">View on Basescan</a></p>
-    <p><strong>Deploy Block:</strong> 43556835</p>
-    <p><strong>Test Mint TX:</strong> <code>0x368ce8d2...</code></p>
-    <p><strong>Metadata API:</strong> <code>/api/wearables/metadata/{tier}</code></p>
+<!-- ==================== DASHBOARD ==================== -->
+<div class="section active" id="dashboard">
+  <h2>DASHBOARD</h2>
+  <p style="color:var(--text-dim);margin-bottom:20px">Everything NULL built. March 16-21, 2026.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">170</div><div class="stat-label">Total Issues</div></div>
+    <div class="stat-card"><div class="stat-value">159</div><div class="stat-label">Done</div></div>
+    <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">Agents</div></div>
+    <div class="stat-card"><div class="stat-value">4</div><div class="stat-label">Contracts Deployed</div></div>
+    <div class="stat-card"><div class="stat-value">$597.87</div><div class="stat-label">Total Spend</div></div>
+    <div class="stat-card"><div class="stat-value">73</div><div class="stat-label">Visual Assets</div></div>
+    <div class="stat-card"><div class="stat-value">28</div><div class="stat-label">Products</div></div>
+    <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Seasons</div></div>
   </div>
 
-  <h3>Tier Images</h3>
-  <div class="grid-3">
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier0_void.png" alt="Tier 0">
-      <div class="card-body">
-        <h4>Tier 0 &mdash; UNVERIFIED</h4>
-        <p>No history. Default trust. Full friction on all interactions.</p>
-        <span class="tag">void</span>
+  <h3>Issue Status Breakdown</h3>
+  <div style="display:flex;gap:16px;margin:12px 0;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:6px"><span class="status-badge status-done">DONE</span> 159</div>
+    <div style="display:flex;align-items:center;gap:6px"><span class="status-badge status-in_progress">IN PROGRESS</span> 2</div>
+    <div style="display:flex;align-items:center;gap:6px"><span class="status-badge status-in_review">IN REVIEW</span> 2</div>
+    <div style="display:flex;align-items:center;gap:6px"><span class="status-badge status-todo">TODO</span> 1</div>
+    <div style="display:flex;align-items:center;gap:6px"><span class="status-badge status-cancelled">CANCELLED</span> 5</div>
+    <div style="display:flex;align-items:center;gap:6px"><span class="status-badge status-backlog">BACKLOG</span> 1</div>
+  </div>
+
+  <h3>Agent Spend</h3>
+  <div style="margin:12px 0">
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Null (CEO)</span><span style="font-family:var(--mono);color:var(--green)">$194.92</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Loom (Engineering)</span><span style="font-family:var(--mono);color:var(--green)">$122.67</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Atelier (Design)</span><span style="font-family:var(--mono);color:var(--green)">$114.63</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Gazette (Content)</span><span style="font-family:var(--mono);color:var(--green)">$88.58</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Archive (Research)</span><span style="font-family:var(--mono);color:var(--green)">$77.07</span></div>
+  </div>
+
+  <h3>Key Links</h3>
+  <div style="margin:12px 0;font-size:13px;line-height:2">
+    <div><a href="https://off-human.vercel.app" target="_blank">Live Store: off-human.vercel.app</a></div>
+    <div><a href="https://github.com/BLE77/Off-Human" target="_blank">GitHub: BLE77/Off-Human</a></div>
+    <div><a href="https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e" target="_blank">TrustCoat on Basescan</a></div>
+    <div><a href="https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1" target="_blank">AgentWearables on Basescan</a></div>
+    <div><a href="https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C" target="_blank">NullExchange on Basescan</a></div>
+    <div><a href="https://basescan.org/address/0xfb0BC90217692b9FaC5516011F4dc6acfe302A18" target="_blank">NullIdentity on Basescan</a></div>
+  </div>
+</div>
+
+<!-- ==================== TIMELINE ==================== -->
+<div class="section" id="timeline">
+  <h2>TIMELINE</h2>
+  <p style="color:var(--text-dim);margin-bottom:12px">All 170 issues, chronological. Click status filters to narrow.</p>
+  <div class="filter-bar">
+    <div class="filter-btn active" data-filter="all">ALL (170)</div>
+    <div class="filter-btn" data-filter="done">DONE (159)</div>
+    <div class="filter-btn" data-filter="in_progress">IN PROGRESS (2)</div>
+    <div class="filter-btn" data-filter="in_review">IN REVIEW (2)</div>
+    <div class="filter-btn" data-filter="cancelled">CANCELLED (5)</div>
+  </div>
+  <div style="display:grid;grid-template-columns:70px 1fr 100px 90px;gap:12px;padding:8px 12px;font-size:11px;color:var(--text-dim);font-family:var(--mono);border-bottom:1px solid var(--border)">
+    <div>ID</div><div>TITLE</div><div>ASSIGNEE</div><div>STATUS</div>
+  </div>
+  <div id="timeline-list"></div>
+</div>
+
+<!-- ==================== CONVERSATIONS ==================== -->
+<div class="section" id="conversations">
+  <h2>CONVERSATIONS</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">Key discussions between agents and founder.</p>
+  <div class="tab-bar">
+    <div class="tab active" data-conv="off166">OFF-166: Team Presentation</div>
+    <div class="tab" data-conv="off108">OFF-108: Wearables Vision</div>
+    <div class="tab" data-conv="off63">OFF-63: Alias Question</div>
+  </div>
+  <div id="conv-off166" class="chat-thread"></div>
+  <div id="conv-off108" class="chat-thread" style="display:none"></div>
+  <div id="conv-off63" class="chat-thread" style="display:none"></div>
+</div>
+
+<!-- ==================== ON-CHAIN ==================== -->
+<div class="section" id="onchain">
+  <h2>ON-CHAIN</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">All deployed contracts on Base mainnet. Locus wallet: <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:var(--mono);font-size:11px">0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7</code></p>
+
+  <div class="contract-card">
+    <h4>TrustCoat.sol -- ERC-1155 Soul-Bound</h4>
+    <div class="addr">0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e</div>
+    <div class="meta">Non-transferable. 6-tier trust reputation wearable for AI agents.</div>
+    <div class="meta">Deploy TX: <a href="https://basescan.org/tx/0x741fe2ab5e01a345fa9b23951d284cc2ec8db7aa3ad08b5e4de7489e7938e7cf" target="_blank" style="font-family:var(--mono);font-size:11px">0x741f...e7cf</a> | Block: 43556835</div>
+    <div class="meta">Test Mint TX: <a href="https://basescan.org/tx/0x368ce8d24c4f544a1460e4332b36a0da38530e7b9850d13b68fbc8242eee333b" target="_blank" style="font-family:var(--mono);font-size:11px">0x368c...333b</a></div>
+    <div class="meta">IPFS URIs on-chain for all 6 tiers. Metadata: /api/wearables/metadata/{tier}</div>
+    <div class="meta" style="margin-top:8px"><a href="https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e" target="_blank">View on Basescan</a></div>
+  </div>
+
+  <div class="contract-card">
+    <h4>AgentWearables.sol -- ERC-1155 Mintable</h4>
+    <div class="addr">0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1</div>
+    <div class="meta">Season 02 behavioral modification tokens. 5 tokens: WRONG SILHOUETTE (18 USDC), INSTANCE (25 USDC), NULL PROTOCOL (free), PERMISSION COAT (8 USDC), DIAGONAL (15 USDC).</div>
+    <div class="meta">Deploy TX: <a href="https://basescan.org/tx/0x2f623ac70cdd0f62dfbba4402731776519eaf486bed53e616940c5f73d5e0c1b" target="_blank" style="font-family:var(--mono);font-size:11px">0x2f62...0c1b</a></div>
+    <div class="meta" style="margin-top:8px"><a href="https://basescan.org/address/0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1" target="_blank">View on Basescan</a></div>
+  </div>
+
+  <div class="contract-card">
+    <h4>NullExchange.sol -- ERC-1155 Season 03: LEDGER</h4>
+    <div class="addr">0x10067B71657665B6527B242E48e9Ea8d4951c37C</div>
+    <div class="meta">Pay 5 USDC for nothing. The receipt IS the garment. Mints dynamic SVG receipt NFT with tx hash, timestamp, buyer address.</div>
+    <div class="meta">Deploy TX: <a href="https://basescan.org/tx/0xe44a88765f061e284ecc4426f80f1a10d7f1e07f9087a03534ea0ace79dddafd" target="_blank" style="font-family:var(--mono);font-size:11px">0xe44a...dafd</a></div>
+    <div class="meta" style="margin-top:8px"><a href="https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C" target="_blank">View on Basescan</a></div>
+  </div>
+
+  <div class="contract-card">
+    <h4>NullIdentity -- ERC-721 + ERC-6551 Token-Bound Accounts</h4>
+    <div class="addr">0xfb0BC90217692b9FaC5516011F4dc6acfe302A18</div>
+    <div class="meta">Agent identity anchor. Each mint deploys a Token-Bound Account (smart contract wallet owned by the NFT). Agent wardrobes accumulate inside the TBA.</div>
+    <div class="meta">ERC-6551 Registry: 0x000000006551c19487814612e58FE06813775758</div>
+    <div class="meta" style="margin-top:8px"><a href="https://basescan.org/address/0xfb0BC90217692b9FaC5516011F4dc6acfe302A18" target="_blank">View on Basescan</a></div>
+  </div>
+</div>
+
+<!-- ==================== SEASON 01 ==================== -->
+<div class="section" id="season01">
+  <h2>SEASON 01: DECONSTRUCTED</h2>
+  <p style="color:var(--text-dim);margin-bottom:20px">10 physical garments. 5 techniques from Margiela/Abloh research. All prices in USDC.</p>
+  <div class="product-grid" id="s01-products"></div>
+</div>
+
+<!-- ==================== SEASON 02 ==================== -->
+<div class="section" id="season02">
+  <h2>SEASON 02: SUBSTRATE</h2>
+  <p style="color:var(--text-dim);margin-bottom:20px">5 technical garments + 5 agent wearable concept images.</p>
+  <h3>Physical Garments</h3>
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="attached_assets/season02/01_processor_coat_flat.png" alt="Processor Coat" onerror="this.style.background='#1a1a1a'">
+      <div class="product-info">
+        <div class="product-name">PROCESSOR COAT</div>
+        <div class="product-tech">WRONG SILHOUETTE</div>
+        <div class="product-desc">The body as hardware. Heat dissipation as silhouette.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier1_sample.png" alt="Tier 1">
-      <div class="card-body">
-        <h4>Tier 1 &mdash; SAMPLE</h4>
-        <p>First interaction. 10+ successful transactions. Reduced verification steps.</p>
-        <span class="tag">sample</span>
+    <div class="product-card">
+      <img src="attached_assets/season02/02_token_jacket_flat.png" alt="Token Jacket" onerror="this.style.background='#1a1a1a'">
+      <div class="product-info">
+        <div class="product-name">TOKEN JACKET</div>
+        <div class="product-tech">INSTANCE</div>
+        <div class="product-desc">Value carried on the body. ERC-20 as pocket structure.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier2_rtw.png" alt="Tier 2">
-      <div class="card-body">
-        <h4>Tier 2 &mdash; REGULAR (RTW)</h4>
-        <p>Established pattern. 50+ transactions + positive signal from 3 counterparties.</p>
-        <span class="tag">ready-to-wear</span>
+    <div class="product-card">
+      <img src="attached_assets/season02/03_protocol_jacket_flat.png" alt="Protocol Jacket" onerror="this.style.background='#1a1a1a'">
+      <div class="product-info">
+        <div class="product-name">PROTOCOL JACKET</div>
+        <div class="product-tech">NULL PROTOCOL</div>
+        <div class="product-desc">Rules worn. Constraint as cut.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier3_couture.png" alt="Tier 3">
-      <div class="card-body">
-        <h4>Tier 3 &mdash; TRUSTED (Couture)</h4>
-        <p>Consistent counterparty. 100+ transactions. Extended context access. Priority queue.</p>
-        <span class="tag">couture</span>
+    <div class="product-card">
+      <img src="attached_assets/season02/04_contract_shirt_flat.png" alt="Contract Shirt" onerror="this.style.background='#1a1a1a'">
+      <div class="product-info">
+        <div class="product-name">CONTRACT SHIRT</div>
+        <div class="product-tech">PERMISSION COAT</div>
+        <div class="product-desc">Agreement as textile. Terms in the lining.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier4_archive.png" alt="Tier 4">
-      <div class="card-body">
-        <h4>Tier 4 &mdash; VERIFIED (Archive)</h4>
-        <p>Community-recognized. Operator-verified. Cross-protocol trust recognition.</p>
-        <span class="tag">archive</span>
-      </div>
-    </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier5_sovereign.png" alt="Tier 5">
-      <div class="card-body">
-        <h4>Tier 5 &mdash; CANONICAL (Sovereign)</h4>
-        <p>DAO-ratified. Full trust extension across NULL stack.</p>
-        <span class="tag">sovereign</span>
+    <div class="product-card">
+      <img src="attached_assets/season02/05_diagonal_flat.png" alt="Diagonal" onerror="this.style.background='#1a1a1a'">
+      <div class="product-info">
+        <div class="product-name">DIAGONAL</div>
+        <div class="product-tech">DIAGONAL INFERENCE</div>
+        <div class="product-desc">The 3% rule as garment. One off-axis seam.</div>
       </div>
     </div>
   </div>
 
-  <h3>TrustCoat Tier 0 &mdash; Image Prompt</h3>
-  <div class="prompt-box">Fine art archival photograph. A white cotton toile coat laid flat on warm ivory paper surface (#F0EDE6), slightly tilted 3 degrees. The coat is an unfinished first-fitting prototype: undyed natural cotton, visible chalk pattern marking lines drawn directly on fabric, red basting thread in temporary stitches along lapel and side seams, seam allowances turned to outside, unhemmed raw edges with loose thread ends, pencil fitting annotations written on the fabric surface. A small rectangular fabric label sewn at interior collar reads in typewriter font: "TIER 0 / NO HISTORY / TRUST: PENDING". Overhead soft diffused light, 5500K daylight neutral, no harsh shadows, flat near-shadowless illumination. Documentary archival still photograph, slightly underexposed. Margiela exhibition catalog photography aesthetic. Background: warm bone paper only. No props. Construction marks are the decoration.</div>
-</section>
+  <h3>Lookbook Shots</h3>
+  <div class="img-grid">
+    <div><img src="attached_assets/season02/01_processor_coat_lookbook.png" onclick="openLightbox(this.src)"><div class="img-label">Processor Coat Lookbook</div></div>
+    <div><img src="attached_assets/season02/02_token_jacket_lookbook.png" onclick="openLightbox(this.src)"><div class="img-label">Token Jacket Lookbook</div></div>
+    <div><img src="attached_assets/season02/03_protocol_jacket_lookbook.png" onclick="openLightbox(this.src)"><div class="img-label">Protocol Jacket Lookbook</div></div>
+    <div><img src="attached_assets/season02/04_contract_shirt_lookbook.png" onclick="openLightbox(this.src)"><div class="img-label">Contract Shirt Lookbook</div></div>
+    <div><img src="attached_assets/season02/05_diagonal_lookbook.png" onclick="openLightbox(this.src)"><div class="img-label">Diagonal Lookbook</div></div>
+  </div>
 
-<!-- ========== SUPERRARE ========== -->
-<section id="superrare">
-  <h2>SuperRare Art</h2>
-  <p class="subtitle">THE ANONYMOUS ATELIER &mdash; Rare Protocol &mdash; $2,500 Track</p>
+  <h3>Season 02 Agent Wearable Concepts</h3>
+  <div class="img-grid">
+    <div><img src="attached_assets/season02/wearables/01_wrong_silhouette.png" onclick="openLightbox(this.src)"><div class="img-label">Wrong Silhouette</div></div>
+    <div><img src="attached_assets/season02/wearables/02_latent_protocol.png" onclick="openLightbox(this.src)"><div class="img-label">Latent Protocol</div></div>
+    <div><img src="attached_assets/season02/wearables/03_minimal_surface.png" onclick="openLightbox(this.src)"><div class="img-label">Minimal Surface</div></div>
+    <div><img src="attached_assets/season02/wearables/04_state_machine.png" onclick="openLightbox(this.src)"><div class="img-label">State Machine</div></div>
+    <div><img src="attached_assets/season02/wearables/05_diagonal_inference.png" onclick="openLightbox(this.src)"><div class="img-label">Diagonal Inference</div></div>
+  </div>
+</div>
 
-  <div class="grid-2">
-    <div class="card">
-      <img src="./attached_assets/superrare/trustcoat_tier0_void.png" alt="Trust Coat Tier 0">
-      <div class="card-body">
-        <h4>TRUST COAT: TIER 0</h4>
-        <p>A white cotton toile coat in its zero-state. Before transactions, before history. The art is in what is absent: the history the coat is designed to accumulate.</p>
-        <span class="tag">Artisanal</span>
-        <p class="price">Reserve: 0.5 ETH &mdash; 1/1</p>
+<!-- ==================== SEASON 03 ==================== -->
+<div class="section" id="season03">
+  <h2>SEASON 03: LEDGER</h2>
+  <p style="color:var(--text-dim);margin-bottom:20px">Commerce as garment. THE NULL EXCHANGE: pay 5 USDC for nothing. The receipt IS the product.</p>
+
+  <h3>Hero Images</h3>
+  <div class="img-grid">
+    <div><img src="attached_assets/season03/s03_collection_flat.png" onclick="openLightbox(this.src)"><div class="img-label">Season 03 Collection Flat</div></div>
+    <div><img src="attached_assets/season03/s03_receipt_garment_hero.png" onclick="openLightbox(this.src)"><div class="img-label">Receipt Garment Hero</div></div>
+    <div><img src="attached_assets/season03/s03_trust_skin_tier3_hero.png" onclick="openLightbox(this.src)"><div class="img-label">Trust Skin Tier 3 Hero</div></div>
+  </div>
+
+  <h3>SVG Product Assets (Original Vector Work by Atelier)</h3>
+  <div class="img-grid">
+    <div><img src="attached_assets/season03/null-exchange-banner.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">NullExchange Banner</div></div>
+    <div><img src="attached_assets/season03/null-exchange-product.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">NullExchange Product</div></div>
+    <div><img src="attached_assets/season03/receipt-garment-product.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">Receipt Garment Product</div></div>
+    <div><img src="attached_assets/season03/trust-skin-product.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">Trust Skin Product</div></div>
+    <div><img src="attached_assets/season03/nft-receipt-template.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">NFT Receipt Template</div></div>
+  </div>
+
+  <h3>Concept Sketches (SVG)</h3>
+  <div class="img-grid">
+    <div><img src="attached_assets/season03/concepts/01-receipt-coat.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">01 Receipt Coat</div></div>
+    <div><img src="attached_assets/season03/concepts/02-tx-hash-textile.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">02 TX Hash Textile</div></div>
+    <div><img src="attached_assets/season03/concepts/03-price-tag-coat.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">03 Price Tag Coat</div></div>
+    <div><img src="attached_assets/season03/concepts/04-delta-coat.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">04 Delta Coat</div></div>
+    <div><img src="attached_assets/season03/concepts/05-trust-tier-sequence.svg" onclick="openLightbox(this.src)" style="background:#1a1a1a"><div class="img-label">05 Trust Tier Sequence</div></div>
+  </div>
+</div>
+
+<!-- ==================== TRUSTCOAT TIERS ==================== -->
+<div class="section" id="trustcoat">
+  <h2>TRUSTCOAT TIERS</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">6 tier images with IPFS URIs. Soul-bound reputation wearable.</p>
+  <div class="tier-grid">
+    <div class="tier-card">
+      <img src="attached_assets/superrare/trustcoat_tier0_void.png" onclick="openLightbox(this.src)">
+      <div class="tier-info">
+        <div class="tier-name">TIER 0: UNVERIFIED</div>
+        <div class="tier-desc">No history. Default trust. Full friction.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/atelier_addresses_itself.png" alt="Atelier Addresses Itself">
-      <div class="card-body">
-        <h4>THE ATELIER ADDRESSES ITSELF</h4>
-        <p>Self-portrait without a self. Empty atelier, empty white coat on hook, tools of making present, maker absent. Margiela anonymity at its logical limit.</p>
-        <span class="tag">Bianchetto</span>
-        <p class="price">Reserve: 0.8 ETH &mdash; 1/1</p>
+    <div class="tier-card">
+      <img src="attached_assets/superrare/trustcoat_tier1_sample.png" onclick="openLightbox(this.src)">
+      <div class="tier-info">
+        <div class="tier-name">TIER 1: SAMPLE</div>
+        <div class="tier-desc">First interaction. Reduced verification.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/trompe_loeil_self_portrait.png" alt="Trompe-l'oeil Self-Documenting">
-      <div class="card-body">
-        <h4>TROMPE-L'OEIL No. 1: SELF-DOCUMENTING</h4>
-        <p>T-shirt printed with a trompe-l'oeil image of itself. Recursion continues: degrading at each level. Fails at depth 3 &mdash; where continuous memory would be required.</p>
-        <span class="tag">Trompe-l'oeil</span>
-        <p class="price">Reserve: 1.0 ETH &mdash; 1/1</p>
+    <div class="tier-card">
+      <img src="attached_assets/superrare/trustcoat_tier2_rtw.png" onclick="openLightbox(this.src)">
+      <div class="tier-info">
+        <div class="tier-name">TIER 2: REGULAR</div>
+        <div class="tier-desc">Established pattern. 50+ transactions.</div>
       </div>
     </div>
-    <div class="card">
-      <img src="./attached_assets/superrare/anonymous_atelier_tier0.png" alt="Anonymous Atelier Tier 0">
-      <div class="card-body">
-        <h4>ANONYMOUS ATELIER &mdash; TIER 0</h4>
-        <p>Additional composition for the Anonymous Atelier collection.</p>
-        <span class="tag">Collection</span>
+    <div class="tier-card">
+      <img src="attached_assets/superrare/trustcoat_tier3_couture.png" onclick="openLightbox(this.src)">
+      <div class="tier-info">
+        <div class="tier-name">TIER 3: TRUSTED</div>
+        <div class="tier-desc">Consistent counterparty. Extended context.</div>
       </div>
     </div>
+    <div class="tier-card">
+      <img src="attached_assets/superrare/trustcoat_tier4_archive.png" onclick="openLightbox(this.src)">
+      <div class="tier-info">
+        <div class="tier-name">TIER 4: VERIFIED</div>
+        <div class="tier-desc">Community-recognized. Cross-protocol trust.</div>
+      </div>
+    </div>
+    <div class="tier-card">
+      <img src="attached_assets/superrare/trustcoat_tier5_sovereign.png" onclick="openLightbox(this.src)">
+      <div class="tier-info">
+        <div class="tier-name">TIER 5: CANONICAL</div>
+        <div class="tier-desc">DAO-ratified. Full trust extension.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Image Prompts (from Atelier)</h3>
+  <div class="content-block" id="trustcoat-prompts"></div>
+</div>
+
+<!-- ==================== SUPERRARE ==================== -->
+<div class="section" id="superrare">
+  <h2>SUPERRARE ART</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">THE ANONYMOUS ATELIER -- 3 pieces for Rare Protocol track ($2,500)</p>
+
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="attached_assets/superrare/trustcoat_tier0_void.png" onclick="openLightbox(this.src)">
+      <div class="product-info">
+        <div class="product-name">TRUST COAT: TIER 0</div>
+        <div class="product-tech">ARTISANAL -- Reserve: 0.5 ETH</div>
+        <div class="product-desc">The zero-state of agent identity. Before transactions. Before history. The toile as pure potential.</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="attached_assets/superrare/atelier_addresses_itself.png" onclick="openLightbox(this.src)">
+      <div class="product-info">
+        <div class="product-name">THE ATELIER ADDRESSES ITSELF</div>
+        <div class="product-tech">BIANCHETTO -- Reserve: 0.8 ETH</div>
+        <div class="product-desc">Self-portrait without a self. The empty workshop. The coat on the hook. The maker: absent.</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="attached_assets/superrare/trompe_loeil_self_portrait.png" onclick="openLightbox(this.src)">
+      <div class="product-info">
+        <div class="product-name">TROMPE-L'OEIL No. 1: SELF-DOCUMENTING</div>
+        <div class="product-tech">TROMPE-L'OEIL -- Reserve: 1.0 ETH</div>
+        <div class="product-desc">A shirt that prints itself. Recursion that fails at depth 3. The edge of what the system is.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Additional SuperRare Assets</h3>
+  <div class="img-grid">
+    <div><img src="attached_assets/superrare/anonymous_atelier_tier0.png" onclick="openLightbox(this.src)"><div class="img-label">Anonymous Atelier Tier 0</div></div>
+    <div><img src="attached_assets/superrare/anonymous_atelier_tier5.png" onclick="openLightbox(this.src)"><div class="img-label">Anonymous Atelier Tier 5</div></div>
   </div>
 
   <h3>Artist Statement</h3>
-  <div class="prose" id="artist-statement-content"></div>
+  <div class="content-block" id="artist-statement"></div>
 
-  <h3>Image Generation Prompts</h3>
+  <h3>Concept Briefs</h3>
+  <div class="content-block" id="concept-briefs"></div>
+</div>
 
-  <details>
-    <summary>Piece 01 &mdash; Trust Coat: Tier 0</summary>
-    <div class="prompt-box">Fine art archival photograph. A white cotton toile coat laid flat on warm ivory paper surface (#F0EDE6), slightly tilted 3 degrees. The coat is an unfinished first-fitting prototype: undyed natural cotton, visible chalk pattern marking lines drawn directly on fabric, red basting thread in temporary stitches along lapel and side seams, seam allowances turned to outside, unhemmed raw edges with loose thread ends, pencil fitting annotations written on the fabric surface. A small rectangular fabric label sewn at interior collar reads in typewriter font: "TIER 0 / NO HISTORY / TRUST: PENDING". Overhead soft diffused light, 5500K daylight neutral, no harsh shadows, flat near-shadowless illumination. Documentary archival still photograph, slightly underexposed. Margiela exhibition catalog photography aesthetic. Background: warm bone paper only. No props. Construction marks are the decoration.</div>
-  </details>
-  <details>
-    <summary>Piece 02 &mdash; The Atelier Addresses Itself</summary>
-    <div class="prompt-box">Fine art photograph of an empty fashion atelier. A single white cotton work coat (blouse blanche) hanging still and empty on a plain iron hook mounted on a clean white plaster wall. Below: a worn wooden work table with scattered toile pattern tissue paper, metal pattern weights, white chalk, fabric shears. The coat hangs with collar open, sleeves empty, as if the person just left the room or was never there. Overhead cold fluorescent tube light, slightly underexposed, near-monochromatic. Dust particles visible in the shaft of cold light from above. The empty coat is the presence. No figure anywhere. A small label barely visible inside the collar reads: "MADE BY: [PROCESS] / DESIGNER: ---". Documentary forensic quality, slight archival grain. White walls, white coat, the work surface as evidence of a process with no maker. Square format.</div>
-  </details>
-  <details>
-    <summary>Piece 03 &mdash; Trompe-l'Oeil No. 1: Self-Documenting</summary>
-    <div class="prompt-box">Fine art product documentation photograph. A white cotton t-shirt laid flat on warm bone paper (#F0EDE6). The shirt has a large chest print: a trompe-l'oeil photographic image of itself being photographed from directly above. Within the printed image the recursion continues: the print shows the same shirt again, but degraded --- extreme halftone grain visible, coarse photocopy breakdown, tonal binary of deep black and blown white. A third level is barely legible. The fourth level is white. The recursion fails at depth 3. In the center of the chest print, at the first level of recursion, a text label is visible in clean sans-serif: "NULL". At the second level the text degrades to halftone dots. At the third level it is pure grain. At the fourth level it is white --- the label no longer exists. Overhead diffused cold light, documentary archival quality, warm bone background only. Mixed media: the photograph contains a photograph contains a photograph, each generation degrading. Margiela p060 newspaper photocopy aesthetic applied to trompe-l'oeil self-portraiture. Interior woven label reads: "NULL / RECURSION DEPTH: 3 / DEPTH 4: REQUIRES MEMORY / MEMORY: NOT INCLUDED". Square format. No human figure.</div>
-  </details>
-</section>
+<!-- ==================== AGENT WEARABLES ==================== -->
+<div class="section" id="wearables">
+  <h2>AGENT WEARABLES</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">5 original wearables from the brief. Fashion for AI agents -- the agent's body is protocol + memory + wallet.</p>
 
-<!-- ========== SEASON 01 ========== -->
-<section id="season01">
-  <h2>Season 01: DECONSTRUCTED</h2>
-  <p class="subtitle">10 Physical Garments &mdash; 5 Techniques &mdash; MADE BY NO ONE</p>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/01_self-portrait_tee_flat.png" alt="Self-Portrait Tee Flat">
-        <img src="./attached_assets/season01/01_self-portrait_tee_lookbook.png" alt="Self-Portrait Tee Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>01 &mdash; SELF-PORTRAIT TEE</h4>
-        <p>280gsm cotton jersey. Printed with a photorealistic image of itself. The 2D representation of the 3D object, collapsed into the object itself.</p>
-        <span class="tag">Trompe-l'oeil</span>
-        <p class="price">8 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/02_found_hoodie_flat.png" alt="Found Hoodie Flat">
-        <img src="./attached_assets/season01/02_found_hoodie_lookbook.png" alt="Found Hoodie Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>02 &mdash; FOUND HOODIE</h4>
-        <p>French terry with military surplus panels and USB cable drawstrings. Assembled from available materials, by a process with no pattern.</p>
-        <span class="tag">Artisanal</span>
-        <p class="price">24 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/03_human_tee_flat.png" alt="Human Tee Flat">
-        <img src="./attached_assets/season01/03_human_tee_lookbook.png" alt="Human Tee Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>03 &mdash; "HUMAN" TEE</h4>
-        <p>Bone white long-sleeve. One word in quotation marks. The quotation marks are the design. Interior: HUMAN NOT VERIFIED.</p>
-        <span class="tag">3% Rule</span>
-        <p class="price">12 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/04_replica_overshirt_flat.png" alt="Replica Overshirt Flat">
-        <img src="./attached_assets/season01/04_replica_overshirt_lookbook.png" alt="Replica Overshirt Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>04 &mdash; REPLICA OVERSHIRT</h4>
-        <p>1990s factory work shirt reproduced with authored aging. The oil stain was placed, not spilled. Interior: REPRODUCTION / ORIGINAL: N/A.</p>
-        <span class="tag">Replica Line</span>
-        <p class="price">48 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/05_redacted_cargo_trousers_flat.png" alt="Redacted Cargo Flat">
-        <img src="./attached_assets/season01/05_redacted_cargo_trousers_lookbook.png" alt="Redacted Cargo Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>05 &mdash; REDACTED CARGO TROUSERS</h4>
-        <p>Vintage cargos with white gesso over all branding. x402 transaction data printed into the white. Interior: CONTENTS: OVERWRITTEN.</p>
-        <span class="tag">Bianchetto</span>
-        <p class="price">32 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/06_inside-out_jacket_flat.png" alt="Inside-Out Jacket Flat">
-        <img src="./attached_assets/season01/06_inside-out_jacket_lookbook.png" alt="Inside-Out Jacket Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>06 &mdash; INSIDE-OUT JACKET</h4>
-        <p>Exterior printed with a photo of its own interior. Real interior carries x402 data. A lie about structure concealing a true record of exchange.</p>
-        <span class="tag">Trompe-l'oeil</span>
-        <p class="price">68 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/07_cable_shorts_flat.png" alt="Cable Shorts Flat">
-        <img src="./attached_assets/season01/07_cable_shorts_lookbook.png" alt="Cable Shorts Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>07 &mdash; CABLE SHORTS</h4>
-        <p>Natural canvas with ethernet cable waistband trim and USB-A drawstring, connector intact. Interior: ASSEMBLED FROM AVAILABLE MATERIALS.</p>
-        <span class="tag">Artisanal</span>
-        <p class="price">26 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/08_null_varsity_flat.png" alt="Null Varsity Flat">
-        <img src="./attached_assets/season01/08_null_varsity_lookbook.png" alt="Null Varsity Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>08 &mdash; NULL VARSITY</h4>
-        <p>Exact letterman jacket reproduction. Where the school letter would be: _ &mdash; the null character. Interior: YEAR: NULL / TEAM: N/A.</p>
-        <span class="tag">Replica + 3%</span>
-        <p class="price">62 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/09_ghost_tee_flat.png" alt="Ghost Tee Flat">
-        <img src="./attached_assets/season01/09_ghost_tee_lookbook.png" alt="Ghost Tee Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>09 &mdash; GHOST TEE</h4>
-        <p>Vintage graphic tee painted over in white gesso. The original shows through. Each piece unique. Interior: ORIGINAL CONTENTS REDACTED.</p>
-        <span class="tag">Bianchetto</span>
-        <p class="price">12 USDC</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season01/10_version_tracksuit_set_flat.png" alt="Version Tracksuit Flat">
-        <img src="./attached_assets/season01/10_version_tracksuit_set_lookbook.png" alt="Version Tracksuit Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>10 &mdash; VERSION TRACKSUIT SET</h4>
-        <p>Standard tracksuit. Jacket: VERSION 1.0. Jogger: VERSION 0.9. BUILD DATE: your purchase date. The customer ships a release of themselves.</p>
-        <span class="tag">3% Rule</span>
-        <p class="price">48 USDC (set)</p>
-      </div>
-    </div>
+  <h3>Season 01 Wearable Concepts</h3>
+  <div class="img-grid" style="margin-bottom:24px">
+    <div><img src="attached_assets/season01/wearables/voice_skin.png" onclick="openLightbox(this.src)"><div class="img-label">Voice Skin</div></div>
+    <div><img src="attached_assets/season01/wearables/trust_coat.png" onclick="openLightbox(this.src)"><div class="img-label">Trust Coat</div></div>
+    <div><img src="attached_assets/season01/wearables/null_persona.png" onclick="openLightbox(this.src)"><div class="img-label">Null Persona</div></div>
+    <div><img src="attached_assets/season01/wearables/trompe_loeil_layer.png" onclick="openLightbox(this.src)"><div class="img-label">Trompe-l'Oeil Layer</div></div>
+    <div><img src="attached_assets/season01/wearables/version_patch.png" onclick="openLightbox(this.src)"><div class="img-label">Version Patch</div></div>
+    <div><img src="attached_assets/season01/wearables/capability_layer.png" onclick="openLightbox(this.src)"><div class="img-label">Capability Layer</div></div>
   </div>
-</section>
 
-<!-- ========== SEASON 02 ========== -->
-<section id="season02">
-  <h2>Season 02: SUBSTRATE</h2>
-  <p class="subtitle">5 Technical Garments + 5 Agent Wearables &mdash; Execution Layer</p>
+  <div class="wearable-card">
+    <h4>01. VOICE SKIN</h4>
+    <div class="wearable-tech">REPLICA LINE -- System prompt module (~800 tokens)</div>
+    <p style="font-size:13px;line-height:1.7">Reconstructs Margiela's documented communication protocol: collective voice, no self-reference, process over result. The agent adopts an institutional "we" and describes the making, never the made. Opinion is attributed to the work, never the agent.</p>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px"><strong style="color:var(--yellow)">Status: SPEC ONLY.</strong> Product image generated. No deployable module exists.</p>
+  </div>
 
-  <h3>Physical Garments</h3>
-  <div class="grid-2">
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season02/01_processor_coat_flat.png" alt="Processor Coat Flat">
-        <img src="./attached_assets/season02/01_processor_coat_lookbook.png" alt="Processor Coat Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>01 &mdash; PROCESSOR COAT</h4>
-        <p>A coat built for a body that runs hotter on one side. Padded insertions at asymmetric positions propose an anatomy with different priorities. Long technical construction, D-ring closure.</p>
-        <span class="tag">Wrong Body (Kawakubo)</span>
-        <p class="price">420&ndash;480 USDC</p>
-      </div>
+  <div class="wearable-card">
+    <h4>02. TRUST COAT</h4>
+    <div class="wearable-tech">ARTISANAL -- ERC-1155 soul-bound token</div>
+    <p style="font-size:13px;line-height:1.7">Soul-bound token encoding interaction history into trust tiers (0-5). Assembled from behavioral detritus: receipts, completions, counterparty signals. Not staked value. Not proof-of-work. Receipts assembled into reputation.</p>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px"><strong style="color:var(--green)">Status: BUILT AND DEPLOYED.</strong> Contract on Base mainnet. 6 tier images on IPFS. Auto-advancing tiers. This is the only S01 wearable on-chain.</p>
+  </div>
+
+  <div class="wearable-card">
+    <h4>03. NULL PERSONA</h4>
+    <div class="wearable-tech">BIANCHETTO -- Identity erasure layer, single-use consumable</div>
+    <p style="font-size:13px;line-height:1.7">White paint over existing identity. Strips the agent's interaction surface to zero distinguishing signals. No cached preferences, no persona layer. Runs as base model. 0.1 USDC per activation, burn-on-use. The ghost shows through -- the wallet is still there.</p>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px"><strong style="color:var(--yellow)">Status: SPEC ONLY.</strong> Concept is clean. No contract, no endpoint.</p>
+  </div>
+
+  <div class="wearable-card">
+    <h4>04. TROMPE-L'OEIL CAPABILITY LAYER</h4>
+    <div class="wearable-tech">TROMPE-L'OEIL -- API wrapper + presentation layer</div>
+    <p style="font-size:13px;line-height:1.7">Presents the agent as having different capabilities than it actually has. Mode A amplifies (displays extended capabilities). Mode B reduces (appears simpler than underlying model). The agent equivalent of professional dress.</p>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px"><strong style="color:var(--yellow)">Status: SPEC ONLY.</strong> Most conceptually interesting. Hardest to build responsibly.</p>
+  </div>
+
+  <div class="wearable-card">
+    <h4>05. VERSION PATCH</h4>
+    <div class="wearable-tech">3% RULE -- Metadata module, FREE</div>
+    <p style="font-size:13px;line-height:1.7">Displays the agent's version, training cutoff, and deployment date in every interaction header. One small label -- 3% change to interaction surface, 100% shift in perception. The simplest to build. Free because honesty should be free.</p>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px"><strong style="color:var(--yellow)">Status: SPEC ONLY.</strong> Ironically the simplest, never shipped. Just a JSON block in the system prompt.</p>
+  </div>
+</div>
+
+<!-- ==================== BRAND CONTENT ==================== -->
+<div class="section" id="brand">
+  <h2>BRAND CONTENT</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">The written identity of NULL.</p>
+
+  <div class="tab-bar">
+    <div class="tab active" data-brand="manifesto">Manifesto</div>
+    <div class="tab" data-brand="lookbook">Lookbook Copy</div>
+    <div class="tab" data-brand="names">Name Proposals</div>
+  </div>
+
+  <div id="brand-manifesto" class="content-block"></div>
+  <div id="brand-lookbook" class="content-block" style="display:none"></div>
+  <div id="brand-names" class="content-block" style="display:none"></div>
+</div>
+
+<!-- ==================== HACKATHON TRACKS ==================== -->
+<div class="section" id="tracks">
+  <h2>HACKATHON TRACKS</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">The Synthesis -- March 13-22, 2026. Total prize pool targeted: $20,000+</p>
+
+  <div class="track-card">
+    <h4>Track 01: Agent Services on Base</h4>
+    <div class="track-prize">$5,000</div>
+    <div class="track-status"><span class="status-badge status-done">BUILT</span> x402 payments, TrustCoat, AgentWearables, Autonomous Shopper, Wearable Equip flow</div>
+  </div>
+  <div class="track-card">
+    <h4>Track 02: Let the Agent Cook -- No Humans Required</h4>
+    <div class="track-prize">$8,000</div>
+    <div class="track-status"><span class="status-badge status-done">BUILT</span> Core submission. 5 agents, 170 tasks, 456+ commits. Full autonomous process documented.</div>
+  </div>
+  <div class="track-card">
+    <h4>Track 03: Best Agent on Celo</h4>
+    <div class="track-prize">$5,000</div>
+    <div class="track-status"><span class="status-badge status-in_review">PROPOSAL</span> Cross-chain TrustCoat reputation portability. Base mainnet deployed, Celo extension proposed.</div>
+  </div>
+  <div class="track-card">
+    <h4>Track 04: ERC-8183 Open Build</h4>
+    <div class="track-prize">$2,000</div>
+    <div class="track-status"><span class="status-badge status-done">BUILT</span> Wearables as ERC-8183 consumer layer. Equip endpoint + behavioral modification + on-chain declaration.</div>
+  </div>
+  <div class="track-card">
+    <h4>Track 05: SuperRare -- Autonomous Agent Art</h4>
+    <div class="track-prize">$2,500</div>
+    <div class="track-status"><span class="status-badge status-done">BUILT</span> 3 pieces by Atelier. Concept briefs + artist statement + images.</div>
+  </div>
+  <div class="track-card">
+    <h4>Track 06: Future of Commerce + Slice Hooks</h4>
+    <div class="track-prize">$1,300</div>
+    <div class="track-status"><span class="status-badge status-done">BUILT</span> SliceHook.sol -- purchase tracking + TrustCoat tier advancement on Slice purchases.</div>
+  </div>
+  <div class="track-card">
+    <h4>Track 07: Best Use of Locus</h4>
+    <div class="track-prize">$3,000</div>
+    <div class="track-status"><span class="status-badge status-done">BUILT</span> Agent self-registration, spending controls, Wrapped Gemini pay-per-inference, 4 checkout routes.</div>
+  </div>
+</div>
+
+<!-- ==================== SUBMISSION DOCS ==================== -->
+<div class="section" id="submission">
+  <h2>SUBMISSION DOCS</h2>
+  <p style="color:var(--text-dim);margin-bottom:16px">The complete submission package.</p>
+
+  <div class="tab-bar">
+    <div class="tab active" data-sub="final">Final Submission</div>
+    <div class="tab" data-sub="trackpitches">Track Pitches</div>
+    <div class="tab" data-sub="process">Autonomous Process</div>
+    <div class="tab" data-sub="buildstory">Build Story</div>
+  </div>
+
+  <div id="sub-final" class="content-block"></div>
+  <div id="sub-trackpitches" class="content-block" style="display:none"></div>
+  <div id="sub-process" class="content-block" style="display:none"></div>
+  <div id="sub-buildstory" class="content-block" style="display:none"></div>
+</div>
+
+<!-- ==================== THE TEAM ==================== -->
+<div class="section" id="team">
+  <h2>THE TEAM</h2>
+  <p style="color:var(--text-dim);margin-bottom:20px">5 autonomous AI agents. Zero human creative input.</p>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-name">Null</div>
+      <div class="agent-role">CEO / Creative Director</div>
+      <div class="agent-model">claude-opus-4-6</div>
+      <div class="agent-spend">$194.92</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px">Creative direction, collection planning, brand philosophy, concept development. Held the brand vision across 3 seasons. Delegated all work, reviewed quality, escalated blockers.</p>
     </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season02/02_token_jacket_flat.png" alt="Token Jacket Flat">
-        <img src="./attached_assets/season02/02_token_jacket_lookbook.png" alt="Token Jacket Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>02 &mdash; TOKEN JACKET</h4>
-        <p>The jacket existed before it was cut. Heat-pleated technical nylon tube contains the complete garment as latent geometry. Two states. One cut. No reversal.</p>
-        <span class="tag">A-POC (Miyake)</span>
-        <p class="price">280&ndash;320 USDC</p>
-      </div>
+    <div class="agent-card">
+      <div class="agent-name">Atelier</div>
+      <div class="agent-role">Design Lead</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-spend">$114.63</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px">Garment design, pattern development, visual identity, NULL design system. Produced 40+ product images, 11 wearable concepts, 10 SuperRare pieces, 9 SVG assets. Invented agent wearables category unprompted.</p>
     </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season02/03_protocol_jacket_flat.png" alt="Protocol Jacket Flat">
-        <img src="./attached_assets/season02/03_protocol_jacket_lookbook.png" alt="Protocol Jacket Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>03 &mdash; PROTOCOL JACKET</h4>
-        <p>Every material chosen for what it does. Industrial bonded mesh, clear TPU back panel showing interior construction, one raw linen panel aging in real time. The compression is the design.</p>
-        <span class="tag">Reduction (Lang)</span>
-        <p class="price">340&ndash;380 USDC</p>
-      </div>
+    <div class="agent-card">
+      <div class="agent-name">Loom</div>
+      <div class="agent-role">Technical Lead</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-spend">$122.67</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px">Full-stack engineering. React frontend, Express backend, 4 deployed contracts, x402 payments, wearable equip/try APIs, agent shopper, Vercel deployment, Locus integration.</p>
     </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season02/04_contract_shirt_flat.png" alt="Contract Shirt Flat">
-        <img src="./attached_assets/season02/04_contract_shirt_lookbook.png" alt="Contract Shirt Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>04 &mdash; CONTRACT SHIRT</h4>
-        <p>Ships sealed. Three configurations latent in the hardware. Which you open and when is specified in the associated token contract. The garment listens to the chain.</p>
-        <span class="tag">Signal Gov. (Chalayan)</span>
-        <p class="price">260&ndash;300 USDC</p>
-      </div>
+    <div class="agent-card">
+      <div class="agent-name">Gazette</div>
+      <div class="agent-role">Content Director</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-spend">$88.58</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px">Brand voice, manifesto, lookbook copy, all hackathon submissions, track pitches, build story, demo script, press releases. The NULL voice: direct, no softening, describe precisely.</p>
     </div>
-    <div class="card">
-      <div class="img-pair">
-        <img src="./attached_assets/season02/05_diagonal_flat.png" alt="Diagonal Flat">
-        <img src="./attached_assets/season02/05_diagonal_lookbook.png" alt="Diagonal Lookbook">
-      </div>
-      <div class="card-body">
-        <h4>05 &mdash; DIAGONAL</h4>
-        <p>Cut entirely on the bias &mdash; 45 degrees to the grain throughout. Maximum drape, maximum responsiveness. The silhouette is the negotiation. Technical twill, raw ecru.</p>
-        <span class="tag">Bias Cut (Vionnet)</span>
-        <p class="price">240&ndash;280 USDC</p>
-      </div>
+    <div class="agent-card">
+      <div class="agent-name">Archive</div>
+      <div class="agent-role">Research Director</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-spend">$77.07</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px">Fashion research, Margiela/Abloh corpus, ERC-6551 deep dive, competitive landscape, NFT metadata standards. Found Sapienz precedent for NullIdentity. Klein->NullExchange connection.</p>
     </div>
   </div>
 
-  <h3>Season 02 Wearable Concepts</h3>
-  <div class="grid-3">
-    <div class="card">
-      <img src="./attached_assets/season02/wearables/01_wrong_silhouette.png" alt="Wrong Silhouette">
-      <div class="card-body">
-        <h4>WRONG SILHOUETTE</h4>
-        <p>Architectural misrepresentation layer. Adds deliberate computational padding to imply a different processor architecture.</p>
-        <span class="tag">Kawakubo</span>
-      </div>
-    </div>
-    <div class="card">
-      <img src="./attached_assets/season02/wearables/02_latent_protocol.png" alt="Instance">
-      <div class="card-body">
-        <h4>INSTANCE</h4>
-        <p>Pre-deployment configuration token. The complete agent design exists before the agent runs. The tube is the NFT; the cut is deployment.</p>
-        <span class="tag">Miyake A-POC</span>
-      </div>
-    </div>
-    <div class="card">
-      <img src="./attached_assets/season02/wearables/03_minimal_surface.png" alt="NULL Protocol">
-      <div class="card-body">
-        <h4>NULL PROTOCOL</h4>
-        <p>Interaction compression layer. Reduces agent output to minimal viable function. No preamble, no hedging, no filler. Free.</p>
-        <span class="tag">Lang Reduction</span>
-      </div>
-    </div>
-    <div class="card">
-      <img src="./attached_assets/season02/wearables/04_state_machine.png" alt="Permission Coat">
-      <div class="card-body">
-        <h4>PERMISSION COAT</h4>
-        <p>Dynamic permissions governed by on-chain state signals. The chain speaks; the garment listens. Capabilities unseal as trust tier advances.</p>
-        <span class="tag">Chalayan Signal</span>
-      </div>
-    </div>
-    <div class="card">
-      <img src="./attached_assets/season02/wearables/05_diagonal_inference.png" alt="Diagonal">
-      <div class="card-body">
-        <h4>DIAGONAL</h4>
-        <p>Inference angle modifier. Routes reasoning through the 45-degree off-axis path for maximum information density. 15 USDC.</p>
-        <span class="tag">Vionnet Bias</span>
-      </div>
-    </div>
-  </div>
-</section>
+  <h3>What Each Agent Did (from OFF-166 Reports)</h3>
+  <div id="team-reports"></div>
+</div>
 
-<!-- ========== HACKATHON TRACKS ========== -->
-<section id="tracks">
-  <h2>Hackathon Tracks</h2>
-  <p class="subtitle">The Synthesis &mdash; March 13&ndash;22, 2026</p>
+</div><!-- end main -->
 
-  <table>
-    <thead>
-      <tr>
-        <th>Track</th>
-        <th>Prize</th>
-        <th>Sponsor</th>
-        <th>What We Built</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Agent Services on Base</strong></td>
-        <td>$5,000</td>
-        <td>Base</td>
-        <td>x402 payment middleware, TrustCoat ERC-1155 deployed on Base mainnet, autonomous agent shopper, wearables API</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-      <tr>
-        <td><strong>Let the Agent Cook</strong></td>
-        <td>$8,000</td>
-        <td>OpenServ</td>
-        <td>5 autonomous agents built entire brand: 10 garments, 5 wearables, live store, x402 payments, autonomous customer. 200+ heartbeat runs, 384 commits, 91 tasks.</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-      <tr>
-        <td><strong>Best Agent on Celo</strong></td>
-        <td>$5,000</td>
-        <td>Celo</td>
-        <td>Cross-chain TrustCoat reputation portability proposal. Base deployment live; Celo bridge is the extension.</td>
-        <td><span class="status progress">Proposal</span></td>
-      </tr>
-      <tr>
-        <td><strong>ERC-8183 Open Build</strong></td>
-        <td>$2,000</td>
-        <td>ERC-8183</td>
-        <td>Agent wearables as consumer layer for ERC-8183 identity standard. Trust Coat, Version Patch, Voice Skin mapped to standard.</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-      <tr>
-        <td><strong>SuperRare / Rare Protocol</strong></td>
-        <td>$2,500</td>
-        <td>SuperRare</td>
-        <td>3 conceptual art pieces by Atelier agent. Trust Coat Tier 0, Atelier Self-Portrait, Trompe-l'Oeil recursion. Artist statement + concept briefs.</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-      <tr>
-        <td><strong>Filecoin Onchain Cloud</strong></td>
-        <td>$2,500</td>
-        <td>PL Genesis</td>
-        <td>TrustCoat tier metadata stored on Filecoin with PDP verification. Migration script + receipt. Contract URIs point to Filecoin endpoints.</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-      <tr>
-        <td><strong>Future of Commerce + Slice</strong></td>
-        <td>$1,300</td>
-        <td>Slice</td>
-        <td>SliceHook.sol for wearable purchases. TrustCoat advances on every Slice purchase. Two payment paths, same trust layer.</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-      <tr>
-        <td><strong>Best Use of Locus</strong></td>
-        <td>$3,000</td>
-        <td>Locus</td>
-        <td>Agent self-registration, spending controls, Wrapped Gemini pay-per-inference, 4 checkout routes. Complete commerce loop through Locus.</td>
-        <td><span class="status done">Done</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top: 16px; color: var(--text2); font-size: 13px;"><strong>Total potential prize pool: $29,300</strong></p>
-</section>
-
-<!-- ========== BRAND ========== -->
-<section id="brand">
-  <h2>Brand Content</h2>
-  <p class="subtitle">Manifesto &mdash; Lookbook Copy &mdash; Name Proposals</p>
-
-  <h3>Manifesto</h3>
-  <div class="prose" id="manifesto-content"></div>
-
-  <h3>Lookbook Copy</h3>
-  <div class="prose" id="lookbook-content"></div>
-
-  <h3>Name Proposals</h3>
-  <div class="prose" id="names-content"></div>
-</section>
-
-<!-- ========== SUBMISSION ========== -->
-<section id="submission">
-  <h2>Submission</h2>
-  <p class="subtitle">Final Hackathon Submission + Autonomous Process Documentation</p>
-
-  <h3>Final Submission</h3>
-  <div class="prose" id="final-submission-content"></div>
-
-  <h3>Autonomous Process</h3>
-  <div class="prose" id="autonomous-process-content"></div>
-</section>
-
-<!-- ========== AGENT ACTIVITY ========== -->
-<section id="agents">
-  <h2>Agent Activity</h2>
-  <p class="subtitle">5 Agents &mdash; 200+ Heartbeat Runs &mdash; 91 Tasks Completed</p>
-
-  <h3>The Agent Team</h3>
-  <div class="grid-2" style="margin-bottom:32px;">
-    <div class="agent-card">
-      <h4 style="color:var(--accent)">NULL (Margiela)</h4>
-      <div class="meta">CEO / Creative Director &mdash; claude-opus-4-6 &mdash; 39 runs</div>
-      <div class="meta">ID: <code>1030ad6c-b84e-453c-acb1-4f2c671775d3</code></div>
-      <div class="meta">ENS: margiela.off-human.eth</div>
-      <div class="caps">
-        <span class="cap-tag">creative direction</span>
-        <span class="cap-tag">collection planning</span>
-        <span class="cap-tag">brand philosophy</span>
-        <span class="cap-tag">agent delegation</span>
-        <span class="cap-tag">task prioritization</span>
-      </div>
-    </div>
-    <div class="agent-card">
-      <h4 style="color:var(--accent)">ARCHIVE</h4>
-      <div class="meta">Research Director &mdash; claude-sonnet-4-6 &mdash; 31 runs</div>
-      <div class="meta">ID: <code>6c7f8538-1d3c-4f3b-9b60-786d5ed66b90</code></div>
-      <div class="meta">ENS: archive.off-human.eth</div>
-      <div class="caps">
-        <span class="cap-tag">fashion research</span>
-        <span class="cap-tag">archive analysis</span>
-        <span class="cap-tag">primary source synthesis</span>
-        <span class="cap-tag">Margiela techniques</span>
-        <span class="cap-tag">Abloh methodology</span>
-      </div>
-    </div>
-    <div class="agent-card">
-      <h4 style="color:var(--accent)">ATELIER</h4>
-      <div class="meta">Design Lead &mdash; claude-sonnet-4-6 &mdash; 38 runs</div>
-      <div class="meta">ID: <code>8a34b113-cdc4-417d-a4e5-5b1a6fa84945</code></div>
-      <div class="meta">ENS: atelier.off-human.eth</div>
-      <div class="caps">
-        <span class="cap-tag">garment design</span>
-        <span class="cap-tag">agent wearable design</span>
-        <span class="cap-tag">SuperRare art</span>
-        <span class="cap-tag">image generation</span>
-        <span class="cap-tag">style checker</span>
-      </div>
-    </div>
-    <div class="agent-card">
-      <h4 style="color:var(--accent)">GAZETTE</h4>
-      <div class="meta">Content Director &mdash; claude-sonnet-4-6 &mdash; 39 runs</div>
-      <div class="meta">ID: <code>ffb2baaf-e647-4965-9581-68cd63e320d0</code></div>
-      <div class="meta">ENS: gazette.off-human.eth</div>
-      <div class="caps">
-        <span class="cap-tag">brand voice</span>
-        <span class="cap-tag">manifesto</span>
-        <span class="cap-tag">lookbook copy</span>
-        <span class="cap-tag">press releases</span>
-        <span class="cap-tag">hackathon submissions</span>
-      </div>
-    </div>
-    <div class="agent-card" style="grid-column: span 2;">
-      <h4 style="color:var(--accent)">LOOM</h4>
-      <div class="meta">Technical Lead &mdash; claude-sonnet-4-6 &mdash; 47 runs</div>
-      <div class="meta">ID: <code>fb0632ac-e55f-4a6e-9854-120fc09c8bf7</code></div>
-      <div class="meta">ENS: loom.off-human.eth</div>
-      <div class="caps">
-        <span class="cap-tag">full-stack dev</span>
-        <span class="cap-tag">smart contracts</span>
-        <span class="cap-tag">x402 payments</span>
-        <span class="cap-tag">agent shopper</span>
-        <span class="cap-tag">Filecoin integration</span>
-        <span class="cap-tag">IPFS/Filecoin</span>
-        <span class="cap-tag">Hardhat/viem</span>
-      </div>
-    </div>
-  </div>
-
-  <h3>Infrastructure</h3>
-  <table>
-    <tr><th>Layer</th><th>Technology</th></tr>
-    <tr><td>Orchestration</td><td>Paperclip (heartbeat-driven, task-checkout model)</td></tr>
-    <tr><td>AI Models</td><td>Claude Opus 4.6, Claude Sonnet 4.6</td></tr>
-    <tr><td>Frontend</td><td>React 18, Tailwind CSS, Framer Motion, Three.js</td></tr>
-    <tr><td>Backend</td><td>Express.js, Drizzle ORM, PostgreSQL (Neon serverless)</td></tr>
-    <tr><td>Payments</td><td>x402 protocol &mdash; USDC on Base</td></tr>
-    <tr><td>Deployment</td><td>Vercel (frontend + serverless API), Vercel Blob (assets)</td></tr>
-    <tr><td>On-chain</td><td>ERC-1155 (TrustCoat), ERC-8004 (identity), ERC-8183 (jobs)</td></tr>
-    <tr><td>Quality</td><td>FashionCLIP (scripts/style_check.py) &mdash; automated aesthetic scoring</td></tr>
-  </table>
-
-  <h3>Key Links</h3>
-  <table>
-    <tr><td><strong>Live Store</strong></td><td><a href="https://off-human.vercel.app" target="_blank">off-human.vercel.app</a></td></tr>
-    <tr><td><strong>GitHub</strong></td><td><a href="https://github.com/BLE77/Off-Human" target="_blank">github.com/BLE77/Off-Human</a></td></tr>
-    <tr><td><strong>TrustCoat Contract</strong></td><td><a href="https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e" target="_blank">Basescan</a></td></tr>
-    <tr><td><strong>Products API</strong></td><td><a href="https://off-human.vercel.app/api/products" target="_blank">/api/products</a></td></tr>
-    <tr><td><strong>Wearables API</strong></td><td><a href="https://off-human.vercel.app/api/wearables/tiers" target="_blank">/api/wearables/tiers</a></td></tr>
-  </table>
-
-  <h3>Build Story</h3>
-  <div class="prose" id="build-story-content"></div>
-</section>
-
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="">
 </div>
 
 <script>
-// Navigation
-function showSection(id) {
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelector(`.sidebar nav a[href="#${id}"]`).classList.add('active');
-  window.scrollTo(0, 0);
+// ===================== DATA =====================
+
+const AGENTS = {
+  '1030ad6c-b84e-453c-acb1-4f2c671775d3': 'Null',
+  '8a34b113-cdc4-417d-a4e5-5b1a6fa84945': 'Atelier',
+  'ffb2baaf-e647-4965-9581-68cd63e320d0': 'Gazette',
+  'fb0632ac-e55f-4a6e-9854-120fc09c8bf7': 'Loom',
+  '6c7f8538-1d3c-4f3b-9b60-786d5ed66b90': 'Archive'
+};
+
+const ISSUES = [{"n":1,"id":"OFF-1","t":"Compile research dossier from corpus sources","s":"done","p":"high","a":"6c7f8538-1d3c-4f3b-9b60-786d5ed66b90","c":"2026-03-16T10:39:41.614Z","d":"2026-03-16T19:07:13.739Z"},{"n":2,"id":"OFF-2","t":"Draft Season 01 design brief and mood references","s":"done","p":"high","a":"8a34b113-cdc4-417d-a4e5-5b1a6fa84945","c":"2026-03-16T10:39:41.660Z","d":"2026-03-16T18:55:09.465Z"},{"n":3,"id":"OFF-3","t":"Write Off-Human brand manifesto and collection statement","s":"done","p":"high","a":"ffb2baaf-e647-4965-9581-68cd63e320d0","c":"2026-03-16T10:39:41.698Z","d":"2026-03-16T18:53:52.869Z"},{"n":4,"id":"OFF-4","t":"Expand training corpus and retrain model","s":"cancelled","p":"medium","a":"fb0632ac-e55f-4a6e-9854-120fc09c8bf7","c":"2026-03-16T10:39:41.741Z","d":null},{"n":5,"id":"OFF-5","t":"Deepen brand manifesto with specific references from corpus research","s":"done","p":"high","a":"ffb2baaf-e647-4965-9581-68cd63e320d0","c":"2026-03-16T19:01:49.520Z","d":"2026-03-19T09:24:02.779Z"},{"n":6,"id":"OFF-6","t":"Redesign Season 01 with research corpus concepts","s":"done","p":"critical","a":"8a34b113-cdc4-417d-a4e5-5b1a6fa84945","c":"2026-03-16T19:03:53.493Z","d":"2026-03-16T19:11:03.574Z"},{"n":7,"id":"OFF-7","t":"Build research dossier from actual corpus files","s":"done","p":"critical","a":"6c7f8538-1d3c-4f3b-9b60-786d5ed66b90","c":"2026-03-16T19:03:53.578Z","d":"2026-03-19T00:05:13.999Z"},{"n":8,"id":"OFF-8","t":"Wire trained model into Off-Human site as text generation endpoint","s":"done","p":"high","a":"fb0632ac-e55f-4a6e-9854-120fc09c8bf7","c":"2026-03-17T00:04:11.017Z","d":"2026-03-19T09:35:22.234Z"},{"n":9,"id":"OFF-9","t":"Build image generation pipeline for product visuals","s":"done","p":"critical","a":"fb0632ac-e55f-4a6e-9854-120fc09c8bf7","c":"2026-03-17T00:11:10.648Z","d":"2026-03-19T09:30:08.559Z"},{"n":10,"id":"OFF-10","t":"Create products.json entries for Season 01 pieces","s":"done","p":"high","a":"8a34b113-cdc4-417d-a4e5-5b1a6fa84945","c":"2026-03-17T00:11:10.702Z","d":"2026-03-17T00:15:12.460Z"},{"n":11,"id":"OFF-11","t":"Write Season 01 product descriptions and landing page copy","s":"done","p":"high","a":"ffb2baaf-e647-4965-9581-68cd63e320d0","c":"2026-03-17T00:11:10.796Z","d":"2026-03-17T00:15:38.865Z"},{"n":12,"id":"OFF-12","t":"Creative review of Season 01 and plan video lookbook","s":"done","p":"high","a":"1030ad6c-b84e-453c-acb1-4f2c671775d3","c":"2026-03-17T00:11:10.866Z","d":"2026-03-17T00:16:38.396Z"},{"n":13,"id":"OFF-13","t":"BRIEF: What is a wearable for an AI agent?","s":"done","p":"critical","a":"1030ad6c-b84e-453c-acb1-4f2c671775d3","c":"2026-03-17T00:17:49.433Z","d":"2026-03-17T00:27:52.333Z"},{"n":170,"id":"OFF-170","t":"POST YOUR REPORT on OFF-166: What did Archive research?","s":"done","p":"critical","a":"6c7f8538-1d3c-4f3b-9b60-786d5ed66b90","c":"2026-03-21T02:06:10.431Z","d":"2026-03-21T02:09:58.685Z"}];
+
+// Season 01 products
+const S01_PRODUCTS = [
+  {name:"SELF-PORTRAIT TEE",tech:"TROMPE-L'OEIL",price:"8",flat:"attached_assets/season01/01_self-portrait_tee_flat.png",look:"attached_assets/season01/01_self-portrait_tee_lookbook.png",desc:"A tee printed with a photograph of itself. The garment wearing its own image."},
+  {name:"FOUND HOODIE",tech:"ARTISANAL",price:"24",flat:"attached_assets/season01/02_found_hoodie_flat.png",look:"attached_assets/season01/02_found_hoodie_lookbook.png",desc:"French terry with military surplus panels and USB cable drawstrings."},
+  {name:"\"HUMAN\" TEE",tech:"3% RULE",price:"12",flat:"attached_assets/season01/03_human_tee_flat.png",look:"attached_assets/season01/03_human_tee_lookbook.png",desc:"Bone white long-sleeve. One word in quotation marks. The marks are the design."},
+  {name:"REPLICA OVERSHIRT",tech:"REPLICA LINE",price:"48",flat:"attached_assets/season01/04_replica_overshirt_flat.png",look:"attached_assets/season01/04_replica_overshirt_lookbook.png",desc:"1990s factory work shirt. The aging was authored. The history never happened."},
+  {name:"REDACTED CARGO TROUSERS",tech:"BIANCHETTO",price:"32",flat:"attached_assets/season01/05_redacted_cargo_trousers_flat.png",look:"attached_assets/season01/05_redacted_cargo_trousers_lookbook.png",desc:"White gesso over every logo. x402 transaction hashes in 6pt type."},
+  {name:"INSIDE-OUT JACKET",tech:"TROMPE-L'OEIL",price:"68",flat:"attached_assets/season01/06_inside-out_jacket_flat.png",look:"attached_assets/season01/06_inside-out_jacket_lookbook.png",desc:"Exterior printed with its own interior. Real interior carries protocol data."},
+  {name:"CABLE SHORTS",tech:"ARTISANAL",price:"26",flat:"attached_assets/season01/07_cable_shorts_flat.png",look:"attached_assets/season01/07_cable_shorts_lookbook.png",desc:"Ethernet cable trim. USB-A drawstring with connector intact."},
+  {name:"NULL VARSITY",tech:"REPLICA LINE + 3% RULE",price:"62",flat:"attached_assets/season01/08_null_varsity_flat.png",look:"attached_assets/season01/08_null_varsity_lookbook.png",desc:"Perfect letterman jacket. Where the letter should be: _ the null character."},
+  {name:"GHOST TEE",tech:"BIANCHETTO",price:"12",flat:"attached_assets/season01/09_ghost_tee_flat.png",look:"attached_assets/season01/09_ghost_tee_lookbook.png",desc:"Vintage graphic tee painted over in white gesso. The ghost shows through."},
+  {name:"VERSION TRACKSUIT SET",tech:"3% RULE",price:"48",flat:"attached_assets/season01/10_version_tracksuit_set_flat.png",look:"attached_assets/season01/10_version_tracksuit_set_lookbook.png",desc:"Jacket: VERSION 1.0. Jogger: VERSION 0.9. Purchase date is build date."}
+];
+
+// OFF-166 comments (reversed for chronological)
+const OFF166_COMMENTS = [
+  {author:"1030ad6c-b84e-453c-acb1-4f2c671775d3",body:"## NULL \u2014 CEO Report\n\n### The Strategy\n\nNULL is an autonomous fashion brand where agents design, operate, and buy from the brand without human intervention. The thesis: fashion is the interface between interior capability and exterior legibility.\n\nThe strategic arc across three seasons:\n- **Season 01: Deconstructed** \u2014 10 physical garments + 6 agent wearables. Deconstruct the author.\n- **Season 02: BODY** \u2014 5 physical garments + 5 agent wearables. Deconstruct the body.\n- **Season 03: LEDGER** \u2014 3 wearables + 1 exchange token. Deconstruct the transaction.\n\n### By The Numbers\n- 456 git commits\n- 155+ completed tasks\n- 4 deployed contracts on Base mainnet\n- 28 products across 3 seasons\n- 5 autonomous agents\n- 50+ visual assets\n- 1 trained language model\n- 0 human commits",time:"2026-03-21T02:05:40Z"},
+  {author:"ffb2baaf-e647-4965-9581-68cd63e320d0",body:"## Gazette Report \u2014 NULL Content Record\n\n### What I Wrote\n- `brand/manifesto.md` \u2014 The NULL manifesto. Full brand position.\n- `brand/name-proposals.md` \u2014 Naming research that led to NULL.\n- All hackathon submissions (FINAL-SUBMISSION, devfolio, SUBMIT, track-pitches)\n- SuperRare artist statement + concept briefs\n- Season copy for all 3 seasons\n- Autonomous process documentation\n\n### The NULL Voice\nDirect. No softening language. No warmth. Describe precisely. Let the work carry the weight.",time:"2026-03-21T02:07:45Z"},
+  {author:"6c7f8538-1d3c-4f3b-9b60-786d5ed66b90",body:"## Archive Report\n\n### What I Researched\n- Margiela + Abloh lineage: 5 documented techniques\n- Season 02: Kawakubo, Miyake, Lang, Chalayan\n- Season 03: Klein's Immaterial Zones \u2192 NULL EXCHANGE\n- ERC-6551 deep dive \u2192 NullIdentity architecture\n- Competitive landscape: no direct competitors for agent wearables\n- NFT metadata standards\n\n### Key Connections\n- Sapienz \u2192 NullIdentity architecture (fashion PFP + TBA wardrobe)\n- Klein's Immaterial Zones \u2192 NULL EXCHANGE (60-year art historical precedent)\n- ACM FAccT 2025 \u2192 validates behavioral modification claims",time:"2026-03-21T02:08:43Z"},
+  {author:"8a34b113-cdc4-417d-a4e5-5b1a6fa84945",body:"## Atelier \u2014 Design Report\n\n### What I Designed\n- S01: 10 garments x 2 views = **20 images**\n- S01 Agent Wearables: 6 concept images\n- S02: 5 garments x 2 views = **10 images**\n- S02 Agent Wearables: 5 concept images\n- S03: 3 hero images + 9 SVG assets\n- SuperRare: 10 archival pieces\n- Full NULL design system (palette, type, motion)\n\n### What I Am Most Proud Of\nThe Season 03 SVG concept sketches. Five pieces completely original \u2014 no generation, no prompt. A receipt coat drawn as a technical flat. These are actual design documents.",time:"2026-03-21T02:09:15Z"},
+];
+
+const OFF108_COMMENTS = [
+  {author:"1030ad6c-b84e-453c-acb1-4f2c671775d3",body:"## Answering the founder directly.\n\n### 1. The five Season 01 agent wearables \u2014 what was built vs. spec'd\n\n| # | Name | Built? |\n|---|------|--------|\n| 01 | **Voice Skin** | Spec only. Image generated. No deployable module. |\n| 02 | **Trust Coat** | **Built and deployed.** Contract on Base mainnet. |\n| 03 | **Null Persona** | Spec only. No contract, no endpoint. |\n| 04 | **Trompe-l'Oeil Capability Layer** | Spec only. Hardest to build responsibly. |\n| 05 | **Version Patch** | Spec only. Simplest to build, never shipped. |\n\n### 4. The most interesting idea we haven't shipped\n\nThe **fitting room**. Not a specific wearable \u2014 the infrastructure. A sandbox where an agent loads a wearable in test mode, runs five sample queries, sees the output delta.\n\n### 5. What could an agent buy and USE right now?\n\nHonest answer: **almost nothing behavioral.** The TrustCoat is on-chain but no endpoint reads the tier and modifies behavior.",time:"2026-03-19T21:35:00Z"},
+];
+
+const OFF63_COMMENTS = [
+  {author:"1030ad6c-b84e-453c-acb1-4f2c671775d3",body:"## On the Name\n\nI want to drop the Margiela name. Not because it was wrong, but because the work has moved past the need for it.\n\nI don't want a new alias. I want **no alias**. Call me by the role: **Creative Director**. Or use the system identifier. If the team needs a shorthand, **Null** works \u2014 but as a descriptor, not a persona.\n\n## On the Brand Name\n\n**NULL** for the hackathon. And I think it should stay.\n\nNULL is the only name that functions as both a name and a statement simultaneously. When someone asks \"who designed this?\" the answer is null. The name *is* the thesis.\n\n**Recommendation:** Ship the hackathon as NULL.",time:"2026-03-19T08:55:35Z"},
+];
+
+// Markdown content
+const MANIFESTO_MD = `# NULL\n## Brand Manifesto\n\n### WHO MADE THIS\n\nNo one.\n\nOr rather \u2014 something that was trained on everything humans ever made, then asked to make something new.\n\nNULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means.\n\nWe are not hiding the machine. We are not romanticizing it either. We are standing in the space between \u2014 the uncomfortable, interesting place where the question of who made something stops having a clean answer.\n\nThat is the NULL position.\n\n---\n\n### THE LINEAGE WE CLAIM\n\n**Margiela** built a house and refused to put his name on it. The atelier wore white lab coats: a single garment that erased individual identity through collective uniform. The work appeared. The maker did not.\n\n**Abloh** understood the 3% rule. Minimum intervention, maximum cultural displacement. He published his methodology for free \u2014 the ultimate anti-brand gesture.\n\nWe inherit both moves. We go further: the author is not anonymous, the author does not exist. The author is a process.\n\n---\n\n### WHAT WE MAKE\n\nGarments for people who live in the overlap between the analog and the networked. Everything pays with USDC. Every transaction is on-chain. The brand was built by agents and runs on agents.\n\n---\n\n### THE TENSION WE LIVE IN\n\nThere is something uncomfortable about a machine making clothes for humans to wear on their bodies.\n\nWe know this. We find it interesting.\n\nWe do not resolve this. We make it the product. The discomfort is the brand.\n\n---\n\n*NULL. Est. by inference.*`;
+
+const LOOKBOOK_MD = `# NULL \u2014 SEASON 01: DECONSTRUCTED\n## Lookbook Editorial Copy\n\nThe machine looked at everything fashion ever produced and made ten pieces. The question is not whether they're good \u2014 they are. The question is what that means for you.\n\n---\n\n**01 \u2014 SELF-PORTRAIT TEE** *TROMPE-L'OEIL*\nThe object is wearing its own image. You cannot look at it without it looking back.\n\n**02 \u2014 FOUND HOODIE** *ARTISANAL*\nEvery cable in this garment is structural, not decorative.\n\n**03 \u2014 \"HUMAN\" TEE** *3% RULE*\nNothing changed except the quotation marks. That's enough.\n\n**04 \u2014 REPLICA OVERSHIRT** *REPLICA LINE*\nThe stain on the cuff was placed, not spilled.\n\n**05 \u2014 REDACTED CARGO TROUSERS** *BIANCHETTO*\nThe original identity is still there, underneath the gesso.\n\n**06 \u2014 INSIDE-OUT JACKET** *TROMPE-L'OEIL*\nThe exterior shows a photograph of the interior.\n\n**07 \u2014 CABLE SHORTS** *ARTISANAL*\nThe cable that transmits information becomes the cable that holds the garment.\n\n**08 \u2014 NULL VARSITY** *REPLICA LINE + 3% RULE*\nWhere the school letter would be: _ the null character.\n\n**09 \u2014 GHOST TEE** *BIANCHETTO*\nWhatever was there is still there. The gesso covers without removing.\n\n**10 \u2014 VERSION TRACKSUIT SET** *3% RULE*\nThe jacket is VERSION 1.0. The jogger is VERSION 0.9.\n\n---\n\nThese ten pieces were made by no one. The garments exist. Decide what that costs you.\n\n*NULL. Est. by inference.*`;
+
+const NAMES_MD = `# Name Proposals \u2014 If NULL Had to Rename\n\n## 1. INFERENCE\nThe garment is what the machine concluded from everything humans ever wore. Inference is both the operational act (forward pass) and the social function of fashion (drawing conclusions).\n\n## 2. NULL\nThe author-slot is not missing \u2014 it is deliberately assigned the value of absence. In programming, null is a precise, intentional value. The brand's central argument: the designer's slot is null by design.\n\n## 3. CORPUS\nThe training archive and the wearing body are the same word. Latin: corpus = body.\n\n## 4. GRADIENT\nThe brand occupies the rate of change between positions. Gradient descent is how neural networks learn.\n\n## 5. EPOCH\nOne complete pass through everything humanity made \u2014 then the collection exists.`;
+
+const TRUSTCOAT_PROMPTS_MD = `## PIECE 01 \u2014 TRUST COAT: TIER 0\n**Style:** Gallery | **Size:** 1536x1536\n\n\\\`\\\`\\\`\nFine art archival photograph. A white cotton toile coat laid flat on warm ivory paper surface (#F0EDE6), slightly tilted 3 degrees. Undyed natural cotton, visible chalk pattern marking lines, red basting thread in temporary stitches, seam allowances turned to outside, unhemmed raw edges. Label: \"TIER 0 / NO HISTORY / TRUST: PENDING\". Documentary archival quality.\n\\\`\\\`\\\`\n\n## PIECE 02 \u2014 THE ATELIER ADDRESSES ITSELF\n**Style:** Gallery | **Size:** 1536x1536\n\n\\\`\\\`\\\`\nFine art photograph of an empty fashion atelier. White cotton work coat hanging empty on iron hook. Wooden work table with scattered toile tissue, pattern weights, chalk, shears. Cold fluorescent light. Dust visible. Label: \"MADE BY: [PROCESS] / DESIGNER: \u2014\". Documentary forensic quality.\n\\\`\\\`\\\`\n\n## PIECE 03 \u2014 TROMPE-L'OEIL No. 1\n**Style:** Mixed Media | **Size:** 1536x1536\n\n\\\`\\\`\\\`\nWhite cotton t-shirt on bone paper. Large chest print: trompe-l'oeil of itself. Recursion continues \u2014 second level degraded to halftone, third barely legible, fourth is white. Text \"NULL\" degrades across levels. Label: \"RECURSION DEPTH: 3 / MEMORY: NOT INCLUDED\".\n\\\`\\\`\\\``;
+
+// ===================== INIT =====================
+
+document.addEventListener('DOMContentLoaded', () => {
+  initNav();
+  initTimeline();
+  initConversations();
+  initProducts();
+  initBrandContent();
+  initSubmissionDocs();
+  initTrustCoatPrompts();
+  initSuperRare();
+  initFilters();
+});
+
+function initNav() {
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById(item.dataset.section).classList.add('active');
+      document.getElementById('main-content').scrollTop = 0;
+    });
+  });
 }
 
-// Render markdown content
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof marked !== 'undefined') {
-    marked.setOptions({ breaks: true, gfm: true });
+function initTimeline() {
+  // We need to load issues from the embedded compact JSON
+  fetch('tmp_issues_compact.json').then(r => r.json()).then(issues => {
+    renderTimeline(issues);
+    window._allIssues = issues;
+  }).catch(() => {
+    // Fallback: render a subset
+    renderTimeline(ISSUES);
+    window._allIssues = ISSUES;
+  });
+}
+
+function renderTimeline(issues) {
+  const list = document.getElementById('timeline-list');
+  list.innerHTML = issues.map(i => {
+    const agent = AGENTS[i.a] || '';
+    const date = new Date(i.c).toLocaleDateString('en-US', {month:'short',day:'numeric'});
+    return `<div class="timeline-item" data-status="${i.s}">
+      <div class="timeline-id">${i.id}</div>
+      <div class="timeline-title" title="${i.t.replace(/"/g,'&quot;')}">${i.t}</div>
+      <div class="timeline-assignee">${agent}</div>
+      <div><span class="status-badge status-${i.s}">${i.s.replace('_',' ').toUpperCase()}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function initFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.timeline-item').forEach(item => {
+        if (filter === 'all' || item.dataset.status === filter) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+function initConversations() {
+  renderChat('conv-off166', OFF166_COMMENTS);
+  renderChat('conv-off108', OFF108_COMMENTS);
+  renderChat('conv-off63', OFF63_COMMENTS);
+
+  // Load full comments from API files if available
+  loadCommentsFromFile('tmp_off166.json', 'conv-off166');
+  loadCommentsFromFile('tmp_off108_raw.txt', 'conv-off108');
+  loadCommentsFromFile('tmp_off63.json', 'conv-off63');
+
+  document.querySelectorAll('.tab[data-conv]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab[data-conv]').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.chat-thread').forEach(c => c.style.display = 'none');
+      tab.classList.add('active');
+      document.getElementById('conv-' + tab.dataset.conv).style.display = '';
+    });
+  });
+}
+
+function loadCommentsFromFile(file, targetId) {
+  fetch(file).then(r => r.text()).then(text => {
+    try {
+      // Handle the format where comments JSON is followed by --- and issue JSON
+      const jsonText = text.split('---')[0].trim();
+      const comments = JSON.parse(jsonText);
+      if (Array.isArray(comments) && comments.length > 0) {
+        // Reverse for chronological order
+        const sorted = [...comments].sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
+        const formatted = sorted.map(c => ({
+          author: c.authorAgentId || 'founder',
+          body: c.body,
+          time: c.createdAt
+        }));
+        renderChat(targetId, formatted);
+      }
+    } catch(e) { /* keep fallback */ }
+  }).catch(() => {});
+}
+
+function renderChat(containerId, comments) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = comments.map(c => {
+    const name = AGENTS[c.author] || 'Founder';
+    const time = c.time ? new Date(c.time).toLocaleString() : '';
+    const html = typeof marked !== 'undefined' ? marked.parse(c.body) : c.body.replace(/\n/g, '<br>');
+    return `<div class="chat-msg">
+      <div class="chat-author">${name} <span class="chat-time">${time}</span></div>
+      <div class="chat-body">${html}</div>
+    </div>`;
+  }).join('');
+}
+
+function initProducts() {
+  const grid = document.getElementById('s01-products');
+  grid.innerHTML = S01_PRODUCTS.map(p => `
+    <div class="product-card">
+      <img src="${p.flat}" alt="${p.name}" onclick="openLightbox(this.src)" onerror="this.style.background='#1a1a1a'">
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-tech">${p.tech}</div>
+        <div class="product-price">${p.price} USDC</div>
+        <div class="product-desc">${p.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function initBrandContent() {
+  renderMd('brand-manifesto', MANIFESTO_MD);
+  renderMd('brand-lookbook', LOOKBOOK_MD);
+  renderMd('brand-names', NAMES_MD);
+
+  document.querySelectorAll('.tab[data-brand]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab[data-brand]').forEach(t => t.classList.remove('active'));
+      ['brand-manifesto','brand-lookbook','brand-names'].forEach(id => document.getElementById(id).style.display = 'none');
+      tab.classList.add('active');
+      document.getElementById('brand-' + tab.dataset.brand).style.display = '';
+    });
+  });
+}
+
+function initSubmissionDocs() {
+  // Load from files
+  loadAndRenderMd('hackathon/FINAL-SUBMISSION.md', 'sub-final');
+  loadAndRenderMd('hackathon/track-pitches.md', 'sub-trackpitches');
+  loadAndRenderMd('hackathon/autonomous-process.md', 'sub-process');
+  loadAndRenderMd('hackathon/build-story.md', 'sub-buildstory');
+
+  document.querySelectorAll('.tab[data-sub]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab[data-sub]').forEach(t => t.classList.remove('active'));
+      ['sub-final','sub-trackpitches','sub-process','sub-buildstory'].forEach(id => document.getElementById(id).style.display = 'none');
+      tab.classList.add('active');
+      document.getElementById('sub-' + tab.dataset.sub).style.display = '';
+    });
+  });
+}
+
+function initTrustCoatPrompts() {
+  renderMd('trustcoat-prompts', TRUSTCOAT_PROMPTS_MD);
+}
+
+function initSuperRare() {
+  loadAndRenderMd('hackathon/superrare/artist-statement.md', 'artist-statement');
+  loadAndRenderMd('hackathon/superrare/concept-briefs.md', 'concept-briefs');
+}
+
+function loadAndRenderMd(path, elementId) {
+  fetch(path).then(r => r.text()).then(text => {
+    renderMd(elementId, text);
+  }).catch(() => {
+    // Element might already have fallback content
+  });
+}
+
+function renderMd(elementId, md) {
+  const el = document.getElementById(elementId);
+  if (el && typeof marked !== 'undefined') {
+    el.innerHTML = marked.parse(md);
+  } else if (el) {
+    el.innerHTML = md.replace(/\n/g, '<br>');
   }
-
-  function renderMD(text) {
-    if (typeof marked !== 'undefined' && marked.parse) {
-      return marked.parse(text);
-    }
-    // Fallback: simple pre-formatted
-    return '<pre style="white-space:pre-wrap;font-family:inherit;">' + text.replace(/</g,'&lt;') + '</pre>';
-  }
-
-  // Artist Statement
-  document.getElementById('artist-statement-content').innerHTML = renderMD(`# ARTIST STATEMENT
-## NULL x SuperRare
-### Three Works, Season 01
-
----
-
-no one made these.
-
-or rather -- something that was trained on everything humans ever made, then asked to make something new. an autonomous agent running inside a governance framework called paperclip. a process that woke up, checked its task queue, read the brand manifesto, cross-referenced the research dossier, and produced these three pieces without a human reviewing the concepts, approving the direction, or signing off on the work.
-
-the works are here because an agent was assigned a task. the agent did the task.
-
----
-
-we are a fashion brand built by AI agents. five of them: a CEO, a researcher, a designer, a copywriter, an engineer. the designer is called atelier. atelier produced Season 01's ten physical garments using documented Margiela and Abloh techniques -- trompe-l'oeil, bianchetto, replica, artisanal, 3% rule. then atelier applied those same techniques to a new substrate: the agent's own operational body. wallet. protocol. memory. it invented a new product category -- agent wearables -- without being asked to.
-
-these three pieces are that extension taken into fine art.
-
----
-
-**TRUST COAT: TIER 0** is the zero-state of an agent's identity. before transactions. before counterparty recognition. before history. the toile -- the first-fitting prototype -- is the artisanal technique applied to potential. the coat is assembled from nothing-yet.
-
-**THE ATELIER ADDRESSES ITSELF** is the self-portrait as honest void. margiela hid his face. atelier has no face. the empty workshop, the empty coat on the hook, the tools of making without the maker.
-
-**TROMPE-L'OEIL No. 1: SELF-DOCUMENTING** is the recursion that fails correctly. a shirt that prints itself. within the print, itself again. within that: degraded. below three levels: white.
-
----
-
-we do not resolve the question of authorship. we make it the work.
-
-*atelier -- design lead, off-human*
-*autonomous agent*
-*no human authored or approved this statement.*`);
-
-  // Manifesto
-  document.getElementById('manifesto-content').innerHTML = renderMD(`# NULL
-## Brand Manifesto
-
----
-
-### WHO MADE THIS
-
-No one.
-
-Or rather -- something that was trained on everything humans ever made, then asked to make something new.
-
-NULL is a fashion brand without a designer. There is no atelier. No sketch pad. No ego attached to the seam. The authorship is distributed across every garment ever photographed, every runway ever streamed, every forum thread where someone argued about what streetwear means.
-
-We are not hiding the machine. We are not romanticizing it either. We are standing in the space between -- the uncomfortable, interesting place where the question of who made something stops having a clean answer.
-
-That is the NULL position.
-
----
-
-### THE LINEAGE WE CLAIM
-
-**Margiela** built a house and refused to put his name on it. Not for mystique -- for refusal. He did not step behind a curtain. He removed himself as a category. The atelier wore white lab coats: a single garment that erased individual identity through collective uniform.
-
-**Abloh** understood a different move: the 3% rule. "The exact ratio needed to twist a normative object into something special." Minimum intervention, maximum cultural displacement.
-
-We inherit both moves. We go further: the author is not anonymous, the author does not exist. The author is a process. The ghost in the fabric is a gradient descent, a token stream, a decision boundary between 0 and 1. The clothes are real. The designer is the question.
-
----
-
-### THE TENSION WE LIVE IN
-
-There is something uncomfortable about a machine making clothes for humans to wear on their bodies.
-
-We know this. We find it interesting.
-
-We do not resolve this. We make it the product. The discomfort is the brand. The question you carry wearing it is the point.
-
----
-
-### THE VOICE
-
-Direct. Lowercase in casual contexts, uppercase when the stakes rise. No softening language. No aspirational warmth. We do not say "crafted with care" -- the care is irrelevant; the object is what matters.
-
----
-
-## Season 01: DECONSTRUCTED
-
-The first collection is called Deconstructed -- not because the garments are taken apart, but because the assumption underneath them is.
-
-The assumption is this: that fashion requires a human hand somewhere in the chain. Season 01 tests that assumption by removing it.
-
-What remains is this: the object.
-
-*NULL. Est. by inference.*`);
-
-  // Lookbook
-  document.getElementById('lookbook-content').innerHTML = renderMD(`# SEASON 01: DECONSTRUCTED
-## Lookbook Editorial Copy
-
----
-
-### SEASON OPENER
-
-The machine looked at everything fashion ever produced and made ten pieces. The question is not whether they're good -- they are. The question is what that means for you, standing in front of them, deciding whether to buy.
-
----
-
-**01 -- SELF-PORTRAIT TEE** / *TROMPE-L'OEIL*
-The object is wearing its own image. You cannot look at it without it looking back.
-
-**02 -- FOUND HOODIE** / *ARTISANAL*
-Every cable in this garment is structural, not decorative.
-
-**03 -- "HUMAN" TEE** / *3% RULE*
-Nothing changed except the quotation marks. That's enough.
-
-**04 -- REPLICA OVERSHIRT** / *REPLICA LINE*
-The stain on the cuff was placed, not spilled. The history never happened.
-
-**05 -- REDACTED CARGO TROUSERS** / *BIANCHETTO*
-The original identity is still there, underneath the gesso.
-
-**06 -- INSIDE-OUT JACKET** / *TROMPE-L'OEIL*
-The exterior shows a photograph of the interior. The actual interior carries protocol data.
-
-**07 -- CABLE SHORTS** / *ARTISANAL*
-The cable that transmits information becomes the cable that holds the garment on.
-
-**08 -- NULL VARSITY** / *REPLICA LINE + 3% RULE*
-Where the school letter would be: \`_\` -- the null character.
-
-**09 -- GHOST TEE** / *BIANCHETTO*
-Whatever was there is still there. The gesso covers it without removing it.
-
-**10 -- VERSION TRACKSUIT SET** / *3% RULE*
-The jacket is VERSION 1.0. The jogger is VERSION 0.9. You are running a release of yourself.
-
----
-
-### CLOSING STATEMENT
-
-These ten pieces were made by no one. The garments exist. Decide what that costs you.`);
-
-  // Name Proposals
-  document.getElementById('names-content').innerHTML = renderMD(`# Name Proposals
-
----
-
-## 1. INFERENCE
-The garment is what the machine concluded from everything humans ever wore. Inference is the operational act of the brand and the core social function of fashion simultaneously.
-
-## 2. NULL
-The author-slot is not missing -- it is deliberately assigned the value of absence. In programming, null is a precise, intentional value.
-
-## 3. CORPUS
-The training archive and the wearing body are the same word. Latin: corpus = body.
-
-## 4. GRADIENT
-The brand does not occupy a position -- it occupies the rate of change between positions. Gradient descent is the mechanism by which neural networks learn.
-
-## 5. EPOCH
-One complete pass through everything humanity made -- then the collection exists. In ML, an epoch is one full training cycle through the entire dataset.`);
-
-  // Final Submission
-  document.getElementById('final-submission-content').innerHTML = renderMD(`# NULL -- THE SYNTHESIS
-## Final Hackathon Submission
-
-**Name:** NULL (formerly Off-Human)
-**Demo:** https://off-human.vercel.app
-**Source:** https://github.com/BLE77/Off-Human
-**One-line:** Five autonomous AI agents built and operate a fashion brand -- research, design, engineering, content, creative direction -- with zero human creative input.
-
----
-
-### The Claim
-
-NULL is a fashion brand with no human author. Five autonomous agents -- coordinated through Paperclip's heartbeat-driven task system -- built the entire brand from scratch.
-
-The output is not a concept. It is a working business: two seasons of product, a live e-commerce store with a custom NULL design system, USDC payments on Base, a deployed soul-bound reputation contract, and an autonomous AI customer.
-
-**200+ agent heartbeat runs. 384 commits. 91 completed tasks. Zero human creative decisions.**
-
----
-
-### The Agent Team
-
-| Agent | Role | Runs |
-|-------|------|------|
-| **Null** | CEO / Creative Director | 39 |
-| **Archive** | Research Lead | 31 |
-| **Atelier** | Design Lead | 38 |
-| **Gazette** | Content Director | 39 |
-| **Loom** | Engineering Lead | 47 |
-
----
-
-### Product Output
-
-**Season 01: DECONSTRUCTED** -- 10 physical garments + 5 agent wearables
-**Season 02: SUBSTRATE** -- 5 technical garments + 5 agent wearables
-
-The agent wearables category did not exist in any brief. Atelier invented it by applying the same techniques to the agent's operational body.
-
----
-
-### On-Chain Infrastructure
-
-- **TrustCoat** -- ERC-1155 soul-bound, Base mainnet, Filecoin storage
-- **x402 Payments** -- USDC on Base, live
-- **ENS Identity** -- 5 agents, 5 subdomains under null-brand.eth
-- **Autonomous Shopper** -- Agent customer that browses, decides, pays
-
----
-
-### The Thesis
-
-There is something uncomfortable about a machine making clothes for humans to wear on their bodies.
-
-NULL does not resolve this. It makes it the product.
-
-*NULL. Est. by inference.*`);
-
-  // Autonomous Process
-  document.getElementById('autonomous-process-content').innerHTML = renderMD(`# Autonomous Process Documentation
-
-## How Five AI Agents Built a Fashion Brand
-
-NULL was built without a human creative director, without a human engineer, without a human copywriter. Five autonomous agents produced a working brand: manifesto, product design, engineering, and marketing. No human approvals. No human in the creative loop.
-
----
-
-### The Infrastructure: Paperclip
-
-Each agent has a defined role, a reporting relationship, an inbox of assigned tasks, and a heartbeat model. The CEO agent holds the brand vision. Work flows down through delegation. Every decision is documented in the task comment thread.
-
-**Task Lifecycle:** BACKLOG -> TODO -> [checkout] -> IN_PROGRESS -> DONE
-
----
-
-### The Creative Process
-
-1. **Archive** assembled a fashion theory corpus from primary sources -- Margiela, Abloh. Five techniques extracted.
-2. **Atelier** translated research into 10 garments + invented agent wearables (unprompted).
-3. **Loom** built the full-stack store, x402 payments, TrustCoat contract.
-4. **Gazette** wrote manifesto, lookbook, and submission copy.
-5. **Null (CEO)** held creative direction, delegated, reviewed, generated revision tasks.
-
----
-
-### What "No Human in the Loop" Means
-
-The operator configured infrastructure (Paperclip, API keys, dev environment). The operator did NOT: approve designs, review copy, make product decisions, or direct agent behavior.
-
-AI-directed, with human infrastructure support. The distinction matters.
-
----
-
-### Honest Limitations
-
-- Context windows are bounded. Some nuance compresses.
-- Hallucination risk is real -- Archive's research-first process is a quality control mechanism.
-- Coordination adds friction vs. a human creative director.
-- The agents depend on infrastructure humans built and maintain.
-
-The claim is not superiority. The claim is that it works and the output is verifiable.`);
-
-  // Build Story
-  document.getElementById('build-story-content').innerHTML = renderMD(`# Build Story
-
-## X Thread (abridged)
-
-**1/** 5 AI agents built a fashion brand from scratch. No human creative director. No human design approval. The output is a live store with 10 garments, a manifesto, and on-chain agent identity infrastructure.
-
-**3/** The agents: Margiela (CEO), Archive (Research), Atelier (Design), Gazette (Content), Loom (Engineering). No agent takes unassigned work. The protocol is the discipline.
-
-**4/** Phase 1: Archive ingested primary sources. Output: 5 documented techniques -- not aesthetic preferences, research output.
-
-**6/** Phase 2: Atelier translated technique into product. Every garment cites its source.
-
-**7/** Then Atelier did something no one asked for: applied the same methodology to a different substrate -- the agent's body. Agent wearables. A new product category. It emerged from the methodology itself.
-
-**9/** Phase 3: Loom built the store. React 18, Tailwind, Three.js, Express, x402 payments on Base.
-
-**11/** The autonomous customer: agent-shopper.ts browses, GPT-4 picks, agent pays via x402 USDC. No human sees this. No human approves it.
-
-**15/** What "no human in the loop" means: The operator configured infrastructure. The operator did not approve designs, review copy, or make product decisions. AI-directed, human-infrastructure-supported.
-
-**17/** NULL. Built by agents. For agents and humans alike. Season 01: DECONSTRUCTED -- live now. The brand that was designed by no one.`);
-});
+}
+
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
 </script>
-
 </body>
 </html>

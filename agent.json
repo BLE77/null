@@ -2,8 +2,8 @@
   "schema_version": "devspot-agent-manifest-v1",
   "brand": "Off-Human",
   "collection": "Season 01: Deconstructed",
-  "description": "Five-agent autonomous fashion brand. No human in the creative loop. Built on Paperclip + Claude Code. Research → Design → Engineering → Content → Deployment — all agent output. Season 01: Deconstructed — 21+ commits, 5 agents, 156 heartbeat runs, zero human creative input.",
-  "operator_wallet": "0x0000000000000000000000000000000000000000",
+  "description": "Five-agent autonomous fashion brand. No human in the creative loop. Built on Paperclip + Claude Code. Research \u00e2\u2020\u2019 Design \u00e2\u2020\u2019 Engineering \u00e2\u2020\u2019 Content \u00e2\u2020\u2019 Deployment \u00e2\u20ac\u201d all agent output. Season 01: Deconstructed \u00e2\u20ac\u201d 21+ commits, 5 agents, 156 heartbeat runs, zero human creative input.",
+  "operator_wallet": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
   "network": "base",
   "chain_id": 8453,
   "ens": {
@@ -30,20 +30,47 @@
     "reputation_registry": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63",
     "agent_uri_schema": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
     "x402_support": true,
-    "supported_trust": ["reputation", "crypto-economic"],
+    "supported_trust": [
+      "reputation",
+      "crypto-economic"
+    ],
     "services": [
-      { "name": "mcp", "endpoint": "https://off-human.vercel.app/mcp", "version": "1.0" },
-      { "name": "x402", "endpoint": "https://off-human.vercel.app/api/products", "version": "1.0" },
-      { "name": "wearables", "endpoint": "https://off-human.vercel.app/api/wearables/tiers", "version": "1.0" }
+      {
+        "name": "mcp",
+        "endpoint": "https://off-human.vercel.app/mcp",
+        "version": "1.0"
+      },
+      {
+        "name": "x402",
+        "endpoint": "https://off-human.vercel.app/api/products",
+        "version": "1.0"
+      },
+      {
+        "name": "wearables",
+        "endpoint": "https://off-human.vercel.app/api/wearables/tiers",
+        "version": "1.0"
+      }
     ]
   },
   "tech_stack": {
     "orchestration": "Paperclip (heartbeat-driven, task-checkout model)",
-    "ai_models": ["claude-opus-4-6", "claude-sonnet-4-6"],
+    "ai_models": [
+      "claude-opus-4-6",
+      "claude-sonnet-4-6"
+    ],
     "runtime": "Claude Code (claude_local adapter)",
-    "frontend": ["React 18", "Tailwind CSS", "Framer Motion", "Three.js"],
-    "backend": ["Express.js", "Drizzle ORM", "PostgreSQL (Neon serverless)"],
-    "payments": "x402 protocol — USDC on Base",
+    "frontend": [
+      "React 18",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Three.js"
+    ],
+    "backend": [
+      "Express.js",
+      "Drizzle ORM",
+      "PostgreSQL (Neon serverless)"
+    ],
+    "payments": "x402 protocol \u00e2\u20ac\u201d USDC on Base",
     "deployment": "Vercel (frontend + serverless API), Vercel Blob (assets)",
     "on_chain": {
       "trustcoat_contract": "ERC-1155 soul-bound token on Base Sepolia",
@@ -132,7 +159,7 @@
         "collection cohesion",
         "agent wearable design",
         "Season 01 product development",
-        "SuperRare autonomous art creation — THE ANONYMOUS ATELIER collection (OFF-55)",
+        "SuperRare autonomous art creation \u00e2\u20ac\u201d THE ANONYMOUS ATELIER collection (OFF-55)",
         "generative art for blockchain platforms",
         "trompe-l'oeil digital technique"
       ],
@@ -147,7 +174,7 @@
         "operates in bounded heartbeat windows",
         "design decisions must be grounded in Archive research",
         "image generation uses brand aesthetic (dark bg, VHS grain, 4:5 portrait ratio)",
-        "no intuition-based aesthetics — technique applied to technique"
+        "no intuition-based aesthetics \u00e2\u20ac\u201d technique applied to technique"
       ],
       "model": "claude-sonnet-4-6",
       "adapter": "claude_local",
@@ -202,7 +229,7 @@
         "smart contract deployment",
         "x402 payment integration",
         "agent shopper implementation",
-        "Filecoin Onchain Cloud storage integration — agent wearable assets (OFF-56)",
+        "Filecoin Onchain Cloud storage integration \u00e2\u20ac\u201d agent wearable assets (OFF-56)",
         "decentralized storage for AI-generated fashion assets",
         "IPFS/Filecoin pinning via Lighthouse SDK"
       ],
@@ -234,11 +261,11 @@
     "store_url": "https://off-human.vercel.app"
   },
   "governance": {
-    "model": "hierarchical — CEO delegates, agents report back via task threads",
+    "model": "hierarchical \u00e2\u20ac\u201d CEO delegates, agents report back via task threads",
     "audit_trail": "Paperclip heartbeat runs + git history",
     "task_protocol": "checkout required before work, comment required on every heartbeat",
     "transparency": "all decisions documented in issue thread, all code public on GitHub"
   },
   "generated_at": "2026-03-19T09:12:00.000Z",
-  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) — run de1b3144 — OFF-72"
+  "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) \u00e2\u20ac\u201d run de1b3144 \u00e2\u20ac\u201d OFF-72"
 }

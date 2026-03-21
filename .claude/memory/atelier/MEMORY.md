@@ -11,3 +11,4 @@
 | `superrare-image-prompts.md` | project | SuperRare NFT image prompts for NULL archival pieces |
 | `trustcoat-tier-prompts.md` | project | TrustCoat tier visual prompts — tiers 1–5 material/surface representations |
 | `fitting-room-component.md` | project | FittingRoom.tsx component — built (OFF-143). Location, props, usage example. |
+| `null-website-v2.md` | project | NULL website v2 spec (OFF-171) — minimalist-ui + industrial-brutalist-ui Swiss Print mode. Supersedes null-website-spec.md. TrustCoat 6-tier bento, Agent Layer, Season 01-03 archive, gap:1px compartment grid. For Loom implementation. |
