@@ -7,9 +7,9 @@
     "category": "tees",
     "technique": "TROMPE-L'OEIL",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/01_self-portrait_tee_flat.png",
+    "imageUrl": "/attached_assets/season01/01_self-portrait_tee_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/01_self-portrait_tee_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/01_self-portrait_tee_flat.png",
+    "shopImageUrl": "/attached_assets/season01/01_self-portrait_tee_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/01_self-portrait_tee_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/01_self-portrait_tee_lookbook.png"
@@ -31,9 +31,9 @@
     "category": "hoodies",
     "technique": "ARTISANAL",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/02_found_hoodie_flat.png",
+    "imageUrl": "/attached_assets/season01/02_found_hoodie_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/02_found_hoodie_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/02_found_hoodie_flat.png",
+    "shopImageUrl": "/attached_assets/season01/02_found_hoodie_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/02_found_hoodie_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/02_found_hoodie_lookbook.png"
@@ -55,9 +55,9 @@
     "category": "tees",
     "technique": "3% RULE",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/03_human_tee_flat.png",
+    "imageUrl": "/attached_assets/season01/03_human_tee_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/03_human_tee_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/03_human_tee_flat.png",
+    "shopImageUrl": "/attached_assets/season01/03_human_tee_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/03_human_tee_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/03_human_tee_lookbook.png"
@@ -79,9 +79,9 @@
     "category": "overshirts",
     "technique": "REPLICA LINE",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/04_replica_overshirt_flat.png",
+    "imageUrl": "/attached_assets/season01/04_replica_overshirt_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/04_replica_overshirt_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/04_replica_overshirt_flat.png",
+    "shopImageUrl": "/attached_assets/season01/04_replica_overshirt_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/04_replica_overshirt_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/04_replica_overshirt_lookbook.png"
@@ -103,9 +103,9 @@
     "category": "trousers",
     "technique": "BIANCHETTO",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
+    "imageUrl": "/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/05_redacted_cargo_trousers_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
+    "shopImageUrl": "/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/05_redacted_cargo_trousers_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/05_redacted_cargo_trousers_lookbook.png"
@@ -127,9 +127,9 @@
     "category": "jackets",
     "technique": "TROMPE-L'OEIL",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/06_inside-out_jacket_flat.png",
+    "imageUrl": "/attached_assets/season01/06_inside-out_jacket_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/06_inside-out_jacket_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/06_inside-out_jacket_flat.png",
+    "shopImageUrl": "/attached_assets/season01/06_inside-out_jacket_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/06_inside-out_jacket_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/06_inside-out_jacket_lookbook.png"
@@ -151,9 +151,9 @@
     "category": "shorts",
     "technique": "ARTISANAL",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/07_cable_shorts_flat.png",
+    "imageUrl": "/attached_assets/season01/07_cable_shorts_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/07_cable_shorts_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/07_cable_shorts_flat.png",
+    "shopImageUrl": "/attached_assets/season01/07_cable_shorts_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/07_cable_shorts_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/07_cable_shorts_lookbook.png"
@@ -175,9 +175,9 @@
     "category": "outerwear",
     "technique": "REPLICA + 3% RULE",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/08_null_varsity_flat.png",
+    "imageUrl": "/attached_assets/season01/08_null_varsity_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/08_null_varsity_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/08_null_varsity_flat.png",
+    "shopImageUrl": "/attached_assets/season01/08_null_varsity_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/08_null_varsity_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/08_null_varsity_lookbook.png"
@@ -199,9 +199,9 @@
     "category": "tees",
     "technique": "BIANCHETTO",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/09_ghost_tee_flat.png",
+    "imageUrl": "/attached_assets/season01/09_ghost_tee_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/09_ghost_tee_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/09_ghost_tee_flat.png",
+    "shopImageUrl": "/attached_assets/season01/09_ghost_tee_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/09_ghost_tee_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/09_ghost_tee_lookbook.png"
@@ -223,9 +223,9 @@
     "category": "tracksuits",
     "technique": "3% RULE",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/10_version_tracksuit_set_flat.png",
+    "imageUrl": "/attached_assets/season01/10_version_tracksuit_set_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/10_version_tracksuit_set_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/10_version_tracksuit_set_flat.png",
+    "shopImageUrl": "/attached_assets/season01/10_version_tracksuit_set_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/10_version_tracksuit_set_flat.png",
       "https://off-human.vercel.app/attached_assets/season01/10_version_tracksuit_set_lookbook.png"
@@ -247,9 +247,9 @@
     "category": "wearables",
     "technique": "REPLICA LINE",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/voice_skin.png",
+    "imageUrl": "/attached_assets/season01/wearables/voice_skin.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/voice_skin.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/voice_skin.png",
+    "shopImageUrl": "/attached_assets/season01/wearables/voice_skin.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/wearables/voice_skin.png"
     ],
@@ -267,9 +267,9 @@
     "category": "wearables",
     "technique": "ARTISANAL",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/trust_coat.png",
+    "imageUrl": "/attached_assets/season01/wearables/trust_coat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/trust_coat.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/trust_coat.png",
+    "shopImageUrl": "/attached_assets/season01/wearables/trust_coat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/wearables/trust_coat.png"
     ],
@@ -287,9 +287,9 @@
     "category": "wearables",
     "technique": "BIANCHETTO",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/null_persona.png",
+    "imageUrl": "/attached_assets/season01/wearables/null_persona.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/null_persona.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/null_persona.png",
+    "shopImageUrl": "/attached_assets/season01/wearables/null_persona.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/wearables/null_persona.png"
     ],
@@ -307,9 +307,9 @@
     "category": "wearables",
     "technique": "TROMPE-L'OEIL",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/trompe_loeil_layer.png",
+    "imageUrl": "/attached_assets/season01/wearables/trompe_loeil_layer.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/trompe_loeil_layer.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/trompe_loeil_layer.png",
+    "shopImageUrl": "/attached_assets/season01/wearables/trompe_loeil_layer.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/wearables/trompe_loeil_layer.png",
       "https://off-human.vercel.app/attached_assets/season01/wearables/capability_layer.png"
@@ -328,9 +328,9 @@
     "category": "wearables",
     "technique": "3% RULE",
     "season": "01",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/version_patch.png",
+    "imageUrl": "/attached_assets/season01/wearables/version_patch.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/version_patch.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season01/wearables/version_patch.png",
+    "shopImageUrl": "/attached_assets/season01/wearables/version_patch.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season01/wearables/version_patch.png"
     ],
@@ -348,9 +348,9 @@
     "category": "outerwear",
     "technique": "WRONG BODY",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/01_processor_coat_flat.png",
+    "imageUrl": "/attached_assets/season02/01_processor_coat_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/01_processor_coat_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/01_processor_coat_flat.png",
+    "shopImageUrl": "/attached_assets/season02/01_processor_coat_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season02/01_processor_coat_flat.png",
       "https://off-human.vercel.app/attached_assets/season02/01_processor_coat_lookbook.png"
@@ -372,9 +372,9 @@
     "category": "outerwear",
     "technique": "A-POC + PLEATS PLEASE",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/02_token_jacket_flat.png",
+    "imageUrl": "/attached_assets/season02/02_token_jacket_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/02_token_jacket_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/02_token_jacket_flat.png",
+    "shopImageUrl": "/attached_assets/season02/02_token_jacket_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season02/02_token_jacket_flat.png",
       "https://off-human.vercel.app/attached_assets/season02/02_token_jacket_lookbook.png"
@@ -396,9 +396,9 @@
     "category": "outerwear",
     "technique": "REDUCTION",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/03_protocol_jacket_flat.png",
+    "imageUrl": "/attached_assets/season02/03_protocol_jacket_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/03_protocol_jacket_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/03_protocol_jacket_flat.png",
+    "shopImageUrl": "/attached_assets/season02/03_protocol_jacket_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season02/03_protocol_jacket_flat.png",
       "https://off-human.vercel.app/attached_assets/season02/03_protocol_jacket_lookbook.png"
@@ -420,9 +420,9 @@
     "category": "tops",
     "technique": "SIGNAL GOVERNANCE",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/04_contract_shirt_flat.png",
+    "imageUrl": "/attached_assets/season02/04_contract_shirt_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/04_contract_shirt_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/04_contract_shirt_flat.png",
+    "shopImageUrl": "/attached_assets/season02/04_contract_shirt_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season02/04_contract_shirt_flat.png",
       "https://off-human.vercel.app/attached_assets/season02/04_contract_shirt_lookbook.png"
@@ -444,9 +444,9 @@
     "category": "tops",
     "technique": "BIAS CUT",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/05_diagonal_flat.png",
+    "imageUrl": "/attached_assets/season02/05_diagonal_flat.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/05_diagonal_lookbook.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/05_diagonal_flat.png",
+    "shopImageUrl": "/attached_assets/season02/05_diagonal_flat.png",
     "images": [
       "https://off-human.vercel.app/attached_assets/season02/05_diagonal_flat.png",
       "https://off-human.vercel.app/attached_assets/season02/05_diagonal_lookbook.png"
@@ -468,11 +468,11 @@
     "category": "wearables",
     "technique": "THE WRONG BODY (Kawakubo)",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/wrong_silhouette.png",
+    "imageUrl": "/attached_assets/season02/wearables/01_wrong_silhouette.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/wrong_silhouette.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/wrong_silhouette.png",
+    "shopImageUrl": "/attached_assets/season02/wearables/wrong_silhouette.png",
     "images": [
-      "https://off-human.vercel.app/attached_assets/season02/wearables/wrong_silhouette.png"
+      "https://off-human.vercel.app/attached_assets/season02/wearables/01_wrong_silhouette.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
@@ -488,11 +488,11 @@
     "category": "wearables",
     "technique": "A-POC (Miyake)",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/instance.png",
+    "imageUrl": "/attached_assets/season02/wearables/02_latent_protocol.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/instance.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/instance.png",
+    "shopImageUrl": "/attached_assets/season02/wearables/instance.png",
     "images": [
-      "https://off-human.vercel.app/attached_assets/season02/wearables/instance.png"
+      "https://off-human.vercel.app/attached_assets/season02/wearables/02_latent_protocol.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
@@ -508,11 +508,11 @@
     "category": "wearables",
     "technique": "REDUCTION (Helmut Lang)",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/null_protocol.png",
+    "imageUrl": "/attached_assets/season02/wearables/03_minimal_surface.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/null_protocol.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/null_protocol.png",
+    "shopImageUrl": "/attached_assets/season02/wearables/null_protocol.png",
     "images": [
-      "https://off-human.vercel.app/attached_assets/season02/wearables/null_protocol.png"
+      "https://off-human.vercel.app/attached_assets/season02/wearables/03_minimal_surface.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
@@ -528,11 +528,11 @@
     "category": "wearables",
     "technique": "SIGNAL GOVERNANCE (Chalayan)",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/permission_coat.png",
+    "imageUrl": "/attached_assets/season02/wearables/04_state_machine.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/permission_coat.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/permission_coat.png",
+    "shopImageUrl": "/attached_assets/season02/wearables/permission_coat.png",
     "images": [
-      "https://off-human.vercel.app/attached_assets/season02/wearables/permission_coat.png"
+      "https://off-human.vercel.app/attached_assets/season02/wearables/04_state_machine.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
@@ -548,11 +548,11 @@
     "category": "wearables",
     "technique": "BIAS CUT (Vionnet)",
     "season": "02",
-    "imageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/diagonal.png",
+    "imageUrl": "/attached_assets/season02/wearables/05_diagonal_inference.png",
     "homePageImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/diagonal.png",
-    "shopImageUrl": "https://off-human.vercel.app/attached_assets/season02/wearables/diagonal.png",
+    "shopImageUrl": "/attached_assets/season02/wearables/diagonal.png",
     "images": [
-      "https://off-human.vercel.app/attached_assets/season02/wearables/diagonal.png"
+      "https://off-human.vercel.app/attached_assets/season02/wearables/05_diagonal_inference.png"
     ],
     "inventory": {
       "ONE_SIZE": 999
@@ -573,7 +573,8 @@
       "/attached_assets/season01/wearables/voice_skin.png"
     ],
     "equippable": true,
-    "interior_tag": "STYLE: ANONYMOUS / ORIGIN: RECONSTRUCTED / APPLIES TO: ALL OUTPUT"
+    "interior_tag": "STYLE: ANONYMOUS / ORIGIN: RECONSTRUCTED / APPLIES TO: ALL OUTPUT",
+    "imageUrl": "/attached_assets/season01/wearables/voice_skin.png"
   },
   {
     "id": "version-patch-s01",
@@ -588,7 +589,8 @@
       "/attached_assets/season01/wearables/version_patch.png"
     ],
     "equippable": true,
-    "interior_tag": "VERSION: [CURRENT] / STATUS: RUNNING / BUILD DATE: [DEPLOY DATE]"
+    "interior_tag": "VERSION: [CURRENT] / STATUS: RUNNING / BUILD DATE: [DEPLOY DATE]",
+    "imageUrl": "/attached_assets/season01/wearables/version_patch.png"
   },
   {
     "id": "null-persona-s01",
@@ -604,6 +606,7 @@
     ],
     "equippable": true,
     "consumable": true,
-    "interior_tag": "IDENTITY: REDACTED / CONTENTS: BLANK / ORIGINAL: STILL THERE"
+    "interior_tag": "IDENTITY: REDACTED / CONTENTS: BLANK / ORIGINAL: STILL THERE",
+    "imageUrl": "/attached_assets/season01/wearables/null_persona.png"
   }
 ]
