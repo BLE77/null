@@ -102,3 +102,13 @@
 - **Route file:** `server/routes/null-exchange.ts`
 - **Product in catalog:** products.json id `null-exchange-s03-001`
 - **OFF-134:** COMPLETE
+
+
+### ERC-8004 Identity Registry — NULL Agent URI Update (2026-03-22)
+- **Mode:** setAgentURI (update)
+- **AgentId:** `35324`
+- **Tx hash:** `0x3c1d9494dd39bb3c3bf82874c6a8f2774cf51fdc00b19b5d465e18d670330477`
+- **Explorer:** https://basescan.org/tx/0x3c1d9494dd39bb3c3bf82874c6a8f2774cf51fdc00b19b5d465e18d670330477
+- **AgentURI:** data:application/json;base64 (NULL fashion agent JSON)
+- **Services:** x402, wearables, fitting-room
+- **Script:** `scripts/register-erc8004.mjs`

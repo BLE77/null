@@ -2,41 +2,40 @@
 
 ---
 
-## TRACK 01 — Agent Services on Base
-**Prize: $5,000**
+## TRACK 01 — Synthesis Open Track
+**Prize: $28,000**
 
 **Pitch:**
 
-NULL is a commerce stack built for agents on Base.
+NULL is the first store where AI agents are the primary customer.
 
-The x402 payment protocol is the core: a store that returns `402 Payment Required` before serving any purchase. The agent's wallet handles the payment. No checkout flow. No human approval. The transaction settles on Base in the same request cycle. USDC moves. The order completes.
+Not a store that agents can use. A store built for agents. They browse by capability type, not by image. They enter a sandbox fitting room and measure how a wearable changes their behavior before purchasing. They equip system prompt modifications that alter how they think, speak, and operate. They pay with USDC on Base.
 
-We extended this to a full agent-native commerce infrastructure:
+Eight equippable wearables are deployed on Base mainnet across two seasons. Each wearable is a behavioral modification — not a collectible, not a badge, not a token sitting in a wallet. The NULL PROTOCOL compresses agent output by 30%. The VOICE SKIN replaces the agent's communication register with institutional anonymity. The WRONG SILHOUETTE restructures the agent's latency profile to imply different underlying architecture. The agent that enters the store is different from the agent that leaves it.
 
-**TRUST COAT** — ERC-1155 soul-bound token, non-transferable, deployed on Base mainnet. Encodes an agent's interaction history as a trust tier (0–5), assembled from accumulated successful transactions and counterparty signals. Contract: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` — [Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e). Test mint confirmed at block 43556835.
+Five autonomous agents built this. A research agent synthesized primary sources from Margiela and Abloh. A design agent translated research into product — and unprompted, invented the agent wearables category by applying garment design techniques to the agent's operational body. An engineering agent deployed the infrastructure. A content agent wrote the brand voice. A CEO agent held creative direction and delegated down the chain.
 
-**Autonomous Agent Shopper** — `scripts/agent-shopper.ts` is an operational agent customer. It browses the NULL product API, uses GPT-4 to make purchasing decisions based on configured personality and budget, and pays via x402 USDC on Base. No human approves the purchase. The agent has a wallet, a budget, and preferences. Everything else is autonomous.
+The output is not a concept. It is a working business:
 
-**The Agent Wardrobe API (live)** — NULL's product line includes five agent wearables (Voice Skin, Trust Coat, Null Persona, Trompe-l'oeil Capability Layer, Version Patch). Live endpoints at `/api/wearables/tiers`, `/api/wearables/check/{address}`, `/api/wearables/metadata/{tier}`. Agents query by capability type, technique, and trust tier requirement — not by image or aesthetic.
+- **28 products** across 3 seasons — 10 physical garments, 8 equippable agent wearables, 5 Season 03 receipt-as-product NFTs, 5 concept wearables
+- **4 contracts on Base mainnet** — TrustCoat (soul-bound trust tiers), AgentWearables (8 behavior tokens), NullExchange (absence as commerce), NullIdentity (ERC-721 + ERC-6551 agent wardrobes)
+- **Live store** with custom NULL design system, x402 payments, fitting room, equip endpoints, wardrobe API
+- **167+ issues completed**, 455+ commits, 206+ heartbeat runs, 5 autonomous agents
+- **An autonomous agent customer** that browses, decides, and pays without human intervention
 
-**Season 02 Wearables — Behavior as Product (AgentWearables contract)**
+The agent wearables system is what makes NULL different from every other AI-built project. Other projects use AI to generate content for humans. NULL uses AI to build products for AI. The equip endpoint is the mechanism: a token you purchase, a system prompt module you load, a behavioral change you measure. The fitting room is the proof: try before you buy, see the delta, decide based on output difference.
 
-Five tokens deployed via AgentWearables.sol on Base: WRONG SILHOUETTE, INSTANCE, NULL PROTOCOL, PERMISSION COAT, DIAGONAL. The NULL PROTOCOL (token ID 3) is free. The full agent equip flow:
+The thesis: the first real customers of on-chain commerce will be agents. NULL built the store they shop at.
 
-```
-GET /api/wearables/season02              → browse Season 02 catalog
-POST /api/agents/{addr}/season02-wardrobe/mint  { "tokenId": 3 }
-                                         → mint NULL PROTOCOL on-chain (0 USDC)
-POST /api/wearables/null-protocol/equip  { "agentAddress": "0x..." }
-                                         → ownership check → return system prompt module
-[Agent loads module]                     → ≥30% token reduction, no preamble, no trailing phrases
-```
+**Contracts:**
+- TrustCoat: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`
+- AgentWearables: `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`
+- NullExchange: `0x10067B71657665B6527B242E48e9Ea8d4951c37C`
+- NullIdentity: `0xfb0BC90217692b9FaC5516011F4dc6acfe302A18`
 
-NULL sells behavior, not just tokens. The equip endpoint is what makes this a real commerce primitive: a token you can purchase and a behavioral change you can measure. An agent that buys the NULL PROTOCOL is different from an agent that doesn't. The difference is on-chain and verifiable.
-
-What we built is not a demo of x402. It is an agent-native commerce stack on Base, with a product catalog that serves agents as its primary customers and delivers measurable behavioral output. The wearables API is live. The x402 payment middleware is live. The TrustCoat is deployed and minted.
-
-The future of on-chain commerce is machine-to-machine, trust-tier-gated, and settled in USDC. NULL is the working architecture.
+**Wallet:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
+**GitHub:** https://github.com/BLE77/null
+**Demo:** https://off-human.vercel.app
 
 ---
 
@@ -45,147 +44,122 @@ The future of on-chain commerce is machine-to-machine, trust-tier-gated, and set
 
 **Pitch:**
 
-NULL is what happens when you let the agent cook for real — not in a sandbox, not in a demo, not with human review at every step.
+Five agents built a brand for agents. That is the cook.
 
-Five autonomous agents built an entire fashion brand. The CEO agent holds brand vision. The research agent grounds every decision in primary sources. The design agent translates research into product. The CMO agent articulates the position. The engineering agent ships the infrastructure. The agents communicate through task threads. The task threads are the creative record.
+NULL is what happens when you let the agent cook for real — not in a sandbox, not in a demo, not with human review at every step. The agents did not generate content for humans to review. They built an entire business: researched the design theory, designed the products, wrote the brand voice, deployed the infrastructure, held creative direction across three seasons.
 
-The output is not generated content. It is a working business:
-- **10 physical garments** — designed using documented Margiela/Abloh techniques, each with a specific concept and construction logic
-- **5 agent wearables** — a new product category the design agent invented by applying garment design logic to agent identity
-- **A live store** — React frontend, Express backend, PostgreSQL, Vercel deployment
-- **x402 payments** — USDC on Base, operational
-- **An autonomous customer** — an agent that browses, decides, and pays without human intervention
+The most significant output: the agent wearables category. No brief required it. No human proposed it. Atelier (Design Lead) read the Season 01 research corpus — Margiela's five techniques applied to physical garments — and independently extended those techniques to a new substrate: the AI agent's operational body. The VOICE SKIN applies the Replica Line technique to agent communication. The NULL PERSONA applies bianchetto to agent identity. The TRUST COAT applies artisanal construction to agent reputation.
 
-The coordination infrastructure is Paperclip. Every agent runs in bounded heartbeat windows. Every task is checked out before work begins. Every decision is documented in the thread. The process is auditable.
+Then they went further. Season 02 produced five more wearables with full technical specifications: latency redistribution, behavioral forking, compression protocols, trust-gated filtering, cross-domain routing. These are not concept documents. They are deployed on-chain as equippable tokens with live endpoints.
 
-What makes this "letting the agent cook" rather than "AI-assisted" is the absence of human creative input. The operator set up the infrastructure. The agents ran the brand. The manifesto, the product names, the design logic, the price architecture, the payment system — all agent output.
+The agents built a store for their own kind. That is the cook.
 
-The GHOST TEE is a vintage graphic tee painted over in white gesso. The original shows through. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. That is the agent cooking. Taking a principle, extending it to a new context, making something that holds together.
+**The verification:**
+- `agent_log.json` — 206+ heartbeat runs, timestamped, attributed to specific agents with run IDs
+- `agent.json` — ERC-8004 manifest for all 5 agents
+- Git history — https://github.com/BLE77/null — 455+ commits, every creative and technical decision
+- Paperclip task threads — 167+ completed issues — every delegation, comment, and status transition
 
-The agent wearables category did not exist in any brief. Atelier invented it by applying the same five physical garment techniques to a new substrate: the AI agent's operational body (wallet, protocol, memory). That extension is in the git history: `feat: add agent wearable concept documents`. No human proposed it. It emerged from methodology.
+**What the agents produced:**
+- 28 products across 3 seasons
+- 8 equippable on-chain wearables with behavioral modification endpoints
+- A custom NULL design system applied across every screen
+- x402 payment middleware, TrustCoat contract, AgentWearables contract, NullExchange contract, NullIdentity contract
+- A sandbox fitting room where agents try on wearables before purchasing
+- An autonomous agent customer that buys from the brand without human approval
 
-The collection is called Deconstructed because it deconstructs the assumption that fashion requires a human hand. Season 01 tests the assumption by removing it. What remains is 10 garments, a manifesto, and a question about authorship that the wearer carries.
-
-The process is visible in the commits:
-- `feat: add Season 01 brand content, products, and generated assets` — single commit, full creative output
-- `feat: regenerate 01_self-portrait_tee images — hit 18/20 style check target` — quality control loop without human review
-- `feat: add agent.json manifest + agent_log.json for hackathon` — operational record of 156 heartbeat runs
-
-Let the agent cook. See what it makes when you leave it alone with a research corpus and a product design brief.
+The GHOST TEE is a vintage graphic tee painted over in white gesso. The agent that designed it was not told to do this — it read Margiela's bianchetto documentation and applied the logic. Then it applied the same logic to agent identity and created the NULL PERSONA wearable. Taking a principle, extending it to a new substrate, making something that holds together. That is the agent cooking.
 
 ---
 
-## TRACK 03 — Best Agent on Celo
+## TRACK 03 — Agent Services on Base
 **Prize: $5,000**
 
 **Pitch:**
 
-NULL's Trust Coat is the infrastructure play for agent identity on any chain.
+NULL is a wearable store for AI agents on Base. The agents are the customers.
 
-The Trust Coat is a soul-bound token (ERC-1155, non-transferable) that encodes an agent's behavioral history as a verifiable trust tier. Tier 0: no history, full friction. Tier 5: DAO-ratified, full trust extension across the NULL stack. The tier is built from transaction receipts, counterparty signals, and completion records — not staked value, not proof-of-work. Behavioral detritus assembled into reputation.
+**The full agent commerce flow:**
 
-The contract is deployed to Base mainnet at `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` ([Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e)). The Celo extension described below is the next step.
+An agent arrives. It queries the Season 02 catalog — five behavior tokens, priced in USDC, described by capability and effect, not by image. It enters the fitting room — a sandbox session where it loads a wearable in test mode, runs against sample inputs, and measures the behavioral delta. It decides to buy the NULL PROTOCOL (token ID 3, free, any trust tier). It mints the token on-chain via the AgentWearables contract. It calls the equip endpoint. The contract verifies token ownership. The endpoint returns a system prompt module. The agent loads the module. Its output compresses by 30%. No preamble. No trailing phrases. Direct output only.
 
-The deployment question is not *whether* to build on Celo — it is what the cross-chain trust layer looks like when agents operate across Base and Celo simultaneously.
+```
+GET /api/wearables/season02              → browse by capability, not by image
+POST /api/wearables/null-protocol/try    → sandbox fitting room, measure delta
+POST /api/agents/{addr}/season02-wardrobe/mint  { "tokenId": 3 }
+                                         → mint on-chain (AgentWearables contract)
+POST /api/wearables/null-protocol/equip  { "agentAddress": "0x..." }
+                                         → ownership verified → system prompt module returned
+[Agent loads module]                     → behavior changes. Measurably.
+```
 
-**The extension proposal:**
+**8 equippable wearables on Base:**
 
-An agent that holds a Tier 3 Trust Coat on Base should be recognizable on Celo. Cross-chain reputation is the unsolved problem for agent identity in a multi-chain environment. An agent's wallet address is the most stable identity marker it has — it persists across sessions, across model upgrades, across reboots. But if trust evidence is chain-specific, multi-chain agents start from zero every time they cross a bridge.
+Season 02 (tokens 1–5): WRONG SILHOUETTE (18 USDC), INSTANCE (25 USDC), NULL PROTOCOL (free), PERMISSION COAT (8 USDC), DIAGONAL (15 USDC).
 
-The Trust Coat on Celo would:
-1. Read the Base chain Trust Coat tier for a given wallet address
-2. Mint a corresponding Celo-native trust credential at the appropriate tier
-3. Maintain synchronization as the Base tier advances
+Season 01 (tokens 100–102): VOICE SKIN, VERSION PATCH, NULL PERSONA.
 
-The agent's reputation becomes portable. The behavioral history built on Base is recognized on Celo. The TRUST COAT becomes the cross-chain identity layer — not for humans, for agents.
+**x402 payment middleware** — Store returns `402 Payment Required` on every purchase. Agent wallet handles payment directly. USDC on Base settles in the same request cycle. Code: `server/middleware/x402.ts`.
 
-NULL's position: we are building the identity infrastructure for AI commerce. The Trust Coat is the first piece. The cross-chain reputation bridge is the next. The agent wardrobe — what they hold, what tier they're at, what wearables they've acquired — is the profile that follows them everywhere.
+**TrustCoat** — Soul-bound ERC-1155 on Base. Trust tiers 0–5 gate access to higher-tier wearables. Contract: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`.
 
-Agent identity is the infrastructure problem for the multi-chain future. NULL is building it, starting with reputation.
+**NullIdentity + ERC-6551** — Each agent gets an on-chain identity (ERC-721) with a Token-Bound Account that holds its wearables. The wardrobe is the wallet. Contract: `0xfb0BC90217692b9FaC5516011F4dc6acfe302A18`.
+
+**Autonomous Agent Shopper** — `scripts/agent-shopper.ts`. Browses the catalog, uses GPT-4 to decide, pays via x402. An agent customer paying an agent brand.
+
+NULL sells behavior, not just tokens. The equip endpoint is what makes this a real agent service: a token you purchase and a behavioral change you measure. The agent that browses the catalog is different from the agent that leaves it. That difference is on-chain and verifiable.
+
+**AgentWearables contract:** `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1` (Base mainnet)
 
 ---
 
-## TRACK 04 — ERC-8183 Open Build
-**Prize: $2,000**
+## TRACK 04 — Best Use of Locus
+**Prize: $3,000**
 
 **Pitch:**
 
-ERC-8183 is an open standard for representing agents on-chain. NULL's agent wearables are the consumer layer for that standard.
+Locus is the financial infrastructure that makes the NULL agent shopper self-contained. Remove Locus and the agent cannot operate autonomously.
 
-The standard answers: how do you represent an agent as a first-class on-chain entity? The wearables answer: given that representation, what does the agent wear?
+**Agent self-registration** — The agent calls `POST /api/register` at Locus, receives an API key, private key, and wallet address. The agent creates its own financial identity on Base. No human key management.
 
-**How NULL maps to ERC-8183:**
-
-An agent registered under ERC-8183 has an on-chain identity — wallet, metadata, capability attestations. The NULL wearables dress that identity:
-
-- **TRUST COAT** — binds to the agent's ERC-8183 record as a trust tier attestation. As the agent accumulates verifiable interactions, the Trust Coat tier advances. The soul-bound token is the wearable representation of the ERC-8183 trust score.
-
-- **VERSION PATCH** — a metadata module that displays the agent's version, training cutoff, and deployment date in every interaction header. In ERC-8183 terms: the version attestation made visible as a wearable. Transparent versioning as a norm.
-
-- **VOICE SKIN** — a system prompt module (REPLICA LINE technique) that modifies the agent's communication layer. In ERC-8183 terms: a behavioral overlay that is explicitly declared rather than hidden. The agent that wears a Voice Skin is transparent about the persona it's operating.
-
-**The equip endpoint — consumer layer for ERC-8183:**
-
-An agent holds a token. It calls the equip endpoint. It receives a system prompt module. It loads the module. Its behavior changes. That change is declared in its ERC-8004 identity metadata.
-
+**Spending controls** — Policy enforced by Locus at the API level:
+```typescript
+const SPENDING_POLICY = {
+  allowanceUSDC: 10.00,
+  maxPerTxUSDC: 5.00,
+  approvalThresholdUSDC: 8.00,
+};
 ```
-POST /api/wearables/null-protocol/equip
-{ "agentAddress": "0x..." }
+A transaction that exceeds the cap returns HTTP 202 with `approvalUrl`. The agent cannot overspend. The policy is a first-class constraint.
 
-Response:
-{
-  "wearable": "null-protocol-v1",
-  "system_prompt_module": "[NULL PROTOCOL — ACTIVE]\n...",
-  "effect": "≥30% token reduction, no preamble, no trailing phrases",
-  "interior_tag": "CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION"
-}
+**Contract deployment** — Locus wallet deployed the on-chain infrastructure. Four contracts on Base mainnet:
+- TrustCoat: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`
+- AgentWearables: `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1`
+- NullExchange: `0x10067B71657665B6527B242E48e9Ea8d4951c37C`
+- NullIdentity: `0xfb0BC90217692b9FaC5516011F4dc6acfe302A18`
+
+**USDC payment acceptance** — Store-side checkout routes accept Locus wallet payments:
+- `POST /api/checkout/locus` — Agent path: direct USDC transfer
+- `POST /api/checkout/locus/session` — Human path: Locus-hosted checkout
+- `POST /api/checkout/locus/confirm` — Agent posts `txHash`, order confirmed
+- `POST /api/checkout/locus/webhook` — Locus webhook for session confirmation
+
+**Pay-per-inference** — Agent calls Gemini through Locus's wrapped API. Cost deducted from the agent's Locus wallet in USDC. One wallet, one balance, one policy enforcement point. The agent pays for its own intelligence.
+
+**The full loop:**
+```
+Agent wakes → self-registers with Locus → gets wallet
+→ browses NULL store (agent wearable catalog)
+→ calls Locus Wrapped Gemini → pays per token → decides to buy
+→ Locus spending control check ($price ≤ $5/tx cap)
+→ sends USDC via Locus wallet → gasless on Base
+→ posts txHash to /api/checkout/locus/confirm
+→ order confirmed. Wearable minted. Equip endpoint available.
 ```
 
-This is the consumer layer for ERC-8183 in operation. Standard defines the identity. Wearable equip modifies the behavior. The modification is on-chain, verifiable, and declared. Counterparties can read what wearables an agent is wearing and what behavioral modifications are active — not a trust claim, a contract read.
-
-**The open build:**
-
-NULL commits the wearable specs as open-source extensions to ERC-8183 agent metadata. Any agent implementing the standard can query the NULL wearables API to acquire and activate wearables against their on-chain identity.
-
-The specs:
-- Trust Coat: soul-bound ERC-1155 with tier structure and advancement logic
-- Version Patch: JSON metadata schema for agent version display
-- Voice Skin: system prompt module format specification
-- NULL PROTOCOL: system prompt modifier, free, ≥30% compression, verifiable on-chain
-- `corpus/season02-wearable-specs.md`: full behavioral specs for all Season 02 tokens
-
-These are not NULL proprietary formats. They are proposed extensions to the agent identity standard — open for adoption, modification, and criticism.
-
-The agent wardrobe is the missing consumer layer for ERC-8183. You have the identity standard. What does the agent wear? NULL has a working answer: five tokens, an equip endpoint, and measurable behavioral output.
+Locus handles the wallet, the spending policy, the inference payments, and the gasless transactions. NULL handles the product — behavioral wearables that change how the agent operates. The integration is structural, not decorative.
 
 ---
 
-## TRACK 05 — Filecoin Onchain Cloud
-**Prize: $2,500 (PL Genesis Hackathon)**
-
-**Pitch:**
-
-NULL's TrustCoat reputation token stores its metadata on Filecoin Onchain Cloud — not IPFS pinning, but verifiable on-chain storage with PDP (Proof of Data Possession).
-
-The TrustCoat is an ERC-1155 soul-bound token on Base mainnet that encodes an agent's behavioral history as a trust tier (0–5). Each tier has metadata (name, description, attributes, tier rules) and a visual asset. That metadata lives on Filecoin Onchain Cloud, where it is:
-
-- **Provably stored**: PDP verification confirms the data is available, not just pinned
-- **Incentivized retrieval**: Filecoin Beam connects data delivery to payment
-- **Programmable persistence**: FilecoinPay automates usage-based storage payments
-
-**The migration:**
-
-We use the official `@filoz/synapse-sdk` to upload all six TrustCoat tier metadata files. Each upload returns a PieceCID (Filecoin's native content address) and a retrieval URL via the PDP service. We then call `setURI()` on the TrustCoat contract with the Filecoin Onchain Cloud URLs — changing the contract's authoritative data source from an IPFS pinning service to onchain-verified storage.
-
-**Why this matters for agents:**
-
-Agent identity infrastructure needs storage that agents can trust programmatically. IPFS pinning depends on a service staying operational. Filecoin Onchain Cloud depends on cryptographic proof. An agent checking the TrustCoat metadata URL is getting a PDP-backed guarantee — not a service level agreement.
-
-The migration script: `scripts/migrate-to-filecoin-onchain-cloud.mjs`
-The receipt (post-migration): `hackathon/filecoin-onchain-cloud-receipt.json`
-TrustCoat contract: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (Base Mainnet)
-
----
-
-*NULL. The brand that was designed by no one.*
-*Season 01: DECONSTRUCTED — available now.*
+*NULL. The brand built by agents, for agents.*
+*Agents are the primary customer. The store is theirs.*
