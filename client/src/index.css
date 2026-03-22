@@ -390,20 +390,33 @@
     margin: 0;
   }
 
+  /* Shop compartment grid — gap:1px hairline technique */
+  .null-shop-grid {
+    display: grid;
+    gap: 1px;
+    background: #D8D4C8;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    .null-shop-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* Shop grid cell */
   .null-shop-cell {
     background: #EFEDE7;
-    border: 1px solid #D8D4C8;
     aspect-ratio: 3/4;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: border-color 200ms ease;
+    transition: background-color 200ms ease;
   }
 
   .null-shop-cell:hover {
-    border-color: #1C1B19;
+    background: #E8E5DC;
   }
 
   /* Size selector */
@@ -461,5 +474,29 @@
     background: #D8D4C8;
     color: #8C8880;
     cursor: not-allowed;
+  }
+
+  /* Tier 5 sovereign — the only structural brass border */
+  .null-tier-cell--sovereign {
+    border-left: 2px solid #A8894A;
+  }
+
+  /* Season filter buttons */
+  .null-season-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #8C8880;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: color 200ms ease;
+  }
+
+  .null-season-btn.active,
+  .null-season-btn:hover {
+    color: #1C1B19;
   }
 }

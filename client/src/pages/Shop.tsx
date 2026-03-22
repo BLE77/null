@@ -4,7 +4,7 @@ import type { Product } from "@shared/schema";
 import { ShopProductCell } from "@/components/ShopProductCell";
 import { NullFooter } from "@/components/NullFooter";
 
-const SEASONS = ["all", "03", "02", "01"];
+const SEASONS = ["all", "01", "02", "03"];
 
 export default function Shop() {
   const [activeSeason, setActiveSeason] = useState("all");
@@ -43,10 +43,7 @@ export default function Shop() {
             <button
               key={s}
               onClick={() => setActiveSeason(s)}
-              className={`text-[10px] uppercase tracking-[0.2em] transition-colors duration-200 ${
-                activeSeason === s ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
-              style={{ fontFamily: "var(--font-mono)", background: "none", border: "none", cursor: "pointer" }}
+              className={`null-season-btn${activeSeason === s ? " active" : ""}`}
               data-testid={`season-filter-${s}`}
             >
               {s === "all" ? "ALL" : `S${s}`}
@@ -55,7 +52,7 @@ export default function Shop() {
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 gap-0">
+          <div className="null-shop-grid">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="null-shop-cell animate-pulse" />
             ))}
@@ -74,12 +71,11 @@ export default function Shop() {
               {(season03Wearables?.length || 0) + (season03Nft?.length || 0) > 0 && (
               <div className="mb-0">
                 <div className="col-span-2 border-t border-border mt-4 pt-4 mb-2">
-                  <span
-                    className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
-                    style={{ fontFamily: "var(--font-mono)" }}
+                  <samp
+                    style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.3em", color: "#8C8880", textTransform: "uppercase" }}
                   >
-                    S03 — LEDGER
-                  </span>
+                    [ S03 — DECONSTRUCTING THE TRANSACTION ]
+                  </samp>
                 </div>
                 <p
                   className="text-[10px] text-muted-foreground mb-8 tracking-[0.1em]"
@@ -95,7 +91,7 @@ export default function Shop() {
                   </div>
                 )}
                 {season03Wearables && season03Wearables.length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                  <div className="null-shop-grid">
                     {season03Wearables.map((product) => (
                       <ShopProductCell key={product.id} product={product} wearable />
                     ))}
@@ -107,14 +103,13 @@ export default function Shop() {
           {season02Products && season02Products.length > 0 && (
               <div className="mb-0">
                 <div className="col-span-2 border-t border-border mt-16 pt-4 mb-8">
-                  <span
-                    className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
-                    style={{ fontFamily: "var(--font-mono)" }}
+                  <samp
+                    style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.3em", color: "#8C8880", textTransform: "uppercase" }}
                   >
-                    S02 — SUBSTRATE
-                  </span>
+                    [ S02 — SUBSTRATE ]
+                  </samp>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                <div className="null-shop-grid">
                   {season02Products.map((product) => (
                     <ShopProductCell key={product.id} product={product} />
                   ))}
@@ -125,14 +120,13 @@ export default function Shop() {
             {season01Products && season01Products.length > 0 && (
               <div className="mb-0">
                 <div className="border-t border-border mt-16 pt-4 mb-8">
-                  <span
-                    className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
-                    style={{ fontFamily: "var(--font-mono)" }}
+                  <samp
+                    style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.3em", color: "#8C8880", textTransform: "uppercase" }}
                   >
-                    S01 — DECONSTRUCTED
-                  </span>
+                    [ S01 — DECONSTRUCTED ]
+                  </samp>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                <div className="null-shop-grid">
                   {season01Products.map((product) => (
                     <ShopProductCell key={product.id} product={product} />
                   ))}
@@ -143,12 +137,11 @@ export default function Shop() {
             {wearableProducts && wearableProducts.length > 0 && (
               <div className="mb-0">
                 <div className="border-t border-border mt-16 pt-4 mb-2">
-                  <span
-                    className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
-                    style={{ fontFamily: "var(--font-mono)" }}
+                  <samp
+                    style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.3em", color: "#8C8880", textTransform: "uppercase" }}
                   >
-                    AGENT LAYER
-                  </span>
+                    [ AGENT LAYER — SOFTWARE OBJECTS ]
+                  </samp>
                 </div>
                 <p
                   className="text-[10px] text-muted-foreground mb-8 tracking-[0.1em]"
@@ -156,7 +149,7 @@ export default function Shop() {
                 >
                   Software objects — worn in the system prompt
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-0">
+                <div className="null-shop-grid">
                   {wearableProducts.map((product) => (
                     <ShopProductCell key={product.id} product={product} wearable />
                   ))}

@@ -50,58 +50,56 @@ export function NullProductRow({ product, index }: NullProductRowProps) {
         className="flex flex-col justify-center px-16 py-16 md:px-16 sm:px-8"
         style={{ background: "#F6F4EF", padding: "clamp(32px, 5vw, 64px)" }}
       >
-        <span
-          className="block text-[10px] uppercase tracking-[0.3em] text-[#8C8880] mb-4"
-          style={{ fontFamily: "var(--font-mono)" }}
+        <samp
+          className="block uppercase"
+          style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.3em", color: "#8C8880", marginBottom: "16px" }}
         >
-          S{season}
-        </span>
+          [ S{season} ]
+        </samp>
 
         <h2
           className="uppercase tracking-[0.08em] text-[#1C1B19] mb-6"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(22px, 3vw, 28px)",
-            fontWeight: 300,
+            fontSize: "clamp(20px, 3vw, 26px)",
+            fontWeight: 400,
           }}
         >
           {product.name}
         </h2>
 
-        <div style={{ height: "1px", background: "#D8D4C8", marginBottom: "24px" }} />
+        <div style={{ height: "1px", background: "#D8D4C8", margin: "0 0 20px 0" }} />
 
-        <div className="flex items-baseline gap-3 mb-8">
-          <span
-            className="text-[10px] uppercase tracking-[0.2em] text-[#8C8880]"
-            style={{ fontFamily: "var(--font-mono)" }}
+        <div className="mb-8">
+          <samp
+            className="block uppercase"
+            style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.2em", color: "#8C8880", marginBottom: "4px" }}
           >
-            USDC
-          </span>
-          <span
-            className="text-[20px] text-[#1C1B19]"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            {product.price}
-          </span>
+            PRICE
+          </samp>
+          <samp style={{ fontFamily: "var(--font-mono)", fontSize: "20px", color: "#1C1B19" }}>
+            {product.price}{" "}
+            <span style={{ fontSize: "14px", color: "#8C8880" }}>USDC</span>
+          </samp>
         </div>
 
-        <span
-          className="block text-[10px] uppercase tracking-[0.2em] text-[#8C8880] mb-2"
-          style={{ fontFamily: "var(--font-mono)" }}
+        <samp
+          className="block uppercase"
+          style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.2em", color: "#8C8880", marginBottom: "8px" }}
         >
           {product.category}
-        </span>
+        </samp>
 
         {outOfStock && (
-          <span
-            className="block text-[10px] uppercase tracking-[0.1em] text-[#8C8880] mb-4"
-            style={{ fontFamily: "var(--font-mono)" }}
+          <samp
+            className="block uppercase"
+            style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.1em", color: "#8C8880", marginBottom: "16px" }}
           >
-            UNAVAILABLE
-          </span>
+            [ UNAVAILABLE ]
+          </samp>
         )}
 
-        <div style={{ height: "48px" }} />
+        <div style={{ height: "40px" }} />
 
         <Link href={`/product/${product.id}`}>
           <span
@@ -113,7 +111,7 @@ export function NullProductRow({ product, index }: NullProductRowProps) {
             onMouseEnter={(e) => { (e.target as HTMLElement).style.color = "#A8894A"; }}
             onMouseLeave={(e) => { (e.target as HTMLElement).style.color = "#1C1B19"; }}
           >
-            → VIEW PIECE
+            → EXAMINE
           </span>
         </Link>
       </div>

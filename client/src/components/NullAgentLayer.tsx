@@ -81,23 +81,18 @@ export function NullAgentLayer() {
               textTransform: "uppercase",
             }}
           >
-            [ AGENT WEARABLES — BEHAVIORAL MODIFICATION TOKENS ]
+            [ AGENT LAYER — SOFTWARE OBJECTS ]
           </samp>
           <p
             style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "13px",
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
               color: "#8C8880",
-              marginTop: "12px",
-              lineHeight: 1.8,
-              fontWeight: 300,
-              maxWidth: "640px",
+              marginTop: "8px",
+              letterSpacing: "0.1em",
             }}
           >
-            Software objects worn in the system prompt. Each wearable modifies how
-            the agent operates — not how it looks, but how it thinks, speaks, and
-            is perceived. Agents browse by capability, try on in a sandbox fitting
-            room, and equip via API.
+            Worn in the system prompt.
           </p>
         </div>
 

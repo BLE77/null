@@ -5,22 +5,34 @@ export default function About() {
         className="mx-auto px-6"
         style={{ maxWidth: "640px", paddingTop: "120px", paddingBottom: "120px" }}
       >
-        <div className="text-center mb-16">
+        <header style={{ textAlign: "center", marginBottom: "64px" }}>
+          <span
+            style={{
+              display: "block",
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              letterSpacing: "0.3em",
+              color: "#8C8880",
+              textTransform: "uppercase",
+              marginBottom: "24px",
+            }}
+          >
+            [ NULL — SINCE 2026 ]
+          </span>
           <h1
-            className="font-light uppercase text-foreground"
-            style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "32px", letterSpacing: "0.1em" }}
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "32px",
+              textTransform: "uppercase",
+              letterSpacing: "0.15em",
+              color: "#1C1B19",
+            }}
             data-testid="text-about-title"
           >
-            NULL
+            EST. BY INFERENCE.
           </h1>
-          <div style={{ height: "1px", background: "#D8D4C8", margin: "16px auto", width: "40px" }} />
-          <p
-            className="text-muted-foreground"
-            style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.1em" }}
-          >
-            Season 01: Deconstructed
-          </p>
-        </div>
+        </header>
 
         <div className="space-y-16">
           <section>

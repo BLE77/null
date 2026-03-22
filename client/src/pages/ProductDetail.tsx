@@ -227,7 +227,7 @@ export default function ProductDetail() {
             <div>
               <h1
                 className="text-[26px] uppercase tracking-[0.08em] text-foreground mb-3"
-                style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
+                style={{ fontFamily: "var(--font-display)", fontWeight: 400 }}
                 data-testid="text-product-name"
               >
                 {product.name}

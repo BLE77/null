@@ -49,7 +49,7 @@ const TIERS = [
   {
     n: 5,
     name: "SOVEREIGN",
-    trust: "COMPLETE",
+    trust: "ABSOLUTE",
     status: "500+ TXS",
     span: 2,
     abstraction:
@@ -106,7 +106,7 @@ export function NullTrustCoat() {
           {TIERS.map((tier) => (
             <article
               key={tier.n}
-              className={`null-tier-cell${tier.span === 2 ? " null-tier-cell--full" : ""}`}
+              className={`null-tier-cell${tier.span === 2 ? " null-tier-cell--full" : ""}${tier.n === 5 ? " null-tier-cell--sovereign" : ""}`}
               style={tier.span === 2 ? { gridColumn: "span 2" } : undefined}
             >
               <samp
@@ -135,7 +135,7 @@ export function NullTrustCoat() {
 
               <dl className="null-tier-data">
                 <dt>TRUST</dt>
-                <dd>{tier.trust}</dd>
+                <dd style={tier.n === 5 ? { color: "#A8894A" } : undefined}>{tier.trust}</dd>
                 <dt>STATUS</dt>
                 <dd>{tier.status}</dd>
               </dl>
