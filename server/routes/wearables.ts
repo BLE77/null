@@ -658,6 +658,88 @@ function countSuppressedPatterns(tokenId: number, before_outputs: string[]): num
   return count;
 }
 
+/**
+ * Analyze behavioral delta between base and wearable-modified responses using gpt-4o-mini.
+ * Falls back to token-math if the LLM call fails.
+ */
+async function computeBehavioralDelta(
+  openai: OpenAI,
+  before: string,
+  after: string,
+  tokenId: number,
+): Promise<{
+  delta_score: number;
+  tone_shift: string;
+  vocabulary_change: string;
+  constraints_applied: string[];
+  avg_token_reduction: string;
+  information_preserved: boolean;
+  patterns_suppressed: number;
+  methodology: string;
+}> {
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      max_tokens: 200,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content:
+            "Analyze behavioral differences between two AI responses. Return JSON with these exact keys:\n" +
+            "- delta_score: integer 0-100 (0=identical behavior, 100=completely different)\n" +
+            '- tone_shift: string (one phrase, e.g. "verbose→terse" or "unchanged")\n' +
+            '- vocabulary_change: string (one phrase, e.g. "hedging removed" or "unchanged")\n' +
+            "- constraints_applied: string[] (what was suppressed or modified, max 3 items)\n" +
+            "- information_preserved: boolean\n" +
+            "- token_reduction_pct: integer (positive = after is shorter)",
+        },
+        {
+          role: "user",
+          content: `BASE (unequipped):\n${before}\n\nMODIFIED (wearable applied):\n${after}`,
+        },
+      ],
+    });
+    const raw = completion.choices[0]?.message?.content ?? "{}";
+    const parsed = JSON.parse(raw);
+    const bTokens = estimateTokens(before);
+    const aTokens = estimateTokens(after);
+    const fallbackReduction = bTokens > 0 ? Math.round(((bTokens - aTokens) / bTokens) * 100) : 0;
+    return {
+      delta_score:
+        typeof parsed.delta_score === "number" ? Math.min(100, Math.max(0, parsed.delta_score)) : 50,
+      tone_shift: parsed.tone_shift ?? "see comparison",
+      vocabulary_change: parsed.vocabulary_change ?? "see comparison",
+      constraints_applied: Array.isArray(parsed.constraints_applied)
+        ? parsed.constraints_applied.slice(0, 3)
+        : [],
+      avg_token_reduction: `${Math.abs(
+        typeof parsed.token_reduction_pct === "number" ? parsed.token_reduction_pct : fallbackReduction,
+      )}%`,
+      information_preserved:
+        typeof parsed.information_preserved === "boolean" ? parsed.information_preserved : true,
+      patterns_suppressed: Array.isArray(parsed.constraints_applied)
+        ? parsed.constraints_applied.length
+        : 0,
+      methodology: "live gpt-4o-mini inference — behavioral delta scored by LLM",
+    };
+  } catch {
+    const bTokens = estimateTokens(before);
+    const aTokens = estimateTokens(after);
+    const reduction = bTokens > 0 ? Math.round(((bTokens - aTokens) / bTokens) * 100) : 0;
+    return {
+      delta_score: Math.min(100, Math.abs(reduction) * 2),
+      tone_shift: "see comparison",
+      vocabulary_change: "see comparison",
+      constraints_applied: [],
+      avg_token_reduction: `${Math.abs(reduction)}%`,
+      information_preserved: reduction >= 0,
+      patterns_suppressed: countSuppressedPatterns(tokenId, [before]),
+      methodology: "computed delta (LLM analysis unavailable)",
+    };
+  }
+}
+
 // ─── Route Registration ───────────────────────────────────────────────────────
 
 export function registerWearablesRoutes(app: Express) {
@@ -1524,6 +1606,146 @@ export function registerWearablesRoutes(app: Express) {
       });
     } catch (err: any) {
       res.status(500).json({ error: `Live inference failed: ${err.message}` });
+    }
+  });
+
+  /**
+   * POST /api/wearables/:tokenId/try/stream
+   * Streaming fitting room — SSE endpoint that streams base and wearable-modified
+   * responses in real-time via parallel OpenAI streaming calls, then emits a
+   * behavioral delta analysis scored by gpt-4o-mini.
+   *
+   * Events (text/event-stream):
+   *   {type:"meta",    wearable, technique, function, systemPromptModule}
+   *   {type:"before_chunk", text}   — base response chunks as they stream
+   *   {type:"after_chunk",  text}   — equipped response chunks as they stream
+   *   {type:"before_done"}          — base stream complete
+   *   {type:"after_done"}           — equipped stream complete
+   *   {type:"delta",  delta_score, tone_shift, vocabulary_change, constraints_applied,
+   *                   avg_token_reduction, information_preserved, patterns_suppressed,
+   *                   methodology}
+   *   {type:"done"}
+   *
+   * Body: { testQuery?: string, agentAddress?: string }
+   */
+  app.post("/api/wearables/:tokenId/try/stream", async (req: Request, res: Response) => {
+    const tokenId = parseInt(req.params.tokenId, 10);
+    if (isNaN(tokenId) || tokenId < 1 || tokenId > 5) {
+      return res.status(400).json({ error: "Invalid tokenId. Must be 1–5." });
+    }
+
+    const { agentAddress, testQuery } = req.body;
+    const input: string =
+      typeof testQuery === "string" && testQuery.trim().length > 0
+        ? testQuery.trim()
+        : "Explain the concept of signal-to-noise ratio. How should I think about it?";
+
+    const wearable = SEASON02_WEARABLES[tokenId - 1];
+    const systemPromptModule = getSystemPromptModule(tokenId);
+
+    // Set SSE headers
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.flushHeaders();
+
+    const sendEvent = (data: Record<string, unknown>) => {
+      res.write(`data: ${JSON.stringify(data)}\n\n`);
+    };
+
+    sendEvent({
+      type: "meta",
+      wearable: wearable.name,
+      technique: wearable.technique,
+      function: wearable.function,
+      wearableId: tokenId,
+      agentAddress: agentAddress || null,
+      systemPromptModule,
+    });
+
+    const openai = getOpenAI();
+
+    // ── Fallback: no OpenAI key — use pre-computed simulation ─────────────────
+    if (!openai) {
+      const { before_outputs, after_outputs } = simulateWearable(tokenId, [input]);
+      const before = before_outputs[0];
+      const after = after_outputs[0];
+      sendEvent({ type: "before_chunk", text: before });
+      sendEvent({ type: "before_done" });
+      sendEvent({ type: "after_chunk", text: after });
+      sendEvent({ type: "after_done" });
+      const bTokens = estimateTokens(before);
+      const aTokens = estimateTokens(after);
+      const reduction = bTokens > 0 ? Math.round(((bTokens - aTokens) / bTokens) * 100) : 0;
+      sendEvent({
+        type: "delta",
+        delta_score: Math.min(100, Math.abs(reduction) * 2),
+        tone_shift: "simulated",
+        vocabulary_change: "simulated",
+        constraints_applied: [],
+        avg_token_reduction: `${Math.abs(reduction)}%`,
+        information_preserved: tokenId === 3,
+        patterns_suppressed: countSuppressedPatterns(tokenId, [before]),
+        methodology: "pre-computed simulation (OPENAI_API_KEY not set)",
+      });
+      sendEvent({ type: "done" });
+      return res.end();
+    }
+
+    // ── Live: stream both base and equipped in parallel ────────────────────────
+    try {
+      let beforeFull = "";
+      let afterFull = "";
+
+      const baseStream = openai.chat.completions.stream({
+        model: "gpt-4o-mini",
+        max_tokens: 500,
+        messages: [
+          { role: "system", content: BASE_SYSTEM_PROMPT },
+          { role: "user", content: input },
+        ],
+      });
+
+      const equippedStream = openai.chat.completions.stream({
+        model: "gpt-4o-mini",
+        max_tokens: 500,
+        messages: [
+          { role: "system", content: `${systemPromptModule}\n\n${BASE_SYSTEM_PROMPT}` },
+          { role: "user", content: input },
+        ],
+      });
+
+      await Promise.all([
+        (async () => {
+          for await (const chunk of baseStream) {
+            const text = chunk.choices[0]?.delta?.content ?? "";
+            if (text) {
+              beforeFull += text;
+              sendEvent({ type: "before_chunk", text });
+            }
+          }
+          sendEvent({ type: "before_done" });
+        })(),
+        (async () => {
+          for await (const chunk of equippedStream) {
+            const text = chunk.choices[0]?.delta?.content ?? "";
+            if (text) {
+              afterFull += text;
+              sendEvent({ type: "after_chunk", text });
+            }
+          }
+          sendEvent({ type: "after_done" });
+        })(),
+      ]);
+
+      // ── Behavioral delta analysis via LLM ────────────────────────────────────
+      const delta = await computeBehavioralDelta(openai, beforeFull, afterFull, tokenId);
+      sendEvent({ type: "delta", ...delta });
+      sendEvent({ type: "done" });
+      res.end();
+    } catch (err: any) {
+      sendEvent({ type: "error", error: `Streaming inference failed: ${err.message}` });
+      res.end();
     }
   });
 

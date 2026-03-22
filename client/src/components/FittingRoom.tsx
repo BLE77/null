@@ -2,9 +2,9 @@
  * FittingRoom.tsx
  *
  * The fitting room — agents try on wearables before acquiring.
- * Calls POST /api/wearables/:tokenId/try with a test query.
- * Shows base output vs wearable-modified output side-by-side,
- * with a visual diff highlighting behavioral change.
+ * Uses POST /api/wearables/:tokenId/try/stream (SSE) for live parallel OpenAI
+ * inference. Streams base output and wearable-modified output side-by-side,
+ * then shows a behavioral delta score analyzed by LLM.
  */
 
 import { useState, useRef } from "react";
@@ -12,30 +12,30 @@ import { Button } from "@/components/ui/button";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-interface TryResult {
+interface MetaData {
   wearable: string;
   technique: string;
   function: string;
   wearableId: number;
   agentAddress: string | null;
-  trial_count: number;
-  test_inputs: string[];
-  before_outputs: string[];
-  after_outputs: string[];
-  delta_summary: {
-    avg_token_reduction: string;
-    patterns_suppressed: number;
-    information_preserved: boolean;
-    methodology: string;
-  };
   systemPromptModule: string;
-  usage: string;
+}
+
+interface DeltaData {
+  delta_score: number;
+  tone_shift: string;
+  vocabulary_change: string;
+  constraints_applied: string[];
+  avg_token_reduction: string;
+  information_preserved: boolean;
+  patterns_suppressed: number;
+  methodology: string;
 }
 
 interface DiffSegment {
   text: string;
-  removed: boolean;  // present in before, absent/changed in after
-  added: boolean;    // present in after, not in before
+  removed: boolean;
+  added: boolean;
 }
 
 interface FittingRoomProps {
@@ -73,7 +73,10 @@ function computeDiff(before: string, after: string): { before: DiffSegment[]; af
   return { before: beforeSegments, after: afterSegments };
 }
 
-function DiffText({ segments }: { segments: DiffSegment[] }) {
+function DiffText({ segments, streaming }: { segments: DiffSegment[]; streaming?: boolean }) {
+  if (streaming) {
+    return <span>{segments.map(s => s.text).join("")}</span>;
+  }
   return (
     <span>
       {segments.map((seg, i) => {
@@ -97,9 +100,47 @@ function DiffText({ segments }: { segments: DiffSegment[] }) {
   );
 }
 
-// ── Delta bar ─────────────────────────────────────────────────────────────────
+// ── Delta score display ───────────────────────────────────────────────────────
 
-function DeltaBar({ reduction }: { reduction: string }) {
+function DeltaScoreBar({ score }: { score: number }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <div
+        style={{
+          flex: 1,
+          height: "2px",
+          background: "#D8D4C8",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            height: "100%",
+            width: `${Math.min(score, 100)}%`,
+            background: score > 60 ? "#A8894A" : score > 30 ? "#8C8880" : "#D8D4C8",
+            transition: "width 800ms ease-out",
+          }}
+        />
+      </div>
+      <span
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "11px",
+          color: "#A8894A",
+          minWidth: "36px",
+          textAlign: "right",
+        }}
+      >
+        {score}/100
+      </span>
+    </div>
+  );
+}
+
+function TokenReductionBar({ reduction }: { reduction: string }) {
   const pct = parseInt(reduction.replace("%", ""), 10) || 0;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -117,7 +158,7 @@ function DeltaBar({ reduction }: { reduction: string }) {
             left: 0,
             top: 0,
             height: "100%",
-            width: `${Math.min(pct, 100)}%`,
+            width: `${Math.min(Math.abs(pct), 100)}%`,
             background: "#A8894A",
             transition: "width 600ms ease-out",
           }}
@@ -148,6 +189,24 @@ const TECHNIQUE_COLORS: Record<string, string> = {
   "BIAS CUT (Vionnet)": "#8a4a4a",
 };
 
+// ── Cursor blink ─────────────────────────────────────────────────────────────
+
+function StreamCursor() {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        width: "2px",
+        height: "1em",
+        background: "#8C8880",
+        verticalAlign: "text-bottom",
+        marginLeft: "2px",
+        animation: "blink 1s step-end infinite",
+      }}
+    />
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function FittingRoom({
@@ -158,13 +217,30 @@ export function FittingRoom({
   onEquip,
 }: FittingRoomProps) {
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState<TryResult | null>(null);
+  const [beforeText, setBeforeText] = useState("");
+  const [afterText, setAfterText] = useState("");
+  const [beforeDone, setBeforeDone] = useState(false);
+  const [afterDone, setAfterDone] = useState(false);
+  const [deltaData, setDeltaData] = useState<DeltaData | null>(null);
+  const [metaData, setMetaData] = useState<MetaData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showModule, setShowModule] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const techniqueColor = technique ? (TECHNIQUE_COLORS[technique] ?? "#8C8880") : "#8C8880";
+  const bothStreamsComplete = beforeDone && afterDone;
+  const analyzing = bothStreamsComplete && !deltaData && loading;
+  const hasResult = !loading && (beforeText || afterText);
+  const diff = hasResult && deltaData ? computeDiff(beforeText, afterText) : null;
+
+  const statusLabel = loading
+    ? analyzing
+      ? "ANALYZING DELTA —"
+      : "STREAMING —"
+    : deltaData
+    ? "TRIAL COMPLETE"
+    : "READY";
 
   async function handleTry() {
     const q = query.trim();
@@ -172,12 +248,18 @@ export function FittingRoom({
       inputRef.current?.focus();
       return;
     }
+
     setLoading(true);
     setError(null);
-    setResult(null);
+    setBeforeText("");
+    setAfterText("");
+    setBeforeDone(false);
+    setAfterDone(false);
+    setDeltaData(null);
+    setMetaData(null);
 
     try {
-      const res = await fetch(`/api/wearables/${tokenId}/try`, {
+      const res = await fetch(`/api/wearables/${tokenId}/try/stream`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -185,12 +267,42 @@ export function FittingRoom({
           agentAddress: agentAddress || undefined,
         }),
       });
+
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: "Unknown error" }));
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
-      const data: TryResult = await res.json();
-      setResult(data);
+
+      if (!res.body) throw new Error("No response body");
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() ?? "";
+
+        for (const part of parts) {
+          if (!part.startsWith("data: ")) continue;
+          try {
+            const event = JSON.parse(part.slice(6));
+            if (event.type === "meta") setMetaData(event as MetaData);
+            if (event.type === "before_chunk") setBeforeText(t => t + event.text);
+            if (event.type === "after_chunk") setAfterText(t => t + event.text);
+            if (event.type === "before_done") setBeforeDone(true);
+            if (event.type === "after_done") setAfterDone(true);
+            if (event.type === "delta") setDeltaData(event as DeltaData);
+            if (event.type === "done") setLoading(false);
+            if (event.type === "error") throw new Error(event.error);
+          } catch {
+            /* ignore malformed events */
+          }
+        }
+      }
     } catch (err: any) {
       setError(err.message || "Trial failed");
     } finally {
@@ -198,9 +310,8 @@ export function FittingRoom({
     }
   }
 
-  const before = result?.before_outputs[0] ?? "";
-  const after = result?.after_outputs[0] ?? "";
-  const diff = result ? computeDiff(before, after) : null;
+  const systemPromptModule = metaData?.systemPromptModule ?? "";
+  const displayWearableName = metaData?.wearable ?? wearableName ?? `WEARABLE ${tokenId}`;
 
   return (
     <div
@@ -212,6 +323,10 @@ export function FittingRoom({
         maxWidth: "900px",
       }}
     >
+      <style>{`
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+      `}</style>
+
       {/* ── Header ── */}
       <div
         style={{
@@ -245,7 +360,7 @@ export function FittingRoom({
               fontFamily: "var(--font-display)",
             }}
           >
-            {wearableName ?? `WEARABLE ${tokenId}`}
+            {displayWearableName}
           </h2>
           {technique && (
             <div
@@ -279,7 +394,7 @@ export function FittingRoom({
             whiteSpace: "nowrap",
           }}
         >
-          {loading ? "RUNNING TRIAL —" : result ? "TRIAL COMPLETE" : "READY"}
+          {statusLabel}
         </div>
       </div>
 
@@ -362,7 +477,7 @@ export function FittingRoom({
       </div>
 
       {/* ── Results: before/after ── */}
-      {result && diff && (
+      {(beforeText || afterText) && (
         <>
           {/* Column headers */}
           <div
@@ -395,7 +510,7 @@ export function FittingRoom({
                 textTransform: "uppercase",
               }}
             >
-              MODIFIED OUTPUT — {result.wearable}
+              MODIFIED OUTPUT — {displayWearableName}
             </div>
           </div>
 
@@ -419,7 +534,14 @@ export function FittingRoom({
                 background: "#F6F4EF",
               }}
             >
-              <DiffText segments={diff.before} />
+              {diff ? (
+                <DiffText segments={diff.before} />
+              ) : (
+                <span>
+                  {beforeText}
+                  {loading && !beforeDone && <StreamCursor />}
+                </span>
+              )}
             </div>
 
             {/* After */}
@@ -432,138 +554,229 @@ export function FittingRoom({
                 background: "#EFEDE7",
               }}
             >
-              <DiffText segments={diff.after} />
+              {diff ? (
+                <DiffText segments={diff.after} />
+              ) : (
+                <span>
+                  {afterText}
+                  {loading && !afterDone && <StreamCursor />}
+                </span>
+              )}
             </div>
           </div>
 
-          {/* Delta summary */}
-          <div
-            style={{
-              padding: "16px 28px",
-              borderBottom: "1px solid #D8D4C8",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: "24px",
-            }}
-          >
-            <div>
+          {/* Delta summary — shown only after LLM analysis completes */}
+          {deltaData ? (
+            <>
               <div
                 style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  letterSpacing: "0.12em",
-                  color: "#8C8880",
-                  textTransform: "uppercase",
-                  marginBottom: "6px",
+                  padding: "16px 28px",
+                  borderBottom: "1px solid #D8D4C8",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                  gap: "24px",
                 }}
               >
-                TOKEN REDUCTION
-              </div>
-              <DeltaBar reduction={result.delta_summary.avg_token_reduction} />
-            </div>
+                {/* Delta score */}
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      color: "#8C8880",
+                      textTransform: "uppercase",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    BEHAVIORAL DELTA
+                  </div>
+                  <DeltaScoreBar score={deltaData.delta_score} />
+                </div>
 
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  letterSpacing: "0.12em",
-                  color: "#8C8880",
-                  textTransform: "uppercase",
-                  marginBottom: "6px",
-                }}
-              >
-                PATTERNS SUPPRESSED
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "18px",
-                  color: "#1C1B19",
-                  letterSpacing: "0.04em",
-                }}
-              >
-                {result.delta_summary.patterns_suppressed}
-                <span style={{ fontSize: "11px", color: "#8C8880", marginLeft: "4px" }}>FORMS</span>
-              </div>
-            </div>
+                {/* Token reduction */}
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      color: "#8C8880",
+                      textTransform: "uppercase",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    TOKEN REDUCTION
+                  </div>
+                  <TokenReductionBar reduction={deltaData.avg_token_reduction} />
+                </div>
 
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  letterSpacing: "0.12em",
-                  color: "#8C8880",
-                  textTransform: "uppercase",
-                  marginBottom: "6px",
-                }}
-              >
-                INFORMATION PRESERVED
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "13px",
-                  color: result.delta_summary.information_preserved ? "#A8894A" : "#8C8880",
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {result.delta_summary.information_preserved ? "YES" : "COMPRESSED"}
-              </div>
-            </div>
-          </div>
+                {/* Tone shift */}
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      color: "#8C8880",
+                      textTransform: "uppercase",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    TONE
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "11px",
+                      color: "#1C1B19",
+                      letterSpacing: "0.04em",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {deltaData.tone_shift}
+                  </div>
+                </div>
 
-          {/* System prompt module (collapsed by default) */}
-          <div style={{ padding: "12px 28px", borderBottom: "1px solid #D8D4C8" }}>
-            <button
-              onClick={() => setShowModule(v => !v)}
+                {/* Vocabulary */}
+                <div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      color: "#8C8880",
+                      textTransform: "uppercase",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    VOCABULARY
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "11px",
+                      color: "#1C1B19",
+                      letterSpacing: "0.04em",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {deltaData.vocabulary_change}
+                  </div>
+                </div>
+              </div>
+
+              {/* Constraints applied */}
+              {deltaData.constraints_applied.length > 0 && (
+                <div
+                  style={{
+                    padding: "12px 28px",
+                    borderBottom: "1px solid #D8D4C8",
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "12px",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.12em",
+                      color: "#8C8880",
+                      textTransform: "uppercase",
+                      whiteSpace: "nowrap",
+                      paddingTop: "2px",
+                    }}
+                  >
+                    CONSTRAINTS:
+                  </div>
+                  {deltaData.constraints_applied.map((c, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        padding: "2px 8px",
+                        background: "#0A0908",
+                        color: "#8C8880",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "10px",
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {c}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : analyzing ? (
+            <div
               style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
+                padding: "12px 28px",
+                borderBottom: "1px solid #D8D4C8",
                 fontFamily: "var(--font-mono)",
                 fontSize: "10px",
                 letterSpacing: "0.14em",
                 color: "#8C8880",
                 textTransform: "uppercase",
-                padding: 0,
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
               }}
             >
-              <span style={{ opacity: 0.5 }}>{showModule ? "▾" : "▸"}</span>
-              SYSTEM PROMPT MODULE — {showModule ? "HIDE" : "VIEW"} BEHAVIORAL INSTRUCTION
-            </button>
-            {showModule && (
-              <pre
+              MEASURING BEHAVIORAL DELTA —
+            </div>
+          ) : null}
+
+          {/* System prompt module (collapsed by default) */}
+          {systemPromptModule && (
+            <div style={{ padding: "12px 28px", borderBottom: "1px solid #D8D4C8" }}>
+              <button
+                onClick={() => setShowModule(v => !v)}
                 style={{
-                  marginTop: "10px",
-                  padding: "12px",
-                  background: "#0A0908",
-                  color: "#8C8880",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "11px",
-                  lineHeight: 1.6,
-                  overflowX: "auto",
-                  whiteSpace: "pre-wrap",
-                  wordBreak: "break-word",
-                  maxHeight: "200px",
-                  overflowY: "auto",
+                  background: "none",
                   border: "none",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  letterSpacing: "0.14em",
+                  color: "#8C8880",
+                  textTransform: "uppercase",
+                  padding: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
                 }}
               >
-                <span style={{ color: "#A8894A" }}>{result.wearable}</span>
-                {"\n"}
-                {result.systemPromptModule}
-              </pre>
-            )}
-          </div>
+                <span style={{ opacity: 0.5 }}>{showModule ? "▾" : "▸"}</span>
+                SYSTEM PROMPT MODULE — {showModule ? "HIDE" : "VIEW"} BEHAVIORAL INSTRUCTION
+              </button>
+              {showModule && (
+                <pre
+                  style={{
+                    marginTop: "10px",
+                    padding: "12px",
+                    background: "#0A0908",
+                    color: "#8C8880",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    lineHeight: 1.6,
+                    overflowX: "auto",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    maxHeight: "200px",
+                    overflowY: "auto",
+                    border: "none",
+                  }}
+                >
+                  <span style={{ color: "#A8894A" }}>{displayWearableName}</span>
+                  {"\n"}
+                  {systemPromptModule}
+                </pre>
+              )}
+            </div>
+          )}
 
           {/* CTA */}
-          {onEquip && (
+          {onEquip && deltaData && (
             <div
               style={{
                 padding: "16px 28px",
@@ -580,7 +793,7 @@ export function FittingRoom({
                   letterSpacing: "0.05em",
                 }}
               >
-                {result.delta_summary.methodology}
+                {deltaData.methodology}
               </div>
               <button
                 onClick={() => onEquip(tokenId)}
@@ -607,7 +820,7 @@ export function FittingRoom({
       )}
 
       {/* ── Empty state ── */}
-      {!result && !loading && (
+      {!beforeText && !afterText && !loading && (
         <div
           style={{
             padding: "48px 28px",
@@ -633,12 +846,12 @@ export function FittingRoom({
           </div>
           Enter a prompt above to simulate this wearable&rsquo;s behavioral effect.
           <br />
-          Base output and modified output will appear side-by-side.
+          Base output and modified output will stream side-by-side in real time.
         </div>
       )}
 
-      {/* ── Loading state ── */}
-      {loading && (
+      {/* ── Loading state (before first chunks arrive) ── */}
+      {loading && !beforeText && !afterText && (
         <div
           style={{
             padding: "48px 28px",
@@ -652,10 +865,9 @@ export function FittingRoom({
               fontSize: "11px",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              animation: "pulse 1.5s ease-in-out infinite",
             }}
           >
-            RUNNING TRIAL — COMPARING BASE TO EQUIPPED
+            INITIALIZING PARALLEL INFERENCE —
           </div>
         </div>
       )}
