@@ -214,6 +214,128 @@ function contractAvailable(): boolean {
   return Boolean(TRUST_COAT_ADDRESS?.startsWith("0x") && MINTER_PRIVATE_KEY);
 }
 
+// ─── Tier check without adding interaction ────────────────────────────────────
+
+export interface TierCheckResult {
+  walletAddress: string;
+  totalInteractions: number;
+  previousTier: number | null;
+  newTier: number;
+  advanced: boolean;
+  txHash?: string;
+  error?: string;
+  skipped?: boolean;
+  skipReason?: string;
+}
+
+/**
+ * Check whether a wallet has earned a higher TrustCoat tier based on existing
+ * interaction count, and upgrade if so. Does NOT record a new interaction.
+ */
+export async function checkAndAdvanceTier(
+  walletAddress: string,
+  agentId = 0,
+): Promise<TierCheckResult> {
+  const addr = walletAddress.toLowerCase();
+  const interactions = await getInteractionCount(addr);
+  const earned = tierFromCount(interactions);
+
+  const result: TierCheckResult = {
+    walletAddress: addr,
+    totalInteractions: interactions,
+    previousTier: null,
+    newTier: earned,
+    advanced: false,
+  };
+
+  if (!contractAvailable()) {
+    result.skipped = true;
+    result.skipReason = "TRUST_COAT_MINTER_KEY not set — tier tracked in memory only";
+    return result;
+  }
+
+  try {
+    const publicClient = getPublicClient();
+
+    const hasCoat = await publicClient.readContract({
+      address: TRUST_COAT_ADDRESS,
+      abi: TRUST_COAT_ABI,
+      functionName: "hasTrustCoat",
+      args: [addr as `0x${string}`],
+    }) as boolean;
+
+    if (!hasCoat) {
+      if (earned === 0) {
+        result.skipped = true;
+        result.skipReason = "No interactions qualify for tier 1 yet";
+        return result;
+      }
+
+      const { client, account } = getWalletClient();
+      const txHash = await client.writeContract({
+        address: TRUST_COAT_ADDRESS,
+        abi: TRUST_COAT_ABI,
+        functionName: "mint",
+        args: [addr as `0x${string}`, BigInt(earned), BigInt(agentId)],
+        account,
+        chain,
+      });
+
+      result.previousTier = null;
+      result.newTier = earned;
+      result.advanced = true;
+      result.txHash = txHash;
+
+      console.log(`[TrustAdvancement] CHECK→MINT @${addr} → tier ${earned} | tx: ${txHash}`);
+    } else {
+      const currentTierBig = await publicClient.readContract({
+        address: TRUST_COAT_ADDRESS,
+        abi: TRUST_COAT_ABI,
+        functionName: "activeTier",
+        args: [addr as `0x${string}`],
+      }) as bigint;
+
+      const currentTier = Number(currentTierBig);
+      result.previousTier = currentTier;
+
+      if (earned <= currentTier) {
+        result.newTier = currentTier;
+        result.skipped = true;
+        result.skipReason = `Already at tier ${currentTier} — no advancement needed (interactions=${interactions}, earned=${earned})`;
+        return result;
+      }
+
+      if (earned > MAX_AUTO_TIER) {
+        result.newTier = currentTier;
+        result.skipped = true;
+        result.skipReason = `Tier ${earned} exceeds auto-advancement cap (Tier ${MAX_AUTO_TIER}) — DAO vote required`;
+        return result;
+      }
+
+      const { client, account } = getWalletClient();
+      const txHash = await client.writeContract({
+        address: TRUST_COAT_ADDRESS,
+        abi: TRUST_COAT_ABI,
+        functionName: "upgrade",
+        args: [addr as `0x${string}`, BigInt(earned)],
+        account,
+        chain,
+      });
+
+      result.newTier = earned;
+      result.advanced = true;
+      result.txHash = txHash;
+
+      console.log(`[TrustAdvancement] CHECK→UPGRADE @${addr} ${currentTier}→${earned} | tx: ${txHash}`);
+    }
+  } catch (err: any) {
+    result.error = err.message;
+    console.error(`[TrustAdvancement] checkAndAdvanceTier error @${addr}:`, err.message);
+  }
+
+  return result;
+}
+
 // ─── Main advancement function ────────────────────────────────────────────────
 
 export interface AdvancementResult {

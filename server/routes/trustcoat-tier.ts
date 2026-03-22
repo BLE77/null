@@ -31,6 +31,7 @@ import { base, baseSepolia } from "viem/chains";
 import {
   getInteractionCount,
   buildTierProgress,
+  checkAndAdvanceTier,
   TIER_NAMES,
 } from "../trust-advancement.js";
 
@@ -186,5 +187,36 @@ export function registerTrustCoatTierRoutes(app: Express): void {
     });
 
     return res.json({ results, count: results.length });
+  });
+
+  /**
+   * POST /api/trustcoat/:address/advance
+   * Trigger a tier check for a given wallet address.
+   * Reads interaction count, computes eligible tier, and upgrades on-chain if earned.
+   * Does NOT add a new interaction — purely checks and advances if behind.
+   *
+   * Optional body: { agentId?: number }
+   *
+   * Response:
+   * {
+   *   walletAddress, totalInteractions, previousTier, newTier,
+   *   advanced, txHash?, skipped?, skipReason?, error?
+   * }
+   */
+  app.post("/api/trustcoat/:address/advance", async (req: Request, res: Response) => {
+    const { address } = req.params;
+
+    if (!isAddress(address)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    const { agentId = 0 } = req.body ?? {};
+
+    try {
+      const result = await checkAndAdvanceTier(address, typeof agentId === "number" ? agentId : 0);
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
   });
 }
