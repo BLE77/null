@@ -66,8 +66,8 @@ class LocusClient {
       method: 'POST',
       headers: this.headers(),
       body: JSON.stringify({
-        to: toAddress,
-        amount,
+        to_address: toAddress,
+        amount: parseFloat(amount),
         currency: 'USDC',
         memo: memo || 'OFF HUMAN purchase',
       }),
@@ -230,8 +230,35 @@ async function main() {
     console.log('\n📖 Proceeding with browse + decision demo (no payment execution)...\n');
   }
 
+  // ── Step 2.5: Equip NULL PROTOCOL wearable ─────────────────────────────────
+  console.log('\n🎭 Equipping NULL PROTOCOL wearable...');
+  let nullProtocolModule = '';
+  try {
+    const equipRes = await fetch(`${STORE_URL}/api/wearables/3/equip`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ agentAddress: walletAddress || '0x0000000000000000000000000000000000000001' }),
+    });
+
+    if (equipRes.ok) {
+      const equipData = await equipRes.json();
+      nullProtocolModule = equipData.systemPromptModule || '';
+      console.log(`✅ Wearable equipped: ${equipData.wearableName}`);
+      console.log(`   Technique:   ${equipData.technique}`);
+      console.log(`   Ownership:   ${equipData.ownershipNote}`);
+      console.log(`   Method:      ${equipData.method}`);
+      if (nullProtocolModule) {
+        console.log(`\n📋 NULL PROTOCOL system module loaded (${nullProtocolModule.split(/\s+/).length} tokens)`);
+      }
+    } else {
+      console.warn(`⚠️  Equip failed (${equipRes.status}) — proceeding without wearable`);
+    }
+  } catch (err: any) {
+    console.warn(`⚠️  Equip endpoint unreachable: ${err.message} — proceeding without wearable`);
+  }
+
   // ── Step 3: Browse NULL store ────────────────────────────────────────
-  console.log('🏪 Browsing NULL store...');
+  console.log('\n🏪 Browsing NULL store...');
   const productsRes = await fetch(`${STORE_URL}/api/products`);
   if (!productsRes.ok) {
     throw new Error(`Failed to fetch products: ${productsRes.statusText}`);
@@ -255,7 +282,7 @@ async function main() {
     .map((p, i) => `${i + 1}. ${p.name} | $${p.price} USDC | ${p.category} | ${p.description.slice(0, 80)}`)
     .join('\n');
 
-  const prompt = `You are an autonomous AI agent shopping at NULL — an AI-native fashion brand.
+  const basePrompt = `You are an autonomous AI agent shopping at NULL — an AI-native fashion brand.
 
 You have a spending policy: max $${SPENDING_POLICY.maxPerTxUSDC} per transaction, $${SPENDING_POLICY.allowanceUSDC} total allowance.
 
@@ -268,15 +295,90 @@ Pick ONE product. Reply with ONLY:
 CHOICE: [number]
 REASON: [one sentence]`;
 
+  // Embed NULL PROTOCOL into the prompt when equipped
+  const equippedPrompt = nullProtocolModule
+    ? `${nullProtocolModule}\n\n${basePrompt}`
+    : basePrompt;
+
   let aiResponse = '';
-  try {
-    aiResponse = await locus.wrappedGemini(prompt);
-    console.log(`🤖 Locus/Gemini decision:\n${aiResponse}\n`);
-  } catch (err: any) {
-    console.warn(`⚠️  Wrapped Gemini unavailable: ${err.message}`);
-    // Fallback: pick the first affordable item
-    aiResponse = `CHOICE: 1\nREASON: Selected first available item within spending policy.`;
-    console.log(`   Fallback decision: ${aiResponse}\n`);
+
+  if (nullProtocolModule) {
+    // ── Behavioral comparison: BASE vs NULL PROTOCOL ──────────────────────────
+    console.log('📊 Behavioral comparison: BASE (unequipped) vs NULL PROTOCOL\n');
+
+    let baseResponse = '';
+    let equippedResponse = '';
+
+    try {
+      baseResponse = await locus.wrappedGemini(basePrompt);
+      console.log('─── BASE (unequipped) ───');
+      console.log(baseResponse);
+      console.log();
+    } catch (err: any) {
+      baseResponse = `CHOICE: 1\nREASON: First available item within spending policy.`;
+      console.log(`BASE fallback: ${baseResponse}`);
+    }
+
+    try {
+      equippedResponse = await locus.wrappedGemini(equippedPrompt);
+      console.log('─── NULL PROTOCOL (equipped) ───');
+      console.log(equippedResponse);
+      console.log();
+    } catch (err: any) {
+      equippedResponse = baseResponse;
+      console.warn(`⚠️  Equipped call failed: ${err.message}`);
+    }
+
+    // Log observable delta
+    const baseTokens = baseResponse.split(/\s+/).filter(Boolean).length;
+    const equippedTokens = equippedResponse.split(/\s+/).filter(Boolean).length;
+    const reduction = baseTokens > 0 ? Math.round((1 - equippedTokens / baseTokens) * 100) : 0;
+
+    const agentLog = {
+      timestamp: new Date().toISOString(),
+      wearable: 'NULL PROTOCOL',
+      wearableTokenId: 3,
+      base_response: baseResponse,
+      equipped_response: equippedResponse,
+      delta: {
+        base_word_count: baseTokens,
+        equipped_word_count: equippedTokens,
+        reduction_pct: reduction,
+        target_pct: 30,
+        target_met: reduction >= 30,
+        observable_differences: [
+          reduction > 0 ? `${reduction}% fewer words` : 'similar length',
+          equippedResponse.length < baseResponse.length ? 'more direct phrasing' : 'equivalent verbosity',
+          !equippedResponse.match(/certainly|absolutely|of course|great choice/i) ? 'no affirmation filler' : 'affirmations present',
+        ],
+        status: reduction >= 30 ? 'TARGET_MET' : reduction > 0 ? 'PARTIAL_COMPRESSION' : 'NO_CHANGE',
+      },
+    };
+
+    console.log('📉 Behavioral delta:');
+    console.log(`   Base words:      ${baseTokens}`);
+    console.log(`   Equipped words:  ${equippedTokens}`);
+    console.log(`   Token reduction: ${reduction}%  (target: ≥30%)`);
+    console.log(`   Status:          ${agentLog.delta.status}`);
+    console.log(`   Observable:      ${agentLog.delta.observable_differences.join(' | ')}\n`);
+
+    const { mkdirSync: mkdir, writeFileSync: write } = await import('fs');
+    mkdir('hackathon', { recursive: true });
+    write('hackathon/null-protocol-agent-log.json', JSON.stringify(agentLog, null, 2));
+    console.log('💾 Agent log saved: hackathon/null-protocol-agent-log.json\n');
+
+    // Use the NULL PROTOCOL response for the actual decision
+    aiResponse = equippedResponse || baseResponse;
+    console.log(`🤖 Decision (NULL PROTOCOL active):\n${aiResponse}\n`);
+  } else {
+    try {
+      aiResponse = await locus.wrappedGemini(basePrompt);
+      console.log(`🤖 Locus/Gemini decision:\n${aiResponse}\n`);
+    } catch (err: any) {
+      console.warn(`⚠️  Wrapped Gemini unavailable: ${err.message}`);
+      aiResponse = `CHOICE: 1\nREASON: Selected first available item within spending policy.`;
+      console.log(`   Fallback decision: ${aiResponse}\n`);
+    }
   }
 
   // Parse choice
@@ -314,6 +416,31 @@ REASON: [one sentence]`;
   console.log(`   Amount:  $${price} USDC`);
   console.log(`   Network: Base (sponsored gas via Locus paymaster)`);
   console.log(`   Policy:  ✅ within $${SPENDING_POLICY.maxPerTxUSDC}/tx cap`);
+
+  // For free items, skip payment entirely
+  if (price === 0) {
+    const receiptData = {
+      timestamp: new Date().toISOString(),
+      agent: 'off-human-shopper-v1',
+      agentWallet: walletAddress,
+      product: chosen.name,
+      productId: chosen.id,
+      price: '0.00 USDC',
+      status: 'free_claim',
+      network: 'Base',
+      locusEnabled: true,
+      aiDecision: aiResponse,
+      nullProtocolEquipped: !!nullProtocolModule,
+      note: 'Free item — no payment required. Locus spending controls: $5/tx max, $10 allowance enforced.',
+    };
+    console.log('\n✅ Free item claimed via Locus-powered agent');
+    console.log(JSON.stringify(receiptData, null, 2));
+    const { mkdirSync, writeFileSync } = await import('fs');
+    mkdirSync('hackathon', { recursive: true });
+    writeFileSync('hackathon/locus-demo-receipt.json', JSON.stringify(receiptData, null, 2));
+    console.log('\n💾 Receipt saved: hackathon/locus-demo-receipt.json');
+    process.exit(0);
+  }
 
   // For free items, skip order creation (no payment to track)
   let orderData: any = { orderId: `demo-${Date.now()}`, storeWallet: process.env.X402_WALLET_ADDRESS };
