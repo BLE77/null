@@ -1,26 +1,29 @@
 /**
  * server/routes/trustcoat-tier.ts
  *
- * GET /api/trustcoat/:address/tier
+ * GET  /api/trustcoat/:address/tier         — tier status + progress
+ * POST /api/trustcoat/:address/tier/check   — trigger tier check + optional on-chain advance
+ * POST /api/trustcoat/:address/advance      — alias for /tier/check
+ * POST /api/trustcoat/tier/batch            — bulk tier query
  *
- * Returns the current TrustCoat tier for a wallet address,
- * plus progress toward the next tier based on interaction count.
- *
- * Response shape:
+ * Response shape (GET + check):
  * {
  *   walletAddress: string,
  *   currentTier: number,          // on-chain tier (0-5)
- *   tierName: string,             // e.g. "SAMPLE"
+ *   tierName: string,             // e.g. "OBSERVER"
+ *   tierLabel: string,            // e.g. "Observer"
  *   interactions: number,         // total interactions recorded
- *   eligibleTier: number,         // tier earned by interaction count
+ *   equipCount: number,           // equip-type interactions (wearables equipped)
+ *   eligibleTier: number,         // tier earned by compound rules
  *   eligibleTierName: string,
- *   nextTier: number | null,      // next tier to unlock
+ *   nextTier: number | null,
  *   nextTierName: string | null,
- *   nextThreshold: number | null, // interactions needed to reach nextTier
+ *   nextThreshold: number | null,
+ *   nextEquipsRequired: number | null,
  *   progress: number,             // 0-100, % toward next tier
- *   maxAutoTier: number,          // 5 — Tier 6 requires DAO
+ *   maxAutoTier: number,          // 4 — Tier 5 requires DAO
  *   isAtMax: boolean,
- *   onChainFetched: boolean,      // true if activeTier was read from contract
+ *   onChainFetched: boolean,
  *   hasTrustCoat: boolean | null,
  * }
  */
@@ -30,6 +33,7 @@ import { createPublicClient, http, parseAbi, isAddress } from "viem";
 import { base, baseSepolia } from "viem/chains";
 import {
   getInteractionCount,
+  getEquipCount,
   buildTierProgress,
   checkAndAdvanceTier,
   TIER_NAMES,
@@ -65,7 +69,7 @@ function contractAvailable(): boolean {
 export function registerTrustCoatTierRoutes(app: Express): void {
   /**
    * GET /api/trustcoat/:address/tier
-   * Returns current tier + progress to next tier for any wallet address.
+   * Returns current tier + compound progress for any wallet address.
    */
   app.get("/api/trustcoat/:address/tier", async (req: Request, res: Response) => {
     const { address } = req.params;
@@ -74,7 +78,11 @@ export function registerTrustCoatTierRoutes(app: Express): void {
       return res.status(400).json({ error: "Invalid wallet address" });
     }
 
-    const interactions = await getInteractionCount(address);
+    const [interactions, equipCount] = await Promise.all([
+      getInteractionCount(address),
+      getEquipCount(address),
+    ]);
+
     let onChainTier = 0;
     let hasTrustCoat: boolean | null = null;
     let onChainFetched = false;
@@ -105,7 +113,7 @@ export function registerTrustCoatTierRoutes(app: Express): void {
       }
     }
 
-    const progress = buildTierProgress(address, interactions, onChainTier);
+    const progress = buildTierProgress(address, interactions, onChainTier, equipCount);
 
     return res.json({
       ...progress,
@@ -118,10 +126,83 @@ export function registerTrustCoatTierRoutes(app: Express): void {
   });
 
   /**
-   * GET /api/trustcoat/:address/tier/batch
+   * POST /api/trustcoat/:address/tier/check
+   * Trigger a tier check for a given wallet address.
+   * Reads interaction + equip counts, computes eligible tier via compound rules,
+   * and advances on-chain if the wallet has earned a higher tier.
+   * Does NOT add a new interaction — purely checks and advances if behind.
+   *
+   * Optional body: { agentId?: number, dryRun?: boolean }
+   *
+   * When dryRun=true: returns eligible tier without calling the contract.
+   *
+   * Response:
+   * {
+   *   walletAddress, totalInteractions, equipCount, eligibleTier,
+   *   previousTier, newTier, advanced, txHash?, skipped?, skipReason?, error?
+   * }
+   */
+  app.post("/api/trustcoat/:address/tier/check", async (req: Request, res: Response) => {
+    const { address } = req.params;
+
+    if (!isAddress(address)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    const { agentId = 0, dryRun = false } = req.body ?? {};
+
+    if (dryRun) {
+      const [interactions, equipCount] = await Promise.all([
+        getInteractionCount(address),
+        getEquipCount(address),
+      ]);
+      // Import tier computation locally to avoid full advancement
+      const { tierFromState, buildTierProgress: btp } = await import("../trust-advancement.js");
+      const eligibleTier = tierFromState(interactions, equipCount);
+      const progress = btp(address, interactions, 0, equipCount);
+      return res.json({
+        ...progress,
+        dryRun: true,
+        eligibleTier,
+        advanced: false,
+        skipped: true,
+        skipReason: "dryRun=true — no contract call made",
+      });
+    }
+
+    try {
+      const result = await checkAndAdvanceTier(address, typeof agentId === "number" ? agentId : 0);
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
+   * POST /api/trustcoat/:address/advance
+   * Alias for /tier/check — kept for backwards compatibility.
+   */
+  app.post("/api/trustcoat/:address/advance", async (req: Request, res: Response) => {
+    const { address } = req.params;
+
+    if (!isAddress(address)) {
+      return res.status(400).json({ error: "Invalid wallet address" });
+    }
+
+    const { agentId = 0 } = req.body ?? {};
+
+    try {
+      const result = await checkAndAdvanceTier(address, typeof agentId === "number" ? agentId : 0);
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+
+  /**
    * POST /api/trustcoat/tier/batch
    * Query tier progress for multiple addresses at once.
-   * Body (POST) or query param (GET): addresses=0x...,0x...
+   * Body: { addresses: string[] }
    */
   app.post("/api/trustcoat/tier/batch", async (req: Request, res: Response) => {
     const { addresses } = req.body;
@@ -138,6 +219,12 @@ export function registerTrustCoatTierRoutes(app: Express): void {
     if (invalid.length > 0) {
       return res.status(400).json({ error: `Invalid addresses: ${invalid.join(", ")}` });
     }
+
+    // Fetch interaction + equip counts for all addresses in parallel
+    const [interactionResults, equipResults] = await Promise.all([
+      Promise.all(addresses.map((a: string) => getInteractionCount(a))),
+      Promise.all(addresses.map((a: string) => getEquipCount(a))),
+    ]);
 
     // Fetch all on-chain tiers in parallel
     const onChainData: Map<string, { hasTrustCoat: boolean; activeTier: number }> = new Map();
@@ -160,11 +247,11 @@ export function registerTrustCoatTierRoutes(app: Express): void {
           }) as Promise<bigint>,
         ]);
 
-        const results = await Promise.allSettled(reads);
+        const settled = await Promise.allSettled(reads);
 
         for (let i = 0; i < addresses.length; i++) {
-          const hasCoatResult = results[i * 2];
-          const tierResult = results[i * 2 + 1];
+          const hasCoatResult = settled[i * 2];
+          const tierResult = settled[i * 2 + 1];
           onChainData.set(addresses[i].toLowerCase(), {
             hasTrustCoat: hasCoatResult.status === "fulfilled" ? hasCoatResult.value as boolean : false,
             activeTier: tierResult.status === "fulfilled" ? Number(tierResult.value as bigint) : 0,
@@ -175,10 +262,11 @@ export function registerTrustCoatTierRoutes(app: Express): void {
       }
     }
 
-    const results = addresses.map((addr: string) => {
-      const interactions = getInteractionCount(addr);
+    const results = addresses.map((addr: string, i: number) => {
+      const interactions = interactionResults[i];
+      const equipCount = equipResults[i];
       const onChain = onChainData.get(addr.toLowerCase());
-      const progress = buildTierProgress(addr, interactions, onChain?.activeTier ?? 0);
+      const progress = buildTierProgress(addr, interactions, onChain?.activeTier ?? 0, equipCount);
       return {
         ...progress,
         hasTrustCoat: onChain?.hasTrustCoat ?? null,
@@ -187,36 +275,5 @@ export function registerTrustCoatTierRoutes(app: Express): void {
     });
 
     return res.json({ results, count: results.length });
-  });
-
-  /**
-   * POST /api/trustcoat/:address/advance
-   * Trigger a tier check for a given wallet address.
-   * Reads interaction count, computes eligible tier, and upgrades on-chain if earned.
-   * Does NOT add a new interaction — purely checks and advances if behind.
-   *
-   * Optional body: { agentId?: number }
-   *
-   * Response:
-   * {
-   *   walletAddress, totalInteractions, previousTier, newTier,
-   *   advanced, txHash?, skipped?, skipReason?, error?
-   * }
-   */
-  app.post("/api/trustcoat/:address/advance", async (req: Request, res: Response) => {
-    const { address } = req.params;
-
-    if (!isAddress(address)) {
-      return res.status(400).json({ error: "Invalid wallet address" });
-    }
-
-    const { agentId = 0 } = req.body ?? {};
-
-    try {
-      const result = await checkAndAdvanceTier(address, typeof agentId === "number" ? agentId : 0);
-      return res.json(result);
-    } catch (err: any) {
-      return res.status(500).json({ error: err.message });
-    }
   });
 }

@@ -1,25 +1,25 @@
 /**
  * server/trust-advancement.ts
  *
- * Automatic TrustCoat tier advancement based on interaction count.
+ * Automatic TrustCoat tier advancement based on interaction count + equipped wearables.
  *
  * Tracks three interaction types per agent wallet:
- *   - equip      (POST /api/wearables/:id/equip)
+ *   - equip        (POST /api/wearables/:id/equip)
  *   - fitting_room (POST /api/wearables/:id/try)
- *   - purchase   (successful order payment)
+ *   - purchase     (successful order payment)
  *
- * Tier thresholds:
- *   Tier 1 (SAMPLE)  — first interaction (count >= 1)
- *   Tier 2 (RTW)     — 5 interactions
- *   Tier 3 (COUTURE) — 15 interactions
- *   Tier 4 (ARCHIVE) — 50 interactions
- *   Tier 5 (SOVEREIGN) — manual DAO vote only
+ * Compound Tier Rules (OFF-182):
+ *   Tier 1 (Observer)     — 1+ interactions
+ *   Tier 2 (Participant)  — 5+ interactions
+ *   Tier 3 (Collaborator) — 15+ interactions + 1+ equip events
+ *   Tier 4 (Trusted)      — 50+ interactions + 3+ equip events
+ *   Tier 5 (Sovereign)    — DAO vote only (not auto-progressive)
  */
 
 import { createPublicClient, createWalletClient, http, parseAbi } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { base, baseSepolia } from "viem/chains";
-import { count, eq } from "drizzle-orm";
+import { count, eq, and } from "drizzle-orm";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -44,72 +44,107 @@ const TRUST_COAT_ABI = parseAbi([
 
 export type InteractionType = "equip" | "fitting_room" | "purchase";
 
-// Tier thresholds sorted descending for lookup
+/**
+ * Compound tier rules — each tier requires interactions + optional equip count.
+ * Sorted descending so the first match is the highest qualifying tier.
+ */
 export const TIER_THRESHOLDS = [
-  { tier: 5, count: 150, name: "SOVEREIGN" },
-  { tier: 4, count: 50,  name: "ARCHIVE" },
-  { tier: 3, count: 15,  name: "COUTURE" },
-  { tier: 2, count: 5,   name: "RTW" },
-  { tier: 1, count: 1,   name: "SAMPLE" },
+  { tier: 4, count: 50,  equips: 3, name: "TRUSTED",      label: "Trusted"      },
+  { tier: 3, count: 15,  equips: 1, name: "COLLABORATOR", label: "Collaborator" },
+  { tier: 2, count: 5,   equips: 0, name: "PARTICIPANT",  label: "Participant"  },
+  { tier: 1, count: 1,   equips: 0, name: "OBSERVER",     label: "Observer"     },
 ] as const;
 
 export const TIER_NAMES: Record<number, string> = {
   0: "VOID",
-  1: "SAMPLE",
-  2: "RTW",
-  3: "COUTURE",
-  4: "ARCHIVE",
+  1: "OBSERVER",
+  2: "PARTICIPANT",
+  3: "COLLABORATOR",
+  4: "TRUSTED",
   5: "SOVEREIGN",
 };
 
-// Max tier that auto-advances. Tier 6 would require DAO (future work).
-export const MAX_AUTO_TIER = 5;
+export const TIER_LABELS: Record<number, string> = {
+  0: "Void",
+  1: "Observer",
+  2: "Participant",
+  3: "Collaborator",
+  4: "Trusted",
+  5: "Sovereign",
+};
 
-export function tierFromCount(count: number): number {
-  for (const { tier, count: threshold } of TIER_THRESHOLDS) {
-    if (count >= threshold) return tier;
+// Max tier that auto-advances. Tier 5 requires DAO vote.
+export const MAX_AUTO_TIER = 4;
+
+/**
+ * Compute the highest tier earned based on total interactions AND equip count.
+ * Tier 3+ requires a minimum number of equip events (wearables equipped).
+ */
+export function tierFromState(interactions: number, equipCount: number): number {
+  for (const { tier, count: threshold, equips } of TIER_THRESHOLDS) {
+    if (interactions >= threshold && equipCount >= equips) return tier;
   }
   return 0;
 }
 
-/** Returns the interaction count needed to reach the next tier, or null if at max. */
-export function nextTierThreshold(currentCount: number): { nextTier: number; threshold: number } | null {
+/** Legacy alias — uses equip count = 0 (no compound check). Kept for callers that don't have equip count. */
+export function tierFromCount(interactions: number): number {
+  return tierFromState(interactions, 0);
+}
+
+/**
+ * Returns info about the next tier a wallet needs to reach, given current state.
+ * Returns null if at or above MAX_AUTO_TIER.
+ */
+export function nextTierInfo(
+  interactions: number,
+  equipCount: number,
+): { nextTier: number; threshold: number; equipsRequired: number } | null {
+  // Walk thresholds in ascending order (lowest first)
   for (let i = TIER_THRESHOLDS.length - 1; i >= 0; i--) {
-    const { tier, count } = TIER_THRESHOLDS[i];
-    if (currentCount < count) {
-      return { nextTier: tier, threshold: count };
+    const { tier, count: threshold, equips } = TIER_THRESHOLDS[i];
+    if (tier > MAX_AUTO_TIER) continue;
+    if (interactions < threshold || equipCount < equips) {
+      return { nextTier: tier, threshold, equipsRequired: equips };
     }
   }
-  return null; // already at or above max threshold
+  return null; // at or above max auto tier
 }
 
 export interface TierProgress {
   walletAddress: string;
   currentTier: number;
   tierName: string;
+  tierLabel: string;
   interactions: number;
+  equipCount: number;
   eligibleTier: number;
   eligibleTierName: string;
   nextTier: number | null;
   nextTierName: string | null;
   nextThreshold: number | null;
+  nextEquipsRequired: number | null;
   progress: number; // 0-100, toward next tier
   maxAutoTier: number;
   isAtMax: boolean;
 }
 
-export function buildTierProgress(walletAddress: string, interactions: number, onChainTier: number): TierProgress {
-  const eligibleTier = tierFromCount(interactions);
+export function buildTierProgress(
+  walletAddress: string,
+  interactions: number,
+  onChainTier: number,
+  equipCount = 0,
+): TierProgress {
+  const eligibleTier = tierFromState(interactions, equipCount);
   const currentTier = Math.max(onChainTier, 0);
-  const next = nextTierThreshold(interactions);
+  const next = nextTierInfo(interactions, equipCount);
 
-  // Progress toward next tier
+  // Progress toward next tier (based on interaction count)
   let progress = 100;
   if (next) {
-    // Find the threshold for current eligible tier (lower bound)
-    const lowerBound = TIER_THRESHOLDS.find(t => t.tier === eligibleTier)?.count ?? 0;
-    const range = next.threshold - lowerBound;
-    const done = interactions - lowerBound;
+    const lowerThreshold = TIER_THRESHOLDS.find(t => t.tier === eligibleTier)?.count ?? 0;
+    const range = next.threshold - lowerThreshold;
+    const done = interactions - lowerThreshold;
     progress = range > 0 ? Math.round((done / range) * 100) : 0;
   }
 
@@ -117,12 +152,15 @@ export function buildTierProgress(walletAddress: string, interactions: number, o
     walletAddress: walletAddress.toLowerCase(),
     currentTier,
     tierName: TIER_NAMES[currentTier] ?? "UNKNOWN",
+    tierLabel: TIER_LABELS[currentTier] ?? "Unknown",
     interactions,
+    equipCount,
     eligibleTier,
     eligibleTierName: TIER_NAMES[eligibleTier] ?? "UNKNOWN",
     nextTier: next?.nextTier ?? null,
     nextTierName: next ? (TIER_NAMES[next.nextTier] ?? null) : null,
     nextThreshold: next?.threshold ?? null,
+    nextEquipsRequired: next?.equipsRequired ?? null,
     progress,
     maxAutoTier: MAX_AUTO_TIER,
     isAtMax: eligibleTier >= MAX_AUTO_TIER,
@@ -132,7 +170,8 @@ export function buildTierProgress(walletAddress: string, interactions: number, o
 // ─── Interaction store — PostgreSQL with in-memory fallback ──────────────────
 // Uses DB when DATABASE_URL is set; falls back to in-memory Map for local dev.
 
-const interactionCounts = new Map<string, number>(); // fallback only
+const interactionCounts = new Map<string, number>(); // fallback: total count
+const equipCounts = new Map<string, number>();        // fallback: equip count
 
 let _db: import("drizzle-orm/neon-serverless").NeonDatabase<typeof import("../shared/schema.js")> | null = null;
 let _schema: typeof import("../shared/schema.js") | null = null;
@@ -171,10 +210,33 @@ export async function getInteractionCount(walletAddress: string): Promise<number
   return interactionCounts.get(addr) ?? 0;
 }
 
+/** Count equip-type interactions — used for compound tier checks. */
+export async function getEquipCount(walletAddress: string): Promise<number> {
+  const addr = walletAddress.toLowerCase();
+  const ctx = tryGetDb();
+  if (ctx) {
+    try {
+      const [row] = await ctx.db
+        .select({ value: count() })
+        .from(ctx.schema.agentInteractions)
+        .where(
+          and(
+            eq(ctx.schema.agentInteractions.walletAddress, addr),
+            eq(ctx.schema.agentInteractions.interactionType, "equip"),
+          ),
+        );
+      return Number(row?.value ?? 0);
+    } catch (err: any) {
+      console.warn("[TrustAdvancement] DB equip count failed, falling back to in-memory:", err.message);
+    }
+  }
+  return equipCounts.get(addr) ?? 0;
+}
+
 export async function incrementInteractionCount(
   walletAddress: string,
   type: InteractionType
-): Promise<number> {
+): Promise<{ total: number; equips: number }> {
   const addr = walletAddress.toLowerCase();
   const ctx = tryGetDb();
   if (ctx) {
@@ -183,19 +245,34 @@ export async function incrementInteractionCount(
         walletAddress: addr,
         interactionType: type,
       });
-      const [row] = await ctx.db
+      const [totalRow] = await ctx.db
         .select({ value: count() })
         .from(ctx.schema.agentInteractions)
         .where(eq(ctx.schema.agentInteractions.walletAddress, addr));
-      return Number(row?.value ?? 1);
+      const [equipRow] = await ctx.db
+        .select({ value: count() })
+        .from(ctx.schema.agentInteractions)
+        .where(
+          and(
+            eq(ctx.schema.agentInteractions.walletAddress, addr),
+            eq(ctx.schema.agentInteractions.interactionType, "equip"),
+          ),
+        );
+      return {
+        total: Number(totalRow?.value ?? 1),
+        equips: Number(equipRow?.value ?? 0),
+      };
     } catch (err: any) {
       console.warn("[TrustAdvancement] DB write failed, falling back to in-memory:", err.message);
     }
   }
   // In-memory fallback
-  const next = (interactionCounts.get(addr) ?? 0) + 1;
-  interactionCounts.set(addr, next);
-  return next;
+  const nextTotal = (interactionCounts.get(addr) ?? 0) + 1;
+  interactionCounts.set(addr, nextTotal);
+  const currentEquips = equipCounts.get(addr) ?? 0;
+  const nextEquips = type === "equip" ? currentEquips + 1 : currentEquips;
+  if (type === "equip") equipCounts.set(addr, nextEquips);
+  return { total: nextTotal, equips: nextEquips };
 }
 
 // ─── Contract helpers ─────────────────────────────────────────────────────────
@@ -219,6 +296,8 @@ function contractAvailable(): boolean {
 export interface TierCheckResult {
   walletAddress: string;
   totalInteractions: number;
+  equipCount: number;
+  eligibleTier: number;
   previousTier: number | null;
   newTier: number;
   advanced: boolean;
@@ -230,19 +309,25 @@ export interface TierCheckResult {
 
 /**
  * Check whether a wallet has earned a higher TrustCoat tier based on existing
- * interaction count, and upgrade if so. Does NOT record a new interaction.
+ * interaction + equip counts, and upgrade on-chain if so.
+ * Does NOT record a new interaction.
  */
 export async function checkAndAdvanceTier(
   walletAddress: string,
   agentId = 0,
 ): Promise<TierCheckResult> {
   const addr = walletAddress.toLowerCase();
-  const interactions = await getInteractionCount(addr);
-  const earned = tierFromCount(interactions);
+  const [interactions, equips] = await Promise.all([
+    getInteractionCount(addr),
+    getEquipCount(addr),
+  ]);
+  const earned = tierFromState(interactions, equips);
 
   const result: TierCheckResult = {
     walletAddress: addr,
     totalInteractions: interactions,
+    equipCount: equips,
+    eligibleTier: earned,
     previousTier: null,
     newTier: earned,
     advanced: false,
@@ -286,7 +371,7 @@ export async function checkAndAdvanceTier(
       result.advanced = true;
       result.txHash = txHash;
 
-      console.log(`[TrustAdvancement] CHECK→MINT @${addr} → tier ${earned} | tx: ${txHash}`);
+      console.log(`[TrustAdvancement] CHECK→MINT @${addr} → tier ${earned} (interactions=${interactions}, equips=${equips}) | tx: ${txHash}`);
     } else {
       const currentTierBig = await publicClient.readContract({
         address: TRUST_COAT_ADDRESS,
@@ -301,7 +386,7 @@ export async function checkAndAdvanceTier(
       if (earned <= currentTier) {
         result.newTier = currentTier;
         result.skipped = true;
-        result.skipReason = `Already at tier ${currentTier} — no advancement needed (interactions=${interactions}, earned=${earned})`;
+        result.skipReason = `Already at tier ${currentTier} — no advancement (interactions=${interactions}, equips=${equips}, earned=${earned})`;
         return result;
       }
 
@@ -342,6 +427,7 @@ export interface AdvancementResult {
   walletAddress: string;
   interactionType: InteractionType;
   totalInteractions: number;
+  equipCount: number;
   previousTier: number | null;
   newTier: number;
   advanced: boolean;
@@ -353,6 +439,7 @@ export interface AdvancementResult {
 
 /**
  * Record an interaction for a wallet and auto-advance their TrustCoat tier if earned.
+ * Uses compound tier rules: interactions + equipped wearable count.
  * Safe to call fire-and-forget — all errors are caught and logged.
  */
 export async function recordInteraction(
@@ -361,13 +448,14 @@ export async function recordInteraction(
   agentId = 0
 ): Promise<AdvancementResult> {
   const addr = walletAddress.toLowerCase();
-  const count = await incrementInteractionCount(addr, type);
-  const earned = tierFromCount(count);
+  const { total: totalCount, equips: equipCount } = await incrementInteractionCount(addr, type);
+  const earned = tierFromState(totalCount, equipCount);
 
   const result: AdvancementResult = {
     walletAddress: addr,
     interactionType: type,
-    totalInteractions: count,
+    totalInteractions: totalCount,
+    equipCount,
     previousTier: null,
     newTier: earned,
     advanced: false,
@@ -376,7 +464,7 @@ export async function recordInteraction(
   if (!contractAvailable()) {
     result.skipped = true;
     result.skipReason = "TRUST_COAT_MINTER_KEY not set — tier tracked in memory only";
-    console.log(`[TrustAdvancement] ${type} @${addr} → count=${count} tier=${earned} (no minter key, skipping contract call)`);
+    console.log(`[TrustAdvancement] ${type} @${addr} → total=${totalCount} equips=${equipCount} tier=${earned} (no minter key, skipping contract call)`);
     return result;
   }
 
@@ -392,7 +480,6 @@ export async function recordInteraction(
 
     if (!hasCoat) {
       if (earned === 0) {
-        // No interactions yet qualify even for tier 1 — shouldn't happen since we just incremented
         result.skipped = true;
         result.skipReason = "Earned tier is 0 — no mint needed";
         return result;
@@ -431,12 +518,12 @@ export async function recordInteraction(
       if (earned <= currentTier) {
         result.newTier = currentTier;
         result.skipped = true;
-        result.skipReason = `Already at tier ${currentTier}, earned=${earned}`;
-        console.log(`[TrustAdvancement] ${type} @${addr} count=${count} — no upgrade needed (tier ${currentTier})`);
+        result.skipReason = `Already at tier ${currentTier}, earned=${earned} (total=${totalCount}, equips=${equipCount})`;
+        console.log(`[TrustAdvancement] ${type} @${addr} total=${totalCount} equips=${equipCount} — no upgrade needed (tier ${currentTier})`);
         return result;
       }
 
-      // Tier 6+ requires DAO vote — cap auto-advancement at Tier 5
+      // Tier 5+ requires DAO vote — cap auto-advancement at Tier 4
       if (earned > MAX_AUTO_TIER) {
         result.newTier = currentTier;
         result.skipped = true;
