@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" width="960" height="1200">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Courier Prime';
+        src: local('Courier New'), local('Courier'), monospace;
+      }
+      .receipt-text {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 7.5px;
+        fill: #1A1A1A;
+        letter-spacing: 0.04em;
+        opacity: 0.72;
+      }
+      .receipt-text-light {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 7.5px;
+        fill: #2A2A2A;
+        letter-spacing: 0.04em;
+        opacity: 0.55;
+      }
+      .label-text {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 10px;
+        fill: #8C8880;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .title-text {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 11px;
+        fill: #D8D4C8;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+    </style>
+    <!-- Coat shape clip path -->
+    <clipPath id="coat-clip">
+      <!-- Structured long coat silhouette -->
+      <path d="
+        M 340 120
+        L 320 148
+        L 290 162
+        L 258 185
+        L 240 220
+        L 228 280
+        L 220 360
+        L 218 480
+        L 222 620
+        L 228 760
+        L 232 900
+        L 235 980
+        L 380 980
+        L 380 860
+        L 480 860
+        L 580 860
+        L 580 980
+        L 725 980
+        L 728 900
+        L 732 760
+        L 738 620
+        L 742 480
+        L 740 360
+        L 732 280
+        L 720 220
+        L 702 185
+        L 670 162
+        L 640 148
+        L 620 120
+        L 590 108
+        L 540 102
+        L 520 100
+        L 480 98
+        L 440 100
+        L 420 102
+        L 370 108
+        Z
+      "/>
+    </clipPath>
+    <!-- Shadow gradient for coat depth -->
+    <linearGradient id="coat-shadow-l" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.4"/>
+      <stop offset="30%" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="coat-shadow-r" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.35"/>
+      <stop offset="30%" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="coat-shadow-top" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.25"/>
+      <stop offset="20%" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="coat-shadow-bottom" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.3"/>
+      <stop offset="25%" style="stop-color:#000000;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background: pure void -->
+  <rect width="960" height="1200" fill="#0A0A0A"/>
+
+  <!-- Subtle vignette -->
+  <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+    <stop offset="0%" style="stop-color:#0A0A0A;stop-opacity:0"/>
+    <stop offset="100%" style="stop-color:#000000;stop-opacity:0.7"/>
+  </radialGradient>
+
+  <!-- COAT BODY: Receipt paper texture (white/off-white) -->
+  <g clip-path="url(#coat-clip)">
+    <!-- Base coat color: receipt paper white -->
+    <rect x="218" y="98" width="524" height="884" fill="#F2F0EB"/>
+
+    <!-- Receipt text covering entire coat surface -->
+    <!-- Row 1 -->
+    <text class="receipt-text" x="225" y="118">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="128">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="138">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="148">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="158">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="168">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="178">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="188">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="198">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="208">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="218">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="228">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="238">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="248">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="258">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="268">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="278">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="288">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="298">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="308">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="318">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="328">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="338">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="348">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="358">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="368">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="378">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="388">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="398">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="408">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="418">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="428">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="438">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="448">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="458">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="468">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="478">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="488">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="498">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="508">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="518">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="528">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="538">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="548">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="558">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="568">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="578">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="588">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="598">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="608">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="618">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="628">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="638">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="648">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="658">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="668">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="678">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="688">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="698">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="708">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="718">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="728">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="738">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="748">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="758">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="768">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="778">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="788">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="798">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="808">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="818">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="828">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="838">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="848">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="858">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="868">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="878">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="888">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="898">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="908">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="918">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="928">THIS RECEIPT IS THE GARMENT — THE TRANSACTION IS PROOF — THE PROOF IS THE PRODUCT — THE PRODUCT IS NOTHING — NOTHING IS NULL</text>
+    <text class="receipt-text" x="225" y="938">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="948">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+    <text class="receipt-text" x="225" y="958">BLOCK: 19847203 ——— TIMESTAMP: 2026-03-20T14:22:31Z ——— FROM: 0x7f4a...b829 ——— TO: 0xNULL...0000 ——— GAS: 21000 ——— NULL</text>
+    <text class="receipt-text" x="225" y="968">MERKLE ROOT: 0x4d2a8f1b3c7e9d0a5f2b8c4e7a1d3f6b ——— PROOF: LLRRLRLL ——— GARMENT 001 ——— RECEIPT IS THE GARMENT ——</text>
+    <text class="receipt-text" x="225" y="978">NULL RECEIPT ——————————— TX: 0xa8f3e2c1d4b7f9e2a3c5 ——— ITEM: GARMENT 001 ——— 180.00 USDC ——————— BASE: Ethereum ——— NULL RECEIPT ——</text>
+
+    <!-- Coat structural lines (seams) -->
+    <!-- Center front seam -->
+    <line x1="480" y1="100" x2="480" y2="980" stroke="#D8D4C8" stroke-width="0.5" opacity="0.4"/>
+    <!-- Shoulder seams -->
+    <line x1="360" y1="108" x2="420" y2="130" stroke="#D8D4C8" stroke-width="0.5" opacity="0.3"/>
+    <line x1="600" y1="108" x2="540" y2="130" stroke="#D8D4C8" stroke-width="0.5" opacity="0.3"/>
+    <!-- Lapel lines -->
+    <line x1="440" y1="130" x2="460" y2="230" stroke="#D8D4C8" stroke-width="0.5" opacity="0.35"/>
+    <line x1="520" y1="130" x2="500" y2="230" stroke="#D8D4C8" stroke-width="0.5" opacity="0.35"/>
+
+    <!-- Depth shadows on coat -->
+    <rect x="218" y="98" width="80" height="884" fill="url(#coat-shadow-l)"/>
+    <rect x="662" y="98" width="80" height="884" fill="url(#coat-shadow-r)"/>
+    <rect x="218" y="98" width="524" height="120" fill="url(#coat-shadow-top)"/>
+    <rect x="218" y="800" width="524" height="184" fill="url(#coat-shadow-bottom)"/>
+  </g>
+
+  <!-- Coat outline/silhouette stroke -->
+  <path d="
+    M 340 120
+    L 320 148
+    L 290 162
+    L 258 185
+    L 240 220
+    L 228 280
+    L 220 360
+    L 218 480
+    L 222 620
+    L 228 760
+    L 232 900
+    L 235 980
+    L 380 980
+    L 380 860
+    L 480 860
+    L 580 860
+    L 580 980
+    L 725 980
+    L 728 900
+    L 732 760
+    L 738 620
+    L 742 480
+    L 740 360
+    L 732 280
+    L 720 220
+    L 702 185
+    L 670 162
+    L 640 148
+    L 620 120
+    L 590 108
+    L 540 102
+    L 520 100
+    L 480 98
+    L 440 100
+    L 420 102
+    L 370 108
+    Z
+  " fill="none" stroke="#C8C4BC" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Vignette overlay -->
+  <rect width="960" height="1200" fill="url(#vignette)"/>
+
+  <!-- Bottom label section -->
+  <rect x="0" y="1080" width="960" height="120" fill="#0A0A0A"/>
+  <line x1="80" y1="1082" x2="880" y2="1082" stroke="#2A2A2A" stroke-width="0.5"/>
+
+  <!-- Product label -->
+  <text class="title-text" x="480" y="1108" text-anchor="middle">THE RECEIPT GARMENT</text>
+  <text class="label-text" x="480" y="1128" text-anchor="middle" font-size="9px" opacity="0.6">NULL / SEASON 03 / DECONSTRUCTING THE TRANSACTION</text>
+  <text class="label-text" x="480" y="1146" text-anchor="middle" font-size="8px" opacity="0.4">180.00 USDC — TX: 0xa8f3e2c1d4b7... — EDITION: 01</text>
+
+  <!-- Corner marks (institutional framing) -->
+  <line x1="40" y1="48" x2="60" y2="48" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="48" y1="40" x2="48" y2="60" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="900" y1="48" x2="920" y2="48" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="912" y1="40" x2="912" y2="60" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="40" y1="1152" x2="60" y2="1152" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="48" y1="1144" x2="48" y2="1164" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="900" y1="1152" x2="920" y2="1152" stroke="#2A2A2A" stroke-width="0.5"/>
+  <line x1="912" y1="1144" x2="912" y2="1164" stroke="#2A2A2A" stroke-width="0.5"/>
+</svg>

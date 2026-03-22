@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Three.js Character Controller (GLB Animations)</title>
+  <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHgwJ/lLDXBQAAAABJRU5ErkJggg==" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./libs/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="splash" class="splash">
+    <img src="./off human simple.png" alt="Off Human" />
+  </div>
+  <div id="canvas-holder"></div>
+  <div id="error-message" class="error-message" hidden></div>
+
+  <script type="module">
+    import * as THREE from './libs/build/three.module.js';
+    import { OrbitControls } from './libs/examples/jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './libs/examples/jsm/loaders/GLTFLoader.js';
+    import { FontLoader } from './libs/examples/jsm/loaders/FontLoader.js';
+    import { TTFLoader } from './libs/examples/jsm/loaders/TTFLoader.js';
+    import { TextGeometry } from './libs/examples/jsm/geometries/TextGeometry.js';
+    import { RoomEnvironment } from './libs/examples/jsm/environments/RoomEnvironment.js';
+
+    const container = document.getElementById('canvas-holder');
+    const splash = document.getElementById('splash');
+    const introAudio = new Audio('./OFF!.mp3');
+    introAudio.preload = 'auto';
+    introAudio.loop = false;
+    introAudio.volume = 0.9;
+    let introDurationMs = 7000;
+    introAudio.addEventListener('loadedmetadata', ()=>{
+      if (isFinite(introAudio.duration) && introAudio.duration > 0){
+        introDurationMs = introAudio.duration * 1000;
+      }
+    });
+    const themeAudio = new Audio('./2hollis - jeans (instrumental) [prod. 2hollis].mp3');
+    themeAudio.preload = 'auto';
+    themeAudio.loop = false;
+    themeAudio.volume = 0.85;
+    let splashDismissed = false;
+    let introStarted = false;
+    let introTimer = null;
+    let introListenerAttached = false;
+    let startHandler = null;
+    let keyHandler = null;
+    const INTRO_DELAY_MS = 7000;
+    const splashImage = splash?.querySelector('img');
+    const errorMessage = document.getElementById('error-message');
+
+    function hideSplash(){
+      if (splashDismissed || !splash) return;
+      splashDismissed = true;
+      if (splashImage){
+        splashImage.classList.add('splash-fade');
+      }
+      requestAnimationFrame(()=> document.body.classList.add('splash-hidden'));
+      setTimeout(()=>{ if (splash && splash.parentElement) splash.remove(); }, 1800);
+    }
+
+    function playWithFallback(audio){
+      audio.currentTime = 0;
+      const attempt = audio.play();
+      if (!attempt) return;
+      attempt.catch(()=>{
+        const resume = ()=>{
+          audio.play().catch(()=>{});
+          window.removeEventListener('pointerdown', resume);
+          window.removeEventListener('keydown', resume);
+        };
+        window.addEventListener('pointerdown', resume, { once:true });
+        window.addEventListener('keydown', resume, { once:true });
+      });
+    }
+
+    function startIntro(){
+      if (introStarted) return;
+      introStarted = true;
+      hideError();
+      document.body.classList.add('intro-started');
+      ensureAuraText();
+      introAudio.currentTime = 0;
+      playWithFallback(introAudio);
+      cancelIntroTimer();
+      const waitMs = introDurationMs || INTRO_DELAY_MS;
+      introTimer = setTimeout(()=>{ tryLoadDefault(); }, waitMs);
+    }
+
+    function detachIntroTriggers(){
+      if (!introListenerAttached || !splash) return;
+      splash.removeEventListener('pointerdown', startHandler);
+      splash.removeEventListener('keydown', keyHandler);
+      introListenerAttached = false;
+      startHandler = null;
+      keyHandler = null;
+    }
+
+    function attachIntroTriggers(){
+      if (!splash || introListenerAttached) return;
+      splash.setAttribute('tabindex', '0');
+      startHandler = ()=>{
+        detachIntroTriggers();
+        startIntro();
+      };
+      keyHandler = (e)=>{
+        if (e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          detachIntroTriggers();
+          startIntro();
+        }
+      };
+      splash.addEventListener('pointerdown', startHandler);
+      splash.addEventListener('keydown', keyHandler);
+      introListenerAttached = true;
+    }
+
+    attachIntroTriggers();
+
+    function showError(msg){
+      if (!errorMessage) return;
+      errorMessage.textContent = msg;
+      errorMessage.hidden = false;
+    }
+
+    function hideError(){
+      if (!errorMessage) return;
+      errorMessage.hidden = true;
+    }
+
+    function cancelIntroTimer(){
+      if (introTimer){
+        clearTimeout(introTimer);
+        introTimer = null;
+      }
+    }
+
+    // Renderer / scene
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.background = null;
+
+    // Camera + controls
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 5000);
+    camera.position.set(0, 1.8, -4.5);
+    camera.lookAt(0, 1.2, 0);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.1;
+    controls.enablePan = false;
+    controls.target.set(0, 1.2, 0);
+    controls.minDistance = 1.5;
+    controls.maxDistance = 10;
+    controls.maxPolarAngle = Math.PI * 0.49;
+
+    // Env lighting
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment()).texture;
+
+    // Load GLB
+    const loader = new GLTFLoader();
+    let modelRoot = null;
+    let mixer = null;
+    let actions = {};
+    let activeAction = null;
+    let locomotionState = 'idle'; // 'idle' | 'walk' | 'run'
+    let oneShotPlaying = false;
+    const fontLoader = new FontLoader();
+    const ttfLoader = new TTFLoader();
+    let auraFontPromise = null;
+    let auraTextMesh = null;
+    let auraTextScaleTarget = 0.2;
+    let auraHideTimeout = null;
+    let auraVisibilityTimeout = null;
+
+    // Input
+    const keys = { w:false, ArrowUp:false, Shift:false };
+    const normalizeKey = (key)=>{
+      if (key === 'Shift') return 'Shift';
+      if (key && key.startsWith('Arrow')) return key;
+      return key ? key.toLowerCase() : key;
+    };
+    window.addEventListener('keydown', (e)=>{
+      const key = normalizeKey(e.key);
+      if (keys.hasOwnProperty(key)) keys[key] = true;
+      const lower = e.key.toLowerCase();
+      if (lower === 'j') playOneShot('punch');
+      if (lower === 'k') playOneShot('kick');
+      if (lower === 'u') triggerAuraEffect();
+      if (e.code === 'Space'){
+        e.preventDefault();
+        playOneShot('jump');
+      }
+    });
+    window.addEventListener('keyup',   (e)=>{
+      const key = normalizeKey(e.key);
+      if (keys.hasOwnProperty(key)) keys[key] = false;
+    });
+
+    // State machine helpers
+    function findClipByNameLike(animations, nameLike){
+      const target = nameLike.toLowerCase();
+      // 1) exact-ish or contains
+      let match = animations.find(c => (c.name||'').toLowerCase().includes(target));
+      if (match) return match;
+      // 2) try startswith
+      match = animations.find(c => (c.name||'').toLowerCase().startsWith(target));
+      if (match) return match;
+      // 3) fallback: commonly used variants
+      const aliases = {
+        idle:['idle','stand','breath','rest'],
+        walk:['walk','walking'],
+        run:['run','running','sprint'],
+        punch:['punch','jab','attack','hit'],
+        kick:['kick','attack_kick','roundhouse'],
+        jump:['jump','hop','leap'],
+        aura:['aura','aura1','aura 1','power','charge']
+      };
+      for (const alt of (aliases[nameLike] || [])){
+        match = animations.find(c => (c.name||'').toLowerCase().includes(alt));
+        if (match) return match;
+      }
+      return null;
+    }
+
+    function makeAction(clip){
+      const act = mixer.clipAction(clip);
+      if (clip && /(punch|kick|attack|jump)/i.test(clip.name || '')){
+        act.clampWhenFinished = true;
+        act.setLoop(THREE.LoopOnce, 1);
+      } else {
+        act.setLoop(THREE.LoopRepeat, Infinity);
+      }
+      return act;
+    }
+
+    function prepareActions(animations){
+      actions = {};
+      const matched = new Set();
+      const prioritized = ['idle','walk','run','punch','kick','jump','aura'];
+      for (const key of prioritized){
+        const clip = findClipByNameLike(animations, key);
+        if (clip && !matched.has(clip)){
+          actions[key] = makeAction(clip);
+          matched.add(clip);
+        }
+      }
+      animations.forEach((clip, idx)=>{
+        if (matched.has(clip)) return;
+        const label = clip.name || `clip_${idx}`;
+        actions[label] = makeAction(clip);
+        matched.add(clip);
+      });
+      const defaultAction = actions.idle || actions.walk || Object.values(actions)[0] || null;
+      if (defaultAction){
+        activeAction = defaultAction;
+        activeAction.play();
+      } else {
+        activeAction = null;
+      }
+    }
+
+    function crossFade(toAction, duration=0.25){
+      if (!toAction) return;
+      if (activeAction === toAction) return;
+      toAction.reset().fadeIn(duration).play();
+      if (activeAction) activeAction.fadeOut(duration);
+      activeAction = toAction;
+    }
+
+    function getLocomotionAction(){
+      if (locomotionState === 'run' && actions.run) return actions.run;
+      if (locomotionState === 'walk' && actions.walk) return actions.walk;
+      return actions.idle || Object.values(actions).find(Boolean) || null;
+    }
+
+    function setLocomotion(state){
+      if (oneShotPlaying) return; // don't switch while attack anim playing
+      if (state === locomotionState) return;
+      locomotionState = state;
+      const target = getLocomotionAction();
+      if (target) crossFade(target, 0.2);
+    }
+
+    function playOneShot(kind){
+      const act = actions[kind];
+      if (!act || oneShotPlaying) return false;
+      oneShotPlaying = true;
+      // Blend to one-shot quickly
+      const baseAction = getLocomotionAction();
+      act.reset();
+      act.setLoop(THREE.LoopOnce, 1);
+      act.clampWhenFinished = true;
+      act.enabled = true;
+      act.play();
+      if (baseAction && baseAction !== act){
+        baseAction.crossFadeTo(act, 0.12, false);
+      }
+      activeAction = act;
+      if (kind === 'aura'){
+        revealAuraText();
+        scheduleAuraTextHide();
+      }
+
+      const onFinished = (e)=>{
+        if (e.action !== act) return;
+        mixer.removeEventListener('finished', onFinished);
+        oneShotPlaying = false;
+        // Return to locomotion
+        const target = getLocomotionAction();
+        if (target && target !== act){
+          crossFade(target, 0.15);
+        } else {
+          act.fadeOut(0.1);
+          act.stop();
+          activeAction = target || null;
+        }
+      };
+      mixer.addEventListener('finished', onFinished);
+      return true;
+    }
+
+    function updateLocomotionFromInput(){
+      const forward = keys.w || keys.ArrowUp;
+      if (!forward){
+        setLocomotion('idle');
+        return;
+      }
+      setLocomotion(keys.Shift ? 'run' : 'walk');
+    }
+
+    // Movement (simple in-place; keep character facing front)
+    const FRONT_YAW = Math.PI;
+    let yaw = FRONT_YAW;
+    const lookOffset = new THREE.Vector3(0, 1.2, 0);
+    const cameraOffset = new THREE.Vector3(0, 1.8, -4.5);
+    const cameraTarget = new THREE.Vector3();
+    const boundsBox = new THREE.Box3();
+    const boundsSize = new THREE.Vector3();
+    const boundsCenter = new THREE.Vector3();
+
+    function moveModel(){
+      if (!modelRoot) return;
+      modelRoot.rotation.y = yaw;
+    }
+
+    // Frame / focus
+    function frameObject(obj){
+      obj.position.set(0, 0, 0);
+      boundsBox.setFromObject(obj);
+      boundsBox.getSize(boundsSize);
+      boundsBox.getCenter(boundsCenter);
+      obj.position.sub(boundsCenter);
+      obj.position.y = 0;
+      yaw = FRONT_YAW;
+      obj.rotation.y = yaw;
+      const radius = boundsSize.length();
+      camera.near = Math.max(0.01, radius / 200);
+      camera.far = Math.max(10, radius * 100);
+      camera.updateProjectionMatrix();
+      cameraTarget.copy(obj.position).add(lookOffset);
+      camera.position.copy(cameraTarget).add(cameraOffset);
+      camera.lookAt(cameraTarget);
+      controls.target.copy(cameraTarget);
+      controls.update();
+    }
+
+    function disposeCurrentModel(){
+      if (!modelRoot) return;
+      scene.remove(modelRoot);
+      modelRoot.traverse(n=>{
+        if (n.geometry) n.geometry.dispose();
+        if (n.material){
+          if (Array.isArray(n.material)) n.material.forEach(m=>m.dispose());
+          else n.material.dispose();
+        }
+      });
+      modelRoot = null;
+    }
+
+    function ensureAuraText(){
+      if (!auraFontPromise){
+        auraFontPromise = new Promise((resolve, reject)=>{
+          const fallback = ()=> fontLoader.load('./assets/fonts/helvetiker_regular.typeface.json', resolve, undefined, reject);
+          ttfLoader.load('./Electroharmonix.otf', data=>{
+            try{
+              const font = fontLoader.parse(data);
+              resolve(font);
+            } catch (err){
+              console.warn('Failed to parse Electroharmonix font, falling back', err);
+              fallback();
+            }
+          }, undefined, err=>{
+            console.warn('Failed to load Electroharmonix font, falling back', err);
+            fallback();
+          });
+        });
+      }
+      return auraFontPromise.then(font=>{
+        if (!font) return null;
+        if (!auraTextMesh){
+          const textGeo = new TextGeometry('+100 Aura!!', {
+            font,
+            size:0.6,
+            height:0.08,
+            curveSegments:10,
+            bevelEnabled:true,
+            bevelThickness:0.02,
+            bevelSize:0.015,
+            bevelSegments:2
+          });
+          textGeo.computeBoundingBox();
+          textGeo.center();
+          const textMat = new THREE.MeshStandardMaterial({
+            color:0x00CC7B,
+            emissive:0x00CC7B,
+            emissiveIntensity:1.4,
+            metalness:0.25,
+            roughness:0.25
+          });
+          auraTextMesh = new THREE.Mesh(textGeo, textMat);
+          auraTextMesh.visible = false;
+          auraTextMesh.position.set(0, 2.4, 0);
+          auraTextMesh.scale.setScalar(0.2);
+          scene.add(auraTextMesh);
+        }
+        return auraTextMesh;
+      }).catch(err=>{
+        console.warn('Failed to load font for aura text', err);
+        return null;
+      });
+    }
+
+    function scheduleAuraTextHide(delay=1800){
+      if (auraHideTimeout) clearTimeout(auraHideTimeout);
+      if (auraVisibilityTimeout) clearTimeout(auraVisibilityTimeout);
+      auraHideTimeout = setTimeout(()=>{
+        auraTextScaleTarget = 0.2;
+        auraVisibilityTimeout = setTimeout(()=>{
+          if (auraTextMesh && auraTextMesh.scale.x <= 0.24){
+            auraTextMesh.visible = false;
+          }
+          auraVisibilityTimeout = null;
+        }, 800);
+      }, delay);
+    }
+
+    function revealAuraText(){
+      ensureAuraText().then(mesh=>{
+        if (!mesh) return;
+        mesh.visible = true;
+        mesh.scale.setScalar(0.2);
+        auraTextScaleTarget = 0.6;
+      });
+    }
+
+    function handleLoadedGLTF(gltf){
+      disposeCurrentModel();
+      modelRoot = gltf.scene || gltf.scenes[0];
+      if (!modelRoot) throw new Error('GLB contains no scene.');
+      modelRoot.scale.setScalar(0.6);
+      scene.add(modelRoot);
+      frameObject(modelRoot);
+
+      if (!mixer) mixer = new THREE.AnimationMixer(scene);
+      mixer.stopAllAction();
+      actions = {};
+      activeAction = null;
+      prepareActions(gltf.animations || []);
+      if (!activeAction){
+        throw new Error('No playable animations found in GLB.');
+      }
+      ensureAuraText();
+      cancelIntroTimer();
+      introAudio.pause();
+      introAudio.currentTime = 0;
+      hideError();
+      hideSplash();
+      playWithFallback(themeAudio);
+    }
+
+    function loadFromArrayBuffer(arrayBuffer){
+      if (!mixer) mixer = new THREE.AnimationMixer(scene);
+      return new Promise((resolve, reject)=>{
+        loader.parse(arrayBuffer, '', gltf=>{
+          try{
+            handleLoadedGLTF(gltf);
+          } catch (err){
+            reject(err);
+            return;
+          }
+          resolve(gltf);
+        }, err=>reject(err));
+      });
+    }
+
+    function resetIntroForRetry(message){
+      showError(message);
+      cancelIntroTimer();
+      introAudio.pause();
+      introAudio.currentTime = 0;
+      introStarted = false;
+      attachIntroTriggers();
+      document.body.classList.remove('intro-started');
+      if (auraTextMesh){
+        auraTextMesh.visible = false;
+        auraTextMesh.scale.setScalar(0.2);
+      }
+      auraTextScaleTarget = 0.2;
+      if (auraHideTimeout){
+        clearTimeout(auraHideTimeout);
+        auraHideTimeout = null;
+      }
+      if (auraVisibilityTimeout){
+        clearTimeout(auraVisibilityTimeout);
+        auraVisibilityTimeout = null;
+      }
+    }
+
+    function triggerAuraEffect(){
+      let auraAct = actions.aura;
+      if (!auraAct){
+        const entry = Object.entries(actions).find(([name])=>/aura/i.test(name));
+        if (entry){
+          auraAct = entry[1];
+          actions.aura = auraAct;
+        }
+      }
+      if (!auraAct){
+        console.warn('Aura animation unavailable');
+        return;
+      }
+      playOneShot('aura');
+    }
+
+    async function tryLoadDefault(){
+      try{
+        const res = await fetch('./THG.glb');
+        if (!res.ok) throw new Error('HTTP '+res.status);
+        const buf = await res.arrayBuffer();
+        await loadFromArrayBuffer(buf);
+      } catch (e){
+        console.warn('Could not load THG.glb', e);
+        const msg = e && /animation/i.test(String(e.message || '')) ?
+          'Model loaded without animations. Tap to retry or supply another GLB.' :
+          'Failed to load THG.glb. Tap to retry.';
+        resetIntroForRetry(msg);
+      }
+    }
+
+    // Animate
+    let last = performance.now();
+    function tick(){
+      const now = performance.now();
+      const dt = (now - last) / 1000;
+      last = now;
+      if (mixer) mixer.update(dt);
+      updateLocomotionFromInput();
+      moveModel();
+      if (auraTextMesh && auraTextMesh.visible){
+        auraTextMesh.position.y = 2.5 + Math.sin(now * 0.002) * 0.1;
+        const nextScale = THREE.MathUtils.lerp(auraTextMesh.scale.x, auraTextScaleTarget, Math.min(1, dt * 6));
+        auraTextMesh.scale.setScalar(nextScale);
+        auraTextMesh.lookAt(camera.position.x, auraTextMesh.position.y, camera.position.z);
+      }
+      if (modelRoot) cameraTarget.copy(modelRoot.position).add(lookOffset);
+      else cameraTarget.set(0, 1.2, 0);
+      controls.target.lerp(cameraTarget, 0.2);
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    window.addEventListener('resize', ()=>{
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+  </script>
+</body>
+</html>

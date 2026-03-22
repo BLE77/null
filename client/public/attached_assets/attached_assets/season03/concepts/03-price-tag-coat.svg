@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" font-family="'Courier New', Courier, monospace">
+  <title>03 — PRICE TAG COAT</title>
+  <desc>Season 03 Concept: A coat constructed entirely from price tags. The tag IS the garment.</desc>
+
+  <defs>
+    <!-- Single price tag shape -->
+    <symbol id="tag" viewBox="0 0 52 30">
+      <rect x="4" y="2" width="44" height="26" rx="2" fill="#F5F0E8" stroke="#1A1A1A" stroke-width="0.6" stroke-opacity="0.5"/>
+      <circle cx="10" cy="15" r="3" fill="none" stroke="#1A1A1A" stroke-width="0.6" stroke-opacity="0.4"/>
+    </symbol>
+  </defs>
+
+  <!-- Background: very dark — the void the coat emerges from -->
+  <rect width="900" height="1200" fill="#0A0A0A"/>
+
+  <!-- Subtle overhead cold light -->
+  <radialGradient id="light03" cx="50%" cy="0%" r="50%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="900" height="1200" fill="url(#light03)"/>
+
+  <!-- COAT SILHOUETTE BUILT FROM PRICE TAGS -->
+  <!-- Each tag is individually placed to construct the coat form -->
+  <!-- Row 1: Collar area -->
+  <g transform="translate(370,100)"><use href="#tag" width="52" height="30"/><text x="16" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+  <g transform="translate(424,100)"><use href="#tag" width="52" height="30"/><text x="16" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$45.00</text></g>
+  <g transform="translate(370,132)"><use href="#tag" width="52" height="30"/><text x="16" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$299.00</text></g>
+  <g transform="translate(424,132)"><use href="#tag" width="52" height="30"/><text x="16" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$12.50</text></g>
+
+  <!-- Shoulder left -->
+  <g transform="translate(260,164)"><use href="#tag" width="52" height="30"/><text x="12" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$85.00</text></g>
+  <g transform="translate(314,164)"><use href="#tag" width="52" height="30"/><text x="12" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$220.00</text></g>
+  <g transform="translate(368,164)"><use href="#tag" width="52" height="30"/><text x="12" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$67.50</text></g>
+  <!-- Shoulder right -->
+  <g transform="translate(480,164)"><use href="#tag" width="52" height="30"/><text x="12" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$34.00</text></g>
+  <g transform="translate(534,164)"><use href="#tag" width="52" height="30"/><text x="12" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$148.00</text></g>
+  <g transform="translate(588,164)"><use href="#tag" width="52" height="30"/><text x="12" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$90.00</text></g>
+
+  <!-- Body rows — filling the coat silhouette -->
+  <!-- Generate rows of tags from y=196 to y=900, x range narrows at bottom -->
+  <!-- Row y=196 -->
+  <g transform="translate(232,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$5.00</text></g>
+  <g transform="translate(286,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$420.00</text></g>
+  <g transform="translate(340,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$75.00</text></g>
+  <g transform="translate(394,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+  <g transform="translate(448,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$33.00</text></g>
+  <g transform="translate(502,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$260.00</text></g>
+  <g transform="translate(556,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$19.99</text></g>
+  <g transform="translate(610,196)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$500.00</text></g>
+
+  <!-- Row y=228 -->
+  <g transform="translate(218,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$12.00</text></g>
+  <g transform="translate(272,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$340.00</text></g>
+  <g transform="translate(326,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$66.00</text></g>
+  <g transform="translate(380,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+  <g transform="translate(434,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$45.00</text></g>
+  <g transform="translate(488,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$122.00</text></g>
+  <g transform="translate(542,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$8.50</text></g>
+  <g transform="translate(596,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$299.00</text></g>
+  <g transform="translate(650,228)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$55.00</text></g>
+
+  <!-- Rows 260-900: repeated bands of tags (abbreviated for clarity, coat body) -->
+  <!-- Using groups with repeated transforms for efficiency -->
+  <g opacity="0.9">
+    <!-- y=260 row -->
+    <g transform="translate(210,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+    <g transform="translate(264,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$45.00</text></g>
+    <g transform="translate(318,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$12.50</text></g>
+    <g transform="translate(372,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$299.00</text></g>
+    <g transform="translate(426,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$67.50</text></g>
+    <g transform="translate(480,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$34.00</text></g>
+    <g transform="translate(534,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$148.00</text></g>
+    <g transform="translate(588,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$5.00</text></g>
+    <g transform="translate(642,260)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$420.00</text></g>
+  </g>
+
+  <!-- Body rows 292-900 — condensed representation -->
+  <g opacity="0.85">
+    <g transform="translate(210,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$75.00</text></g>
+    <g transform="translate(264,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+    <g transform="translate(318,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$33.00</text></g>
+    <g transform="translate(372,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$260.00</text></g>
+    <g transform="translate(426,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$19.99</text></g>
+    <g transform="translate(480,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$500.00</text></g>
+    <g transform="translate(534,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$12.00</text></g>
+    <g transform="translate(588,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$340.00</text></g>
+    <g transform="translate(642,292)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$66.00</text></g>
+  </g>
+
+  <!-- Continue rows 324–580 (6 more rows) -->
+  <g opacity="0.8">
+    <g transform="translate(210,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+    <g transform="translate(264,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$45.00</text></g>
+    <g transform="translate(318,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$122.00</text></g>
+    <g transform="translate(372,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$8.50</text></g>
+    <g transform="translate(426,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$299.00</text></g>
+    <g transform="translate(480,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$55.00</text></g>
+    <g transform="translate(534,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$180.00</text></g>
+    <g transform="translate(588,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$45.00</text></g>
+    <g transform="translate(642,324)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.7">$12.50</text></g>
+  </g>
+
+  <!-- Fade out rows below (representing continuation) -->
+  <g opacity="0.65">
+    <g transform="translate(210,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$299.00</text></g>
+    <g transform="translate(264,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$67.50</text></g>
+    <g transform="translate(318,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$34.00</text></g>
+    <g transform="translate(372,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$148.00</text></g>
+    <g transform="translate(426,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$5.00</text></g>
+    <g transform="translate(480,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$420.00</text></g>
+    <g transform="translate(534,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$75.00</text></g>
+    <g transform="translate(588,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$180.00</text></g>
+    <g transform="translate(642,356)"><use href="#tag" width="52" height="30"/><text x="10" y="20" font-size="6.5" fill="#1A1A1A" fill-opacity="0.6">$33.00</text></g>
+  </g>
+
+  <!-- Gradient fade into the dark below (coat extends downward) -->
+  <linearGradient id="fadeDown" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#0A0A0A" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+  </linearGradient>
+  <rect x="180" y="350" width="540" height="580" fill="url(#fadeDown)"/>
+
+  <!-- Tag strings hanging — visible at edges -->
+  <line x1="216" y1="196" x2="210" y2="168" stroke="#F5F0E8" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="270" y1="196" x2="264" y2="168" stroke="#F5F0E8" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="324" y1="196" x2="318" y2="168" stroke="#F5F0E8" stroke-width="0.5" stroke-opacity="0.4"/>
+  <line x1="648" y1="228" x2="654" y2="200" stroke="#F5F0E8" stroke-width="0.5" stroke-opacity="0.4"/>
+
+  <!-- Price total label -->
+  <text x="450" y="980" text-anchor="middle" font-size="9" fill="#ffffff" fill-opacity="0.2" letter-spacing="3">TOTAL VALUE UNKNOWN</text>
+
+  <!-- Caption -->
+  <text x="450" y="1060" text-anchor="middle" font-size="9" letter-spacing="6" fill="#ffffff" fill-opacity="0.4">03 — PRICE TAG COAT</text>
+  <text x="450" y="1078" text-anchor="middle" font-size="8" letter-spacing="2" fill="#ffffff" fill-opacity="0.2">THE TAG IS NOT ON THE GARMENT</text>
+  <text x="450" y="1094" text-anchor="middle" font-size="8" letter-spacing="2" fill="#ffffff" fill-opacity="0.2">THE TAG IS THE GARMENT</text>
+
+  <text x="450" y="1150" text-anchor="middle" font-size="10" letter-spacing="10" fill="#ffffff" fill-opacity="0.15">NULL</text>
+  <text x="450" y="1165" text-anchor="middle" font-size="7" letter-spacing="4" fill="#ffffff" fill-opacity="0.1">SEASON 03 — DECONSTRUCTING THE TRANSACTION</text>
+</svg>

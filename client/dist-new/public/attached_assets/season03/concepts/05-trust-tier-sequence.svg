@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="900" viewBox="0 0 1800 900" font-family="'Courier New', Courier, monospace">
+  <title>05 — TRUST TIER SEQUENCE</title>
+  <desc>Season 03 Concept: Five identical garments from Tier 1 (raw) to Tier 5 (finished). Trust level IS construction state.</desc>
+
+  <defs>
+    <!-- Tier fills — progressively from raw canvas to refined charcoal -->
+    <linearGradient id="tier1fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C8BC9E"/>
+      <stop offset="100%" stop-color="#B8AC8E"/>
+    </linearGradient>
+    <linearGradient id="tier2fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A89A7E"/>
+      <stop offset="100%" stop-color="#988A6E"/>
+    </linearGradient>
+    <linearGradient id="tier3fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6A6055"/>
+      <stop offset="100%" stop-color="#5A5045"/>
+    </linearGradient>
+    <linearGradient id="tier4fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#363030"/>
+      <stop offset="100%" stop-color="#282424"/>
+    </linearGradient>
+    <linearGradient id="tier5fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#0E0E0E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background: institutional white -->
+  <rect width="1800" height="900" fill="#F0EDE6"/>
+
+  <!-- Cold overhead light -->
+  <radialGradient id="light05" cx="50%" cy="0%" r="70%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1800" height="900" fill="url(#light05)"/>
+
+  <!-- === TIER 1: Raw / Trust Level 1 === -->
+  <g transform="translate(60,60)">
+    <!-- Jacket body — raw canvas -->
+    <path d="M130,30 C110,30 94,38 82,52 L52,68 36,96 30,140 L24,560 24,605 C24,611 29,616 35,616 L225,616 C231,616 236,611 236,605 L236,560 230,140 224,96 208,68 178,52 C166,38 150,30 130,30 Z" fill="url(#tier1fill)" stroke="#4A3E28" stroke-width="0.8" stroke-opacity="0.5"/>
+    <!-- Chalk marks — extensive, raw -->
+    <line x1="30" y1="150" x2="230" y2="150" stroke="#6B5C3A" stroke-width="0.8" stroke-opacity="0.6" stroke-dasharray="8,5"/>
+    <line x1="28" y1="280" x2="232" y2="280" stroke="#6B5C3A" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="8,5"/>
+    <line x1="26" y1="410" x2="234" y2="410" stroke="#6B5C3A" stroke-width="0.7" stroke-opacity="0.4" stroke-dasharray="8,5"/>
+    <!-- Basting thread -->
+    <line x1="130" y1="52" x2="130" y2="616" stroke="#CC4444" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="4,4"/>
+    <!-- Pins -->
+    <circle cx="80" cy="120" r="2.5" fill="#999" fill-opacity="0.8"/>
+    <line x1="80" y1="120" x2="75" y2="106" stroke="#CCC" stroke-width="0.8"/>
+    <circle cx="180" cy="200" r="2.5" fill="#999" fill-opacity="0.8"/>
+    <line x1="180" y1="200" x2="185" y2="186" stroke="#CCC" stroke-width="0.8"/>
+    <circle cx="60" cy="400" r="2.5" fill="#999" fill-opacity="0.8"/>
+    <line x1="60" y1="400" x2="55" y2="386" stroke="#CCC" stroke-width="0.8"/>
+    <circle cx="200" cy="490" r="2.5" fill="#999" fill-opacity="0.8"/>
+    <line x1="200" y1="490" x2="205" y2="476" stroke="#CCC" stroke-width="0.8"/>
+    <!-- Raw hem -->
+    <path d="M24,603 L30,616 L36,604 L42,616 L48,605 L54,617 L60,605 L66,617 L72,606 L78,618 L84,606 L90,617 L96,606 L102,617 L108,605 L114,616 L120,604 L126,616 L130,605 L134,616 L140,604 L146,616 L152,605 L158,617 L164,606 L170,617 L176,606 L182,617 L188,606 L194,617 L200,606 L206,617 L212,605 L218,616 L224,604 L230,616 L236,605"
+      fill="none" stroke="#8A7B5A" stroke-width="1" stroke-opacity="0.5"/>
+    <!-- Chalk label -->
+    <text x="90" y="460" font-size="6" fill="#6B5C3A" fill-opacity="0.5" transform="rotate(-2,90,460)">CF</text>
+    <text x="60" y="300" font-size="6" fill="#6B5C3A" fill-opacity="0.4">SEAM 1.5</text>
+    <!-- Tier label -->
+    <text x="130" y="660" text-anchor="middle" font-size="8" fill="#4A3E28" fill-opacity="0.8" letter-spacing="2">TIER 01</text>
+    <text x="130" y="675" text-anchor="middle" font-size="7" fill="#4A3E28" fill-opacity="0.5">RAW</text>
+  </g>
+
+  <!-- === TIER 2: Partially constructed / Trust Level 2 === -->
+  <g transform="translate(390,60)">
+    <path d="M130,30 C110,30 94,38 82,52 L52,68 36,96 30,140 L24,560 24,605 C24,611 29,616 35,616 L225,616 C231,616 236,611 236,605 L236,560 230,140 224,96 208,68 178,52 C166,38 150,30 130,30 Z" fill="url(#tier2fill)" stroke="#3A2E1A" stroke-width="0.9" stroke-opacity="0.5"/>
+    <!-- Fewer chalk marks — some sewn over -->
+    <line x1="28" y1="280" x2="232" y2="280" stroke="#5B4C2A" stroke-width="0.6" stroke-opacity="0.3" stroke-dasharray="8,5"/>
+    <!-- Basting thread still in some areas -->
+    <line x1="130" y1="280" x2="130" y2="616" stroke="#CC4444" stroke-width="0.7" stroke-opacity="0.35" stroke-dasharray="4,4"/>
+    <!-- Seams sewn but exposed -->
+    <line x1="36" y1="100" x2="36" y2="560" stroke="#2A2218" stroke-width="1.2" stroke-opacity="0.6"/>
+    <line x1="224" y1="100" x2="224" y2="560" stroke="#2A2218" stroke-width="1.2" stroke-opacity="0.6"/>
+    <!-- One pin remaining -->
+    <circle cx="70" cy="320" r="2.5" fill="#888" fill-opacity="0.7"/>
+    <line x1="70" y1="320" x2="65" y2="306" stroke="#BBB" stroke-width="0.8"/>
+    <!-- Partial hem — some fraying, not all -->
+    <path d="M24,603 L30,612 L36,604 L42,612 L48,604 L54,612 L60,604 L66,612 L72,604 L130,604 L236,604"
+      fill="none" stroke="#8A7B5A" stroke-width="1" stroke-opacity="0.3"/>
+    <!-- Pocket — basted, not finished -->
+    <rect x="150" y="380" width="65" height="50" rx="1" fill="none" stroke="#4A3C28" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="3,3"/>
+    <text x="130" y="660" text-anchor="middle" font-size="8" fill="#3A2E1A" fill-opacity="0.8" letter-spacing="2">TIER 02</text>
+    <text x="130" y="675" text-anchor="middle" font-size="7" fill="#3A2E1A" fill-opacity="0.5">PARTIAL</text>
+  </g>
+
+  <!-- === TIER 3: Mostly constructed / Trust Level 3 === -->
+  <g transform="translate(720,60)">
+    <path d="M130,30 C110,30 94,38 82,52 L52,68 36,96 30,140 L24,560 24,605 C24,611 29,616 35,616 L225,616 C231,616 236,611 236,605 L236,560 230,140 224,96 208,68 178,52 C166,38 150,30 130,30 Z" fill="url(#tier3fill)" stroke="#2A2218" stroke-width="1" stroke-opacity="0.5"/>
+    <!-- Clean seams — mostly hidden -->
+    <line x1="130" y1="52" x2="130" y2="616" stroke="#3A3228" stroke-width="0.6" stroke-opacity="0.4"/>
+    <!-- Side seams — topstitched, visible but clean -->
+    <line x1="36" y1="100" x2="36" y2="560" stroke="#4A4238" stroke-width="0.8" stroke-opacity="0.5"/>
+    <line x1="224" y1="100" x2="224" y2="560" stroke="#4A4238" stroke-width="0.8" stroke-opacity="0.5"/>
+    <!-- One chalk mark remaining — almost gone -->
+    <line x1="28" y1="420" x2="232" y2="420" stroke="#5A4E34" stroke-width="0.4" stroke-opacity="0.2" stroke-dasharray="10,6"/>
+    <!-- Pocket — sewn, minor raw edge -->
+    <rect x="150" y="380" width="65" height="50" rx="2" fill="none" stroke="#3A3228" stroke-width="0.9" stroke-opacity="0.6"/>
+    <!-- Clean hem — almost done -->
+    <line x1="24" y1="606" x2="236" y2="606" stroke="#4A4238" stroke-width="1" stroke-opacity="0.6"/>
+    <!-- Small fray remaining -->
+    <path d="M180,606 L184,614 L188,607 L192,615 L196,607"
+      fill="none" stroke="#7A6A52" stroke-width="0.8" stroke-opacity="0.4"/>
+    <text x="130" y="660" text-anchor="middle" font-size="8" fill="#9A8A72" fill-opacity="0.9" letter-spacing="2">TIER 03</text>
+    <text x="130" y="675" text-anchor="middle" font-size="7" fill="#9A8A72" fill-opacity="0.5">NEAR-DONE</text>
+  </g>
+
+  <!-- === TIER 4: Refined / Trust Level 4 === -->
+  <g transform="translate(1050,60)">
+    <path d="M130,30 C110,30 94,38 82,52 L52,68 36,96 30,140 L24,560 24,605 C24,611 29,616 35,616 L225,616 C231,616 236,611 236,605 L236,560 230,140 224,96 208,68 178,52 C166,38 150,30 130,30 Z" fill="url(#tier4fill)" stroke="#444" stroke-width="1" stroke-opacity="0.6"/>
+    <!-- Seams hidden — only topstitching visible -->
+    <line x1="130" y1="52" x2="130" y2="610" stroke="#3A3A3A" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Clean construction lines -->
+    <line x1="36" y1="96" x2="36" y2="560" stroke="#3C3C3C" stroke-width="0.7" stroke-opacity="0.5"/>
+    <line x1="224" y1="96" x2="224" y2="560" stroke="#3C3C3C" stroke-width="0.7" stroke-opacity="0.5"/>
+    <!-- Clean pocket -->
+    <rect x="150" y="380" width="65" height="50" rx="3" fill="none" stroke="#3A3A3A" stroke-width="1" stroke-opacity="0.7"/>
+    <!-- Clean hem -->
+    <line x1="26" y1="607" x2="234" y2="607" stroke="#3C3C3C" stroke-width="1.2" stroke-opacity="0.7"/>
+    <!-- No chalk, no pins, no fraying -->
+    <text x="130" y="660" text-anchor="middle" font-size="8" fill="#CCCCCC" fill-opacity="0.8" letter-spacing="2">TIER 04</text>
+    <text x="130" y="675" text-anchor="middle" font-size="7" fill="#CCCCCC" fill-opacity="0.4">REFINED</text>
+  </g>
+
+  <!-- === TIER 5: Complete / Trust Level 5 === -->
+  <g transform="translate(1380,60)">
+    <path d="M130,30 C110,30 94,38 82,52 L52,68 36,96 30,140 L24,560 24,605 C24,611 29,616 35,616 L225,616 C231,616 236,611 236,605 L236,560 230,140 224,96 208,68 178,52 C166,38 150,30 130,30 Z" fill="url(#tier5fill)" stroke="#555" stroke-width="1" stroke-opacity="0.7"/>
+    <!-- All seams perfectly hidden — only the garment edge remains -->
+    <!-- Subtle structure marks — perfect topstitching, invisible seams -->
+    <line x1="36" y1="96" x2="36" y2="560" stroke="#2A2A2A" stroke-width="0.4" stroke-opacity="0.5"/>
+    <line x1="224" y1="96" x2="224" y2="560" stroke="#2A2A2A" stroke-width="0.4" stroke-opacity="0.5"/>
+    <!-- Finished pocket — seamless -->
+    <rect x="150" y="380" width="65" height="50" rx="4" fill="none" stroke="#2A2A2A" stroke-width="1.2" stroke-opacity="0.8"/>
+    <!-- Finished hem — perfect -->
+    <line x1="28" y1="608" x2="232" y2="608" stroke="#2A2A2A" stroke-width="1.5" stroke-opacity="0.8"/>
+    <!-- Subtle lapel detail — clean -->
+    <path d="M82,52 L105,110 L130,128 L155,110 L178,52" fill="none" stroke="#2A2A2A" stroke-width="0.6" stroke-opacity="0.6"/>
+    <!-- Monogram — barely visible, final touch -->
+    <text x="130" y="570" text-anchor="middle" font-size="8" fill="#444" fill-opacity="0.6" letter-spacing="3">NULL</text>
+    <text x="130" y="660" text-anchor="middle" font-size="8" fill="#FFFFFF" fill-opacity="0.7" letter-spacing="2">TIER 05</text>
+    <text x="130" y="675" text-anchor="middle" font-size="7" fill="#FFFFFF" fill-opacity="0.3">COMPLETE</text>
+  </g>
+
+  <!-- Connecting arrows between tiers -->
+  <line x1="355" y1="370" x2="388" y2="370" stroke="#888" stroke-width="0.8" stroke-opacity="0.4"/>
+  <polygon points="388,366 396,370 388,374" fill="#888" fill-opacity="0.4"/>
+  <line x1="685" y1="370" x2="718" y2="370" stroke="#888" stroke-width="0.8" stroke-opacity="0.4"/>
+  <polygon points="718,366 726,370 718,374" fill="#888" fill-opacity="0.4"/>
+  <line x1="1015" y1="370" x2="1048" y2="370" stroke="#888" stroke-width="0.8" stroke-opacity="0.4"/>
+  <polygon points="1048,366 1056,370 1048,374" fill="#888" fill-opacity="0.4"/>
+  <line x1="1345" y1="370" x2="1378" y2="370" stroke="#888" stroke-width="0.8" stroke-opacity="0.4"/>
+  <polygon points="1378,366 1386,370 1378,374" fill="#888" fill-opacity="0.4"/>
+
+  <!-- Global caption -->
+  <text x="900" y="750" text-anchor="middle" font-size="10" letter-spacing="8" fill="#1A1A1A" fill-opacity="0.5">05 — TRUST TIER SEQUENCE</text>
+  <text x="900" y="770" text-anchor="middle" font-size="8" letter-spacing="3" fill="#1A1A1A" fill-opacity="0.3">TRUST LEVEL IS CONSTRUCTION STATE</text>
+  <text x="900" y="786" text-anchor="middle" font-size="8" letter-spacing="3" fill="#1A1A1A" fill-opacity="0.3">THE GARMENT REVEALS ITS OWN TRUST TIER</text>
+
+  <!-- Axis labels -->
+  <line x1="60" y1="810" x2="1740" y2="810" stroke="#888" stroke-width="0.5" stroke-opacity="0.3"/>
+  <text x="60" y="826" font-size="7" fill="#888" fill-opacity="0.4">RAW ←</text>
+  <text x="1680" y="826" text-anchor="end" font-size="7" fill="#888" fill-opacity="0.4">→ REFINED</text>
+
+  <text x="900" y="860" text-anchor="middle" font-size="7" letter-spacing="4" fill="#1A1A1A" fill-opacity="0.2">NULL — SEASON 03 — DECONSTRUCTING THE TRANSACTION</text>
+</svg>

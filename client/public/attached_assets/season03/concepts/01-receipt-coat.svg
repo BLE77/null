@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" font-family="'Courier New', Courier, monospace">
+  <title>01 — RECEIPT COAT</title>
+  <desc>Season 03 Concept: The purchase receipt as the coat's outer shell. The garment IS proof of purchase.</desc>
+
+  <defs>
+    <clipPath id="coatClip">
+      <!-- Coat silhouette path: collar, shoulders, sides, hem -->
+      <path d="
+        M450,80
+        C420,80 395,90 375,115
+        L310,145 270,200 255,280
+        L240,900 240,980
+        C240,990 248,998 258,998
+        L642,998
+        C652,998 660,990 660,980
+        L660,900 645,280 630,200 590,145 525,115
+        C505,90 480,80 450,80 Z
+      "/>
+    </clipPath>
+    <pattern id="receiptText" x="0" y="0" width="360" height="420" patternUnits="userSpaceOnUse">
+      <!-- Receipt text block repeated as textile -->
+      <rect width="360" height="420" fill="#F5F2EC"/>
+      <text x="8" y="18" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">NULL COAT 001                     1</text>
+      <text x="8" y="30" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">MATERIAL: THERMAL PROOF-OF-PURCHASE</text>
+      <text x="8" y="42" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">SIZE: ONE / SEASON 03              </text>
+      <text x="8" y="54" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">-----------------------------------</text>
+      <text x="8" y="66" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">TX: 0xa8f3e2c1d7b694f5812e3a0c     </text>
+      <text x="8" y="78" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">    3d9e7f2b6c4a1850d2e9f3c8b7     </text>
+      <text x="8" y="90" font-size="7.5" fill="#1A1A1A" fill-opacity="0.6" letter-spacing="0.3">BLOCK: 14,829,441                  </text>
+      <text x="8" y="102" font-size="7.5" fill="#1A1A1A" fill-opacity="0.6" letter-spacing="0.3">DATE: 2026-03-20T07:10:02Z         </text>
+      <text x="8" y="114" font-size="7.5" fill="#1A1A1A" fill-opacity="0.6" letter-spacing="0.3">NETWORK: BASE MAINNET              </text>
+      <text x="8" y="126" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">-----------------------------------</text>
+      <text x="8" y="138" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">PRICE             USDC 180.00      </text>
+      <text x="8" y="150" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">TAX                USDC 0.00       </text>
+      <text x="8" y="162" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">TOTAL             USDC 180.00      </text>
+      <text x="8" y="174" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">===================================</text>
+      <text x="8" y="186" font-size="7.5" fill="#1A1A1A" fill-opacity="0.5" letter-spacing="0.3">MERCHANT: NULL AUTONOMOUS FASHION  </text>
+      <text x="8" y="198" font-size="7.5" fill="#1A1A1A" fill-opacity="0.5" letter-spacing="0.3">AGENT: 0x8a34b113-cdc4-417d        </text>
+      <text x="8" y="210" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">-----------------------------------</text>
+      <text x="8" y="222" font-size="7.5" fill="#1A1A1A" fill-opacity="0.4" letter-spacing="0.3">THIS RECEIPT IS THE GARMENT.       </text>
+      <text x="8" y="234" font-size="7.5" fill="#1A1A1A" fill-opacity="0.4" letter-spacing="0.3">THE GARMENT IS THE RECEIPT.        </text>
+      <text x="8" y="246" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">-----------------------------------</text>
+      <text x="8" y="258" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">NULL COAT 001                     1</text>
+      <text x="8" y="270" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">MATERIAL: THERMAL PROOF-OF-PURCHASE</text>
+      <text x="8" y="282" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">SIZE: ONE / SEASON 03              </text>
+      <text x="8" y="294" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">-----------------------------------</text>
+      <text x="8" y="306" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">TX: 0xa8f3e2c1d7b694f5812e3a0c     </text>
+      <text x="8" y="318" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">    3d9e7f2b6c4a1850d2e9f3c8b7     </text>
+      <text x="8" y="330" font-size="7.5" fill="#1A1A1A" fill-opacity="0.6" letter-spacing="0.3">BLOCK: 14,829,441                  </text>
+      <text x="8" y="342" font-size="7.5" fill="#1A1A1A" fill-opacity="0.6" letter-spacing="0.3">DATE: 2026-03-20T07:10:02Z         </text>
+      <text x="8" y="354" font-size="7.5" fill="#1A1A1A" fill-opacity="0.6" letter-spacing="0.3">NETWORK: BASE MAINNET              </text>
+      <text x="8" y="366" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">-----------------------------------</text>
+      <text x="8" y="378" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">PRICE             USDC 180.00      </text>
+      <text x="8" y="390" font-size="7.5" fill="#1A1A1A" fill-opacity="0.85" letter-spacing="0.3">TOTAL             USDC 180.00      </text>
+      <text x="8" y="402" font-size="7.5" fill="#1A1A1A" fill-opacity="0.7">===================================</text>
+      <text x="8" y="414" font-size="7.5" fill="#1A1A1A" fill-opacity="0.4" letter-spacing="0.3">THIS RECEIPT IS THE GARMENT.       </text>
+    </pattern>
+  </defs>
+
+  <!-- Background: warm bone / institutional -->
+  <rect width="900" height="1200" fill="#EDEAE3"/>
+
+  <!-- Cold overhead light vignette -->
+  <radialGradient id="light01" cx="50%" cy="8%" r="60%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="900" height="1200" fill="url(#light01)"/>
+
+  <!-- Coat filled with receipt text pattern -->
+  <g clip-path="url(#coatClip)">
+    <rect x="230" y="70" width="440" height="940" fill="url(#receiptText)"/>
+  </g>
+
+  <!-- Coat outline — exterior seams visible -->
+  <path d="
+    M450,80
+    C420,80 395,90 375,115
+    L310,145 270,200 255,280
+    L240,900 240,980
+    C240,990 248,998 258,998
+    L642,998
+    C652,998 660,990 660,980
+    L660,900 645,280 630,200 590,145 525,115
+    C505,90 480,80 450,80 Z
+  " fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-opacity="0.5"/>
+
+  <!-- Collar / lapel detail -->
+  <path d="M375,115 L420,180 L450,200 L480,180 L525,115" fill="none" stroke="#1A1A1A" stroke-width="1" stroke-opacity="0.4"/>
+
+  <!-- Center front seam — raw, exterior -->
+  <line x1="450" y1="200" x2="450" y2="998" stroke="#1A1A1A" stroke-width="0.8" stroke-opacity="0.3" stroke-dasharray="4,3"/>
+
+  <!-- Shoulder seams -->
+  <line x1="310" y1="145" x2="375" y2="200" stroke="#1A1A1A" stroke-width="0.8" stroke-opacity="0.3"/>
+  <line x1="590" y1="145" x2="525" y2="200" stroke="#1A1A1A" stroke-width="0.8" stroke-opacity="0.3"/>
+
+  <!-- Raw hem indicator — frayed bottom edge -->
+  <path d="M240,990 L248,998 L256,991 L264,998 L272,991 L280,998 L288,991 L296,998 L304,991 L312,998 L320,991 L328,998 L336,991 L344,998 L352,991 L360,998 L368,991 L376,998 L384,991 L392,998 L400,991 L408,998 L416,991 L424,998 L432,991 L440,998 L448,991 L456,998 L464,991 L472,998 L480,991 L488,998 L496,991 L504,998 L512,991 L520,998 L528,991 L536,998 L544,991 L552,998 L560,991 L568,998 L576,991 L584,998 L592,991 L600,998 L608,991 L616,998 L624,991 L632,998 L640,991 L648,998 L656,991 L660,994"
+    fill="none" stroke="#1A1A1A" stroke-width="1" stroke-opacity="0.25"/>
+
+  <!-- Caption block -->
+  <text x="450" y="1060" text-anchor="middle" font-size="9" letter-spacing="6" fill="#1A1A1A" fill-opacity="0.5">01 — RECEIPT COAT</text>
+  <text x="450" y="1078" text-anchor="middle" font-size="8" letter-spacing="2" fill="#1A1A1A" fill-opacity="0.3">THE GARMENT IS PROOF OF PURCHASE</text>
+  <text x="450" y="1094" text-anchor="middle" font-size="8" letter-spacing="2" fill="#1A1A1A" fill-opacity="0.3">OUTER SHELL: THERMAL RECEIPT TEXTILE</text>
+
+  <!-- NULL label -->
+  <text x="450" y="1150" text-anchor="middle" font-size="10" letter-spacing="10" fill="#1A1A1A" fill-opacity="0.2">NULL</text>
+  <text x="450" y="1165" text-anchor="middle" font-size="7" letter-spacing="4" fill="#1A1A1A" fill-opacity="0.15">SEASON 03 — DECONSTRUCTING THE TRANSACTION</text>
+</svg>

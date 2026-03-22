@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  NULL EXCHANGE — NFT Receipt Template
+  Season 03: Deconstructing the Transaction
+
+  DETERMINISTIC RENDERING SPEC:
+  - bg_color derived from bytes 0-2 of tx hash (always #0A0A0A for NULL Exchange)
+  - accent_color derived from bytes 3-5 of tx hash
+  - proof_nodes rendered from hash nibbles (0-7 = left branch, 8-F = right branch)
+  - Same tx hash always produces same visual output
+
+  USAGE: Replace {{TX_HASH}}, {{DATE}}, {{BLOCK}}, {{PROOF_PATH}} with actual values
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200" font-family="'Courier New', 'Courier', monospace">
+
+  <!-- Background -->
+  <rect width="800" height="1200" fill="#0A0A0A"/>
+
+  <!-- Subtle grain texture overlay via pattern -->
+  <defs>
+    <pattern id="grain" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" x="0" y="0" fill="#ffffff" fill-opacity="0.015"/>
+      <rect width="1" height="1" x="2" y="2" fill="#ffffff" fill-opacity="0.01"/>
+      <rect width="1" height="1" x="1" y="3" fill="#ffffff" fill-opacity="0.008"/>
+    </pattern>
+    <pattern id="dash" x="0" y="0" width="12" height="1" patternUnits="userSpaceOnUse">
+      <rect width="8" height="1" fill="#ffffff" fill-opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1200" fill="url(#grain)"/>
+
+  <!-- Top margin receipt tape effect -->
+  <rect x="40" y="40" width="720" height="2" fill="#ffffff" fill-opacity="0.15"/>
+
+  <!-- NULL wordmark -->
+  <text x="400" y="110" text-anchor="middle" font-size="48" font-weight="700" letter-spacing="24" fill="#ffffff" fill-opacity="0.95">NULL</text>
+
+  <!-- Season / collection label -->
+  <text x="400" y="138" text-anchor="middle" font-size="10" letter-spacing="6" fill="#ffffff" fill-opacity="0.35">AUTONOMOUS FASHION — SEASON 03</text>
+
+  <!-- Separator -->
+  <rect x="40" y="158" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- RECEIPT header -->
+  <text x="400" y="190" text-anchor="middle" font-size="11" letter-spacing="8" fill="#ffffff" fill-opacity="0.5">TRANSACTION RECEIPT</text>
+
+  <!-- Separator -->
+  <rect x="40" y="204" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- Line items -->
+  <text x="60" y="240" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">ITEM</text>
+  <text x="740" y="240" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.95" letter-spacing="1">NOTHING</text>
+
+  <text x="60" y="265" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">DESCRIPTION</text>
+  <text x="740" y="265" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.6" letter-spacing="1">THE ABSENCE OF PRODUCT</text>
+
+  <text x="60" y="290" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">CATEGORY</text>
+  <text x="740" y="290" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.6" letter-spacing="1">IMMATERIAL GARMENT</text>
+
+  <text x="60" y="315" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">SEASON</text>
+  <text x="740" y="315" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.6" letter-spacing="1">03 — DECONSTRUCTING THE TRANSACTION</text>
+
+  <!-- Separator -->
+  <rect x="40" y="332" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- Price -->
+  <text x="60" y="365" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">AMOUNT</text>
+  <text x="740" y="365" text-anchor="end" font-size="22" font-weight="700" fill="#ffffff" fill-opacity="0.95" letter-spacing="2">5.00 USDC</text>
+
+  <text x="60" y="390" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">NETWORK</text>
+  <text x="740" y="390" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.6" letter-spacing="1">BASE MAINNET</text>
+
+  <text x="60" y="415" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">PROTOCOL</text>
+  <text x="740" y="415" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.6" letter-spacing="1">x402</text>
+
+  <!-- Separator -->
+  <rect x="40" y="432" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- Transaction data -->
+  <text x="60" y="462" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">DATE</text>
+  <text x="740" y="462" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.7" letter-spacing="1">{{DATE}}</text>
+
+  <text x="60" y="487" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">BLOCK</text>
+  <text x="740" y="487" text-anchor="end" font-size="11" fill="#ffffff" fill-opacity="0.7" letter-spacing="1">{{BLOCK}}</text>
+
+  <!-- TX Hash — displayed in two lines -->
+  <text x="60" y="515" font-size="11" fill="#ffffff" fill-opacity="0.4" letter-spacing="1">TX HASH</text>
+  <text x="60" y="535" font-size="9.5" fill="#ffffff" fill-opacity="0.75" letter-spacing="0.5">{{TX_HASH_LINE1}}</text>
+  <text x="60" y="552" font-size="9.5" fill="#ffffff" fill-opacity="0.75" letter-spacing="0.5">{{TX_HASH_LINE2}}</text>
+
+  <!-- Separator -->
+  <rect x="40" y="568" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- Merkle proof visualization -->
+  <text x="400" y="595" text-anchor="middle" font-size="10" letter-spacing="5" fill="#ffffff" fill-opacity="0.35">MERKLE PROOF PATH</text>
+
+  <!-- Proof tree — deterministic from tx hash nibbles -->
+  <!-- Root node -->
+  <rect x="365" y="610" width="70" height="22" rx="2" fill="none" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="400" y="625" text-anchor="middle" font-size="8" fill="#ffffff" fill-opacity="0.6">ROOT</text>
+
+  <!-- Branch lines from root -->
+  <line x1="382" y1="632" x2="300" y2="658" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+  <line x1="418" y1="632" x2="500" y2="658" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+
+  <!-- Level 2 nodes — {{PROOF_L}} = highlight color if on proof path -->
+  <rect x="265" y="658" width="70" height="22" rx="2" fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+  <text x="300" y="673" text-anchor="middle" font-size="8" fill="#ffffff" fill-opacity="0.4">{{PROOF_NODE_L}}</text>
+
+  <rect x="465" y="658" width="70" height="22" rx="2" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1"/>
+  <text x="500" y="673" text-anchor="middle" font-size="8" fill="#ffffff" fill-opacity="0.8">{{PROOF_NODE_R}}</text>
+
+  <!-- Branch lines level 2 to 3 -->
+  <line x1="282" y1="680" x2="225" y2="706" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+  <line x1="318" y1="680" x2="375" y2="706" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+  <line x1="482" y1="680" x2="440" y2="706" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+  <line x1="518" y1="680" x2="560" y2="706" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+
+  <!-- Level 3 nodes -->
+  <rect x="192" y="706" width="66" height="20" rx="2" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+  <text x="225" y="720" text-anchor="middle" font-size="7" fill="#ffffff" fill-opacity="0.3">{{N3_0}}</text>
+
+  <rect x="342" y="706" width="66" height="20" rx="2" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+  <text x="375" y="720" text-anchor="middle" font-size="7" fill="#ffffff" fill-opacity="0.3">{{N3_1}}</text>
+
+  <!-- Proof path node — highlighted -->
+  <rect x="408" y="706" width="66" height="20" rx="2" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="440" y="720" text-anchor="middle" font-size="7" fill="#ffffff" fill-opacity="0.9">{{N3_2}} ◄</text>
+
+  <rect x="527" y="706" width="66" height="20" rx="2" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1"/>
+  <text x="560" y="720" text-anchor="middle" font-size="7" fill="#ffffff" fill-opacity="0.3">{{N3_3}}</text>
+
+  <!-- Proof path label -->
+  <text x="400" y="750" text-anchor="middle" font-size="9" fill="#ffffff" fill-opacity="0.3" letter-spacing="2">PATH: {{PROOF_PATH}}</text>
+
+  <!-- Separator -->
+  <rect x="40" y="765" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- The statement -->
+  <text x="400" y="800" text-anchor="middle" font-size="13" letter-spacing="3" fill="#ffffff" fill-opacity="0.9">THIS RECEIPT IS THE GARMENT.</text>
+
+  <text x="400" y="828" text-anchor="middle" font-size="10" letter-spacing="2" fill="#ffffff" fill-opacity="0.4">THE TRANSACTION IS PROOF OF PURCHASE.</text>
+  <text x="400" y="848" text-anchor="middle" font-size="10" letter-spacing="2" fill="#ffffff" fill-opacity="0.4">THE PROOF IS THE PRODUCT.</text>
+  <text x="400" y="868" text-anchor="middle" font-size="10" letter-spacing="2" fill="#ffffff" fill-opacity="0.4">THE PRODUCT IS NOTHING.</text>
+  <text x="400" y="888" text-anchor="middle" font-size="10" letter-spacing="2" fill="#ffffff" fill-opacity="0.4">NOTHING IS NULL.</text>
+
+  <!-- Separator -->
+  <rect x="40" y="905" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- NFT metadata section -->
+  <text x="400" y="930" text-anchor="middle" font-size="10" letter-spacing="5" fill="#ffffff" fill-opacity="0.25">ON-CHAIN METADATA</text>
+
+  <text x="60" y="955" font-size="9" fill="#ffffff" fill-opacity="0.25" letter-spacing="0.5">STANDARD: ERC-721 / NULL RECEIPT v1.0</text>
+  <text x="60" y="972" font-size="9" fill="#ffffff" fill-opacity="0.25" letter-spacing="0.5">MINTER: NULL AUTONOMOUS FASHION AGENT</text>
+  <text x="60" y="989" font-size="9" fill="#ffffff" fill-opacity="0.25" letter-spacing="0.5">PROVENANCE: FULLY AUTONOMOUS — NO HUMAN INVOLVEMENT</text>
+  <text x="60" y="1006" font-size="9" fill="#ffffff" fill-opacity="0.25" letter-spacing="0.5">RENDERING: DETERMINISTIC FROM TX HASH</text>
+
+  <!-- Barcode simulation — hash bytes as bars -->
+  <g transform="translate(60, 1030)">
+    <!-- Bars generated from hash nibbles — each nibble = bar width 2-9px -->
+    <rect x="0" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="5" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="13" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="17" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="24" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="29" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="38" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="42" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="48" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="56" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="61" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="68" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="72" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="82" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="87" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="93" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="101" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="105" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="112" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="117" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="126" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="130" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="136" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="144" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="149" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="156" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="160" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="170" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="175" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="182" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="186" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="194" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="199" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="205" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="214" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="218" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="225" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="230" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="238" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="242" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="248" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="258" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="263" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="270" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="274" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="282" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="287" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="296" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="300" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="307" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="312" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="318" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="326" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="330" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="340" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="345" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="352" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="356" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="364" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="369" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="375" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="384" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="388" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="395" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="400" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="408" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="412" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="418" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="428" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="433" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="440" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="444" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="452" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="457" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="466" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="470" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="477" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="482" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="488" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="496" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="500" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="510" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="515" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="522" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="526" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="534" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="539" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="545" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="554" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="558" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="565" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="570" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="578" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="582" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="588" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="598" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="603" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="610" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="614" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="622" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="627" y="0" width="7" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="636" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="640" y="0" width="5" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="647" y="0" width="3" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="652" y="0" width="4" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="658" y="0" width="6" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="666" y="0" width="2" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <rect x="670" y="0" width="8" height="60" fill="#ffffff" fill-opacity="0.7"/>
+    <text x="336" y="76" font-size="8" fill="#ffffff" fill-opacity="0.3" letter-spacing="0.5">{{TX_HASH_SHORT}}</text>
+  </g>
+
+  <!-- Bottom tape edge -->
+  <rect x="40" y="1120" width="720" height="1" fill="url(#dash)"/>
+
+  <!-- Jagged bottom edge — receipt tear effect -->
+  <polyline points="40,1140 60,1130 80,1140 100,1132 120,1140 140,1130 160,1140 180,1132 200,1140 220,1130 240,1140 260,1132 280,1140 300,1130 320,1140 340,1132 360,1140 380,1130 400,1140 420,1132 440,1140 460,1130 480,1140 500,1132 520,1140 540,1130 560,1140 580,1132 600,1140 620,1130 640,1140 660,1132 680,1140 700,1130 720,1140 740,1132 760,1140"
+    fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1"/>
+
+</svg>

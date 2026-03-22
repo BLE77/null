@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-03-22T07:28:30.666Z",
+  "run": "OFF-177",
+  "agent": "off-human-shopper-v1",
+  "agentWallet": "0x62f708b563e4abb0eed793d75a1b235f15d70cb7",
+  "locusApiUrl": "https://beta-api.paywithlocus.com/api",
+  "network": "Base",
+  "product": "NULL PERSONA",
+  "productId": "null-persona-s01",
+  "price": "0.10 USDC",
+  "status": "CONFIRMED",
+  "txHash": "0x671339fc903f01c975cf477c74701718a29b592fae9955c1584f8becd37c75d0",
+  "blockNumber": "43682184",
+  "transactionId": "a80a29dd-c4c8-4570-a6cf-807ed0e7b74b",
+  "from": "0x62f708b563e4abb0eed793d75a1b235f15d70cb7",
+  "to": "0xd9e2ad68be5247dcbcd00caceb4783c0506028c7",
+  "memo": "OFF-HUMAN:null-persona-s01:NULL_PERSONA_wearable",
+  "locusEnabled": true,
+  "spendingPolicy": {
+    "maxPerTxUSDC": 5.0,
+    "allowanceUSDC": 10.0,
+    "approvalThresholdUSDC": 8.0
+  },
+  "walletFunding": {
+    "method": "Locus gift code request (API: POST /api/gift-code-requests)",
+    "giftRequestId": "e13971f4-7247-403b-90a9-0e16edbc012e",
+    "redemptionTxHash": "0xa0c46f6ae1c0f0e0b1f762636a6c080e82e98e1a2aa86a108b184ceba9cd6369",
+    "amountFunded": "5.00 USDC"
+  },
+  "aiDecision": "NULL PERSONA wearable ($0.10) — cheapest paid item within $5/tx spending policy",
+  "flowCompleted": [
+    "Agent identity check (Locus API key verified)",
+    "Wallet balance check: 5.00 USDC at 0x62f708b563e4abb0eed793d75a1b235f15d70cb7",
+    "NULL store product fetch (25 products)",
+    "Spending policy enforcement check ($5/tx, $10 allowance)",
+    "Product selection: NULL PERSONA wearable ($0.10 USDC)",
+    "Locus USDC transfer: $0.10 sent to store wallet 0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "Transaction CONFIRMED on Base (block 43682184)"
+  ],
+  "basescanUrl": "https://basescan.org/tx/0x671339fc903f01c975cf477c74701718a29b592fae9955c1584f8becd37c75d0",
+  "note": "Full Locus autonomous agent shopping flow complete. Real on-chain USDC transfer confirmed on Base."
+}

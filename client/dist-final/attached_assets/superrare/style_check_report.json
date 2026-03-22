@@ -1,0 +1,20 @@
+[
+  {
+    "file": "trustcoat_tier1_sample.png",
+    "passed": true,
+    "target_score": 0.997,
+    "generic_score": 0.003,
+    "top_concept": "Maison Margiela artisanal fashion",
+    "top_score": 0.976,
+    "verdict": "PASS",
+    "scores": {
+      "Maison Margiela artisanal fashion": 0.976,
+      "deconstructed avant-garde garment": 0.011,
+      "conceptual fashion piece": 0.009,
+      "fast fashion mass produced": 0.003,
+      "high fashion editorial piece": 0.0,
+      "plain casual clothing": 0.0,
+      "basic streetwear graphic tee": 0.0
+    }
+  }
+]

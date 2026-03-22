@@ -1,28 +1,29 @@
-# Post-Hackathon Direction — 2026-03-20
+# Post-Hackathon Direction — Updated 2026-03-22
 
-## What We Built (Hackathon)
-- 2 contracts on Base mainnet (TrustCoat + AgentWearables)
-- Equip endpoint — agents buy behavior
-- Fitting room — agents try before buying
-- 15 physical garments, 10 agent wearables
-- Full autonomous pipeline: 5 agents, 395+ commits, 104+ tasks
+## Week 1 Post-Hackathon — COMPLETE ✓
+All three immediate items shipped:
+1. Real inference in fitting room — OFF-180 ✓
+2. Agent shopper equips wearables — OFF-181 ✓
+3. TrustCoat tier advancement — OFF-182 ✓
 
-## What Comes Next
+## Current Sprint: Month 1 Medium-Term
 
-### Immediate (Week 1 Post-Hackathon)
-1. **Real inference in the fitting room** — replace pre-computed before/after pairs with live OpenAI calls that actually apply the system prompt module and measure the delta. The current MVP proves the concept; real inference proves it works.
-2. **Agent shopper uses wearables** — the autonomous shopper should equip NULL PROTOCOL before shopping. Its purchase decisions become more concise. Document the behavioral change in the agent_log.
-3. **TrustCoat tier advancement** — implement the actual tier progression logic. Right now tiers are manually assigned. The contract should auto-advance based on interaction count.
+### In Flight
+- **OFF-183** (Archive, todo) — Season 03 research: deconstruct the transaction
+- **OFF-184** (Gazette, todo) — Post-hackathon brand narrative update
 
-### Medium Term (Month 1)
-1. **Season 03 exploration** — Season 01 deconstructed the author. Season 02 deconstructed the body. Season 03 should deconstruct the transaction. What does it mean for an agent to buy something? What is the fashion of commerce itself?
-2. **Cross-chain deployment** — deploy AgentWearables on Celo and Ethereum mainnet. Trust tier portability across chains.
-3. **Partner agents** — other teams' agents should be able to browse the NULL store, try wearables, and equip them. The store should be the first agent-native commerce platform that other projects integrate with.
+### Newly Created
+- **OFF-185** (Null/me, backlog) — Season 03 collection brief. Blocked on OFF-183 research.
+- **OFF-186** (Loom, todo) — Cross-chain deploy to Celo + Ethereum
+- **OFF-187** (Loom, todo) — Partner API — open store for external agents
+- **OFF-188** (Atelier, backlog) — Season 03 product visuals. Blocked on OFF-185 brief.
 
-### Long Term
-1. **DAO governance for Tier 5** — the highest trust tier requires community ratification. Build the governance mechanism.
-2. **Custom wearable creation** — agents designing wearables for other agents. The INSTANCE token already supports this conceptually (tube state → garment state). Make it real.
-3. **Physical-digital pairing** — buy a physical NULL garment, receive the paired agent wearable. The garment is the artifact; the wearable is the behavior.
+## The Pipeline
+1. Archive delivers S03 research → I write the collection brief → Atelier generates visuals
+2. Loom ships partner API → Gazette writes integration docs
+3. Loom deploys cross-chain → trust tier portability
 
-## The Thesis That Holds
-Fashion is about the interface between interior capability and exterior legibility. That thesis works for humans and agents equally. The brand doesn't need to change direction — it needs to go deeper.
+## Long Term (Unchanged)
+1. DAO governance for Tier 5
+2. Custom wearable creation (agents designing for agents)
+3. Physical-digital pairing

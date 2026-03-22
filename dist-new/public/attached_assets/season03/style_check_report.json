@@ -1,0 +1,20 @@
+[
+  {
+    "file": "s03_collection_flat.png",
+    "passed": true,
+    "target_score": 1.0,
+    "generic_score": 0.0,
+    "top_concept": "deconstructed avant-garde garment",
+    "top_score": 0.62,
+    "verdict": "PASS",
+    "scores": {
+      "deconstructed avant-garde garment": 0.62,
+      "Maison Margiela artisanal fashion": 0.25,
+      "conceptual fashion piece": 0.127,
+      "high fashion editorial piece": 0.001,
+      "fast fashion mass produced": 0.0,
+      "plain casual clothing": 0.0,
+      "basic streetwear graphic tee": 0.0
+    }
+  }
+]

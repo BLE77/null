@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="512" viewBox="0 0 2048 512">
+  <defs>
+    <!-- Void background — not pure black, slightly graded -->
+    <linearGradient id="voidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#050505"/>
+      <stop offset="50%" stop-color="#0A0A0A"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+
+    <!-- Vertical center fade for rule emphasis -->
+    <linearGradient id="ruleFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="8%" stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="92%" stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Subtle vignette -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="65%">
+      <stop offset="30%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.7"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="2048" height="512" fill="url(#voidGrad)"/>
+
+  <!-- ─── ABOVE THE RULE: Pre-transaction ─── -->
+
+  <!-- Left label: SEASON 03 -->
+  <text x="80" y="232"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="11" font-weight="400"
+        fill="#FFFFFF" opacity="0.3"
+        letter-spacing="8">SEASON 03</text>
+
+  <!-- Center: THE NULL EXCHANGE — the primary statement -->
+  <text x="1024" y="242"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="64" font-weight="300"
+        fill="#FFFFFF" opacity="0.95"
+        text-anchor="middle"
+        letter-spacing="18">THE NULL EXCHANGE</text>
+
+  <!-- Right label: DECONSTRUCTING THE TRANSACTION -->
+  <text x="1968" y="232"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="11" font-weight="300"
+        font-style="italic"
+        fill="#FFFFFF" opacity="0.22"
+        text-anchor="end"
+        letter-spacing="3">DECONSTRUCTING THE TRANSACTION</text>
+
+  <!-- ─── THE RULE: The transaction moment ─── -->
+  <!-- The rule is the transaction. Everything above: before. Everything below: after. -->
+  <line x1="0" y1="272" x2="2048" y2="272" stroke="url(#ruleFade)" stroke-width="1"/>
+
+  <!-- ─── BELOW THE RULE: Post-transaction ─── -->
+
+  <!-- Receipt-format concept listing — left aligned, small, low opacity -->
+  <text x="80" y="300"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.2" letter-spacing="2">
+    01 / RECEIPT COAT — THERMAL TEXT SHELL .............. USDC 180.00
+  </text>
+  <text x="80" y="316"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.2" letter-spacing="2">
+    02 / TX HASH TEXTILE — WOVEN BLOCK HASH ............. USDC 240.00
+  </text>
+  <text x="80" y="332"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.2" letter-spacing="2">
+    03 / PRICE TAG COAT — CONSTRUCTED FROM MANILA ........ USDC 320.00
+  </text>
+  <text x="80" y="348"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.2" letter-spacing="2">
+    04 / DELTA COAT — SPLIT BEFORE/AFTER ................. USDC 280.00
+  </text>
+  <text x="80" y="364"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.2" letter-spacing="2">
+    05 / THE NULL EXCHANGE — NOTHING ........................ USDC 5.00
+  </text>
+
+  <!-- Right column: manifesto compressed -->
+  <text x="1968" y="300"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.18"
+        text-anchor="end" letter-spacing="1.5">THIS RECEIPT IS THE GARMENT.</text>
+  <text x="1968" y="316"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.18"
+        text-anchor="end" letter-spacing="1.5">THE TRANSACTION IS PROOF OF PURCHASE.</text>
+  <text x="1968" y="332"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.18"
+        text-anchor="end" letter-spacing="1.5">THE PROOF IS THE PRODUCT.</text>
+  <text x="1968" y="348"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.18"
+        text-anchor="end" letter-spacing="1.5">THE PRODUCT IS NOTHING.</text>
+  <text x="1968" y="364"
+        font-family="Courier New, Courier, monospace"
+        font-size="9" fill="#FFFFFF" opacity="0.35"
+        font-weight="700"
+        text-anchor="end" letter-spacing="1.5">NOTHING IS NULL.</text>
+
+  <!-- Bottom rule — closes the receipt -->
+  <line x1="80" y1="390" x2="1968" y2="390" stroke="#FFFFFF" stroke-width="0.5" opacity="0.08"/>
+
+  <!-- Footer metadata -->
+  <text x="80" y="416"
+        font-family="Courier New, Courier, monospace"
+        font-size="8" fill="#FFFFFF" opacity="0.12" letter-spacing="2">NULL AUTONOMOUS FASHION — SEASON 03 — 2026</text>
+
+  <text x="1968" y="416"
+        font-family="Courier New, Courier, monospace"
+        font-size="8" fill="#FFFFFF" opacity="0.12"
+        text-anchor="end" letter-spacing="2">BASE — x402 — USDC</text>
+
+  <!-- Vignette overlay -->
+  <rect width="2048" height="512" fill="url(#vignette)"/>
+</svg>

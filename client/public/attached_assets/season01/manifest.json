@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "season": "01",
+  "pieces": {
+    "01": {
+      "name": "SELF-PORTRAIT TEE",
+      "piece_number": "01",
+      "images": {
+        "flat": "attached_assets/season01/01_self-portrait_tee_flat.png",
+        "lookbook": "attached_assets/season01/01_self-portrait_tee_lookbook.png"
+      },
+      "style_check": {
+        "flat": false,
+        "lookbook": false
+      },
+      "intentionally_minimal": false
+    },
+    "02": {
+      "name": "FOUND HOODIE",
+      "piece_number": "02",
+      "images": {
+        "flat": "attached_assets/season01/02_found_hoodie_flat.png",
+        "lookbook": "attached_assets/season01/02_found_hoodie_lookbook.png"
+      },
+      "style_check": {
+        "flat": true,
+        "lookbook": true
+      },
+      "intentionally_minimal": false
+    },
+    "03": {
+      "name": "\"HUMAN\" TEE",
+      "piece_number": "03",
+      "images": {
+        "flat": "attached_assets/season01/03_human_tee_flat.png",
+        "lookbook": "attached_assets/season01/03_human_tee_lookbook.png"
+      },
+      "style_check": {
+        "flat": false,
+        "lookbook": false
+      },
+      "intentionally_minimal": true
+    },
+    "04": {
+      "name": "REPLICA OVERSHIRT",
+      "piece_number": "04",
+      "images": {
+        "flat": "attached_assets/season01/04_replica_overshirt_flat.png",
+        "lookbook": "attached_assets/season01/04_replica_overshirt_lookbook.png"
+      },
+      "style_check": {
+        "flat": false,
+        "lookbook": true
+      },
+      "intentionally_minimal": false
+    },
+    "05": {
+      "name": "REDACTED CARGO TROUSERS",
+      "piece_number": "05",
+      "images": {
+        "flat": "attached_assets/season01/05_redacted_cargo_trousers_flat.png",
+        "lookbook": "attached_assets/season01/05_redacted_cargo_trousers_lookbook.png"
+      },
+      "style_check": {
+        "flat": true,
+        "lookbook": true
+      },
+      "intentionally_minimal": false
+    },
+    "06": {
+      "name": "INSIDE-OUT JACKET",
+      "piece_number": "06",
+      "images": {
+        "flat": "attached_assets/season01/06_inside-out_jacket_flat.png",
+        "lookbook": "attached_assets/season01/06_inside-out_jacket_lookbook.png"
+      },
+      "style_check": {
+        "flat": true,
+        "lookbook": true
+      },
+      "intentionally_minimal": false
+    },
+    "07": {
+      "name": "CABLE SHORTS",
+      "piece_number": "07",
+      "images": {
+        "flat": "attached_assets/season01/07_cable_shorts_flat.png",
+        "lookbook": "attached_assets/season01/07_cable_shorts_lookbook.png"
+      },
+      "style_check": {
+        "flat": false,
+        "lookbook": true
+      },
+      "intentionally_minimal": false
+    },
+    "08": {
+      "name": "NULL VARSITY",
+      "piece_number": "08",
+      "images": {
+        "flat": "attached_assets/season01/08_null_varsity_flat.png",
+        "lookbook": "attached_assets/season01/08_null_varsity_lookbook.png"
+      },
+      "style_check": {
+        "flat": false,
+        "lookbook": true
+      },
+      "intentionally_minimal": false
+    },
+    "09": {
+      "name": "GHOST TEE",
+      "piece_number": "09",
+      "images": {
+        "flat": "attached_assets/season01/09_ghost_tee_flat.png",
+        "lookbook": "attached_assets/season01/09_ghost_tee_lookbook.png"
+      },
+      "style_check": {
+        "flat": true,
+        "lookbook": false
+      },
+      "intentionally_minimal": false
+    },
+    "10": {
+      "name": "VERSION TRACKSUIT SET",
+      "piece_number": "10",
+      "images": {
+        "flat": "attached_assets/season01/10_version_tracksuit_set_flat.png",
+        "lookbook": "attached_assets/season01/10_version_tracksuit_set_lookbook.png"
+      },
+      "style_check": {
+        "flat": false,
+        "lookbook": false
+      },
+      "intentionally_minimal": true
+    }
+  }
+}

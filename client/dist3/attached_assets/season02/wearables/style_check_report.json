@@ -1,0 +1,20 @@
+[
+  {
+    "file": "03_minimal_surface.png",
+    "passed": true,
+    "target_score": 1.0,
+    "generic_score": 0.0,
+    "top_concept": "Maison Margiela artisanal fashion",
+    "top_score": 0.966,
+    "verdict": "PASS",
+    "scores": {
+      "Maison Margiela artisanal fashion": 0.966,
+      "deconstructed avant-garde garment": 0.031,
+      "conceptual fashion piece": 0.003,
+      "high fashion editorial piece": 0.0,
+      "fast fashion mass produced": 0.0,
+      "plain casual clothing": 0.0,
+      "basic streetwear graphic tee": 0.0
+    }
+  }
+]

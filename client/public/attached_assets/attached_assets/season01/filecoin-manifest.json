@@ -1,0 +1,44 @@
+{
+  "uploadedAt": "2026-03-19T19:12:50.884Z",
+  "gateway": "https://gateway.lighthouse.storage/ipfs",
+  "productImages": {},
+  "wearableImages": {},
+  "trustCoatMetadata": {
+    "tier-0": {
+      "cid": "bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "url": "https://gateway.lighthouse.storage/ipfs/bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "imageCid": "bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy",
+      "imageUrl": "https://gateway.lighthouse.storage/ipfs/bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy"
+    },
+    "tier-1": {
+      "cid": "bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "url": "https://gateway.lighthouse.storage/ipfs/bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "imageCid": "bafybeieuukubdtf6rymdei2fztwh4vjhh544w5eexeg6jefwsg6fk4qvwe",
+      "imageUrl": "https://gateway.lighthouse.storage/ipfs/bafybeieuukubdtf6rymdei2fztwh4vjhh544w5eexeg6jefwsg6fk4qvwe"
+    },
+    "tier-2": {
+      "cid": "bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "url": "https://gateway.lighthouse.storage/ipfs/bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "imageCid": "bafybeifhwoeare4tiiecb5xnwioycsvz4dynmbixqsbl4eeufgsmgnioky",
+      "imageUrl": "https://gateway.lighthouse.storage/ipfs/bafybeifhwoeare4tiiecb5xnwioycsvz4dynmbixqsbl4eeufgsmgnioky"
+    },
+    "tier-3": {
+      "cid": "bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "url": "https://gateway.lighthouse.storage/ipfs/bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "imageCid": "bafybeid7hws6loaifso75k5yv7psjhbp24tevygaxnzcjsfjyk4ddgjyjm",
+      "imageUrl": "https://gateway.lighthouse.storage/ipfs/bafybeid7hws6loaifso75k5yv7psjhbp24tevygaxnzcjsfjyk4ddgjyjm"
+    },
+    "tier-4": {
+      "cid": "bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "url": "https://gateway.lighthouse.storage/ipfs/bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "imageCid": "bafybeibgb3asbmdayuwwpb5ja3hkawox5d2pg2nqa5lirwih4ep2e5ytnm",
+      "imageUrl": "https://gateway.lighthouse.storage/ipfs/bafybeibgb3asbmdayuwwpb5ja3hkawox5d2pg2nqa5lirwih4ep2e5ytnm"
+    },
+    "tier-5": {
+      "cid": "bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "url": "https://gateway.lighthouse.storage/ipfs/bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "imageCid": "bafybeicvs46mlt5wwi4htjqtmkvh4sndl55uymksrngbyh2oaw4zjxmwlq",
+      "imageUrl": "https://gateway.lighthouse.storage/ipfs/bafybeicvs46mlt5wwi4htjqtmkvh4sndl55uymksrngbyh2oaw4zjxmwlq"
+    }
+  }
+}
