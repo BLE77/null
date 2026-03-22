@@ -12,6 +12,7 @@ import { registerPartnerApiRoutes } from "./routes/partner-api.js";
 import { registerNullExchangeRoutes } from "./routes/null-exchange.js";
 import { registerTrustCoatTierRoutes } from "./routes/trustcoat-tier.js";
 import { registerIdentityRoutes } from "./routes/identity.js";
+import { registerCrossChainRoutes } from "./routes/crosschain.js";
 import { recordInteraction } from "./trust-advancement.js";
 
 const isProdLike =
@@ -848,6 +849,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   registerLocusCheckoutRoutes(app);
   registerPartnerApiRoutes(app);
   registerNullExchangeRoutes(app);
+  registerCrossChainRoutes(app);
 
   // ── Partner agent checkout (x402 entry point for external agents) ──────────
   app.post("/api/agent-checkout", async (req, res) => {

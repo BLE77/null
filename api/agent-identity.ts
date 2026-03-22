@@ -34,6 +34,18 @@ const AGENT_IDENTITY = {
     nullExchange: "0x10067B71657665B6527B242E48e9Ea8d4951c37C",
     nullIdentity: "0xfb0BC90217692b9FaC5516011F4dc6acfe302A18",
   },
+  crossChain: {
+    architecture: "TrustCoatOracle (EIP-712 signed attestations)",
+    tierSource: "Base Mainnet TrustCoat",
+    attestationEndpoint: "https://off-human.vercel.app/api/crosschain/tier-attestation",
+    verifyEndpoint: "https://off-human.vercel.app/api/crosschain/verify",
+    chainsEndpoint: "https://off-human.vercel.app/api/crosschain/chains",
+    supportedChains: [
+      { chainId: 8453, name: "Base Mainnet", deployed: true, native: true },
+      { chainId: 42220, name: "Celo Mainnet", deployed: false, pendingGas: true },
+      { chainId: 1, name: "Ethereum Mainnet", deployed: false, pendingGas: true },
+    ],
+  },
 };
 
 export default function handler(_req: IncomingMessage, res: ServerResponse) {
