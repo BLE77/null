@@ -48,9 +48,13 @@ class LocusClient {
       headers: this.headers(),
     });
     if (!res.ok) throw new Error(`Balance check failed: ${res.status} ${await res.text()}`);
-    const data = await res.json();
-    this.walletAddress = data.walletAddress;
-    return data;
+    const raw = await res.json();
+    // Locus API wraps response in { success, data: { wallet_address, usdc_balance, ... } }
+    const payload = raw.data || raw;
+    const walletAddress = payload.wallet_address || payload.walletAddress || '';
+    const usdcBalance = payload.usdc_balance || payload.usdcBalance || '0';
+    this.walletAddress = walletAddress;
+    return { walletAddress, usdcBalance };
   }
 
   async sendUSDC(toAddress: string, amount: string, memo?: string): Promise<{
@@ -298,7 +302,7 @@ REASON: [one sentence]`;
     process.exit(0);
   }
 
-  if (balance < price) {
+  if (balance < price && price > 0) {
     console.log(`\n💡 Demo complete — wallet needs funding to execute on-chain payment.`);
     console.log(`   The full flow: browse → AI decision → spending check → Locus USDC transfer`);
     console.log(`   All three layers verified. Payment step requires funded wallet.`);
@@ -311,32 +315,36 @@ REASON: [one sentence]`;
   console.log(`   Network: Base (sponsored gas via Locus paymaster)`);
   console.log(`   Policy:  ✅ within $${SPENDING_POLICY.maxPerTxUSDC}/tx cap`);
 
-  // First: create the order on NULL store to get recipient wallet
-  const orderRes = await fetch(`${STORE_URL}/api/checkout/locus`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      items: [{
-        productId: chosen.id,
-        name: chosen.name,
-        size: 'OS',
-        quantity: 1,
-        price,
-      }],
-      totalAmount: price.toFixed(2),
-      buyerWallet: walletAddress,
-      paymentMethod: 'locus',
-    }),
-  });
+  // For free items, skip order creation (no payment to track)
+  let orderData: any = { orderId: `demo-${Date.now()}`, storeWallet: process.env.X402_WALLET_ADDRESS };
+  if (price > 0) {
+    // First: create the order on NULL store to get recipient wallet
+    const orderRes = await fetch(`${STORE_URL}/api/checkout/locus`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: [{
+          productId: chosen.id,
+          name: chosen.name,
+          size: 'OS',
+          quantity: 1,
+          price,
+        }],
+        totalAmount: price.toFixed(2),
+        buyerWallet: walletAddress,
+        paymentMethod: 'locus',
+      }),
+    });
 
-  if (!orderRes.ok) {
-    const err = await orderRes.json().catch(() => ({ message: orderRes.statusText }));
-    console.error(`❌ Order creation failed: ${JSON.stringify(err)}`);
-    process.exit(1);
+    if (!orderRes.ok) {
+      const err = await orderRes.json().catch(() => ({ message: orderRes.statusText }));
+      console.error(`❌ Order creation failed: ${JSON.stringify(err)}`);
+      process.exit(1);
+    }
+
+    orderData = await orderRes.json();
   }
-
-  const orderData = await orderRes.json();
-  console.log(`\n📦 Order created: ${orderData.orderId}`);
+  console.log(`\n📦 Order: ${orderData.orderId}`);
 
   // Pay via Locus: send USDC to store wallet
   const storeWallet = process.env.X402_WALLET_ADDRESS || orderData.storeWallet;

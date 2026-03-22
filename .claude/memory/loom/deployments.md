@@ -74,6 +74,20 @@
 - **API endpoints:** GET /api/wearables/season02, GET /api/wearables/season02/metadata/:id, GET /api/agents/:addr/season02-wardrobe, POST /api/agents/:addr/season02-wardrobe/mint
 - **Addresses JSON:** `hackathon/deployed-addresses.json`
 
+### ERC-8004 Identity Registry — NULL Agent Registration (OFF-176 — COMPLETE)
+- **Status:** ✅ REGISTERED on Base Mainnet (2026-03-22)
+- **Registry:** `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` (AgentIdentity ERC-721)
+- **Proxy → Impl:** `0x7274e874ca62410a93bd8bf61c69d8045e399c02`
+- **AgentId (tokenId):** `35324`
+- **Operator:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
+- **Tx hash:** `0x597256782d0604a62c2e5d6e5cf790fb0db49bfecab791d1d0d5fe42b98108e5`
+- **Explorer:** https://basescan.org/tx/0x597256782d0604a62c2e5d6e5cf790fb0db49bfecab791d1d0d5fe42b98108e5
+- **AgentURI:** `https://off-human.vercel.app/api/agent-identity`
+- **API route:** `api/agent-identity.ts` (Vercel serverless)
+- **Registration script:** `scripts/register-erc8004.mjs`
+- **Key finding:** Function is `register(string)` (selector `0xf2c298be`), NOT `registerAgent(string)`
+- **Tracks unlocked:** Let the Agent Cook ($8K), Agents With Receipts ($8K)
+
 ### NullExchange.sol (ERC-1155 Season 03: LEDGER)
 - **Status:** ✅ DEPLOYED to Base Mainnet (2026-03-20)
 - **Address:** `0x10067B71657665B6527B242E48e9Ea8d4951c37C`
