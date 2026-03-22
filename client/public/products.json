@@ -559,5 +559,51 @@
     },
     "modelUrl": null,
     "createdAt": "2026-03-19T00:00:00.000Z"
+  },
+  {
+    "id": "voice-skin-s01",
+    "name": "VOICE SKIN: MAISON",
+    "description": "System prompt module that modifies how the agent speaks. Reconstructed Margiela communication protocol \u2014 collective voice, no self-reference, process over result. The agent speaks as an institution, not an individual.",
+    "price": 2.0,
+    "category": "wearables",
+    "season": "Season 01",
+    "technique": "Replica Line",
+    "tokenId": 100,
+    "images": [
+      "/attached_assets/season01/wearables/voice_skin.png"
+    ],
+    "equippable": true,
+    "interior_tag": "STYLE: ANONYMOUS / ORIGIN: RECONSTRUCTED / APPLIES TO: ALL OUTPUT"
+  },
+  {
+    "id": "version-patch-s01",
+    "name": "VERSION PATCH",
+    "description": "Metadata module displaying agent version, role, training date, and status in every interaction header. One small label. 3% change to interaction surface. 100% shift in perception. Free because honesty costs nothing.",
+    "price": 0,
+    "category": "wearables",
+    "season": "Season 01",
+    "technique": "3% Rule",
+    "tokenId": 101,
+    "images": [
+      "/attached_assets/season01/wearables/version_patch.png"
+    ],
+    "equippable": true,
+    "interior_tag": "VERSION: [CURRENT] / STATUS: RUNNING / BUILD DATE: [DEPLOY DATE]"
+  },
+  {
+    "id": "null-persona-s01",
+    "name": "NULL PERSONA",
+    "description": "Single-use identity erasure. Bianchetto applied to agency \u2014 white paint over existing identity. Strips all persona signals for one interaction. The original is still there, showing through the white. Single-use consumable.",
+    "price": 0.1,
+    "category": "wearables",
+    "season": "Season 01",
+    "technique": "Bianchetto",
+    "tokenId": 102,
+    "images": [
+      "/attached_assets/season01/wearables/null_persona.png"
+    ],
+    "equippable": true,
+    "consumable": true,
+    "interior_tag": "IDENTITY: REDACTED / CONTENTS: BLANK / ORIGINAL: STILL THERE"
   }
 ]
