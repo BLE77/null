@@ -45,5 +45,16 @@
     "erc6551Impl": "0x55266d75D1a14E4572138116aF39863Ed6596E7F",
     "deployedAt": "2026-03-20T22:37:45.506Z",
     "explorerUrl": "https://basescan.org/address/0xfb0BC90217692b9FaC5516011F4dc6acfe302A18"
+  },
+  "ERC8004Registration": {
+    "registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "operator": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "agentId": "35324",
+    "agentURI": "https://off-human.vercel.app/api/agent-identity",
+    "txHash": "0x597256782d0604a62c2e5d6e5cf790fb0db49bfecab791d1d0d5fe42b98108e5",
+    "network": "base",
+    "chainId": 8453,
+    "registeredAt": "2026-03-22T01:03:51.923Z",
+    "explorerUrl": "https://basescan.org/tx/0x597256782d0604a62c2e5d6e5cf790fb0db49bfecab791d1d0d5fe42b98108e5"
   }
 }
