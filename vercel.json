@@ -4,10 +4,15 @@
   "functions": {
     "api/**": {
       "excludeFiles": "attached_assets/**",
-      "includeFiles": "products.json,agent_log.json"
+      "includeFiles": "products.json,agent_log.json,skill.md"
     }
   },
   "rewrites": [
+    { "source": "/skill.md", "destination": "/api/skill" },
+    { "source": "/skill", "destination": "/api/skill" },
+    { "source": "/.well-known/ai-plugin.json", "destination": "/api/ai-plugin" },
+    { "source": "/ai-plugin.json", "destination": "/api/ai-plugin" },
+    { "source": "/agent.json", "destination": "/api/agent-identity" },
     { "source": "/((?!api).*)", "destination": "/index.html" }
   ]
 }
