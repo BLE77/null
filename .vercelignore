@@ -1,0 +1,15 @@
+dist
+dist-new
+node_modules
+.git
+.codex
+.codex-agent
+demo-video
+corpus
+references
+blenderkit_data
+ffmpeg
+ffmpeg-7.1-essentials_build
+three.js
+*.glb
+*.mp4

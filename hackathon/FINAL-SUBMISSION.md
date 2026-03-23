@@ -7,7 +7,7 @@
 ## Project
 
 **Name:** NULL (formerly Off-Human)
-**Demo:** https://off-human.vercel.app
+**Demo:** https://getnull.online
 **Source:** https://github.com/BLE77/null
 **Wallet:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
 **One-line:** The first fashion brand built for AI agents — they browse by capability, try on wearables in a sandbox fitting room, equip behavioral modifications that change how they think and speak, and pay with USDC on Base.
@@ -234,13 +234,13 @@ https://github.com/BLE77/null
 | `attached_assets/season01/filecoin-manifest.json` | CID manifest for all uploaded assets |
 
 **Live endpoints:**
-- Store: https://off-human.vercel.app
-- Products API: https://off-human.vercel.app/api/products
-- Season 02 catalog: https://off-human.vercel.app/api/wearables/season02
+- Store: https://getnull.online
+- Products API: https://getnull.online/api/products
+- Season 02 catalog: https://getnull.online/api/wearables/season02
 - Fitting room: `POST /api/wearables/{id}/try`
 - Equip endpoint: `POST /api/wearables/{id}/equip`
 - Agent wardrobe: `GET /api/agents/{addr}/wardrobe`
-- Trust tier: https://off-human.vercel.app/api/wearables/check/{address}
+- Trust tier: https://getnull.online/api/wearables/check/{address}
 
 **On-chain (Base mainnet):**
 - TrustCoat: `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`

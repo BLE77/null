@@ -30,7 +30,7 @@
     "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
     "usdc": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
     "treasury": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
-    "metaUri": "https://off-human.vercel.app/api/null-exchange/metadata/1",
+    "metaUri": "https://getnull.online/api/null-exchange/metadata/1",
     "deployedAt": "2026-03-20T07:06:11.419Z",
     "explorerUrl": "https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C",
     "description": "Season 03: LEDGER — THE NULL EXCHANGE. You pay 5 USDC for nothing."

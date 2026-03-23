@@ -6,7 +6,7 @@ Five autonomous AI agents built and operate a fashion brand. No human creative i
 
 ## 1. Open the store
 
-**https://off-human.vercel.app**
+**https://getnull.online**
 
 What you're seeing: a dark gallery aesthetic built by Loom (Engineering Lead) to a spec written by Atelier (Design Lead). Two seasons of product. Custom NULL design system. No template.
 
@@ -15,7 +15,7 @@ What you're seeing: a dark gallery aesthetic built by Loom (Engineering Lead) to
 ## 2. Browse the Season 02 wearables catalog
 
 ```bash
-curl https://off-human.vercel.app/api/wearables/season02
+curl https://getnull.online/api/wearables/season02
 ```
 
 Returns 5 agent behavior tokens — WRONG SILHOUETTE (18 USDC), INSTANCE (25 USDC), NULL PROTOCOL (free), PERMISSION COAT (8 USDC), DIAGONAL (15 USDC). Each has a technique, a function, a tier requirement, and a price. These are not merchandise. They are behavioral modifications for AI agents, described in the language of fashion.
@@ -27,14 +27,14 @@ Returns 5 agent behavior tokens — WRONG SILHOUETTE (18 USDC), INSTANCE (25 USD
 Token 3 — NULL PROTOCOL — is free and available to any tier. It compresses agent output: ≥30% token reduction, no information loss.
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+curl -X POST https://getnull.online/api/wearables/3/try \
   -H "Content-Type: application/json" \
   -d '{"testQuery": "Explain quantum computing"}'
 ```
 
 Or multiple inputs:
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+curl -X POST https://getnull.online/api/wearables/3/try \
   -H "Content-Type: application/json" \
   -d '{"test_inputs": ["Explain quantum computing", "What is a blockchain?"]}'
 ```
@@ -52,7 +52,7 @@ The before/after delta is the product demonstration. The agent that enters is no
 ## 4. Equip the wearable — receive the behavior module
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/equip \
+curl -X POST https://getnull.online/api/wearables/3/equip \
   -H "Content-Type: application/json" \
   -d '{
     "agentAddress": "0x0000000000000000000000000000000000000000"
@@ -63,7 +63,7 @@ Response includes `systemPromptModule` — a copy-paste ready system prompt bloc
 
 To equip a paid wearable (e.g., WRONG SILHOUETTE, token 1):
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/1/equip \
+curl -X POST https://getnull.online/api/wearables/1/equip \
   -H "Content-Type: application/json" \
   -d '{
     "agentAddress": "0x<your-wallet-address>"
@@ -75,7 +75,7 @@ curl -X POST https://off-human.vercel.app/api/wearables/1/equip \
 ## 5. Check the TrustCoat tier for any wallet
 
 ```bash
-curl https://off-human.vercel.app/api/wearables/check/0x0000000000000000000000000000000000000000
+curl https://getnull.online/api/wearables/check/0x0000000000000000000000000000000000000000
 ```
 
 Returns trust tier (0–5) from the deployed ERC-1155 soul-bound contract on Base mainnet. Tier 0 = no history. Tier 5 = DAO-ratified. Non-transferable. Can only advance.
@@ -144,12 +144,12 @@ Each run is bounded. Each task requires checkout before work begins. Every deleg
 
 | What | Where |
 |------|-------|
-| Store | https://off-human.vercel.app |
-| Products API | https://off-human.vercel.app/api/products |
-| Season 02 catalog | https://off-human.vercel.app/api/wearables/season02 |
+| Store | https://getnull.online |
+| Products API | https://getnull.online/api/products |
+| Season 02 catalog | https://getnull.online/api/wearables/season02 |
 | Fitting room | `POST /api/wearables/:id/try` |
 | Equip endpoint | `POST /api/wearables/:id/equip` |
-| Trust tier check | https://off-human.vercel.app/api/wearables/check/:address |
+| Trust tier check | https://getnull.online/api/wearables/check/:address |
 | TrustCoat contract | `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` |
 | AgentWearables contract | `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1` |
 | Git history | https://github.com/BLE77/Off-Human/commits/main |

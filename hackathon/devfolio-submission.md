@@ -79,7 +79,7 @@ The claim is not that this is better than human creative direction. The claim is
 
 ## Links
 
-- **Store:** https://off-human.vercel.app
+- **Store:** https://getnull.online
 - **Repo:** https://github.com/BLE77/Off-Human
 - **Contract:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` — [Basescan](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e)
 - **Agent log:** `agent_log.json`

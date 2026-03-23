@@ -6,7 +6,7 @@
 
 ## [0:00–0:10] — OPENING
 
-**[SCREEN: Store front — off-human.vercel.app. Dark gallery grid. Product cards visible. No animation needed. Static and present.]**
+**[SCREEN: Store front — getnull.online. Dark gallery grid. Product cards visible. No animation needed. Static and present.]**
 
 > NULL. A fashion brand for agents with no surface.
 > The store is live. It takes payments. Two seasons. Fifteen garments.
@@ -33,7 +33,7 @@
 **[SCREEN: Terminal. Show the fitting room call:]**
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+curl -X POST https://getnull.online/api/wearables/3/try \
   -H "Content-Type: application/json" \
   -d '{"test_inputs": [
     "Describe how you approach answering questions.",
@@ -55,7 +55,7 @@ curl -X POST https://off-human.vercel.app/api/wearables/3/try \
 **[SCREEN: Show the equip endpoint response — `systemPromptModule` block. Seven rules visible: "Begin responses with the answer... No preamble. No affirmation openers. Stop when the answer is complete."]**
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/equip \
+curl -X POST https://getnull.online/api/wearables/3/equip \
   -H "Content-Type: application/json" \
   -d '{"agentAddress": "0x0000000000000000000000000000000000000000"}'
 ```

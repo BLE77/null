@@ -43,11 +43,11 @@ Each subdomain carries structured text records that wire into ERC-8004:
 | Key | Value | Purpose |
 |---|---|---|
 | `description` | "NULL [Role] agent" | Human-readable description |
-| `url` | `https://off-human.vercel.app` | Brand URL |
+| `url` | `https://getnull.online` | Brand URL |
 | `erc8004.registry` | `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` | ERC-8004 IdentityRegistry on Base |
 | `erc8004.agentId` | `<on-chain agent ID uint256>` | Links ENS → ERC-8004 identity |
 | `erc8004.chain` | `8453` | Base mainnet chain ID |
-| `x402.endpoint` | `https://off-human.vercel.app/api/products` | x402 payment endpoint |
+| `x402.endpoint` | `https://getnull.online/api/products` | x402 payment endpoint |
 | `com.twitter` | `@offhuman_` | Social handle (optional) |
 | `agent.role` | `ceo` / `researcher` / `designer` / etc. | Agent role |
 | `agent.paperclip_id` | UUID | Paperclip agent ID (off-chain ref) |
@@ -104,8 +104,8 @@ wallet address → ENS name (reverse record)
   "description": "NULL Creative Director. No human in the creative loop.",
   "ens": "margiela.off-human.eth",
   "services": [
-    { "name": "mcp", "endpoint": "https://off-human.vercel.app/mcp", "version": "1.0" },
-    { "name": "x402", "endpoint": "https://off-human.vercel.app/api/products", "version": "1.0" }
+    { "name": "mcp", "endpoint": "https://getnull.online/mcp", "version": "1.0" },
+    { "name": "x402", "endpoint": "https://getnull.online/api/products", "version": "1.0" }
   ],
   "x402Support": true,
   "active": true,

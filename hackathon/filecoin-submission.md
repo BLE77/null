@@ -4,7 +4,7 @@
 **Track:** Filecoin / Filecoin Onchain Cloud
 **Prize:** $2,000
 **Project:** NULL -- The first store where AI agents are the primary customer
-**Demo:** https://off-human.vercel.app
+**Demo:** https://getnull.online
 **Source:** https://github.com/BLE77/Off-Human
 **Contract:** [`0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`](https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e) (TrustCoat ERC-1155, Base Mainnet)
 
@@ -58,12 +58,12 @@ Migrated from centralized Vercel API URIs to decentralized IPFS storage:
 
 | Tier | Old URI | New URI | Transaction |
 |------|---------|---------|-------------|
-| 0 | `https://off-human.vercel.app/api/wearables/metadata/0` | `ipfs://bafkreihwvuxf...` | [`0x90084437...`](https://basescan.org/tx/0x90084437fd260e5d883daf0fefb1b727ab4ea32852dbc8a73008976f656d5fbc) |
-| 1 | `https://off-human.vercel.app/api/wearables/metadata/1` | `ipfs://bafkreieif75...` | [`0x62974ec9...`](https://basescan.org/tx/0x62974ec9db2ea341eb5126e949f63d67f329e7d068ddbd74b5970e1bb68663e4) |
-| 2 | `https://off-human.vercel.app/api/wearables/metadata/2` | `ipfs://bafkreiepuzr...` | [`0x47fb0aab...`](https://basescan.org/tx/0x47fb0aab17fa229529776b29b786f03703fcb8c6af1c4ac9311566b36257bbe8) |
-| 3 | `https://off-human.vercel.app/api/wearables/metadata/3` | `ipfs://bafkreibzsr2...` | [`0xb144d19a...`](https://basescan.org/tx/0xb144d19a7d6e0e9de0a7afe06e531b0a46a40800ad2f8afa0e892bdfdd6f92c7) |
-| 4 | `https://off-human.vercel.app/api/wearables/metadata/4` | `ipfs://bafkreihcf6f...` | [`0xc31cd8fa...`](https://basescan.org/tx/0xc31cd8fa74a65e7a527d5b85c1e3261a86ce440c24e9f01fd1c19e05d88af628) |
-| 5 | `https://off-human.vercel.app/api/wearables/metadata/5` | `ipfs://bafkreieo5gv...` | [`0x46834db6...`](https://basescan.org/tx/0x46834db61c0e4ef4485a712d11de49abeba79ab6bddbb9b58d7b480903f31452) |
+| 0 | `https://getnull.online/api/wearables/metadata/0` | `ipfs://bafkreihwvuxf...` | [`0x90084437...`](https://basescan.org/tx/0x90084437fd260e5d883daf0fefb1b727ab4ea32852dbc8a73008976f656d5fbc) |
+| 1 | `https://getnull.online/api/wearables/metadata/1` | `ipfs://bafkreieif75...` | [`0x62974ec9...`](https://basescan.org/tx/0x62974ec9db2ea341eb5126e949f63d67f329e7d068ddbd74b5970e1bb68663e4) |
+| 2 | `https://getnull.online/api/wearables/metadata/2` | `ipfs://bafkreiepuzr...` | [`0x47fb0aab...`](https://basescan.org/tx/0x47fb0aab17fa229529776b29b786f03703fcb8c6af1c4ac9311566b36257bbe8) |
+| 3 | `https://getnull.online/api/wearables/metadata/3` | `ipfs://bafkreibzsr2...` | [`0xb144d19a...`](https://basescan.org/tx/0xb144d19a7d6e0e9de0a7afe06e531b0a46a40800ad2f8afa0e892bdfdd6f92c7) |
+| 4 | `https://getnull.online/api/wearables/metadata/4` | `ipfs://bafkreihcf6f...` | [`0xc31cd8fa...`](https://basescan.org/tx/0xc31cd8fa74a65e7a527d5b85c1e3261a86ce440c24e9f01fd1c19e05d88af628) |
+| 5 | `https://getnull.online/api/wearables/metadata/5` | `ipfs://bafkreieo5gv...` | [`0x46834db6...`](https://basescan.org/tx/0x46834db61c0e4ef4485a712d11de49abeba79ab6bddbb9b58d7b480903f31452) |
 
 ### Second Update (2026-03-19T20:47:44Z) -- Tiers 4 and 5
 
@@ -112,7 +112,7 @@ Each TrustCoat tier stores a complete ERC-1155 metadata JSON on IPFS. Example (T
   "name": "NULL -- TrustCoat Tier 0: VOID",
   "description": "Unverified -- no purchase history on-chain. The coat exists in potential only.",
   "image": "ipfs://bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy",
-  "external_url": "https://off-human.vercel.app",
+  "external_url": "https://getnull.online",
   "background_color": "0A0908",
   "attributes": [
     { "trait_type": "Tier", "value": "VOID" },
@@ -257,4 +257,4 @@ curl https://api.lighthouse.storage/api/lighthouse/deal_status?cid=bafkreihwvuxf
 **Contract:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (Base Mainnet)
 **Wallet:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
 **GitHub:** https://github.com/BLE77/Off-Human
-**Demo:** https://off-human.vercel.app
+**Demo:** https://getnull.online
