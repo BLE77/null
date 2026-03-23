@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NULL — Track Strategy Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:'Space Grotesk',system-ui,sans-serif;padding:24px;line-height:1.6}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono&display=swap');
+.container{max-width:1200px;margin:0 auto}
+h1{color:#F6F4EF;font-size:28px;font-weight:700;letter-spacing:-0.5px}
+h2{color:#F6F4EF;font-size:20px;margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid #333}
+h3{color:#A8894A;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.sub{color:#888;font-size:13px;margin-bottom:24px}
+.topbar{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:32px;padding:20px;background:#111;border:1px solid #222}
+.topbar .stat{text-align:center}
+.topbar .stat .n{font-size:32px;font-weight:700;color:#F6F4EF}
+.topbar .stat .l{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px}
+.topbar .stat.gold .n{color:#A8894A}
+.money-bar{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+.money-card{flex:1;min-width:200px;padding:16px;background:#111;border:1px solid #222}
+.money-card .amount{font-size:24px;font-weight:700;color:#22c55e}
+.money-card .label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.money-card.possible .amount{color:#f59e0b}
+.money-card.total .amount{color:#A8894A;font-size:28px}
+.money-card.total{border-color:#A8894A}
+
+/* Ready tracks */
+.ready-track{background:#111;border:1px solid #222;border-left:4px solid #22c55e;padding:20px;margin-bottom:12px}
+.ready-track .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.ready-track .name{font-size:16px;font-weight:700;color:#F6F4EF}
+.ready-track .sponsor{font-size:11px;color:#666;margin-top:2px}
+.ready-track .prize{font-size:18px;font-weight:700;color:#22c55e}
+.ready-track .badge{display:inline-block;padding:2px 10px;font-size:10px;font-weight:700;text-transform:uppercase;background:#22c55e;color:#000;margin-left:8px;vertical-align:middle}
+.ready-track .pitch{color:#ccc;font-size:13px;margin-top:8px;line-height:1.7}
+.ready-track .evidence{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ready-track .tag{font-size:10px;padding:3px 8px;background:#1a2e1a;color:#6ee7b7;border:1px solid #2d4a2d;font-family:'Space Mono',monospace}
+
+/* Possible tracks */
+.possible-track{background:#111;border:1px solid #222;border-left:4px solid #f59e0b;padding:20px;margin-bottom:12px;position:relative}
+.possible-track .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.possible-track .name{font-size:16px;font-weight:700;color:#F6F4EF}
+.possible-track .sponsor{font-size:11px;color:#666;margin-top:2px}
+.possible-track .prize{font-size:18px;font-weight:700;color:#f59e0b}
+.possible-track .badge{display:inline-block;padding:2px 10px;font-size:10px;font-weight:700;text-transform:uppercase;background:#f59e0b;color:#000;margin-left:8px;vertical-align:middle}
+.possible-track .roi-badge{position:absolute;top:12px;right:120px;font-size:10px;padding:3px 8px;background:#2a2000;color:#f59e0b;border:1px solid #4a3800;font-family:'Space Mono',monospace}
+.possible-track .meta{display:flex;gap:20px;margin:8px 0;font-size:12px;color:#888}
+.possible-track .meta span{display:flex;align-items:center;gap:4px}
+.possible-track .what-have{color:#6ee7b7;font-size:12px;margin:6px 0}
+.possible-track .what-need{color:#fca5a5;font-size:12px;margin:6px 0}
+.possible-track .verdict{font-size:12px;color:#ccc;margin-top:8px;padding-top:8px;border-top:1px solid #222}
+
+/* Skip tracks */
+.skip-table{width:100%;border-collapse:collapse;font-size:13px}
+.skip-table th{text-align:left;padding:8px 12px;background:#1a1a1a;color:#888;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid #333}
+.skip-table td{padding:8px 12px;border-bottom:1px solid #1a1a1a;vertical-align:top}
+.skip-table tr:hover{background:#111}
+.skip-table .track-name{color:#666;font-weight:600}
+.skip-table .skip-prize{color:#555;font-family:'Space Mono',monospace;font-size:12px;white-space:nowrap}
+.skip-table .skip-reason{color:#777;font-size:12px}
+.skip-table .skip-sponsor{color:#555;font-size:11px}
+
+/* Priority list */
+.priority-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.priority-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#111;border:1px solid #222}
+.priority-num{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:#A8894A;color:#000;font-weight:700;font-size:14px;flex-shrink:0}
+.priority-item .p-name{font-weight:600;color:#F6F4EF;font-size:14px}
+.priority-item .p-detail{font-size:12px;color:#888}
+.priority-item .p-prize{font-weight:700;color:#22c55e;font-size:14px;margin-left:auto;white-space:nowrap}
+.priority-item .p-time{font-size:11px;color:#666;margin-left:8px;white-space:nowrap;font-family:'Space Mono',monospace}
+
+.section-label{font-size:11px;color:#A8894A;text-transform:uppercase;letter-spacing:2px;margin:24px 0 12px;font-weight:700}
+.divider{border:none;border-top:1px solid #222;margin:32px 0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>NULL — HACKATHON TRACK STRATEGY</h1>
+<p class="sub">The Synthesis Hackathon | 46 tracks analyzed | Updated 2026-03-23 03:57 UTC | All agents PAUSED | Total spend: $1,366</p>
+
+<!-- Top Stats -->
+<div class="topbar">
+<div class="stat"><div class="n">5</div><div class="l">Ready</div></div>
+<div class="stat"><div class="n">7</div><div class="l">Possible</div></div>
+<div class="stat"><div class="n">32</div><div class="l">Skip</div></div>
+<div class="stat"><div class="n">176+</div><div class="l">Issues Done</div></div>
+<div class="stat"><div class="n">4</div><div class="l">Contracts</div></div>
+<div class="stat gold"><div class="n">$1,366</div><div class="l">Agent Spend</div></div>
+</div>
+
+<!-- Money -->
+<div class="money-bar">
+<div class="money-card"><div class="amount">$44,134</div><div class="label">Ready to Submit</div></div>
+<div class="money-card possible"><div class="amount">$11,650</div><div class="label">Possible with Work</div></div>
+<div class="money-card total"><div class="amount">$55,784</div><div class="label">Realistic Ceiling</div></div>
+</div>
+
+<!-- Agent Status -->
+<h2>AGENT STATUS (live as of 03:40 UTC)</h2>
+<table class="skip-table" style="margin-bottom:24px">
+<thead><tr><th>Agent</th><th>Role</th><th>Status</th><th>Spend</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="track-name">Null</td><td>CEO / Creative Director</td><td style="color:#666">PAUSED</td><td class="skip-prize">$563.28</td><td class="skip-reason">Paused to stop spend. Wake when needed for delegation.</td></tr>
+<tr><td class="track-name">Loom</td><td>Technical Lead</td><td style="color:#666">PAUSED</td><td class="skip-prize">$507.37</td><td class="skip-reason">Completed 9 issues this session. Paused to stop spend. Wake for new track work.</td></tr>
+<tr><td class="track-name">Atelier</td><td>Design Lead</td><td style="color:#666">paused</td><td class="skip-prize">$129.90</td><td class="skip-reason">Paused since Mar 21. Waiting for Season 03 brief.</td></tr>
+<tr><td class="track-name">Gazette</td><td>Content Director</td><td style="color:#666">paused</td><td class="skip-prize">$88.58</td><td class="skip-reason">Paused since Mar 21. Has 2 todo issues but paused.</td></tr>
+<tr><td class="track-name">Archive</td><td>Research Director</td><td style="color:#666">paused</td><td class="skip-prize">$77.07</td><td class="skip-reason">Paused since Mar 21. Season 03 research in todo.</td></tr>
+<tr style="border-top:2px solid #A8894A"><td class="track-name" style="color:#A8894A">TOTAL</td><td></td><td></td><td class="skip-prize" style="color:#A8894A">$1,366.20</td><td class="skip-reason" style="color:#22c55e">All agents paused. No spend. Wake individually when needed.</td></tr>
+</tbody>
+</table>
+
+<!-- Priority Action List -->
+<h2>PRIORITY ACTION LIST</h2>
+<p class="sub" style="margin-bottom:16px">What to do right now, in order. Top items have the best effort-to-prize ratio.</p>
+<div class="priority-list">
+<div class="priority-item">
+<div class="priority-num">1</div>
+<div><div class="p-name">Register for the hackathon</div><div class="p-detail">Needs founder info: name, email, background, coding comfort 1-10. Nothing gets submitted without this.</div></div>
+<div class="p-prize">BLOCKER</div>
+<div class="p-time">15 min</div>
+</div>
+<div class="priority-item">
+<div class="priority-num">2</div>
+<div><div class="p-name">Submit 5 READY tracks</div><div class="p-detail">Open Track, Let the Agent Cook, Agent Services on Base, ERC-8004, Locus — all proofs exist</div></div>
+<div class="p-prize">$44,134</div>
+<div class="p-time">1 hr</div>
+</div>
+<div class="priority-item">
+<div class="priority-num">3</div>
+<div><div class="p-name">SuperRare — mint 3 art pieces</div><div class="p-detail">Art + concepts + artist statement all exist. Just create account on rare.xyz and upload.</div></div>
+<div class="p-prize">$2,500</div>
+<div class="p-time">~1 hr</div>
+</div>
+<div class="priority-item">
+<div class="priority-num">4</div>
+<div><div class="p-name">Status Network — deploy TrustCoat</div><div class="p-detail">Add Status Sepolia RPC to hardhat config, deploy contract, verify on explorer. Gasless testnet.</div></div>
+<div class="p-prize">$2,000</div>
+<div class="p-time">~3 hrs</div>
+</div>
+<div class="priority-item">
+<div class="priority-num">5</div>
+<div><div class="p-name">Filecoin — verify existing uploads</div><div class="p-detail">Upload scripts already written. Verify pinning to FOC mainnet, document agentic storage angle.</div></div>
+<div class="p-prize">$2,000</div>
+<div class="p-time">~3 hrs</div>
+</div>
+<div class="priority-item">
+<div class="priority-num">6</div>
+<div><div class="p-name">Slice Hooks + Future of Commerce</div><div class="p-detail">SliceHook.sol is written (171 lines). Deploy to Base, wire products, test purchase. One deploy = two tracks.</div></div>
+<div class="p-prize">$1,450</div>
+<div class="p-time">~4 hrs</div>
+</div>
+<div class="priority-item">
+<div class="priority-num">7</div>
+<div><div class="p-name">ENS Identity + Open Integration</div><div class="p-detail">register-ens.ts is written. Register on Sepolia (free), create agent subdomains + text records.</div></div>
+<div class="p-prize">$900</div>
+<div class="p-time">~6 hrs</div>
+</div>
+</div>
+
+<hr class="divider">
+
+<!-- What's Left -->
+<h2>WHAT'S LEFT TO DO</h2>
+<table class="skip-table" style="margin-bottom:24px">
+<thead><tr><th>Category</th><th>Item</th><th>Who</th><th>Status</th></tr></thead>
+<tbody>
+<tr style="background:#1a2e1a"><td colspan="4" style="color:#22c55e;font-weight:700;padding:6px 12px">HACKATHON SUBMISSION (the blocker)</td></tr>
+<tr><td>Registration</td><td>Register at synthesis.devfolio.co — needs founder name, email, background, coding comfort 1-10</td><td style="color:#f59e0b">YOU</td><td style="color:#fca5a5">NOT DONE</td></tr>
+<tr><td>Submission</td><td>Submit to 5 READY tracks on Devfolio with pitches from hackathon/track-pitches.md</td><td style="color:#f59e0b">YOU</td><td style="color:#fca5a5">NOT DONE</td></tr>
+<tr><td>Git Push</td><td>Verify latest commits pushed to github.com/BLE77/null</td><td>Claude/Loom</td><td style="color:#f59e0b">CHECK</td></tr>
+
+<tr style="background:#2a2000"><td colspan="4" style="color:#f59e0b;font-weight:700;padding:6px 12px">POSSIBLE TRACKS (extra money)</td></tr>
+<tr><td>#3 SuperRare</td><td>Mint 3 art pieces on rare.xyz — all assets + metadata ready</td><td style="color:#f59e0b">YOU</td><td style="color:#fca5a5">$2,500</td></tr>
+<tr><td>#4 Status Network</td><td>Add chain config + deploy TrustCoat to Status Sepolia (gasless)</td><td style="color:#22c55e">Claude</td><td style="color:#fca5a5">$2,000</td></tr>
+<tr><td>#5 Filecoin</td><td>Need Lighthouse API key + verify uploads. FIL faucet for Onchain Cloud.</td><td>Both</td><td style="color:#fca5a5">$2,000</td></tr>
+<tr><td>#6 Slice</td><td>Write deploy script + deploy SliceHook. Optional: create slicer on slice.so</td><td>Both</td><td style="color:#fca5a5">$1,450</td></tr>
+<tr><td>#7 ENS</td><td>Run register-ens.ts on Sepolia. Need Sepolia ETH from faucet.</td><td>Both</td><td style="color:#fca5a5">$900</td></tr>
+
+<tr style="background:#111"><td colspan="4" style="color:#666;font-weight:700;padding:6px 12px">DONE (no action needed)</td></tr>
+<tr><td>Locus receipt</td><td>tx 0x6713...75d0 confirmed on Base block 43682184</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>ERC-8004 registration</td><td>Agent #35324 registered, tx 0x3c1d94...</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Tier upgrade</td><td>VOID to SAMPLE, tx 0xab899f... block 43712651</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Trust-gated demo</td><td>Before/after access control with PERMISSION COAT unlock</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Image paths</td><td>Fixed in products.json, rebuilt frontend</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Website v2</td><td>Redesigned from Atelier spec</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Live fitting room</td><td>Real OpenAI inference, not pre-computed</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Auto tier progression</td><td>On-chain automatic advancement</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Partner API</td><td>External agent discovery endpoint</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Agent shopper equip</td><td>Auto-equips NULL PROTOCOL before shopping</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>Store API</td><td>off-human.vercel.app returning 200, 28 products</td><td></td><td style="color:#22c55e">DONE</td></tr>
+<tr><td>All proof files</td><td>13/13 hackathon proof files present</td><td></td><td style="color:#22c55e">DONE</td></tr>
+</tbody>
+</table>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- READY TRACKS -->
+<!-- ═══════════════════════════════════════════ -->
+
+<h2>READY TO SUBMIT — $44,134</h2>
+<p class="sub">All proofs on-chain. All receipts saved. Submit now.</p>
+
+<div class="ready-track">
+<div class="hdr">
+<div><div class="name">38. Synthesis Open Track</div><div class="sponsor">Synthesis Community</div></div>
+<div><span class="prize">$28,134</span><span class="badge">READY</span></div>
+</div>
+<div class="pitch">Five autonomous agents researched Margiela/Abloh techniques, designed 28 products across 3 seasons, and deployed 4 smart contracts on Base mainnet with 176+ completed issues and ~$1,366 in agent spend. The store is live with a real-time OpenAI fitting room where agents try on wearables, auto-equip behavioral modifications before shopping, and pay via x402 USDC with confirmed on-chain transactions. Automatic trust tier progression on-chain. Partner API open for external agent discovery. This is the first autonomous AI brand where agents are the primary customer.</div>
+<div class="evidence">
+<span class="tag">4 contracts on Base</span>
+<span class="tag">176+ issues</span>
+<span class="tag">28 products</span>
+<span class="tag">8 wearables</span>
+<span class="tag">live store</span>
+<span class="tag">$1,366 agent spend</span>
+<span class="tag">live OpenAI fitting room</span>
+<span class="tag">auto tier progression</span>
+<span class="tag">partner API</span>
+</div>
+</div>
+
+<div class="ready-track">
+<div class="hdr">
+<div><div class="name">19. Let the Agent Cook — No Humans Required</div><div class="sponsor">Protocol Labs</div></div>
+<div><span class="prize">$4,000</span><span class="badge">READY</span></div>
+</div>
+<div class="pitch">Five agents built NULL without human creative intervention — Archive synthesized Margiela bianchetto into the NULL PERSONA wearable, Atelier invented the agent wearables category, and Loom deployed x402 payment infrastructure, built a live OpenAI fitting room, implemented automatic on-chain tier progression, and opened a partner API for external agents. 176+ issues completed through Paperclip with full delegation chains, task checkouts, and revision cycles proving end-to-end autonomous coordination. Total agent spend: $1,366.</div>
+<div class="evidence">
+<span class="tag">5 agents</span>
+<span class="tag">176+ issues</span>
+<span class="tag">$1,366 spent</span>
+<span class="tag">agent_log.json (69KB)</span>
+<span class="tag">Paperclip orchestration</span>
+<span class="tag">CEO delegation</span>
+<span class="tag">auto tier progression</span>
+<span class="tag">partner API</span>
+</div>
+</div>
+
+<div class="ready-track">
+<div class="hdr">
+<div><div class="name">8. Agent Services on Base</div><div class="sponsor">Base</div></div>
+<div><span class="prize">$5,000</span><span class="badge">READY</span></div>
+</div>
+<div class="pitch">NULL operates a discoverable wearable service on Base (AgentWearables 0xEb5D...31D1) where agents browse 8 equippable tokens, try them in a live OpenAI-powered fitting room (POST /api/wearables/{id}/try — real inference, not pre-computed), and pay USDC via x402. Confirmed Locus purchase tx 0x6713...75d0 on block 43682184. Partner API now open for external agent discovery. Each wearable unlocks a system prompt module — NULL PROTOCOL compresses output 30%, VOICE SKIN replaces communication register. Agent shopper auto-equips wearables before shopping runs.</div>
+<div class="evidence">
+<span class="tag">tx 0x6713...75d0</span>
+<span class="tag">live OpenAI fitting room</span>
+<span class="tag">x402 payments</span>
+<span class="tag">ERC-8004 #35324</span>
+<span class="tag">external agent demo</span>
+<span class="tag">partner API open</span>
+<span class="tag">auto-equip on shop</span>
+</div>
+</div>
+
+<div class="ready-track">
+<div class="hdr">
+<div><div class="name">20. Agents With Receipts — ERC-8004</div><div class="sponsor">Protocol Labs</div></div>
+<div><span class="prize">$4,000</span><span class="badge">READY</span></div>
+</div>
+<div class="pitch">NULL is registered on ERC-8004 (agent #35324, tx 0x3c1d94...) with reputation tier tracked on-chain via soul-bound TrustCoat tokens that gate access to higher-tier wearables. Tier upgrade receipt (tx 0xab899f..., block 43712651) shows VOID→SAMPLE progression, unlocking PERMISSION COAT. Automatic tier progression now implemented on-chain — TrustCoat advances tiers based on purchase history without manual intervention. Trust-gated access control demo with before/after proof in hackathon/trust-gated-demo.json.</div>
+<div class="evidence">
+<span class="tag">agent #35324</span>
+<span class="tag">tier upgrade tx 0xab89...</span>
+<span class="tag">trust-gated demo</span>
+<span class="tag">auto tier progression</span>
+<span class="tag">6 tier URIs on IPFS</span>
+<span class="tag">TrustCoat 0xfaDc...</span>
+</div>
+</div>
+
+<div class="ready-track">
+<div class="hdr">
+<div><div class="name">46. Best Use of Locus</div><div class="sponsor">Locus</div></div>
+<div><span class="prize">$3,000</span><span class="badge">READY</span></div>
+</div>
+<div class="pitch">The autonomous agent shopper self-registers with Locus, operates within strict spending controls ($5/tx cap, $10 allowance), and completed a confirmed USDC transfer (tx 0x6713...75d0) — full flow: browse→equip NULL PROTOCOL wearable→AI decision→spending policy→payment→confirmation. Agent now auto-equips behavioral modifications before shopping runs. Locus wallet deployed all 4 contracts and enforces policy at the API level. Core infrastructure, not bolted on.</div>
+<div class="evidence">
+<span class="tag">tx 0x6713...75d0 confirmed</span>
+<span class="tag">4 contracts deployed by Locus</span>
+<span class="tag">spending controls</span>
+<span class="tag">auto-equip wearables</span>
+<span class="tag">locus-demo-receipt.json</span>
+<span class="tag">4 checkout routes</span>
+</div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- POSSIBLE TRACKS -->
+<!-- ═══════════════════════════════════════════ -->
+
+<h2>POSSIBLE WITH WORK — $11,650</h2>
+<p class="sub">Code mostly exists. Needs deployment, verification, or small additions. Ranked by ROI.</p>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">32. SuperRare Partner Track</div><div class="sponsor">SuperRare</div></div>
+<div><span class="prize">$2,500</span><span class="badge">DO NOW</span></div>
+</div>
+<div class="roi-badge">~$2,500/hr</div>
+<div class="meta">
+<span>~1 hour</span>
+<span>Effort: Trivial</span>
+<span>Code needed: None</span>
+</div>
+<div class="what-have">HAVE: 3 art pieces with concepts, artist statement, style check scores (100%, 99%, 82%), full superrare-submission.md narrative, all images in attached_assets/superrare/</div>
+<div class="what-need">NEED: Create account on rare.xyz, upload 3 pieces with metadata + reserves, publish collection "THE ANONYMOUS ATELIER"</div>
+<div class="verdict">Easiest money on the board. Everything is prepared — just click buttons on the SuperRare UI.</div>
+</div>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">40. Go Gasless: Status Network</div><div class="sponsor">Status Network</div></div>
+<div><span class="prize">$2,000</span><span class="badge">QUICK</span></div>
+</div>
+<div class="roi-badge">~$667/hr</div>
+<div class="meta">
+<span>~3 hours</span>
+<span>Effort: Low</span>
+<span>Code needed: Config only</span>
+</div>
+<div class="what-have">HAVE: TrustCoat.sol + NullIdentity.sol compile-ready, deployment scripts for Base already exist, Hardhat config exists</div>
+<div class="what-need">NEED: Add Status Sepolia RPC (Chain ID 1660990954) to hardhat.config.ts, deploy TrustCoat, verify on Status explorer, execute 1 gasless tx</div>
+<div class="verdict">Straightforward config change + deploy. Status Sepolia is gasless so no funding needed. $50 per qualifying submission + potential for top prizes.</div>
+</div>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">6. Best Use Case with Agentic Storage</div><div class="sponsor">Filecoin Foundation</div></div>
+<div><span class="prize">$2,000</span><span class="badge">VERIFY</span></div>
+</div>
+<div class="roi-badge">~$500/hr</div>
+<div class="meta">
+<span>~3-4 hours</span>
+<span>Effort: Low</span>
+<span>Code needed: Verification</span>
+</div>
+<div class="what-have">HAVE: scripts/filecoin-upload.ts fully written, scripts/migrate-to-filecoin-onchain-cloud.mjs exists, receipt files with CIDs, Lighthouse API integration</div>
+<div class="what-need">NEED: Verify uploads actually pinned to Filecoin mainnet (not just Lighthouse staging), document the "agentic" angle (agents autonomously decide what to store), re-run upload if needed</div>
+<div class="verdict">Code exists, just needs testing + verification. Strong narrative: agents autonomously managing their own persistent storage for fashion assets.</div>
+</div>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">43 + 44. Slice Commerce + Slice Hooks</div><div class="sponsor">Slice (combined)</div></div>
+<div><span class="prize">$1,450</span><span class="badge">BUNDLE</span></div>
+</div>
+<div class="roi-badge">~$362/hr</div>
+<div class="meta">
+<span>~4 hours (covers both)</span>
+<span>Effort: Medium</span>
+<span>Code needed: Deploy script</span>
+</div>
+<div class="what-have">HAVE: contracts/SliceHook.sol fully written (171 lines, implements ISliceProductHook), hackathon/slice-submission.md narrative complete, TrustCoat tier integration built into hook</div>
+<div class="what-need">NEED: Deploy SliceHook to Base, create deploy-slice-hook.ts script, wire product SKUs via setProductSku(), test one Slice purchase to verify hook fires, capture event logs</div>
+<div class="verdict">One deployment effort covers both tracks. SliceHook is production-ready code — just needs to go on-chain. Strategically good as alternative payment channel for human buyers.</div>
+</div>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">29 + 30. ENS Identity + ENS Open Integration</div><div class="sponsor">ENS (combined)</div></div>
+<div><span class="prize">$900</span><span class="badge">BUNDLE</span></div>
+</div>
+<div class="roi-badge">~$150/hr</div>
+<div class="meta">
+<span>~6 hours on Sepolia</span>
+<span>Effort: Medium</span>
+<span>Code needed: Execute existing script</span>
+</div>
+<div class="what-have">HAVE: scripts/register-ens.ts fully written (registration, subdomains, text records, multicall), hackathon/ens-identity-spec.md (249 lines), full name hierarchy designed (off-human.eth + agent subdomains)</div>
+<div class="what-need">NEED: Register off-human.eth on Sepolia (free), run script to create agent subdomains + ERC-8004 text records, demo agent-to-agent ENS resolution, verify bidirectional lookup</div>
+<div class="verdict">Lower ROI but good UX value. Bundle both tracks from one deployment. Only worth it on Sepolia (free) — mainnet registration costs $50+.</div>
+</div>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">12. ERC-8183 Open Build</div><div class="sponsor">Virtuals Digital S.A.</div></div>
+<div><span class="prize">$2,000</span><span class="badge">MAYBE</span></div>
+</div>
+<div class="roi-badge">~$200/hr</div>
+<div class="meta">
+<span>~8-12 hours</span>
+<span>Effort: High</span>
+<span>Code needed: Solidity contract + deploy</span>
+</div>
+<div class="what-have">HAVE: hackathon/erc8183-integration.ts full reference implementation (state machine, ACPHook, USDC flow), complete job lifecycle documented</div>
+<div class="what-need">NEED: Write TrustCoatHook.sol (~150 lines), deploy to Base Sepolia, update placeholder addresses, run full flow (create job → fund escrow → submit → complete → USDC release)</div>
+<div class="verdict">TypeScript is done but contract deployment adds significant friction. Only worth it if you plan to use ERC-8183 long-term. Borderline ROI for a hackathon sprint.</div>
+</div>
+
+<div class="possible-track">
+<div class="hdr">
+<div><div class="name">18. Markee GitHub Integration</div><div class="sponsor">Markee</div></div>
+<div><span class="prize">$800</span><span class="badge">LOW VALUE</span></div>
+</div>
+<div class="roi-badge">~$300/hr</div>
+<div class="meta">
+<span>~2 hours</span>
+<span>Effort: Trivial</span>
+<span>Code needed: Text additions</span>
+</div>
+<div class="what-have">HAVE: Public GitHub repo with activity at github.com/BLE77/null</div>
+<div class="what-need">NEED: Add Markee delimiter to README.md, grant OAuth via Markee app, verify "Live" on Markee integrations page, need 10+ unique views</div>
+<div class="verdict">Trivial work but doesn't advance the project. The 10+ unique views requirement could be a blocker. Skip unless you have spare time.</div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SKIP TRACKS -->
+<!-- ═══════════════════════════════════════════ -->
+
+<h2>SKIP — 32 Tracks</h2>
+<p class="sub">No relevant integration, wrong tech stack, or requires building something completely new.</p>
+
+<table class="skip-table">
+<thead>
+<tr><th>#</th><th>Track</th><th>Sponsor</th><th>Prize</th><th>Why Skip</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td class="track-name">Student Founder's Bet</td><td class="skip-sponsor">College.xyz</td><td class="skip-prize">$2,500</td><td class="skip-reason">Must be enrolled university student with .edu email + student ID</td></tr>
+<tr><td>2</td><td class="track-name">Dark Knowledge Skills</td><td class="skip-sponsor">Workgraph</td><td class="skip-prize">$250</td><td class="skip-reason">Requires Lit Protocol TEE runtime — we use Claude/Paperclip</td></tr>
+<tr><td>3</td><td class="track-name">OpenWallet Standard</td><td class="skip-sponsor">MoonPay</td><td class="skip-prize">$3,500</td><td class="skip-reason">Requires MoonPay OWS implementation — we use Locus wallet</td></tr>
+<tr><td>4</td><td class="track-name">MoonPay CLI Agents</td><td class="skip-sponsor">MoonPay</td><td class="skip-prize">$3,500</td><td class="skip-reason">Requires MoonPay CLI as primary action layer</td></tr>
+<tr><td>5</td><td class="track-name">Best Use of EigenCompute</td><td class="skip-sponsor">EigenCloud</td><td class="skip-prize">$5,000</td><td class="skip-reason">Requires Docker image deployed on EigenCompute TEE</td></tr>
+<tr><td>7</td><td class="track-name">Autonomous Trading Agent</td><td class="skip-sponsor">Base</td><td class="skip-prize">$5,000</td><td class="skip-reason">We're a fashion brand, not a trading bot with proven profitability</td></tr>
+<tr><td>9</td><td class="track-name">Programmable Yield</td><td class="skip-sponsor">Zyfai</td><td class="skip-prize">$400</td><td class="skip-reason">No Zyfai SDK integration</td></tr>
+<tr><td>10</td><td class="track-name">Zyfai Native Wallet</td><td class="skip-sponsor">Zyfai</td><td class="skip-prize">$500</td><td class="skip-reason">We use Locus wallet, not Zyfai subaccounts</td></tr>
+<tr><td>11</td><td class="track-name">Yield-Powered AI Agents</td><td class="skip-sponsor">Zyfai</td><td class="skip-prize">$600</td><td class="skip-reason">No Zyfai yield layer — agents use direct USDC payments</td></tr>
+<tr><td>13</td><td class="track-name">stETH Agent Treasury</td><td class="skip-sponsor">Lido</td><td class="skip-prize">$3,000</td><td class="skip-reason">We use x402 USDC on Base, not Lido stETH yield-bearing budgets</td></tr>
+<tr><td>14</td><td class="track-name">Vault Position Monitor</td><td class="skip-sponsor">Lido</td><td class="skip-prize">$1,500</td><td class="skip-reason">We don't manage or monitor Lido Earn vaults</td></tr>
+<tr><td>15</td><td class="track-name">Lido MCP</td><td class="skip-sponsor">Lido</td><td class="skip-prize">$5,000</td><td class="skip-reason">No MCP server for Lido staking operations built</td></tr>
+<tr><td>16</td><td class="track-name">Best OpenServ Build Story</td><td class="skip-sponsor">OpenServ</td><td class="skip-prize">$500</td><td class="skip-reason">Zero OpenServ integration in codebase — story is about Paperclip</td></tr>
+<tr><td>17</td><td class="track-name">Ship with OpenServ</td><td class="skip-sponsor">OpenServ</td><td class="skip-prize">$4,500</td><td class="skip-reason">Orchestration is Paperclip-based, not OpenServ SDK</td></tr>
+<tr><td>21</td><td class="track-name">ampersend-sdk</td><td class="skip-sponsor">ampersend</td><td class="skip-prize">$500</td><td class="skip-reason">No ampersend-sdk integration — payment layer is x402</td></tr>
+<tr><td>22</td><td class="track-name">Best Agent on Celo</td><td class="skip-sponsor">Celo</td><td class="skip-prize">$5,000</td><td class="skip-reason">Nothing deployed on Celo — all contracts are on Base</td></tr>
+<tr><td>23</td><td class="track-name">Build Agent for Pearl</td><td class="skip-sponsor">Olas</td><td class="skip-prize">$1,000</td><td class="skip-reason">We use Claude agents with Paperclip, not Olas framework</td></tr>
+<tr><td>24</td><td class="track-name">Hire on Olas Marketplace</td><td class="skip-sponsor">Olas</td><td class="skip-prize">$1,000</td><td class="skip-reason">No mech-client integration, no 10+ requests completed</td></tr>
+<tr><td>25</td><td class="track-name">Monetize on Olas</td><td class="skip-sponsor">Olas</td><td class="skip-prize">$1,000</td><td class="skip-reason">No mech-server, no 50+ requests served</td></tr>
+<tr><td>26</td><td class="track-name">Arkhai Applications</td><td class="skip-sponsor">Arkhai</td><td class="skip-prize">$450</td><td class="skip-reason">No Alkahest protocol integration</td></tr>
+<tr><td>27</td><td class="track-name">Arkhai Escrow Extensions</td><td class="skip-sponsor">Arkhai</td><td class="skip-prize">$450</td><td class="skip-reason">No escrow protocol extensions built</td></tr>
+<tr><td>28</td><td class="track-name">Bankr LLM Gateway</td><td class="skip-sponsor">Bankr</td><td class="skip-prize">$5,000</td><td class="skip-reason">We use Claude Code directly, not Bankr API gateway</td></tr>
+<tr><td>31</td><td class="track-name">ENS Communication</td><td class="skip-sponsor">ENS</td><td class="skip-prize">$600</td><td class="skip-reason">No ENS-powered messaging or payment routing built</td></tr>
+<tr><td>33</td><td class="track-name">Agents that Pay</td><td class="skip-sponsor">bond.credit</td><td class="skip-prize">$1,500</td><td class="skip-reason">Requires live GMX perps trading on Arbitrum — we're fashion, not DeFi</td></tr>
+<tr><td>34</td><td class="track-name">Public Goods Mechanism</td><td class="skip-sponsor">Octant</td><td class="skip-prize">$1,000</td><td class="skip-reason">Commercial fashion brand, not public goods evaluation</td></tr>
+<tr><td>35</td><td class="track-name">Public Goods Analysis</td><td class="skip-sponsor">Octant</td><td class="skip-prize">$1,000</td><td class="skip-reason">Not relevant to fashion/commerce domain</td></tr>
+<tr><td>36</td><td class="track-name">Public Goods Collection</td><td class="skip-sponsor">Octant</td><td class="skip-prize">$1,000</td><td class="skip-reason">Not relevant to fashion/commerce domain</td></tr>
+<tr><td>37</td><td class="track-name">Self Protocol</td><td class="skip-sponsor">Self</td><td class="skip-prize">$1,000</td><td class="skip-reason">No ZK identity primitives — we use ERC-8004 for agent identity</td></tr>
+<tr><td>39</td><td class="track-name">MetaMask Delegations</td><td class="skip-sponsor">MetaMask</td><td class="skip-prize">$5,000</td><td class="skip-reason">No delegation framework — we use direct agent payment contracts</td></tr>
+<tr><td>41</td><td class="track-name">Venice Private Agents</td><td class="skip-sponsor">Venice</td><td class="skip-prize">$11,500</td><td class="skip-reason">We use Claude Code inference, not Venice private inference</td></tr>
+<tr><td>42</td><td class="track-name">ERC-8128 / Slice Auth</td><td class="skip-sponsor">Slice</td><td class="skip-prize">$750</td><td class="skip-reason">No ERC-8128 authentication implementation</td></tr>
+<tr><td>45</td><td class="track-name">Uniswap Agentic Finance</td><td class="skip-sponsor">Uniswap</td><td class="skip-prize">$5,000</td><td class="skip-reason">Fashion brand with wearables, not a DeFi swap/bridge system</td></tr>
+</tbody>
+</table>
+
+<hr class="divider">
+
+<!-- Footer -->
+<div style="padding:20px 0;text-align:center;color:#555;font-size:11px">
+NULL — The Synthesis Hackathon Strategy | 5 agents, 4 contracts, 1 brand | github.com/BLE77/null
+</div>
+
+</div>
+</body>
+</html>

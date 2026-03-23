@@ -1,0 +1,35 @@
+{
+  "chain": "base",
+  "collection": {
+    "name": "THE ANONYMOUS ATELIER",
+    "symbol": "ATELIER",
+    "contract": "0xbCF98B0b61967045D50694F377e9075f81e73e68",
+    "deployTx": "0x654230e4ea128bbfd7c7a25785de17f9ef02ce30196569700cb4fc257f49ed77",
+    "factory": "0xf776204233bfb52ba0ddff24810cbdbf3dbf94dd"
+  },
+  "mints": [
+    {
+      "tokenId": 1,
+      "name": "TRUST COAT: TIER 0",
+      "tx": "0xfced16c699ff418ed4c91c95e6a985aecdd017568501bffeeb8a8ecd57850a38",
+      "metadataUri": "ipfs://QmVMoaGNSnt5kcyuADLgu239nfp3EDWHtLrMTYjJddBmXA",
+      "imageUri": "ipfs://QmdJcBBpDKffWB7hkJLjBTkw1qAdcGk37jHgnpZe2QPDxG"
+    },
+    {
+      "tokenId": 2,
+      "name": "THE ATELIER ADDRESSES ITSELF",
+      "tx": "0x2c8d44419c099173a1e84af99418589a1c71933673deedda19c3cd779e923ffa",
+      "metadataUri": "ipfs://QmbyZM5w7omfUv4X5xyER9AsKkNkRxMXj8vKpDqsM97rSE",
+      "imageUri": "ipfs://QmTBiazhs54XnBNHTkzCjMxEG3rxuGfx6YsxYrHFKPdPfk"
+    },
+    {
+      "tokenId": 3,
+      "name": "TROMPE-L'OEIL No. 1: SELF-DOCUMENTING",
+      "tx": "0x7e17de2bf2b9cfe0f826f1f3adcf0f6ffb3123ecc1cba051fb373b4412f41ebc",
+      "metadataUri": "ipfs://QmYMVf4qbBdU51wJSMzuregzyLv3bSuAF39yKQY1Vo53Dq",
+      "imageUri": "ipfs://QmNv19FBhXkccz2aP6SnSPgYr21tmdkC6k1MdWDmxro2vy"
+    }
+  ],
+  "owner": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+  "deployedAt": "2026-03-22"
+}

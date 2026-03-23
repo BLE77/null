@@ -56,5 +56,25 @@
     "chainId": 8453,
     "registeredAt": "2026-03-22T20:28:38.732Z",
     "explorerUrl": "https://basescan.org/tx/0x3c1d9494dd39bb3c3bf82874c6a8f2774cf51fdc00b19b5d465e18d670330477"
+  },
+  "OffHumanSliceHook": {
+    "address": "0x924CD014c473e78B190bfE8bdDDd99e1fba3a355",
+    "network": "base",
+    "chainId": 8453,
+    "deployTx": "0x5930a2bacca4883072192cc26fc0afa504402a207d12e95777859381c7cec35b",
+    "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "sliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d",
+    "trustCoat": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+    "deployedAt": "2026-03-22T00:00:00.000Z",
+    "explorerUrl": "https://basescan.org/address/0x924CD014c473e78B190bfE8bdDDd99e1fba3a355"
+  },
+  "TrustCoat-StatusSepolia": {
+    "address": "0x2FA88fea85DE88474B36dAb0285b284a9457c35e",
+    "network": "status-sepolia",
+    "chainId": 1660990954,
+    "deployTx": "0x8552fd87f32ac7408a4f3999c524251a140131734abef6e6cd9ecce47f8baa68",
+    "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "deployedAt": "2026-03-23T04:07:15.130Z",
+    "explorerUrl": "https://sepoliascan.status.network/address/0x2FA88fea85DE88474B36dAb0285b284a9457c35e"
   }
 }

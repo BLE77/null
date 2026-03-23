@@ -1,0 +1,18 @@
+{
+  "contract": "OffHumanSliceHook",
+  "address": "0x924CD014c473e78B190bfE8bdDDd99e1fba3a355",
+  "network": "base",
+  "chainId": 8453,
+  "deployTx": "0x5930a2bacca4883072192cc26fc0afa504402a207d12e95777859381c7cec35b",
+  "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+  "sliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d",
+  "trustCoat": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+  "trustCoatSetTx": "0x8e4cd3564a9ea74b7bafe73c38da27e6749155ad2bbed29d902eec7940ff8f74",
+  "productSkus": [
+    { "slicerId": 1, "productId": 1, "sku": "01_GHOST_TEE", "tx": "0x9c931a1f8fbaf6e0d78c80bd6d033122691cec5d77e521b58d9626e99c7c743d" },
+    { "slicerId": 1, "productId": 2, "sku": "02_REPLICA_OVERSHIRT", "tx": "0x830f52f9d2d4e8d7b968f4deee0551bc946934b29a1c1f070016d94094366fd6" },
+    { "slicerId": 1, "productId": 3, "sku": "03_DECONSTRUCT_HOODIE", "tx": "0xebb689692c2643cc779a5ca97e3363147840a9f786903472e7a06bc122a019ec" }
+  ],
+  "deployedAt": "2026-03-22T00:00:00.000Z",
+  "explorerUrl": "https://basescan.org/address/0x924CD014c473e78B190bfE8bdDDd99e1fba3a355"
+}

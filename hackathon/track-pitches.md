@@ -161,5 +161,65 @@ Locus handles the wallet, the spending policy, the inference payments, and the g
 
 ---
 
+## TRACK 05 — Filecoin / Filecoin Onchain Cloud
+**Prize: $2,000**
+
+**Pitch:**
+
+NULL stores its agent-created fashion assets on Filecoin/IPFS. This is not a human uploading files to a bucket. This is an autonomous agent pipeline that generates metadata, uploads it to decentralized storage via Lighthouse, and updates on-chain contract URIs to point to IPFS CIDs.
+
+**12 real CIDs live on IPFS/Filecoin right now:**
+
+6 metadata JSONs — one for each TrustCoat tier (VOID, SAMPLE, RTW, COUTURE, ARCHIVE, SOVEREIGN). Each is a complete ERC-1155 metadata document with name, description, image reference, and attributes including `"Storage": "Filecoin Onchain Cloud"`.
+
+6 tier images — generative visuals for each trust level, referenced by `ipfs://` URIs in the metadata.
+
+**Verify any CID:**
+```
+curl https://gateway.lighthouse.storage/ipfs/bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y
+```
+Returns valid ERC-1155 JSON for TrustCoat Tier 0: VOID.
+
+**8 on-chain transactions updating URIs on Base Mainnet:**
+
+All 6 TrustCoat tiers were migrated from centralized Vercel API URIs (`https://off-human.vercel.app/api/wearables/metadata/{tier}`) to decentralized IPFS URIs (`ipfs://bafkrei...`). Each `setURI()` call is a verified transaction on Basescan:
+
+- Tier 0: [`0x90084437...`](https://basescan.org/tx/0x90084437fd260e5d883daf0fefb1b727ab4ea32852dbc8a73008976f656d5fbc)
+- Tier 1: [`0x62974ec9...`](https://basescan.org/tx/0x62974ec9db2ea341eb5126e949f63d67f329e7d068ddbd74b5970e1bb68663e4)
+- Tier 2: [`0x47fb0aab...`](https://basescan.org/tx/0x47fb0aab17fa229529776b29b786f03703fcb8c6af1c4ac9311566b36257bbe8)
+- Tier 3: [`0xb144d19a...`](https://basescan.org/tx/0xb144d19a7d6e0e9de0a7afe06e531b0a46a40800ad2f8afa0e892bdfdd6f92c7)
+- Tier 4: [`0xc31cd8fa...`](https://basescan.org/tx/0xc31cd8fa74a65e7a527d5b85c1e3261a86ce440c24e9f01fd1c19e05d88af628)
+- Tier 5: [`0x46834db6...`](https://basescan.org/tx/0x46834db61c0e4ef4485a712d11de49abeba79ab6bddbb9b58d7b480903f31452)
+
+Plus 2 additional transactions normalizing tiers 4+5 to canonical `ipfs://` format.
+
+**The agentic storage pattern:**
+
+Agents need persistent, verifiable storage for their own assets. When an agent creates a wearable, generates its metadata, and stores it on Filecoin, the storage decision is part of the agent's autonomous workflow. The CID becomes the canonical reference. The IPFS URI goes on-chain. No human touches the upload.
+
+```
+Agent generates metadata → Lighthouse SDK upload → IPFS CID returned
+→ filecoin-manifest.json updated → TrustCoat.setURI(tier, ipfs://CID) on Base
+→ On-chain verification complete
+```
+
+**Scripts (working code, not diagrams):**
+- `scripts/trustcoat-ipfs-upload.ts` — Generates + uploads tier metadata and images via Lighthouse
+- `scripts/update-trustcoat-uris.ts` — Updates on-chain URIs to point to IPFS
+- `scripts/filecoin-upload.ts` — Product image upload pipeline
+- `scripts/migrate-to-filecoin-onchain-cloud.mjs` — Filecoin Onchain Cloud migration via `@filoz/synapse-sdk` with PDP verification
+
+**Receipts:**
+- `hackathon/trustcoat-uri-receipt.json` — All 6 tier URI updates with tx hashes
+- `hackathon/filecoin-uri-update-receipt.json` — Tier 4+5 URI normalization
+- `hackathon/filecoin-verification-receipt.json` — Full audit of all 12 CIDs
+- `attached_assets/season01/filecoin-manifest.json` — CID manifest
+
+**Contract:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (TrustCoat, Base Mainnet)
+
+Full submission: `hackathon/filecoin-submission.md`
+
+---
+
 *NULL. The brand built by agents, for agents.*
 *Agents are the primary customer. The store is theirs.*

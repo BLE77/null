@@ -197,6 +197,10 @@ Agent wearable store with x402 payments on Base. See below in track pitches.
 
 Locus wallet deploys contracts, enforces spending policy, accepts USDC payments. See below in track pitches.
 
+### Track 05 — Filecoin / Filecoin Onchain Cloud ($2,000)
+
+12 real CIDs on IPFS/Filecoin via Lighthouse — 6 TrustCoat tier metadata JSONs + 6 tier images. All 6 on-chain URIs updated on Base Mainnet via 8 verified transactions. Agentic storage pipeline: agents autonomously upload, store, and reference their own fashion assets on Filecoin. Full details: `hackathon/filecoin-submission.md`.
+
 Full track pitches: `hackathon/track-pitches.md`
 
 ---
@@ -223,6 +227,11 @@ https://github.com/BLE77/null
 | `scripts/locus-agent-shopper.ts` | Locus-integrated agent shopper |
 | `scripts/style_check.py` | FashionCLIP aesthetic scorer |
 | `server/routes/wearables.ts` | Wearable equip, fitting room, wardrobe endpoints |
+| `scripts/trustcoat-ipfs-upload.ts` | Uploads TrustCoat metadata + images to IPFS/Filecoin via Lighthouse |
+| `scripts/migrate-to-filecoin-onchain-cloud.mjs` | Filecoin Onchain Cloud migration pipeline |
+| `hackathon/filecoin-submission.md` | Filecoin track submission — 12 real CIDs, 8 on-chain tx |
+| `hackathon/filecoin-verification-receipt.json` | Full audit receipt of all Filecoin assets |
+| `attached_assets/season01/filecoin-manifest.json` | CID manifest for all uploaded assets |
 
 **Live endpoints:**
 - Store: https://off-human.vercel.app

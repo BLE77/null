@@ -1,0 +1,124 @@
+{
+  "verifiedAt": "2026-03-22T00:00:00.000Z",
+  "project": "NULL - Autonomous Fashion Brand",
+  "track": "Filecoin / Filecoin Onchain Cloud",
+  "contract": {
+    "address": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+    "type": "ERC-1155 (TrustCoat)",
+    "chain": "base-mainnet (chainId 8453)",
+    "basescanUrl": "https://basescan.org/address/0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e"
+  },
+  "storageProvider": "Lighthouse (IPFS pinning + Filecoin deals)",
+  "realAssets": {
+    "totalCIDs": 12,
+    "metadataCIDs": 6,
+    "imageCIDs": 6,
+    "allVerifiedLive": true
+  },
+  "metadata": {
+    "tier-0-VOID": {
+      "cid": "bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "ipfsUri": "ipfs://bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "verified": true,
+      "content": "ERC-1155 JSON with name, description, image, attributes"
+    },
+    "tier-1-SAMPLE": {
+      "cid": "bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "ipfsUri": "ipfs://bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "verified": true
+    },
+    "tier-2-RTW": {
+      "cid": "bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "ipfsUri": "ipfs://bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "verified": true
+    },
+    "tier-3-COUTURE": {
+      "cid": "bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "ipfsUri": "ipfs://bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "verified": true
+    },
+    "tier-4-ARCHIVE": {
+      "cid": "bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "ipfsUri": "ipfs://bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "verified": true
+    },
+    "tier-5-SOVEREIGN": {
+      "cid": "bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "ipfsUri": "ipfs://bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "verified": true
+    }
+  },
+  "images": {
+    "tier-0": {
+      "cid": "bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy"
+    },
+    "tier-1": {
+      "cid": "bafybeieuukubdtf6rymdei2fztwh4vjhh544w5eexeg6jefwsg6fk4qvwe",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafybeieuukubdtf6rymdei2fztwh4vjhh544w5eexeg6jefwsg6fk4qvwe"
+    },
+    "tier-2": {
+      "cid": "bafybeifhwoeare4tiiecb5xnwioycsvz4dynmbixqsbl4eeufgsmgnioky",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafybeifhwoeare4tiiecb5xnwioycsvz4dynmbixqsbl4eeufgsmgnioky"
+    },
+    "tier-3": {
+      "cid": "bafybeid7hws6loaifso75k5yv7psjhbp24tevygaxnzcjsfjyk4ddgjyjm",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafybeid7hws6loaifso75k5yv7psjhbp24tevygaxnzcjsfjyk4ddgjyjm"
+    },
+    "tier-4": {
+      "cid": "bafybeibgb3asbmdayuwwpb5ja3hkawox5d2pg2nqa5lirwih4ep2e5ytnm",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafybeibgb3asbmdayuwwpb5ja3hkawox5d2pg2nqa5lirwih4ep2e5ytnm"
+    },
+    "tier-5": {
+      "cid": "bafybeicvs46mlt5wwi4htjqtmkvh4sndl55uymksrngbyh2oaw4zjxmwlq",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafybeicvs46mlt5wwi4htjqtmkvh4sndl55uymksrngbyh2oaw4zjxmwlq"
+    }
+  },
+  "onChainUpdates": {
+    "totalTransactions": 8,
+    "round1": {
+      "timestamp": "2026-03-19T19:13:19.510Z",
+      "description": "All 6 tiers migrated from Vercel API to IPFS URIs",
+      "transactions": {
+        "tier-0": "0x90084437fd260e5d883daf0fefb1b727ab4ea32852dbc8a73008976f656d5fbc",
+        "tier-1": "0x62974ec9db2ea341eb5126e949f63d67f329e7d068ddbd74b5970e1bb68663e4",
+        "tier-2": "0x47fb0aab17fa229529776b29b786f03703fcb8c6af1c4ac9311566b36257bbe8",
+        "tier-3": "0xb144d19a7d6e0e9de0a7afe06e531b0a46a40800ad2f8afa0e892bdfdd6f92c7",
+        "tier-4": "0xc31cd8fa74a65e7a527d5b85c1e3261a86ce440c24e9f01fd1c19e05d88af628",
+        "tier-5": "0x46834db61c0e4ef4485a712d11de49abeba79ab6bddbb9b58d7b480903f31452"
+      }
+    },
+    "round2": {
+      "timestamp": "2026-03-19T20:47:44.485Z",
+      "description": "Tiers 4+5 normalized from HTTPS gateway to ipfs:// canonical format",
+      "transactions": {
+        "tier-4": "0x685cbad0bed5c7c35f74cead7544ecff368359f058db9360e8fdd8ccff3e60cc",
+        "tier-5": "0x0f583cfa0aa1e9fc47fa9304f0e1af5ce90bd2aeaaff7efa1a452f56cc12076d"
+      }
+    }
+  },
+  "scripts": {
+    "upload": "scripts/trustcoat-ipfs-upload.ts",
+    "deploy": "scripts/trustcoat-ipfs-deploy.ts",
+    "updateUris": "scripts/update-trustcoat-uris.ts",
+    "productUpload": "scripts/filecoin-upload.ts",
+    "onchainCloudMigration": "scripts/migrate-to-filecoin-onchain-cloud.mjs"
+  },
+  "manifests": {
+    "filecoinManifest": "attached_assets/season01/filecoin-manifest.json",
+    "uriReceipt": "hackathon/trustcoat-uri-receipt.json",
+    "uriUpdateReceipt": "hackathon/filecoin-uri-update-receipt.json"
+  },
+  "filecoinOnchainCloud": {
+    "status": "dry-run-completed",
+    "note": "Migration pipeline validated end-to-end. Live execution requires FIL + USDFC on Filecoin network for gas and storage payments.",
+    "sdk": "@filoz/synapse-sdk",
+    "receipt": "hackathon/filecoin-onchain-cloud-receipt.json"
+  }
+}

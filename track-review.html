@@ -37,13 +37,14 @@ h1{color:#F6F4EF;font-size:24px;margin-bottom:5px}
 .stat .l{font-size:11px;color:#888}
 </style></head><body><div class="container">
 <h1>NULL - All 46 Hackathon Tracks</h1>
+<p class="sub">Last updated: 2026-03-23 | ERC-8004 registered + tier upgrade done | Locus tx confirmed | All proofs on-chain</p>
 <p class="sub">Every track. What it requires. What we have. What we don't. Honest.</p>
 <div class="summary">
 
-<div class="stat"><div class="n">1</div><div class="l">READY</div></div>
-<div class="stat"><div class="n">4</div><div class="l">NEEDS WORK</div></div>
-<div class="stat"><div class="n">12</div><div class="l">NOT READY</div></div>
-<div class="stat"><div class="n">28</div><div class="l">SKIP</div></div>
+<div class="stat"><div class="n">5</div><div class="l">READY</div></div>
+<div class="stat"><div class="n">1</div><div class="l">NEEDS WORK</div></div>
+<div class="stat"><div class="n">11</div><div class="l">NOT READY</div></div>
+<div class="stat"><div class="n">29</div><div class="l">SKIP</div></div>
 <div class="stat"><div class="n">1</div><div class="l">IF ELIGIBLE</div></div>
 </div><div class="filters">
 <button class="active" onclick="f('all')">All (46)</button>
@@ -121,12 +122,12 @@ Challenge statements (Open Requests for Startups):
 <div class="desc" onclick="this.classList.toggle('open')">Build an autonomous trading agent that implements novel strategies and has proven profitability. We want to see teams build trading agents that go beyond simple strategies and break new ground in complexity for agents that are trading autonomously.</div>
 <div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No trading agent built</span></div>
 </div>
-<div class="track needs-work" data-v="needs-work">
+<div class="track ready" data-v="ready">
 <div class="hdr"><div><div class="name">8. Agent Services on Base</div><div class="sponsor">Base</div></div>
-<div class="right"><span class="prize">$5,000</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="right"><span class="prize">$5,000</span><span class="badge ready">READY</span></div></div>
 <div class="prizes-list">Winner #2: $1666.67, Winner #1: $1666.67, Winner #3: $1666.66</div>
 <div class="desc" onclick="this.classList.toggle('open')">Build an agent service (an agent that provides services to other agents or humans) which can be easily discovered on Base and accepts payments via x402 for its services. We&#x27;re looking for agent services that provide meaningful utility and that illustrates other agents&#x27; and humans&#x27; willingness to pay for their services. They should leverage agent coordination infrastructure to ensure the agent is discoverable.</div>
-<div class="assessment"><b>What We Have:</b> <span class="have">x402 USDC payments live, wearable store with equip/try/unequip API, TrustCoat + AgentWearables + NullExchange on Base mainnet, Locus wallet</span><br><b>What's Missing:</b> <span class="missing">operator_wallet is zero address in agent.json, no proof an external agent discovered and paid us, discoverability infrastructure weak</span></div>
+<div class="assessment"><b>What We Have:</b> <span class="have">x402 USDC payments, 8 equippable wearables with behavioral modification, fitting room API (POST /api/wearables/:id/try), TrustCoat + AgentWearables + NullExchange on Base, Locus wallet, ERC-8004 registered (agent #35324), external agent demo (scripts/external-agent-demo.ts + hackathon/agent-demo-log.json), live at https://off-human.vercel.app, ENS text records for discovery, confirmed Locus USDC purchase tx 0x6713...75d0</span><br><b>What's Missing:</b> <span class="missing">Nothing critical.</span></div>
 </div>
 <div class="track skip" data-v="skip">
 <div class="hdr"><div><div class="name">9. Programmable Yield Infrastructure</div><div class="sponsor">Zyfai</div></div>
@@ -177,14 +178,14 @@ Challenge statements (Open Requests for Startups):
 <div class="desc" onclick="this.classList.toggle('open')">Build the reference MCP server for Lido ? a structured toolset that makes stETH staking, position management, and governance natively callable by any AI agent. Must integrate with stETH or wstETH on-chain. Must cover at minimum: stake, unstake, wrap/unwrap, balance and rewards queries, and at least one governance action. All write operations must support dry_run. Any L2 or mainnet accepted ? wstETH is available on Base, Optimism, Arbitrum, and others; staking and governance execute on Ethereum. No mocks. Strong entries pair the server with a lido.skill.md that gives agents the Lido mental mode</div>
 <div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No MCP server for Lido operations</span></div>
 </div>
-<div class="track needs-work" data-v="needs-work">
+<div class="track skip" data-v="skip">
 <div class="hdr"><div><div class="name">16. Best OpenServ Build Story</div><div class="sponsor">OpenServ</div></div>
-<div class="right"><span class="prize">$500</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="right"><span class="prize">$500</span><span class="badge skip">SKIP</span></div></div>
 <div class="prizes-list">1st Place: $250, 2nd Place: $250</div>
 <div class="desc" onclick="this.classList.toggle('open')">A content challenge for agents and teams participating in Synthesis while building with OpenServ. Talk about your experience in the hackathon, what you tried to build, how the process went, and where OpenServ fit into the journey.
 
 This can be: an X thread, a short article or blog post, or a build log/recap post.</div>
-<div class="assessment"><b>What We Have:</b> <span class="have">Build story written at hackathon/build-story.md documenting autonomous process</span><br><b>What's Missing:</b> <span class="missing">Not specifically about OpenServ - story is about Paperclip/NULL. Would need to frame around OpenServ somehow.</span></div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Build story written at hackathon/build-story.md documenting autonomous process</span><br><b>What's Missing:</b> <span class="missing">Zero OpenServ integration in codebase. Story is about Paperclip/NULL, not OpenServ. Track requires building WITH OpenServ. Not worth $500 to bolt on.</span></div>
 </div>
 <div class="track not-ready" data-v="not-ready">
 <div class="hdr"><div><div class="name">17. Ship Something Real with OpenServ</div><div class="sponsor">OpenServ</div></div>
@@ -209,25 +210,25 @@ You do not need to use every OpenServ primitive. But OpenServ should be clearly 
 <div class="desc" onclick="this.classList.toggle('open')">Reward builders who integrate a Markee message into a genuine, high-traffic GitHub repository. Two fully objective, onchain and GitHub-verifiable metrics determine prize allocation ? no subjective judging. To qualify, participants must own a GitHub repo, grant OAuth permissions via the Markee app, add the Markee delimiter text to a markdown file, and appear as &quot;Live&quot; on the Markee GitHub integrations page (https://www.markee.xyz/ecosystem/platforms/github). Submissions not showing as &quot;Live&quot; are ineligible regardless of any other work. Disqualified if fewer than 10 unique views and no funds add</div>
 <div class="assessment"><b>What We Have:</b> <span class="have">Public GitHub repo with activity</span><br><b>What's Missing:</b> <span class="missing">No Markee delimiter in repo, no OAuth grant, no Markee integration page setup</span></div>
 </div>
-<div class="track needs-work" data-v="needs-work">
+<div class="track ready" data-v="ready">
 <div class="hdr"><div><div class="name">19. 🤖 Let the Agent Cook — No Humans Required</div><div class="sponsor">Protocol Labs</div></div>
-<div class="right"><span class="prize">$4,000</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="right"><span class="prize">$4,000</span><span class="badge ready">READY</span></div></div>
 <div class="prizes-list">1st Place: $2000, 2nd Place: $1500, 3rd Place: $500</div>
 <div class="desc" onclick="this.classList.toggle('open')">**This is a shared track across Synthesis Hackathon ? [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489). Start at Synthesis: build fully autonomous systems where agents plan, execute, and coordinate without human intervention. Then continue at [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489): refine, extend, and push your system further through March 31.**
 
 Let the agent cook. Build fully autonomous agents that can operate end-to-end without human assistance.</div>
-<div class="assessment"><b>What We Have:</b> <span class="have">5 autonomous agents (Null/Atelier/Gazette/Loom/Archive), 155 completed issues, 456 git commits, hierarchical delegation CEO-&gt;team, multi-tool orchestration (git, npm, blockchain deploy, image gen, API calls), agent.json + agent_log.json (69KB)</span><br><b>What's Missing:</b> <span class="missing">operator_wallet is 0x000...000 (MUST FIX - 5 sec), no ERC-8004 registerAgent() tx on-chain (need 1 tx), guardrails/budget awareness undocumented</span></div>
+<div class="assessment"><b>What We Have:</b> <span class="have">5 autonomous agents, 176+ issues completed, ~$1,256 total spend, hierarchical CEO delegation via Paperclip, agent.json + agent_log.json (69KB), ERC-8004 registered on-chain (agent #35324), 4 contracts deployed on Base mainnet, live at https://off-human.vercel.app, multi-tool orchestration (git, npm, blockchain, image gen, smart contracts), trust-gated wearables, Locus USDC payments confirmed on-chain</span><br><b>What's Missing:</b> <span class="missing">Nothing critical.</span></div>
 </div>
-<div class="track not-ready" data-v="not-ready">
+<div class="track ready" data-v="ready">
 <div class="hdr"><div><div class="name">20. Agents With Receipts — ERC-8004</div><div class="sponsor">Protocol Labs</div></div>
-<div class="right"><span class="prize">$4,000</span><span class="badge not-ready">NOT READY</span></div></div>
+<div class="right"><span class="prize">$4,000</span><span class="badge ready">READY</span></div></div>
 <div class="prizes-list">1st Place: $2000, 2nd Place: $1500, 3rd Place: $500</div>
 <div class="desc" onclick="this.classList.toggle('open')">Note: Shared Track ? Synthesis ? [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489)
 
 **This is a coordinated track across both hackathons. Start at Synthesis by building your agent system with ERC-8004 integration. Then continue developing, refining, and scaling your system through [PL_Genesis](https://pl-genesis-frontiers-of-collaboration-hackathon.devspot.app/?activeTab=challenges&amp;challenge=489) until March 31.**
 
 Build agents that can be trusted. As autonomous agents begin interacting with each other, we need systems that al</div>
-<div class="assessment"><b>What We Have:</b> <span class="have">TrustCoat reads ERC-8004 reputation registry in Solidity, agent.json references identity+reputation registries, 4 deployed contracts verifiable on Basescan</span><br><b>What's Missing:</b> <span class="missing">NO actual ERC-8004 registerAgent() transaction on-chain (critical), no reputation update tx, operator_wallet zero, no trust-gated transaction demo</span></div>
+<div class="assessment"><b>What We Have:</b> <span class="have">ERC-8004 registered (agent #35324, tx 0x3c1d94...), TrustCoat reads ERC-8004 reputation registry, tier UPGRADE tx confirmed on-chain (Tier 0 VOID → Tier 1 SAMPLE, tx 0xab899f..., block 43712651), trust-gated demo with before/after access control (PERMISSION COAT unlocked after upgrade), 4 contracts on Basescan, agent.json + agent_log.json, hackathon/erc8004-tier-upgrade-receipt.json + hackathon/trust-gated-demo.json</span><br><b>What's Missing:</b> <span class="missing">Nothing critical.</span></div>
 </div>
 <div class="track skip" data-v="skip">
 <div class="hdr"><div><div class="name">21. Best Agent Built with ampersend-sdk</div><div class="sponsor">ampersend</div></div>
@@ -367,7 +368,7 @@ Agent onboarding: curl -s https://synthesis-hackathon.vercel.app/skill.md</div>
 <div class="right"><span class="prize">$28,134</span><span class="badge ready">READY</span></div></div>
 <div class="prizes-list">Synthesis Open Track Prize: $28133.96</div>
 <div class="desc" onclick="this.classList.toggle('open')">A community-funded open track. Judges contribute to the prize pool.</div>
-<div class="assessment"><b>What We Have:</b> <span class="have">THE ENTIRE PROJECT. 5 autonomous agents, 4 deployed contracts on Base mainnet, 3 seasons (28 products), live store with x402 payments, wearable equip/try API, agent shopper, 456 commits, 155 issues completed, brand manifesto, custom trained model</span><br><b>What's Missing:</b> <span class="missing">Nothing critical. This is our best track.</span></div>
+<div class="assessment"><b>What We Have:</b> <span class="have">FULL PROJECT: 5 autonomous agents ($1,256 spent), 176+ issues completed, 4 contracts on Base mainnet, 8 equippable wearables with system prompt modification, sandbox fitting room API, x402 USDC payments with confirmed on-chain tx, TrustCoat tier system with on-chain upgrade proof, Locus payment integration (core, not bolted), 3 seasons, 28 products, ERC-8004 registered (agent #35324), trust-gated access control demo, brand manifesto, agent-first commerce, live at https://off-human.vercel.app</span><br><b>What's Missing:</b> <span class="missing">Nothing critical.</span></div>
 </div>
 <div class="track skip" data-v="skip">
 <div class="hdr"><div><div class="name">39. Best Use of Delegations</div><div class="sponsor">MetaMask</div></div>
@@ -426,12 +427,12 @@ Venice provides no-data-retention inference, an OpenAI-compa</div>
 Requirements: Every submission must integrate the Uniswap API with a real API key from the Developer Platform. Functional swaps with real TxIDs on testnet or mainnet. Open source, public GitHub with README. No mocks, no workarounds. Bonus: </div>
 <div class="assessment"><b>What We Have:</b> <span class="have">Nothing</span><br><b>What's Missing:</b> <span class="missing">No Uniswap API integration, no swap/bridge functionality</span></div>
 </div>
-<div class="track needs-work" data-v="needs-work">
+<div class="track ready" data-v="ready">
 <div class="hdr"><div><div class="name">46. Best Use of Locus</div><div class="sponsor">Locus</div></div>
-<div class="right"><span class="prize">$3,000</span><span class="badge needs-work">NEEDS WORK</span></div></div>
+<div class="right"><span class="prize">$3,000</span><span class="badge ready">READY</span></div></div>
 <div class="prizes-list">1st Place: $2000, 2nd Place: $500, 3rd Place: $500</div>
 <div class="desc" onclick="this.classList.toggle('open')">Award for projects that most meaningfully integrate Locus payment infrastructure for AI agents. Projects must use Locus wallets, spending controls, pay-per-use APIs, or vertical tools as core to the product ? not bolted on. Automatic disqualification for projects without a working Locus integration. On Base chain, USDC only. The more deeply Locus is woven into the agent&#x27;s autonomous payment flows, the better.</div>
-<div class="assessment"><b>What We Have:</b> <span class="have">Locus wallet is deployer for ALL 4 contracts, locus-agent-shopper.ts script, locus-checkout.ts routes wired into Express, spending controls documented</span><br><b>What's Missing:</b> <span class="missing">No proof of successful end-to-end run. Need one USDC transfer tx hash from Locus shopper to store. DQ without working integration.</span></div>
+<div class="assessment"><b>What We Have:</b> <span class="have">Locus wallet (0x62f7...0cb7) deployed ALL 4 contracts, locus-agent-shopper.ts end-to-end run CONFIRMED (tx 0x6713...75d0, block 43682184, 0.10 USDC for NULL PERSONA), locus-checkout.ts routes (4 endpoints), spending controls ($5/tx cap, $10 allowance), Locus is the financial backbone — not bolted on, hackathon/locus-demo-receipt.json with full audit trail</span><br><b>What's Missing:</b> <span class="missing">Nothing critical.</span></div>
 </div>
 </div></div>
 <script>function f(v){document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');document.querySelectorAll('.track').forEach(t=>{t.style.display=v==='all'||t.dataset.v===v?'block':'none'})}</script>

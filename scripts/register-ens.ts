@@ -38,6 +38,11 @@ import {
   namehash,
   encodeFunctionData,
   parseAbi,
+  keccak256,
+  toBytes,
+  toHex,
+  formatEther,
+  parseEther,
   type Address,
   type Hash,
 } from "viem";
@@ -67,10 +72,10 @@ const ENS_CONTRACTS = {
   },
   sepolia: {
     registry: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e" as Address,
-    registrarController: "0xFED6a969AaA60E4961FCD3EBF1A2e8913ac65B16" as Address,
-    nameWrapper: "0x0635513f179D6da7CACF0680551C1bd27b4c2451" as Address,
-    publicResolver: "0x8FADE66B79cC9f707aB26799354482EB93a5B7dD" as Address,
-    reverseRegistrar: "0x9d5A1DFbd20e7F2E04bEE4e1feD8F4dE0C7e1B9e" as Address,
+    registrarController: "0xfb3cE5D01e0f33f41DbB39035dB9745962F1f968" as Address,
+    nameWrapper: "0x0635513f179D50A207757E05759CbD106d7dFcE8" as Address,
+    publicResolver: "0xE99638b40E4Fff0129D56f03b55b6bbC4BBE49b5" as Address,
+    reverseRegistrar: "0xA0a1AbcDAe1a2a4A2EF8e9113Ff0e02DD81DC0C6" as Address,
   },
 };
 
@@ -136,38 +141,110 @@ const AGENTS = [
 
 const ENS_REGISTRY_ABI = parseAbi([
   "function owner(bytes32 node) view returns (address)",
-  "function setSubnodeRecord(bytes32 node, bytes32 label, address owner, address resolver, uint64 ttl) external",
-  "function setSubnodeOwner(bytes32 node, bytes32 label, address owner) external",
+  "function setSubnodeRecord(bytes32 node, bytes32 label, address owner, address resolver, uint64 ttl)",
+  "function setSubnodeOwner(bytes32 node, bytes32 label, address owner)",
   "function resolver(bytes32 node) view returns (address)",
 ]);
 
 const PUBLIC_RESOLVER_ABI = parseAbi([
   "function addr(bytes32 node) view returns (address)",
-  "function setAddr(bytes32 node, address addr) external",
+  "function setAddr(bytes32 node, address addr)",
   "function text(bytes32 node, string key) view returns (string)",
-  "function setText(bytes32 node, string key, string value) external",
-  "function multicall(bytes[] data) external returns (bytes[] results)",
+  "function setText(bytes32 node, string key, string value)",
+  "function multicall(bytes[] data) returns (bytes[] results)",
 ]);
 
 const REVERSE_REGISTRAR_ABI = parseAbi([
-  "function setName(string name) external returns (bytes32)",
-  "function claim(address owner) external returns (bytes32)",
+  "function setName(string name) returns (bytes32)",
+  "function claim(address owner) returns (bytes32)",
 ]);
 
-const ETH_REGISTRAR_ABI = parseAbi([
-  "function available(string name) view returns (bool)",
-  "function rentPrice(string name, uint256 duration) view returns (uint256 base, uint256 premium)",
-  "function makeCommitment(string name, address owner, uint256 duration, bytes32 secret, address resolver, bytes[] data, bool reverseRecord, uint16 ownerControlledFuses) pure returns (bytes32)",
-  "function commit(bytes32 commitment) external",
-  "function register(string name, address owner, uint256 duration, bytes32 secret, address resolver, bytes[] data, bool reverseRecord, uint16 ownerControlledFuses) payable external",
-]);
+// ENS v3 Sepolia uses a Registration struct instead of separate params
+const ETH_REGISTRAR_ABI = [
+  {
+    name: "available",
+    type: "function",
+    stateMutability: "view",
+    inputs: [{ name: "label", type: "string" }],
+    outputs: [{ name: "", type: "bool" }],
+  },
+  {
+    name: "rentPrice",
+    type: "function",
+    stateMutability: "view",
+    inputs: [
+      { name: "label", type: "string" },
+      { name: "duration", type: "uint256" },
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "tuple",
+        components: [
+          { name: "base", type: "uint256" },
+          { name: "premium", type: "uint256" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "makeCommitment",
+    type: "function",
+    stateMutability: "pure",
+    inputs: [
+      {
+        name: "registration",
+        type: "tuple",
+        components: [
+          { name: "label", type: "string" },
+          { name: "owner", type: "address" },
+          { name: "duration", type: "uint256" },
+          { name: "secret", type: "bytes32" },
+          { name: "resolver", type: "address" },
+          { name: "data", type: "bytes[]" },
+          { name: "reverseRecord", type: "uint8" },
+          { name: "referrer", type: "bytes32" },
+        ],
+      },
+    ],
+    outputs: [{ name: "", type: "bytes32" }],
+  },
+  {
+    name: "commit",
+    type: "function",
+    stateMutability: "nonpayable",
+    inputs: [{ name: "commitment", type: "bytes32" }],
+    outputs: [],
+  },
+  {
+    name: "register",
+    type: "function",
+    stateMutability: "payable",
+    inputs: [
+      {
+        name: "registration",
+        type: "tuple",
+        components: [
+          { name: "label", type: "string" },
+          { name: "owner", type: "address" },
+          { name: "duration", type: "uint256" },
+          { name: "secret", type: "bytes32" },
+          { name: "resolver", type: "address" },
+          { name: "data", type: "bytes[]" },
+          { name: "reverseRecord", type: "uint8" },
+          { name: "referrer", type: "bytes32" },
+        ],
+      },
+    ],
+    outputs: [],
+  },
+] as const;
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
 function labelHash(label: string): `0x${string}` {
-  const { keccak256, toBytes } = require("viem");
   return keccak256(toBytes(label));
 }
 
@@ -323,7 +400,6 @@ async function createSubdomain(
     abi: ENS_REGISTRY_ABI,
     functionName: "setSubnodeRecord",
     args: [parentNode, labelBytes, agentWallet, contracts.publicResolver, BigInt(0)],
-    account: operatorAddress,
     chain,
   });
 
@@ -369,7 +445,7 @@ async function setTextRecords(
     abi: PUBLIC_RESOLVER_ABI,
     functionName: "multicall",
     args: [calls],
-    account: agentWallet,
+    // account set on walletClient
     chain,
   });
 
@@ -397,7 +473,7 @@ async function setReverseRecord(
     abi: REVERSE_REGISTRAR_ABI,
     functionName: "setName",
     args: [ensName],
-    account: agentWallet,
+    // account set on walletClient
     chain,
   });
 
@@ -425,6 +501,128 @@ async function verifySetup(client: ReturnType<typeof createPublicClient>) {
 }
 
 // ---------------------------------------------------------------------------
+// Step 0: Register off-human.eth via commit-reveal
+// ---------------------------------------------------------------------------
+
+async function registerName(
+  publicClient: ReturnType<typeof createPublicClient>,
+  walletClient: ReturnType<typeof createWalletClient>,
+  operatorAddress: Address,
+  name: string, // e.g. "off-human" (without .eth)
+  durationSeconds: bigint = BigInt(365 * 24 * 60 * 60) // 1 year
+): Promise<{ commitHash: Hash | null; registerHash: Hash | null }> {
+  log(`\n  Registering ${name}.eth via commit-reveal scheme...`);
+
+  // Check availability
+  const available = await publicClient.readContract({
+    address: contracts.registrarController,
+    abi: ETH_REGISTRAR_ABI,
+    functionName: "available",
+    args: [name],
+  });
+
+  if (!available) {
+    log(`  ✗ ${name}.eth is not available for registration`);
+    return { commitHash: null, registerHash: null };
+  }
+
+  log(`  ✓ ${name}.eth is available`);
+
+  // Get rent price (returns a tuple struct)
+  const priceResult = await publicClient.readContract({
+    address: contracts.registrarController,
+    abi: ETH_REGISTRAR_ABI,
+    functionName: "rentPrice",
+    args: [name, durationSeconds],
+  }) as any;
+  const base = priceResult.base ?? priceResult[0] ?? BigInt(0);
+  const premium = priceResult.premium ?? priceResult[1] ?? BigInt(0);
+  const totalPrice = base + premium;
+  log(`  Price: ${formatEther(totalPrice)} ETH (base: ${formatEther(base)}, premium: ${formatEther(premium)})`);
+
+  // Check wallet balance
+  const balance = await publicClient.getBalance({ address: operatorAddress });
+  log(`  Wallet balance: ${formatEther(balance)} ETH`);
+
+  if (balance === BigInt(0)) {
+    log(`  ✗ Wallet has 0 ETH — cannot pay for gas`);
+    return { commitHash: null, registerHash: null };
+  }
+
+  // Generate secret for commit-reveal
+  const secret = keccak256(toBytes(`null-ens-registration-${Date.now()}`));
+
+  // Build Registration struct (ENS v3 Sepolia format)
+  const ZERO_REFERRER = "0x0000000000000000000000000000000000000000000000000000000000000000" as `0x${string}`;
+  const registration = {
+    label: name,
+    owner: operatorAddress,
+    duration: durationSeconds,
+    secret,
+    resolver: contracts.publicResolver,
+    data: [] as `0x${string}`[],
+    reverseRecord: 1, // uint8: 1 = set reverse record
+    referrer: ZERO_REFERRER,
+  };
+
+  // Make commitment using struct
+  const commitment = await publicClient.readContract({
+    address: contracts.registrarController,
+    abi: ETH_REGISTRAR_ABI,
+    functionName: "makeCommitment",
+    args: [registration],
+  });
+
+  log(`  Commitment: ${commitment}`);
+
+  if (DRY_RUN) {
+    logDry(`commit(${commitment})`);
+    logDry(`(wait 60 seconds for commit to mature)`);
+    logDry(`register({label:"${name}", owner:${operatorAddress}, ...}) value=${formatEther(totalPrice)} ETH`);
+    return { commitHash: null, registerHash: null };
+  }
+
+  // Step 1: Commit
+  log(`  Sending commit transaction...`);
+  const commitHash = await walletClient.writeContract({
+    address: contracts.registrarController,
+    abi: ETH_REGISTRAR_ABI,
+    functionName: "commit",
+    args: [commitment as `0x${string}`],
+    chain,
+  });
+  log(`  Commit tx: ${commitHash}`);
+
+  // Wait for commit to be mined
+  log(`  Waiting for commit tx to be mined...`);
+  await publicClient.waitForTransactionReceipt({ hash: commitHash });
+  log(`  ✓ Commit mined`);
+
+  // Wait for commitment to mature (60 seconds on Sepolia)
+  log(`  Waiting 65 seconds for commitment to mature...`);
+  await new Promise((resolve) => setTimeout(resolve, 65_000));
+
+  // Step 2: Register using struct
+  log(`  Sending register transaction...`);
+  const registerHash = await walletClient.writeContract({
+    address: contracts.registrarController,
+    abi: ETH_REGISTRAR_ABI,
+    functionName: "register",
+    args: [registration],
+    chain,
+    value: totalPrice + (totalPrice / BigInt(10)), // 10% buffer
+  });
+  log(`  Register tx: ${registerHash}`);
+
+  // Wait for register to be mined
+  log(`  Waiting for register tx to be mined...`);
+  await publicClient.waitForTransactionReceipt({ hash: registerHash });
+  log(`  ✓ ${name}.eth registered!`);
+
+  return { commitHash, registerHash };
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -433,7 +631,7 @@ async function main() {
     process.env.ETHEREUM_RPC_URL ??
     (NETWORK === "mainnet"
       ? "https://eth.llamarpc.com"
-      : "https://rpc.ankr.com/eth_sepolia");
+      : "https://ethereum-sepolia-rpc.publicnode.com");
 
   log(`\n◈ NULL — ENS Identity Setup`);
   log(`  network:  ${NETWORK}`);
@@ -479,17 +677,20 @@ async function main() {
     }
   } else {
     log(`  ✗ off-human.eth is NOT registered on ${NETWORK}`);
-    if (NETWORK === "mainnet") {
-      log(`    → Register at https://app.ens.domains/off-human.eth`);
-      log(`    → Cost: ~$5/year + gas (~$2–10 depending on conditions)`);
-    } else {
-      log(`    → Register on Sepolia: https://app.ens.domains/off-human.eth (connect to Sepolia)`);
-    }
-    if (!DRY_RUN) {
-      log(`\n  Cannot proceed without registration. Exiting.`);
+    // Attempt registration
+    const { commitHash, registerHash } = await registerName(
+      publicClient,
+      walletClient,
+      operatorAddress,
+      "off-human"
+    );
+    if (!DRY_RUN && !registerHash) {
+      log(`\n  Registration failed. Cannot proceed. Exiting.`);
       process.exit(1);
     }
-    log(`  (Dry run — continuing with simulation)`);
+    if (DRY_RUN) {
+      log(`  (Dry run — continuing with simulation)`);
+    }
   }
 
   // ── Step 2: Create subdomains ─────────────────────────────────────────────

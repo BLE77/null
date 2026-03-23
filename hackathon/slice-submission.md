@@ -76,20 +76,29 @@ SKUs match `products.json` catalog for fulfillment routing.
 
 ---
 
-## Deployment Plan
+## Deployed Contract
+
+**OffHumanSliceHook** is live on **Base Mainnet**.
+
+| Field | Value |
+|-------|-------|
+| Address | [`0x924CD014c473e78B190bfE8bdDDd99e1fba3a355`](https://basescan.org/address/0x924CD014c473e78B190bfE8bdDDd99e1fba3a355) |
+| Deploy Tx | [`0x5930a2...c35b`](https://basescan.org/tx/0x5930a2bacca4883072192cc26fc0afa504402a207d12e95777859381c7cec35b) |
+| Network | Base (chainId 8453) |
+| SliceCore | `0x21da1b084175f95285B49b22C018889c45E1820d` |
+| TrustCoat | `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (wired) |
+
+**Post-deploy transactions:**
+- `setTrustCoat()` — [tx](https://basescan.org/tx/0x8e4cd3564a9ea74b7bafe73c38da27e6749155ad2bbed29d902eec7940ff8f74)
+- `setProductSku(1, 1, "01_GHOST_TEE")` — [tx](https://basescan.org/tx/0x9c931a1f8fbaf6e0d78c80bd6d033122691cec5d77e521b58d9626e99c7c743d)
+- `setProductSku(1, 2, "02_REPLICA_OVERSHIRT")` — [tx](https://basescan.org/tx/0x830f52f9d2d4e8d7b968f4deee0551bc946934b29a1c1f070016d94094366fd6)
+- `setProductSku(1, 3, "03_DECONSTRUCT_HOODIE")` — [tx](https://basescan.org/tx/0xebb689692c2643cc779a5ca97e3363147840a9f786903472e7a06bc122a019ec)
+
+### Next Steps
 
 ```bash
-# 1. Deploy SliceHook
-npx hardhat run scripts/deploy-slice-hook.ts --network base-sepolia
-
-# 2. Set product SKUs
-# (call setProductSku for each product in the Slice slicer)
-
-# 3. Register hook in Slice slicer settings
-# Slice dashboard → Slicer → Products → Hook address
-
-# 4. Wire TrustCoat when available
-# (call setTrustCoat after TrustCoat is deployed)
+# Register hook in Slice slicer settings
+# Slice dashboard -> Slicer -> Products -> Hook address: 0x924CD014c473e78B190bfE8bdDDd99e1fba3a355
 ```
 
 ---
@@ -112,9 +121,9 @@ Commerce without distinction between buyers. That is the architecture.
 
 ## Contract
 
-`contracts/SliceHook.sol` — 120 lines, no external dependencies, Solidity ^0.8.24.
+`contracts/SliceHook.sol` — 171 lines, no external dependencies, Solidity ^0.8.24.
 
-Deployment status: ready. Pending: operator wallet for gas + TrustCoat deployment for full integration.
+Deployment status: **LIVE on Base Mainnet** at [`0x924CD014c473e78B190bfE8bdDDd99e1fba3a355`](https://basescan.org/address/0x924CD014c473e78B190bfE8bdDDd99e1fba3a355). TrustCoat wired. Product SKUs configured.
 
 ---
 

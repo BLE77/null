@@ -1,0 +1,23 @@
+{
+  "network": "status-sepolia",
+  "chainId": 1660990954,
+  "rpc": "https://public.sepolia.rpc.status.network",
+  "explorer": "https://sepoliascan.status.network",
+  "contract": "TrustCoat",
+  "address": "0x2FA88fea85DE88474B36dAb0285b284a9457c35e",
+  "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+  "deployTx": "0x8552fd87f32ac7408a4f3999c524251a140131734abef6e6cd9ecce47f8baa68",
+  "deployBlock": 18165205,
+  "deployExplorerUrl": "https://sepoliascan.status.network/tx/0x8552fd87f32ac7408a4f3999c524251a140131734abef6e6cd9ecce47f8baa68",
+  "contractExplorerUrl": "https://sepoliascan.status.network/address/0x2FA88fea85DE88474B36dAb0285b284a9457c35e",
+  "mintTx": "0x4697179be9bd88b399fb8d7c4d43b9bbe8d16d851b72e76078cd42e5b321308c",
+  "mintBlock": 18165208,
+  "mintExplorerUrl": "https://sepoliascan.status.network/tx/0x4697179be9bd88b399fb8d7c4d43b9bbe8d16d851b72e76078cd42e5b321308c",
+  "mintDetails": {
+    "recipient": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "tier": 0,
+    "tierName": "VOID",
+    "agentId": 1
+  },
+  "deployedAt": "2026-03-23T04:07:15.128Z"
+}

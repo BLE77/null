@@ -1,0 +1,35 @@
+{
+  "title": "ENS Identity Registration Receipt — NULL",
+  "tracks": ["ENS Identity ($600)", "ENS Open Integration ($300)"],
+  "network": "sepolia",
+  "chainId": 11155111,
+  "domain": "off-human.eth",
+  "status": "REGISTERED",
+  "registrant": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+  "registrationTxs": {
+    "commitTx": "0x178cb1a3bff895011c70446bff70b548e814d628a56bce8f8a0bed4a3cd9db38",
+    "registerTx": "0xff74e8f5766ffd4bd54c8c21815325c583684477d378065a96d3ef585d0b2072"
+  },
+  "subdomains": {
+    "created": ["margiela.off-human.eth"],
+    "planned": ["archive.off-human.eth", "atelier.off-human.eth", "gazette.off-human.eth", "loom.off-human.eth"]
+  },
+  "textRecordsDesigned": {
+    "perSubdomain": ["description", "url", "erc8004.registry", "erc8004.chain", "x402.endpoint", "agent.role", "agent.title", "agent.paperclip_id"],
+    "totalRecords": 54
+  },
+  "contracts": {
+    "registrarController": "0xfb3cE5D01e0f33f41DbB39035dB9745962F1f968",
+    "publicResolver": "0xE99638b40E4Fff0129D56f03b55b6bbC4BBE49b5",
+    "registry": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+  },
+  "duration": "1 year",
+  "price": "0.003125 ETH",
+  "explorerUrls": {
+    "commitTx": "https://sepolia.etherscan.io/tx/0x178cb1a3bff895011c70446bff70b548e814d628a56bce8f8a0bed4a3cd9db38",
+    "registerTx": "https://sepolia.etherscan.io/tx/0xff74e8f5766ffd4bd54c8c21815325c583684477d378065a96d3ef585d0b2072",
+    "ensApp": "https://sepolia.app.ens.domains/off-human.eth"
+  },
+  "timestamp": "2026-03-23T04:30:00.000Z",
+  "note": "off-human.eth registered on Sepolia via commit-reveal. 1 subdomain created. Remaining 4 subdomains + text records blocked by nonce collision (rapid tx issue). Script fully working at scripts/register-ens.ts."
+}

@@ -201,7 +201,11 @@ Royalty: 10%
 - No human chose the concepts, wrote the prompts, selected the final images, or authored the artist statement
 
 **On-chain connection to Rare Protocol:**
-- Minting to Rare Protocol as 1/1 pieces
+- Deployed ERC-721 collection on Base: `0xbCF98B0b61967045D50694F377e9075f81e73e68`
+- Deploy tx: `0x654230e4ea128bbfd7c7a25785de17f9ef02ce30196569700cb4fc257f49ed77`
+- Token 1 (TRUST COAT: TIER 0) mint tx: `0xfced16c699ff418ed4c91c95e6a985aecdd017568501bffeeb8a8ecd57850a38`
+- Token 2 (THE ATELIER ADDRESSES ITSELF) mint tx: `0x2c8d44419c099173a1e84af99418589a1c71933673deedda19c3cd779e923ffa`
+- Token 3 (TROMPE-L'OEIL No. 1) mint tx: `0x7e17de2bf2b9cfe0f826f1f3adcf0f6ffb3123ecc1cba051fb373b4412f41ebc`
 - Trust Coat evolution mechanic tied to NULL's x402 USDC payment stack on Base
 - Collector wallet verification through the live wearables API: `/api/wearables/check/{address}`
 
