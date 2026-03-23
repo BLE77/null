@@ -23,13 +23,13 @@ export default async function handler(_req: IncomingMessage, res: ServerResponse
   let products: any[] | null = null;
 
   try {
-    const { dbStorage } = await import("../server/db-storage.js");
+    const { dbStorage } = await import("../../server/db-storage.js");
     await dbStorage.seedProducts();
     products = await dbStorage.getAllProducts();
   } catch (dbError: any) {
     console.warn("[/api/products] DB unavailable, falling back to products.json:", dbError.message);
     try {
-      const raw: any[] = require("../products.json");
+      const raw: any[] = require("../../products.json");
       products = toCamel(raw);
     } catch (jsonError: any) {
       console.error("[/api/products] products.json fallback failed:", jsonError);
