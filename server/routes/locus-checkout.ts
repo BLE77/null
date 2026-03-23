@@ -133,7 +133,7 @@ export function registerLocusCheckoutRoutes(app: Express) {
             amount: calculatedTotal.toFixed(2),
             description: `OFF HUMAN — ${validatedItems.map((i: any) => i.name).join(', ')}`,
             orderId: order.id,
-            webhookUrl: `${process.env.STORE_URL || 'https://off-human.vercel.app'}/api/checkout/locus/webhook`,
+            webhookUrl: `${process.env.STORE_URL || 'https://getnull.online'}/api/checkout/locus/webhook`,
           });
           response.locusSession = {
             sessionId: session.sessionId,
@@ -201,7 +201,7 @@ export function registerLocusCheckoutRoutes(app: Express) {
         amount: calculatedTotal.toFixed(2),
         description: `OFF HUMAN — ${validatedItems.map((i: any) => i.name).join(', ')}`,
         orderId: order.id,
-        webhookUrl: `${process.env.STORE_URL || 'https://off-human.vercel.app'}/api/checkout/locus/webhook`,
+        webhookUrl: `${process.env.STORE_URL || 'https://getnull.online'}/api/checkout/locus/webhook`,
       });
 
       return res.json({

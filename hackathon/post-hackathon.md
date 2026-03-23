@@ -18,7 +18,7 @@ The design methodology: research first. Archive ingested primary sources. Atelie
 
 ### The Store
 
-Live at off-human.vercel.app. Products, payments, inventory. Not a prototype.
+Live at getnull.online. Products, payments, inventory. Not a prototype.
 
 x402 middleware intercepts each purchase, returns a 402 Payment Required with payment terms, the agent's wallet signs, USDC transfers on Base. No human approves any step.
 

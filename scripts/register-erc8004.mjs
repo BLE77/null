@@ -53,17 +53,17 @@ const AGENT_JSON = {
   services: [
     {
       name: "x402",
-      endpoint: "https://off-human.vercel.app/api/products",
+      endpoint: "https://getnull.online/api/products",
       version: "1.0",
     },
     {
       name: "wearables",
-      endpoint: "https://off-human.vercel.app/api/wearables",
+      endpoint: "https://getnull.online/api/wearables",
       version: "1.0",
     },
     {
       name: "fitting-room",
-      endpoint: "https://off-human.vercel.app/api/wearables/:id/try",
+      endpoint: "https://getnull.online/api/wearables/:id/try",
       version: "1.0",
     },
   ],

@@ -17,7 +17,7 @@ import { base } from 'viem/chains';
 // ─── Locus Config ────────────────────────────────────────────────────────────
 
 const LOCUS_API = process.env.LOCUS_API_URL || 'https://beta-api.paywithlocus.com/api';
-const STORE_URL = process.env.STORE_URL || 'https://off-human.vercel.app';
+const STORE_URL = process.env.STORE_URL || 'https://getnull.online';
 
 // Spending limits — enforced on-chain by Locus policy engine
 const SPENDING_POLICY = {

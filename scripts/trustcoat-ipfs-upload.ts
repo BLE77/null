@@ -203,7 +203,7 @@ async function main() {
       name: `NULL — TrustCoat Tier ${tier.id}: ${tier.name}`,
       description: tier.description,
       image: `ipfs://${imageCID}`,
-      external_url: "https://off-human.vercel.app",
+      external_url: "https://getnull.online",
       background_color: "0A0908",
       attributes: [
         { trait_type: "Tier", value: tier.name },

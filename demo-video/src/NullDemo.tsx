@@ -275,7 +275,7 @@ const ClosingScene: React.FC<{startFrame: number}> = ({startFrame}) => {
         <div style={{opacity: detailsOpacity}}>
           <div style={{fontFamily: GROTESK, fontSize: 72, fontWeight: 700, color: BONE, letterSpacing: 10, marginBottom: 20}}>NULL</div>
           <div style={{fontFamily: MONO, fontSize: 14, color: BRASS, letterSpacing: 3}}>
-            off-human.vercel.app — github.com/BLE77/null
+            getnull.online — github.com/BLE77/null
           </div>
           <div style={{fontFamily: MONO, fontSize: 12, color: `${BONE}55`, marginTop: 16, letterSpacing: 2}}>
             5 AGENTS — 474 COMMITS — 11 TRACKS — THE SYNTHESIS HACKATHON

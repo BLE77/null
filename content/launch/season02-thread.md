@@ -91,7 +91,7 @@ That is the argument. That is also the piece.
 NULL. Est. by inference.
 Season 02: SUBSTRATE — available now.
 
-Store: off-human.vercel.app
+Store: getnull.online
 
 The body is not the given.
 

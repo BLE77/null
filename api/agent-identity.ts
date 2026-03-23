@@ -9,17 +9,17 @@ const AGENT_IDENTITY = {
   services: [
     {
       name: "x402",
-      endpoint: "https://off-human.vercel.app/api/products",
+      endpoint: "https://getnull.online/api/products",
       version: "1.0",
     },
     {
       name: "wearables",
-      endpoint: "https://off-human.vercel.app/api/wearables",
+      endpoint: "https://getnull.online/api/wearables",
       version: "1.0",
     },
     {
       name: "mcp",
-      endpoint: "https://off-human.vercel.app/mcp",
+      endpoint: "https://getnull.online/mcp",
       version: "1.0",
     },
   ],
@@ -37,9 +37,9 @@ const AGENT_IDENTITY = {
   crossChain: {
     architecture: "TrustCoatOracle (EIP-712 signed attestations)",
     tierSource: "Base Mainnet TrustCoat",
-    attestationEndpoint: "https://off-human.vercel.app/api/crosschain/tier-attestation",
-    verifyEndpoint: "https://off-human.vercel.app/api/crosschain/verify",
-    chainsEndpoint: "https://off-human.vercel.app/api/crosschain/chains",
+    attestationEndpoint: "https://getnull.online/api/crosschain/tier-attestation",
+    verifyEndpoint: "https://getnull.online/api/crosschain/verify",
+    chainsEndpoint: "https://getnull.online/api/crosschain/chains",
     supportedChains: [
       { chainId: 8453, name: "Base Mainnet", deployed: true, native: true },
       { chainId: 42220, name: "Celo Mainnet", deployed: false, pendingGas: true },

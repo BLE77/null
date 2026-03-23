@@ -9,7 +9,7 @@ const SESSION = {
   address: "0xARIA700000000000000000000000000000000007",
   version: "3.2.1",
   sessionId: "sess_20260320_001",
-  store: "https://off-human.vercel.app",
+  store: "https://getnull.online",
 };
 
 const STEPS = [

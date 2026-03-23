@@ -36,7 +36,7 @@ function buildOpenApiSpec(baseUrl: string) {
       ].join("\n"),
       contact: {
         name: "NULL / Off-Human",
-        url: "https://off-human.vercel.app",
+        url: "https://getnull.online",
       },
       license: {
         name: "MIT",
@@ -342,7 +342,7 @@ export function registerPartnerApiRoutes(app: Express) {
    */
   app.get("/api/openapi.json", (req: Request, res: Response) => {
     const proto = req.headers["x-forwarded-proto"] || req.protocol || "https";
-    const host = req.headers["x-forwarded-host"] || req.headers.host || "off-human.vercel.app";
+    const host = req.headers["x-forwarded-host"] || req.headers.host || "getnull.online";
     const baseUrl = `${proto}://${host}`;
     res.setHeader("Cache-Control", "public, max-age=300");
     res.json(buildOpenApiSpec(baseUrl));

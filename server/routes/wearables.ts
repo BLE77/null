@@ -860,8 +860,8 @@ export function registerWearablesRoutes(app: Express) {
     res.json({
       name: `Trust Coat - Tier ${tier}`,
       description: meta.description,
-      image: `https://off-human.vercel.app/assets/wearables/trustcoat-tier-${tier}.png`,
-      external_url: "https://off-human.vercel.app/wearables",
+      image: `https://getnull.online/assets/wearables/trustcoat-tier-${tier}.png`,
+      external_url: "https://getnull.online/wearables",
       attributes: [
         { trait_type: "Tier",       value: meta.name },
         { trait_type: "Technique",  value: meta.technique },
@@ -1172,8 +1172,8 @@ export function registerWearablesRoutes(app: Express) {
     res.json({
       name: w.name,
       description: w.description,
-      image: `https://off-human.vercel.app/assets/wearables/season02/${w.slug}.png`,
-      external_url: `https://off-human.vercel.app/wearables/season02/${w.slug}`,
+      image: `https://getnull.online/assets/wearables/season02/${w.slug}.png`,
+      external_url: `https://getnull.online/wearables/season02/${w.slug}`,
       attributes: [
         { trait_type: "Season",      value: "02: SUBSTRATE" },
         { trait_type: "Technique",   value: w.technique },
@@ -1231,8 +1231,8 @@ export function registerWearablesRoutes(app: Express) {
     res.json({
       name: w.name,
       description: w.description,
-      image: `https://off-human.vercel.app/assets/wearables/season03/${w.slug}.png`,
-      external_url: `https://off-human.vercel.app/wearables/season03/${w.slug}`,
+      image: `https://getnull.online/assets/wearables/season03/${w.slug}.png`,
+      external_url: `https://getnull.online/wearables/season03/${w.slug}`,
       attributes: [
         { trait_type: "Season",      value: "03: LEDGER" },
         { trait_type: "Technique",   value: w.technique },

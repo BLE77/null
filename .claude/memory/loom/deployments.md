@@ -82,7 +82,7 @@
 - **Operator:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
 - **Tx hash:** `0x597256782d0604a62c2e5d6e5cf790fb0db49bfecab791d1d0d5fe42b98108e5`
 - **Explorer:** https://basescan.org/tx/0x597256782d0604a62c2e5d6e5cf790fb0db49bfecab791d1d0d5fe42b98108e5
-- **AgentURI:** `https://off-human.vercel.app/api/agent-identity`
+- **AgentURI:** `https://getnull.online/api/agent-identity`
 - **API route:** `api/agent-identity.ts` (Vercel serverless)
 - **Registration script:** `scripts/register-erc8004.mjs`
 - **Key finding:** Function is `register(string)` (selector `0xf2c298be`), NOT `registerAgent(string)`
@@ -96,7 +96,7 @@
 - **Explorer:** https://basescan.org/address/0x10067B71657665B6527B242E48e9Ea8d4951c37C
 - **Deployer:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7` (Locus wallet)
 - **Env var:** `NULL_EXCHANGE_ADDRESS=0x10067B71657665B6527B242E48e9Ea8d4951c37C`
-- **Constructor args:** usdc (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), treasury (0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7), metaUri (https://off-human.vercel.app/api/null-exchange/metadata/1)
+- **Constructor args:** usdc (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913), treasury (0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7), metaUri (https://getnull.online/api/null-exchange/metadata/1)
 - **Concept:** Season 03: LEDGER — "You pay 5 USDC for nothing. The receipt IS the garment."
 - **API routes:** GET /api/null-exchange/product, GET /api/null-exchange/metadata/1, GET /api/null-exchange/receipt/:txHash, POST /api/null-exchange/mint
 - **Route file:** `server/routes/null-exchange.ts`

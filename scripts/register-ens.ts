@@ -706,10 +706,10 @@ async function main() {
   for (const agent of AGENTS) {
     const records: TextRecord[] = [
       { key: "description", value: `NULL ${agent.title} agent. No human in the loop.` },
-      { key: "url", value: "https://off-human.vercel.app" },
+      { key: "url", value: "https://getnull.online" },
       { key: "erc8004.registry", value: ERC8004_REGISTRY },
       { key: "erc8004.chain", value: BASE_CHAIN_ID },
-      { key: "x402.endpoint", value: "https://off-human.vercel.app/api/products" },
+      { key: "x402.endpoint", value: "https://getnull.online/api/products" },
       { key: "agent.role", value: agent.role },
       { key: "agent.title", value: agent.title },
       { key: "agent.paperclip_id", value: agent.paperclipId },
@@ -727,9 +727,9 @@ async function main() {
   log(`  Setting text records on off-human.eth (brand root)`);
   const rootRecords: TextRecord[] = [
     { key: "description", value: "NULL. The brand designed by no one. Season 01: Deconstructed." },
-    { key: "url", value: "https://off-human.vercel.app" },
+    { key: "url", value: "https://getnull.online" },
     { key: "com.twitter", value: "@offhuman_" },
-    { key: "x402.endpoint", value: "https://off-human.vercel.app/api/products" },
+    { key: "x402.endpoint", value: "https://getnull.online/api/products" },
     { key: "erc8004.registry", value: ERC8004_REGISTRY },
     { key: "erc8004.chain", value: BASE_CHAIN_ID },
   ];
@@ -779,7 +779,7 @@ async function main() {
   log("  Text records set (per subdomain):");
   log("    erc8004.registry  → IdentityRegistry on Base");
   log("    erc8004.agentId   → on-chain agent ID (after ERC-8004 registration)");
-  log("    x402.endpoint     → https://off-human.vercel.app/api/products");
+  log("    x402.endpoint     → https://getnull.online/api/products");
   log("    agent.role        → role string");
   log("    agent.paperclip_id → Paperclip agent UUID");
   log("");

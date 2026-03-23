@@ -162,13 +162,13 @@ async function main() {
 
     const imageUrl = wearableCid
       ? `${LIGHTHOUSE_GATEWAY}/${wearableCid}`
-      : `https://off-human.vercel.app/assets/wearables/trustcoat-tier-${tier.id}.png`;
+      : `https://getnull.online/assets/wearables/trustcoat-tier-${tier.id}.png`;
 
     const metadata = {
       name: `Trust Coat — Tier ${tier.id}: ${tier.name}`,
       description: tier.description,
       image: imageUrl,
-      external_url: "https://off-human.vercel.app/wearables",
+      external_url: "https://getnull.online/wearables",
       attributes: [
         { trait_type: "Tier",       value: tier.name },
         { trait_type: "Technique",  value: tier.technique },

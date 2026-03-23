@@ -7,7 +7,7 @@
 
 ## The Core Problem
 
-Our NFT metadata currently points to `off-human.vercel.app`. This is **wrong** and will break. Centralized URLs go offline. The NFT standard requires content-addressed, permanent URIs. Every serious NFT project uses IPFS (`ipfs://`) or Arweave (`ar://`) for metadata and image hosting.
+Our NFT metadata currently points to `getnull.online`. This is **wrong** and will break. Centralized URLs go offline. The NFT standard requires content-addressed, permanent URIs. Every serious NFT project uses IPFS (`ipfs://`) or Arweave (`ar://`) for metadata and image hosting.
 
 ---
 
@@ -250,7 +250,7 @@ SuperRare uses standard ERC-721 metadata. Upload to IPFS first, then provide the
 
 ### Immediate Fix (Blocking Issue)
 
-**The current `off-human.vercel.app` URLs in metadata MUST be replaced with IPFS URIs.**
+**The current `getnull.online` URLs in metadata MUST be replaced with IPFS URIs.**
 
 Steps:
 1. Upload all TrustCoat tier images to Pinata (or nft.storage for Filecoin prize)

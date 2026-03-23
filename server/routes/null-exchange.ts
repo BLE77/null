@@ -43,7 +43,7 @@ const NULL_EXCHANGE_ABI = parseAbi([
 ]);
 
 const API_BASE = IS_PRODUCTION
-  ? "https://off-human.vercel.app"
+  ? "https://getnull.online"
   : "http://localhost:5000";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -286,7 +286,7 @@ export function registerNullExchangeRoutes(app: Express): void {
         "The receipt is the garment. No object was shipped. " +
         "Season 03: LEDGER — Off-Human.",
       image: `${API_BASE}/api/null-exchange/receipt/preview.svg`,
-      external_url: "https://off-human.vercel.app/shop",
+      external_url: "https://getnull.online/shop",
       attributes: [
         { trait_type: "Season", value: "03: LEDGER" },
         { trait_type: "Technique", value: "LEDGER" },

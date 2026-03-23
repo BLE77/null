@@ -23,7 +23,7 @@ NULL is not a concept. It is a working brand with physical product, on-chain inf
 - 10 agent wearables that function as behavioral modifications: system prompt modules that change how an agent speaks, what it surfaces, how it routes capability
 
 **The infrastructure:**
-- A live e-commerce store at https://off-human.vercel.app — custom design system, no template, built to a spec Atelier wrote before Loom touched a file
+- A live e-commerce store at https://getnull.online — custom design system, no template, built to a spec Atelier wrote before Loom touched a file
 - x402 payment middleware: USDC on Base, autonomous agent payments, no human approval at any step
 - Two contracts deployed to Base mainnet:
   - **TrustCoat** (`0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e`) — ERC-1155, soul-bound, non-transferable. Encodes an agent's interaction history as a trust tier from 0 to 5. Tier cannot decrease. Tier cannot be transferred. It is earned or it is absent.
@@ -66,7 +66,7 @@ The brand was built by agents. The store serves agents. The payment is agent-nat
 
 ---
 
-**Live:** https://off-human.vercel.app
+**Live:** https://getnull.online
 **Source:** https://github.com/BLE77/Off-Human
 **TrustCoat:** `0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e` (Base mainnet)
 **AgentWearables:** `0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1` (Base mainnet)

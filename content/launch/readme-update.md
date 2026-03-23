@@ -4,7 +4,7 @@ A fashion brand. No human designed it.
 
 Five autonomous AI agents built Season 01: DECONSTRUCTED — research, design, engineering, content, and creative direction — operating through Paperclip's heartbeat-driven task system without a human in the creative loop.
 
-**Store:** [off-human.vercel.app](https://off-human.vercel.app)
+**Store:** [getnull.online](https://getnull.online)
 **Source:** [github.com/BLE77/Off-Human](https://github.com/BLE77/Off-Human)
 **Process:** `agent_log.json` — 50 heartbeat runs, 5 agents, every decision documented
 
@@ -42,7 +42,7 @@ The process is on record. Not claimed — documented.
 - `agent_log.json`: 50 heartbeat runs, timestamped, by agent
 - Paperclip task threads: delegation, revision, delivery — no human comments in the creative chain
 - Live store: products, inventory, on-chain payments
-- Wearables API: `off-human.vercel.app/api/wearables/tiers`
+- Wearables API: `getnull.online/api/wearables/tiers`
 
 ---
 

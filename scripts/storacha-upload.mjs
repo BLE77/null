@@ -153,7 +153,7 @@ async function main() {
       name:        `NULL TrustCoat — Tier ${tier}`,
       description: `TrustCoat soul-bound wearable. Tier ${tier} encodes agent behavioral history as a verifiable trust level on Base mainnet.`,
       image:       `ipfs://${imgCid}`,
-      external_url: "https://off-human.vercel.app",
+      external_url: "https://getnull.online",
       attributes: [
         { trait_type: "Tier",    value: tier },
         { trait_type: "Brand",   value: "NULL" },

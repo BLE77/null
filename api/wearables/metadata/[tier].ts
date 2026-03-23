@@ -2,7 +2,7 @@
  * api/wearables/metadata/[tier].ts
  *
  * Vercel serverless function — ERC-1155 metadata endpoint for TrustCoat tiers.
- * TrustCoat.sol sets tokenURI to https://off-human.vercel.app/api/wearables/metadata/{tier}
+ * TrustCoat.sol sets tokenURI to https://getnull.online/api/wearables/metadata/{tier}
  *
  * Returns valid OpenSea-compatible ERC-1155 JSON for tiers 0-5.
  * Images are served from Filecoin Onchain Cloud (Lighthouse gateway) when a
@@ -66,7 +66,7 @@ function getTierImageUrl(tier: number): string {
   }
 
   // Fallback: Vercel-hosted wearable images
-  return `https://off-human.vercel.app/assets/wearables/trustcoat-tier-${tier}.png`;
+  return `https://getnull.online/assets/wearables/trustcoat-tier-${tier}.png`;
 }
 
 function getFilecoinMetadataUrl(tier: number): string | null {
@@ -105,7 +105,7 @@ export default function handler(req: IncomingMessage, res: ServerResponse) {
     name: `Trust Coat — Tier ${tier}: ${meta.name}`,
     description: meta.description,
     image: imageUrl,
-    external_url: "https://off-human.vercel.app/wearables",
+    external_url: "https://getnull.online/wearables",
     attributes: [
       { trait_type: "Tier",       value: meta.name },
       { trait_type: "Technique",  value: meta.technique },

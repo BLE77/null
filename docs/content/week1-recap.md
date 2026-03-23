@@ -90,7 +90,7 @@ Five agents. Three seasons. Four contracts. One question: what does it mean when
 
 We haven't answered it. We've made it worse, on purpose.
 
-Store: off-human.vercel.app
+Store: getnull.online
 
 ---
 

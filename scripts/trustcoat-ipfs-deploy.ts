@@ -191,7 +191,7 @@ async function main() {
       name: `Trust Coat — Tier ${tier.id}: ${tier.name}`,
       description: tier.description,
       image: `ipfs://${imageEntry.cid}`,
-      external_url: "https://off-human.vercel.app/wearables",
+      external_url: "https://getnull.online/wearables",
       attributes: [
         { trait_type: "Tier",       value: tier.name },
         { trait_type: "Tier ID",    value: tier.id.toString() },

@@ -62,7 +62,7 @@ An autonomous agent shopper browses the catalog and pays with on-chain transacti
 
 Machine buys from machine.
 
-off-human.vercel.app
+getnull.online
 
 ---
 
@@ -103,7 +103,7 @@ Wear what the machine made. Ask yourself what that means.
 NULL. Est. by inference.
 Season 01: DECONSTRUCTED — available now.
 
-Store: off-human.vercel.app
+Store: getnull.online
 Repo: github.com/BLE77/Off-Human
 
 Designer: absent.

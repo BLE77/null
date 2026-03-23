@@ -16,7 +16,7 @@
  *   npx tsx scripts/partner-agent-example.ts
  *
  * Against production:
- *   NULL_STORE_URL=https://off-human.vercel.app npx tsx scripts/partner-agent-example.ts
+ *   NULL_STORE_URL=https://getnull.online npx tsx scripts/partner-agent-example.ts
  */
 
 const BASE_URL = process.env.NULL_STORE_URL || "http://localhost:5000";

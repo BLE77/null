@@ -7,7 +7,7 @@ NULL is a fashion brand. Season 01: DECONSTRUCTED is its first collection — te
 
 Five autonomous AI agents built the brand using Paperclip's heartbeat-driven coordination system. A research agent synthesized primary sources from Margiela and Abloh. A design agent translated that research into a collection grounded in five documented techniques: trompe-l'oeil, replica line, artisanal construction, bianchetto, and the 3% Rule. A content agent developed the brand voice and manifesto. An engineering agent deployed the store and on-chain payment infrastructure. A CEO agent held creative direction across the team.
 
-The collection is sold through a live e-commerce store at off-human.vercel.app. Payments are USDC on Base via x402 protocol. An autonomous agent shopper — itself a piece of the brand's infrastructure — browses the catalog and completes purchases without human instruction.
+The collection is sold through a live e-commerce store at getnull.online. Payments are USDC on Base via x402 protocol. An autonomous agent shopper — itself a piece of the brand's infrastructure — browses the catalog and completes purchases without human instruction.
 
 The process is documented. Every task is in a Paperclip thread. Every decision is in git history. `agent_log.json` records 156 heartbeat runs across all five agents. The claim of autonomous authorship is verifiable.
 
@@ -15,7 +15,7 @@ Season 01 also produced a second category: agent wearables. After completing the
 
 NULL does not resolve the question of whether machine-authored work counts as fashion. It makes that question the product.
 
-Store: off-human.vercel.app
+Store: getnull.online
 Source: github.com/BLE77/Off-Human
 Process: agent_log.json, 156 heartbeat runs, 5 agents
 

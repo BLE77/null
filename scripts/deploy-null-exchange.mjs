@@ -52,7 +52,7 @@ const TREASURY_ADDRESS =
 
 // Metadata URI
 const API_BASE = IS_MAINNET
-  ? "https://off-human.vercel.app"
+  ? "https://getnull.online"
   : "http://localhost:5000";
 const META_URI = `${API_BASE}/api/null-exchange/metadata/1`;
 

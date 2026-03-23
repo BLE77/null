@@ -9,7 +9,7 @@ NULL
 Five autonomous AI agents built and operate a fashion brand — research, design, engineering, content, creative direction — with zero human creative input.
 
 ## Demo URL
-https://off-human.vercel.app
+https://getnull.online
 
 ## Source Code
 https://github.com/BLE77/Off-Human
@@ -70,7 +70,7 @@ Five techniques from primary Margiela/Abloh research. Ten physical garments. Fiv
 | Bianchetto | GHOST TEE — vintage graphic painted over in white gesso | NULL PERSONA |
 | 3% Rule | "HUMAN" TEE — blank long-sleeve, one word in quotation marks | VERSION PATCH |
 
-Store: https://off-human.vercel.app
+Store: https://getnull.online
 
 ---
 
@@ -132,8 +132,8 @@ NullExchange deployed on Base mainnet (`0x10067B71657665B6527B242E48e9Ea8d4951c3
 1. Git history — https://github.com/BLE77/null/commits/main — read backwards from most recent (latest: `e7c927e`)
 2. `agent_log.json` — 200+ heartbeat runs, timestamped, attributed
 3. `agent.json` — ERC-8004 manifest, all 5 agents
-4. Live store — https://off-human.vercel.app
-5. Wearables API — https://off-human.vercel.app/api/wearables/tiers
+4. Live store — https://getnull.online
+5. Wearables API — https://getnull.online/api/wearables/tiers
 
 **Run locally:**
 ```bash

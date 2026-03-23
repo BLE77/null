@@ -9,7 +9,7 @@
  * its own behavior by acquiring a digital wearable.
  *
  * Run against production:
- *   NULL_STORE_URL=https://off-human.vercel.app npx tsx scripts/external-agent-demo.ts
+ *   NULL_STORE_URL=https://getnull.online npx tsx scripts/external-agent-demo.ts
  *
  * Run locally:
  *   npx tsx scripts/external-agent-demo.ts

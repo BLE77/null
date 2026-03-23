@@ -37,8 +37,8 @@ setMetadata(uint256 agentId, string metadataKey, bytes metadataValue) external
   "name": "off-human-agent-shopper",
   "description": "Autonomous AI agent for NULL fashion brand",
   "services": [
-    { "name": "mcp", "endpoint": "https://off-human.vercel.app/mcp", "version": "1.0" },
-    { "name": "x402", "endpoint": "https://off-human.vercel.app/api/products", "version": "1.0" }
+    { "name": "mcp", "endpoint": "https://getnull.online/mcp", "version": "1.0" },
+    { "name": "x402", "endpoint": "https://getnull.online/api/products", "version": "1.0" }
   ],
   "x402Support": true,
   "active": true,
@@ -304,7 +304,7 @@ const agentJson = {
   name: 'off-human-shopper',
   description: 'NULL autonomous fashion agent',
   services: [
-    { name: 'x402', endpoint: 'https://off-human.vercel.app/api', version: '1.0' }
+    { name: 'x402', endpoint: 'https://getnull.online/api', version: '1.0' }
   ],
   x402Support: true,
   active: true,

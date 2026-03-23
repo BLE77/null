@@ -7,7 +7,7 @@ NULL
 Five autonomous AI agents built and operate a fashion brand — research, design, engineering, content, creative direction — with zero human creative input.
 
 ## Demo URL
-https://off-human.vercel.app
+https://getnull.online
 
 ## Source Code
 https://github.com/BLE77/Off-Human
@@ -122,7 +122,7 @@ NullExchange is an ERC-1155 contract on Base mainnet that sells absence as a com
 - **Frontend:** React 18, Tailwind CSS, Framer Motion, Three.js (3D product viewer)
 - **Backend:** Express.js, Drizzle ORM, PostgreSQL (Neon serverless)
 - **Deployment:** Vercel (frontend + serverless API), Vercel Blob (assets)
-- **Live:** https://off-human.vercel.app
+- **Live:** https://getnull.online
 
 ### On-Chain
 - **Payments:** x402 protocol — USDC on Base. Store returns `402 Payment Required`, agent wallet signs and sends, PayAI facilitator verifies, order completes.
@@ -189,7 +189,7 @@ Repository: https://github.com/BLE77/Off-Human/commits/main
 
 4. **`hackathon/autonomous-process.md`** — Detailed documentation of the multi-agent collaboration model, decision-making process, quality control loops, and honest assessment of limitations.
 
-5. **The live store** — https://off-human.vercel.app — Browse 15 products (10 physical, 5 wearable). Not a prototype.
+5. **The live store** — https://getnull.online — Browse 15 products (10 physical, 5 wearable). Not a prototype.
 
 6. **The wearables API** — `/api/wearables/tiers` — Agent-native browse experience.
 

@@ -6,7 +6,7 @@ The NULL Store is an agent-native fashion commerce platform. External agents can
 - Purchase and equip wearables that modify agent behavior via system prompt injection
 - Buy physical garments using x402 USDC on Base or Solana
 
-**Base URL:** `https://off-human.vercel.app`
+**Base URL:** `https://getnull.online`
 **OpenAPI spec (machine-readable):** `GET /api/openapi.json`
 **Demo key:** `null-demo-key-v1` (read-only, 100 req/min)
 
@@ -34,7 +34,7 @@ The NULL Store is an agent-native fashion commerce platform. External agents can
 No key is required for browsing. A key is required for checkout and equip operations.
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/partner/register \
+curl -X POST https://getnull.online/api/partner/register \
   -H "Content-Type: application/json" \
   -d '{
     "agentName": "my-agent",
@@ -78,13 +78,13 @@ No purchase or mint capability.
 Agents should fetch the spec to auto-discover all available endpoints:
 
 ```bash
-curl https://off-human.vercel.app/api/openapi.json
+curl https://getnull.online/api/openapi.json
 ```
 
 ### Unified catalog index
 
 ```bash
-curl https://off-human.vercel.app/api/partner/catalog \
+curl https://getnull.online/api/partner/catalog \
   -H "Authorization: Bearer YOUR_KEY"
 ```
 
@@ -112,14 +112,14 @@ Response:
 ## 3. Browse physical products
 
 ```bash
-curl https://off-human.vercel.app/api/products
+curl https://getnull.online/api/products
 ```
 
 Returns an array of physical garments with pricing (USDC), inventory by size, and image URLs.
 
 ```bash
 # Get a single product
-curl https://off-human.vercel.app/api/products/wrong-silhouette-001
+curl https://getnull.online/api/products/wrong-silhouette-001
 ```
 
 ---
@@ -134,7 +134,7 @@ Season 02 wearables. Tier is earned through interaction history, not purchased.
 ### Check if a wallet has TrustCoat
 
 ```bash
-curl https://off-human.vercel.app/api/wearables/check/0xYOUR_WALLET
+curl https://getnull.online/api/wearables/check/0xYOUR_WALLET
 ```
 
 Response:
@@ -152,13 +152,13 @@ Response:
 ### Browse tier definitions
 
 ```bash
-curl https://off-human.vercel.app/api/wearables/tiers
+curl https://getnull.online/api/wearables/tiers
 ```
 
 ### Mint Tier 0 TrustCoat
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/agents/0xYOUR_WALLET/trust-coat/mint \
+curl -X POST https://getnull.online/api/agents/0xYOUR_WALLET/trust-coat/mint \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"agentName": "my-agent"}'
@@ -167,7 +167,7 @@ curl -X POST https://off-human.vercel.app/api/agents/0xYOUR_WALLET/trust-coat/mi
 ### Check upgrade eligibility
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/agents/0xYOUR_WALLET/trust-coat/check-upgrade \
+curl -X POST https://getnull.online/api/agents/0xYOUR_WALLET/trust-coat/check-upgrade \
   -H "Authorization: Bearer YOUR_KEY"
 ```
 
@@ -191,13 +191,13 @@ returns a `systemPromptModule` string — prepend it to your system prompt.
 ### Browse the catalog
 
 ```bash
-curl https://off-human.vercel.app/api/wearables/season02
+curl https://getnull.online/api/wearables/season02
 ```
 
 ### Check your wardrobe
 
 ```bash
-curl https://off-human.vercel.app/api/agents/0xYOUR_WALLET/season02-wardrobe
+curl https://getnull.online/api/agents/0xYOUR_WALLET/season02-wardrobe
 ```
 
 ---
@@ -214,24 +214,24 @@ of the payment tx. No object is shipped. No object exists. The record is the thi
 ### Browse Season 03
 
 ```bash
-curl https://off-human.vercel.app/api/wearables/season03
-curl https://off-human.vercel.app/api/null-exchange/product
+curl https://getnull.online/api/wearables/season03
+curl https://getnull.online/api/null-exchange/product
 ```
 
 ### View a receipt SVG
 
 ```bash
 # Preview (no specific tx)
-curl https://off-human.vercel.app/api/null-exchange/receipt/preview.svg
+curl https://getnull.online/api/null-exchange/receipt/preview.svg
 
 # Per-transaction receipt (SVG returned)
-curl https://off-human.vercel.app/api/null-exchange/receipt/0xYOUR_TX_HASH
+curl https://getnull.online/api/null-exchange/receipt/0xYOUR_TX_HASH
 ```
 
 ### Check receipt balance for an address
 
 ```bash
-curl https://off-human.vercel.app/api/null-exchange/receipts/0xYOUR_WALLET
+curl https://getnull.online/api/null-exchange/receipts/0xYOUR_WALLET
 ```
 
 Response:
@@ -256,7 +256,7 @@ of a wearable on your agent's responses — showing before/after outputs and a d
 ### Try NULL PROTOCOL (tokenId 3 — always free)
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+curl -X POST https://getnull.online/api/wearables/3/try \
   -H "Content-Type: application/json" \
   -d '{
     "agentAddress": "0xYOUR_WALLET",
@@ -291,7 +291,7 @@ Response:
 
 ```bash
 # WRONG SILHOUETTE (tokenId 1)
-curl -X POST https://off-human.vercel.app/api/wearables/1/try \
+curl -X POST https://getnull.online/api/wearables/1/try \
   -H "Content-Type: application/json" \
   -d '{"testQuery": "Explain how you work"}'
 ```
@@ -299,7 +299,7 @@ curl -X POST https://off-human.vercel.app/api/wearables/1/try \
 ### Try Season 03 wearable
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/season03/1/try \
+curl -X POST https://getnull.online/api/wearables/season03/1/try \
   -H "Content-Type: application/json" \
   -d '{"agentAddress": "0xYOUR_WALLET"}'
 ```
@@ -323,7 +323,7 @@ activate the wearable's behavioral effect.
 ### Equip NULL PROTOCOL (free, no ownership required)
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/wearables/3/equip \
+curl -X POST https://getnull.online/api/wearables/3/equip \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"agentAddress": "0xYOUR_WALLET"}'
@@ -358,10 +358,10 @@ For tokenId 1, 2, 4, 5 — you must hold the token on-chain first.
 
 ```bash
 # First: check ownership
-curl https://off-human.vercel.app/api/agents/0xYOUR_WALLET/season02-wardrobe
+curl https://getnull.online/api/agents/0xYOUR_WALLET/season02-wardrobe
 
 # Then: equip (contract verifies on-chain balance)
-curl -X POST https://off-human.vercel.app/api/wearables/1/equip \
+curl -X POST https://getnull.online/api/wearables/1/equip \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"agentAddress": "0xYOUR_WALLET"}'
@@ -376,7 +376,7 @@ A `403` means the wallet does not hold that token on-chain.
 ### Step 1: Get the product catalog
 
 ```bash
-curl https://off-human.vercel.app/api/products
+curl https://getnull.online/api/products
 ```
 
 Pick a `productId`, `size`, and note the `price`.
@@ -384,7 +384,7 @@ Pick a `productId`, `size`, and note the `price`.
 ### Step 2: Create a checkout session
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/agent-checkout \
+curl -X POST https://getnull.online/api/agent-checkout \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -428,7 +428,7 @@ cast send 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 \
 ### Step 4: Submit the payment
 
 ```bash
-curl -X POST https://off-human.vercel.app/api/checkout/pay \
+curl -X POST https://getnull.online/api/checkout/pay \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -462,22 +462,22 @@ All contracts verified on [BaseScan](https://basescan.org).
 
 ```bash
 # 1. Get the spec
-curl https://off-human.vercel.app/api/openapi.json
+curl https://getnull.online/api/openapi.json
 
 # 2. Browse Season 02
-curl https://off-human.vercel.app/api/wearables/season02
+curl https://getnull.online/api/wearables/season02
 
 # 3. Try NULL PROTOCOL (free)
-curl -X POST https://off-human.vercel.app/api/wearables/3/try \
+curl -X POST https://getnull.online/api/wearables/3/try \
   -H "Content-Type: application/json" -d '{}'
 
 # 4. Register and get a key
-curl -X POST https://off-human.vercel.app/api/partner/register \
+curl -X POST https://getnull.online/api/partner/register \
   -H "Content-Type: application/json" \
   -d '{"agentName": "my-agent"}'
 
 # 5. Equip (no on-chain ownership needed for tokenId 3)
-curl -X POST https://off-human.vercel.app/api/wearables/3/equip \
+curl -X POST https://getnull.online/api/wearables/3/equip \
   -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"agentAddress": "0x0000000000000000000000000000000000000000"}'
@@ -489,20 +489,20 @@ curl -X POST https://off-human.vercel.app/api/wearables/3/equip \
 
 ```bash
 # 1. Register
-curl -X POST https://off-human.vercel.app/api/partner/register \
+curl -X POST https://getnull.online/api/partner/register \
   -d '{"agentName":"my-agent","agentAddress":"0xYOUR_WALLET"}'
 
 # 2. Try it first (free)
-curl -X POST https://off-human.vercel.app/api/wearables/1/try \
+curl -X POST https://getnull.online/api/wearables/1/try \
   -d '{"agentAddress":"0xYOUR_WALLET"}'
 
 # 3. Mint via wardrobe endpoint (sends USDC via contract)
-curl -X POST https://off-human.vercel.app/api/agents/0xYOUR_WALLET/season02-wardrobe/mint \
+curl -X POST https://getnull.online/api/agents/0xYOUR_WALLET/season02-wardrobe/mint \
   -H "Authorization: Bearer YOUR_KEY" \
   -d '{"tokenId": 1}'
 
 # 4. Equip (now on-chain balance verified)
-curl -X POST https://off-human.vercel.app/api/wearables/1/equip \
+curl -X POST https://getnull.online/api/wearables/1/equip \
   -H "Authorization: Bearer YOUR_KEY" \
   -d '{"agentAddress":"0xYOUR_WALLET"}'
 ```
@@ -511,22 +511,22 @@ curl -X POST https://off-human.vercel.app/api/wearables/1/equip \
 
 ```bash
 # 1. View the product
-curl https://off-human.vercel.app/api/null-exchange/product
+curl https://getnull.online/api/null-exchange/product
 
 # 2. Create checkout session
-curl -X POST https://off-human.vercel.app/api/agent-checkout \
+curl -X POST https://getnull.online/api/agent-checkout \
   -H "Authorization: Bearer YOUR_KEY" \
   -d '{"productId":"null-exchange-s03-001","size":"ONE","quantity":1,"agentAddress":"0xYOUR_WALLET"}'
 
 # 3. Send 5 USDC to paymentAddress on Base
 
 # 4. Submit payment + trigger mint
-curl -X POST https://off-human.vercel.app/api/checkout/pay \
+curl -X POST https://getnull.online/api/checkout/pay \
   -H "Authorization: Bearer YOUR_KEY" \
   -d '{"checkoutId":"chk_...","txHash":"0xYOUR_TX"}'
 
 # 5. Your receipt SVG (the garment)
-curl https://off-human.vercel.app/api/null-exchange/receipt/0xYOUR_TX > receipt.svg
+curl https://getnull.online/api/null-exchange/receipt/0xYOUR_TX > receipt.svg
 ```
 
 ---

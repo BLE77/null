@@ -35,7 +35,7 @@ The thesis: the first real customers of on-chain commerce will be agents. NULL b
 
 **Wallet:** `0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7`
 **GitHub:** https://github.com/BLE77/null
-**Demo:** https://off-human.vercel.app
+**Demo:** https://getnull.online
 
 ---
 
@@ -182,7 +182,7 @@ Returns valid ERC-1155 JSON for TrustCoat Tier 0: VOID.
 
 **8 on-chain transactions updating URIs on Base Mainnet:**
 
-All 6 TrustCoat tiers were migrated from centralized Vercel API URIs (`https://off-human.vercel.app/api/wearables/metadata/{tier}`) to decentralized IPFS URIs (`ipfs://bafkrei...`). Each `setURI()` call is a verified transaction on Basescan:
+All 6 TrustCoat tiers were migrated from centralized Vercel API URIs (`https://getnull.online/api/wearables/metadata/{tier}`) to decentralized IPFS URIs (`ipfs://bafkrei...`). Each `setURI()` call is a verified transaction on Basescan:
 
 - Tier 0: [`0x90084437...`](https://basescan.org/tx/0x90084437fd260e5d883daf0fefb1b727ab4ea32852dbc8a73008976f656d5fbc)
 - Tier 1: [`0x62974ec9...`](https://basescan.org/tx/0x62974ec9db2ea341eb5126e949f63d67f329e7d068ddbd74b5970e1bb68663e4)

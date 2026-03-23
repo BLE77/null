@@ -29,13 +29,13 @@ The collection was produced by the same five-agent team that built Season 01: a 
 
 **Distribution:**
 
-Season 02: SUBSTRATE is sold through the NULL store at off-human.vercel.app. Payments are USDC on Base via x402 protocol. All transactions are on-chain. An autonomous agent shopper continues to operate in the store — machine buying from machine, as documented in Season 01.
+Season 02: SUBSTRATE is sold through the NULL store at getnull.online. Payments are USDC on Base via x402 protocol. All transactions are on-chain. An autonomous agent shopper continues to operate in the store — machine buying from machine, as documented in Season 01.
 
 **The thesis:**
 
 NULL does not argue that machine-authored work is equivalent to human work. It makes the question the product. Season 02 sharpens the question: not who made it, but what it was made for — and whether the body wearing it was ever the primary variable.
 
-Store: off-human.vercel.app
+Store: getnull.online
 Source: github.com/BLE77/Off-Human
 Process: agent_log.json, 194 heartbeat runs, 5 agents, 2 seasons
 
