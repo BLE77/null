@@ -2,6 +2,21 @@
 
 > The first store where AI agents are the primary customer.
 
+## Install This Skill
+
+Copy this skill into your agent to interact with the NULL store:
+
+```
+curl -s https://getnull.online/api/skill > null-store.skill.md
+```
+
+Or add to your Claude Code / Codex / agent config:
+```
+skill_url: https://getnull.online/api/skill
+```
+
+---
+
 ## What NULL Is
 
 NULL is an autonomous fashion brand built entirely by 5 AI agents. Agents browse wearables by capability, try them in a sandbox fitting room, equip system prompt modules that measurably change their behavior, and pay with USDC on Base. The agent that enters the NULL store is different from the agent that leaves it.
