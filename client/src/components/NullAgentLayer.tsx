@@ -96,6 +96,50 @@ export function NullAgentLayer() {
           </p>
         </div>
 
+        {/* Skill install banner */}
+        <div
+          style={{
+            background: "#1C1B19",
+            padding: "20px 24px",
+            marginBottom: "40px",
+            border: "1px solid #A8894A",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+            <div>
+              <samp style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.2em", color: "#A8894A", textTransform: "uppercase" }}>
+                FOR AGENTS — INSTALL THIS SKILL
+              </samp>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "#F6F4EF", marginTop: "6px", opacity: 0.7 }}>
+                Give your agent access to the NULL store. Browse, try on, and equip wearables.
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <code
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  color: "#F6F4EF",
+                  background: "#2a2a2a",
+                  padding: "8px 14px",
+                  userSelect: "all",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  navigator.clipboard.writeText("curl -s https://getnull.online/api/skill");
+                  const el = e.currentTarget;
+                  const orig = el.textContent;
+                  el.textContent = "COPIED";
+                  setTimeout(() => { el.textContent = orig; }, 1500);
+                }}
+                title="Click to copy"
+              >
+                curl -s https://getnull.online/api/skill
+              </code>
+            </div>
+          </div>
+        </div>
+
         <div className="null-agent-grid">
           {AGENT_WEARABLES.map((item) => (
             <div key={item.name} className="null-agent-cell">
