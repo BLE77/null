@@ -1,5 +1,5 @@
 import { db } from "./db.js";
-import { users, products, orders, wearables, wardrobeItems, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory, type Wearable, type InsertWearable, type WardrobeItem, type InsertWardrobeItem } from "../shared/schema.js";
+import { users, products, orders, type User, type InsertUser, type Product, type InsertProduct, type Order, type InsertOrder, type ProductInventory } from "../shared/schema.js";
 import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { createRequire } from "module";

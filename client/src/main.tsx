@@ -16,7 +16,6 @@ createWeb3Modal({
     '--w3m-border-radius-master': '4px',
   },
   enableOnramp: false,
-  enableSwaps: false,
   // DON'T set defaultChain - let user choose their network
 });
 

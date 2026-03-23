@@ -108,7 +108,7 @@ function buildAttestation(
   chainId: number,
   oracleAddress: string,
   signerKey: string
-): string {
+): Promise<string> {
   // EIP-712 domain
   const domain = {
     name: "TrustCoatOracle",

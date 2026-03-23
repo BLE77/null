@@ -19,7 +19,7 @@
  *   - AgentWearables (Celo/ETH): reads tier from TrustCoatOracle (same ITrustCoat interface)
  */
 
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { ethers } from "ethers";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
@@ -135,7 +135,7 @@ async function signAttestation(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function registerCrossChainRoutes(app: any): void {
   // GET /api/crosschain/chains
-  app.get("/api/crosschain/chains", (_req, res) => {
+  app.get("/api/crosschain/chains", (_req: Request, res: Response) => {
     const chains = getChainConfigs();
     res.json({
       chains: Object.entries(chains).map(([id, cfg]) => ({
@@ -150,7 +150,7 @@ export function registerCrossChainRoutes(app: any): void {
   });
 
   // GET /api/crosschain/tier-attestation?address=0x...&chainId=42220
-  app.get("/api/crosschain/tier-attestation", async (req, res) => {
+  app.get("/api/crosschain/tier-attestation", async (req: Request, res: Response) => {
     const { address, chainId: chainIdS } = req.query as Record<string, string>;
 
     if (!address || !ethers.isAddress(address)) {
@@ -237,7 +237,7 @@ export function registerCrossChainRoutes(app: any): void {
   });
 
   // GET /api/crosschain/verify?address=0x...&chainId=42220
-  app.get("/api/crosschain/verify", async (req, res) => {
+  app.get("/api/crosschain/verify", async (req: Request, res: Response) => {
     const { address, chainId: chainIdS } = req.query as Record<string, string>;
 
     if (!address || !ethers.isAddress(address)) {
