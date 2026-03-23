@@ -61,6 +61,10 @@ export default function Home() {
     <div className="min-h-screen null-bg overflow-x-hidden" data-testid="timeline-container">
       <NullArchiveHero />
 
+      {/* Agent wearables first — this is the core product */}
+      <NullAgentLayer />
+      <NullTrustCoat />
+
       <section style={{ background: "#F6F4EF", paddingBottom: "120px" }}>
         {isLoading ? (
           <div className="flex items-center justify-center py-32">
@@ -92,8 +96,6 @@ export default function Home() {
         )}
       </section>
 
-      <NullAgentLayer />
-      <NullTrustCoat />
       <NullFooter />
     </div>
   );
