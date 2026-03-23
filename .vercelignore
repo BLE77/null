@@ -1,9 +1,21 @@
+# Build output directories (Vercel builds fresh)
 dist
 dist-new
+dist2
 node_modules
+
+# Git
 .git
+
+# Development tools
 .codex
 .codex-agent
+.claude
+.local
+.replit
+.herenow
+
+# Large binary assets not needed at deploy time
 demo-video
 corpus
 references
@@ -11,5 +23,48 @@ blenderkit_data
 ffmpeg
 ffmpeg-7.1-essentials_build
 three.js
+uploads
 *.glb
 *.mp4
+
+# Large root-level screenshots (not served)
+collection.png
+crypto_section.png
+footer_section.png
+full_page_after_collection.png
+full_viewport.png
+fullpage-hero.png
+fullpage.png
+hero.png
+hero_section.png
+latest-collection-section.png
+product_detail.png
+products-row-1.png
+products-row-2.png
+products_section.png
+second-product-section.png
+shop_final.png
+shop_page.png
+
+# Dev HTML reports
+review-dashboard.html
+track-review.html
+track-strategy.html
+
+# Temp/large JSON files
+tmp_all_tracks.json
+tmp_issues_compact.json
+
+# Contracts build artifacts
+artifacts
+cache
+contracts
+
+# Python scripts
+*.py
+
+# Misc
+11.6.2
+*.tar.gz
+.env
+.mcp.json
