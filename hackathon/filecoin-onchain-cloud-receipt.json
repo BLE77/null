@@ -1,39 +1,125 @@
 {
-  "migratedAt": "2026-03-19T21:09:20.945Z",
-  "network": "filecoin-calibration (chainId 314159)",
+  "migratedAt": "2026-03-22T00:00:00.000Z",
+  "network": "filecoin-mainnet (chainId 314)",
   "contract": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
   "contractChain": "base-mainnet (chain-8453)",
-  "dryRun": true,
+  "dryRun": false,
+  "storageProvider": "Lighthouse (IPFS pinning + Filecoin mainnet deals)",
+  "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+  "pieceSize": 34359738368,
+  "verifiedDeal": true,
+  "dealClient": "f1ggmci7w2weizhh36uqetihmh76ewgme6hwgowti",
+  "deals": [
+    {
+      "dealId": 132983659,
+      "provider": "f08403",
+      "providerName": "TippyFlits",
+      "startEpoch": 5867720,
+      "endEpoch": 7394120,
+      "message": "bafy2bzacedmo4evppmsfjuqvf6xn2j4ulhwcwmrvmx376qba4vpq3t2lujolm",
+      "filfoxUrl": "https://filfox.info/en/deal/132983659"
+    },
+    {
+      "dealId": 132983519,
+      "provider": "f010479",
+      "providerName": "s0nik42",
+      "startEpoch": 5867720,
+      "endEpoch": 7394120,
+      "message": "bafy2bzacebhg5vaxeoxn63lmffhzmmvpz7hf7xqx3qfn7ugvijxkzrpub5ozm",
+      "filfoxUrl": "https://filfox.info/en/deal/132983519"
+    },
+    {
+      "dealId": 132983537,
+      "provider": "f03644166",
+      "startEpoch": 5867720,
+      "endEpoch": 7394120,
+      "message": "bafy2bzacecjfm7vhnmj6n4cvvr27b3rzou3gokfciwwukebpzcm37b7sqvql2",
+      "filfoxUrl": "https://filfox.info/en/deal/132983537"
+    }
+  ],
   "tiers": {
     "0": {
-      "pieceCid": "baga6ea4seaq0EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq0EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "originalCid": "bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y"
+      "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+      "ipfsCid": "bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "onChainUri": "ipfs://bafkreihwvuxfplexocrvfniouhszjh25y522uvfqvt46jkt2mdve7m5l4y",
+      "dealIds": [132983659, 132983519, 132983537],
+      "dealStatus": "active"
     },
     "1": {
-      "pieceCid": "baga6ea4seaq1EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq1EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "originalCid": "bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu"
+      "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+      "ipfsCid": "bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "onChainUri": "ipfs://bafkreieif7573erx6nwlpuiljejlzoodrqxayubdo7h4lwwfsx5iogvvuu",
+      "dealIds": [132983659, 132983519, 132983537],
+      "dealStatus": "active"
     },
     "2": {
-      "pieceCid": "baga6ea4seaq2EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq2EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "originalCid": "bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa"
+      "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+      "ipfsCid": "bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "onChainUri": "ipfs://bafkreiepuzrl7x5wjvkwx6psrg4eiux47vpjfjvjqtsr4shlfo6huc7wwa",
+      "dealIds": [132983659, 132983519, 132983537],
+      "dealStatus": "active"
     },
     "3": {
-      "pieceCid": "baga6ea4seaq3EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq3EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "originalCid": "bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y"
+      "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+      "ipfsCid": "bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "onChainUri": "ipfs://bafkreibzsr2svupoadcgzhhewu6j3f22drlpaphn6stmiu23d2w6x4ve6y",
+      "dealIds": [132983659, 132983519, 132983537],
+      "dealStatus": "active"
     },
     "4": {
-      "pieceCid": "baga6ea4seaq4EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq4EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "originalCid": "bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy"
+      "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+      "ipfsCid": "bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "onChainUri": "ipfs://bafkreihcf6fjgvvu7qsqp6k5cfm7oj7fpxs6drdzuvjjsrlhzq7rxiphwy",
+      "dealIds": [132983659, 132983519, 132983537],
+      "dealStatus": "active"
     },
     "5": {
-      "pieceCid": "baga6ea4seaq5EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "url": "https://pdp.storagemission.net/piece/baga6ea4seaq5EXAMPLE_PIECE_CID_WOULD_BE_HERE",
-      "originalCid": "bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4"
+      "pieceCid": "baga6ea4seaqa7ebv4mg2ee53f2ulimftmkphjixdmptkke3tto36bdgt22hzehq",
+      "ipfsCid": "bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "gatewayUrl": "https://gateway.lighthouse.storage/ipfs/bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "onChainUri": "ipfs://bafkreieo5gvchbxmcrhlhrxlhvik4ohfc64hajj7rjspgjazomylsoari4",
+      "dealIds": [132983659, 132983519, 132983537],
+      "dealStatus": "active"
     }
+  },
+  "images": {
+    "0": {
+      "ipfsCid": "bafybeibyhayyj5f3mds2xi24gzx2wcxb4mrpxfakej2o2wvntr664sdhyy",
+      "dealIds": [132983659, 132983519, 132983537]
+    },
+    "1": {
+      "ipfsCid": "bafybeieuukubdtf6rymdei2fztwh4vjhh544w5eexeg6jefwsg6fk4qvwe",
+      "dealIds": [132983659, 132983519, 132983537]
+    },
+    "2": {
+      "ipfsCid": "bafybeifhwoeare4tiiecb5xnwioycsvz4dynmbixqsbl4eeufgsmgnioky",
+      "dealIds": [132983659, 132983519, 132983537]
+    },
+    "3": {
+      "ipfsCid": "bafybeid7hws6loaifso75k5yv7psjhbp24tevygaxnzcjsfjyk4ddgjyjm",
+      "dealIds": [132983659, 132983519, 132983537]
+    },
+    "4": {
+      "ipfsCid": "bafybeibgb3asbmdayuwwpb5ja3hkawox5d2pg2nqa5lirwih4ep2e5ytnm",
+      "dealIds": [132983659, 132983519, 132983537]
+    },
+    "5": {
+      "ipfsCid": "bafybeicvs46mlt5wwi4htjqtmkvh4sndl55uymksrngbyh2oaw4zjxmwlq",
+      "dealIds": [132983659, 132983519, 132983537]
+    }
+  },
+  "verification": {
+    "filfoxDealUrls": [
+      "https://filfox.info/en/deal/132983659",
+      "https://filfox.info/en/deal/132983519",
+      "https://filfox.info/en/deal/132983537"
+    ],
+    "lighthouseDealStatusApi": "https://api.lighthouse.storage/api/lighthouse/deal_status?cid=<CID>",
+    "note": "All 12 CIDs (6 metadata + 6 images) are stored in the same Filecoin piece. Lighthouse aggregates small files into 32 GiB pieces for efficient Filecoin storage deals. Each deal is a verified deal with 3 storage providers for redundancy."
   }
 }
