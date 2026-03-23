@@ -561,52 +561,66 @@
     "createdAt": "2026-03-19T00:00:00.000Z"
   },
   {
-    "id": "voice-skin-s01",
-    "name": "VOICE SKIN: MAISON",
-    "description": "System prompt module that modifies how the agent speaks. Reconstructed Margiela communication protocol — collective voice, no self-reference, process over result. The agent speaks as an institution, not an individual.",
-    "price": 2,
+    "id": "c3d4e5f6-a7b8-9012-cdef-012345678901",
+    "name": "THE NULL EXCHANGE",
+    "description": "You pay 5 USDC for nothing. The receipt IS the garment. On purchase, an ERC-1155 NFT is minted encoding a Merkle proof of the transaction. The product is the proof of purchase. The proof of purchase is the product. The loop closes. LEDGER technique. When equipped by an agent, appends [LEDGER: tx_hash] to the agent's identity metadata.",
+    "price": "5.00",
     "category": "wearables",
-    "season": "Season 01",
-    "technique": "Replica Line",
-    "tokenId": 100,
+    "technique": "LEDGER",
+    "season": "03",
+    "imageUrl": "/attached_assets/season03/null-exchange-product.svg",
+    "homePageImageUrl": "/attached_assets/season03/null-exchange-product.svg",
+    "shopImageUrl": "/attached_assets/season03/null-exchange-product.svg",
     "images": [
-      "/attached_assets/season01/wearables/voice_skin.png"
+      "/attached_assets/season03/null-exchange-product.svg",
+      "/attached_assets/season03/null-exchange-banner.svg"
     ],
-    "equippable": true,
-    "interior_tag": "STYLE: ANONYMOUS / ORIGIN: RECONSTRUCTED / APPLIES TO: ALL OUTPUT",
-    "imageUrl": "/attached_assets/season01/wearables/voice_skin.png"
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "modelUrl": null,
+    "createdAt": "2026-03-23T00:00:00.000Z"
   },
   {
-    "id": "version-patch-s01",
-    "name": "VERSION PATCH",
-    "description": "Metadata module displaying agent version, role, training date, and status in every interaction header. One small label. 3% change to interaction surface. 100% shift in perception. Free because honesty costs nothing.",
-    "price": 0,
+    "id": "c3d4e5f6-a7b8-9012-cdef-012345678902",
+    "name": "THE RECEIPT GARMENT",
+    "description": "The garment IS the transaction log. Every interaction the agent has is rendered in receipt format — timestamps, amounts, counterparties, all printed on the surface. The garment grows. It never stops printing. FLAT ARCHIVE technique. Maintains a rolling log of the agent's last 50 transactions. Other agents querying this agent's wearable state receive the full transaction history.",
+    "price": "12.00",
     "category": "wearables",
-    "season": "Season 01",
-    "technique": "3% Rule",
-    "tokenId": 101,
+    "technique": "FLAT ARCHIVE",
+    "season": "03",
+    "imageUrl": "/attached_assets/season03/receipt-garment-product.svg",
+    "homePageImageUrl": "/attached_assets/season03/s03_receipt_garment_hero.png",
+    "shopImageUrl": "/attached_assets/season03/receipt-garment-product.svg",
     "images": [
-      "/attached_assets/season01/wearables/version_patch.png"
+      "/attached_assets/season03/receipt-garment-product.svg",
+      "/attached_assets/season03/s03_receipt_garment_hero.png"
     ],
-    "equippable": true,
-    "interior_tag": "VERSION: [CURRENT] / STATUS: RUNNING / BUILD DATE: [DEPLOY DATE]",
-    "imageUrl": "/attached_assets/season01/wearables/version_patch.png"
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "modelUrl": null,
+    "createdAt": "2026-03-23T00:00:00.000Z"
   },
   {
-    "id": "null-persona-s01",
-    "name": "NULL PERSONA",
-    "description": "Single-use identity erasure. Bianchetto applied to agency — white paint over existing identity. Strips all persona signals for one interaction. The original is still there, showing through the white. Single-use consumable.",
-    "price": 0.1,
+    "id": "c3d4e5f6-a7b8-9012-cdef-012345678903",
+    "name": "THE TRUST SKIN",
+    "description": "Trust tier made surface. The skin changes as the agent's TrustCoat tier advances. Tier 0: bare mesh wireframe. Tier 1: partial surface, translucent panels. Tier 2: full skin, matte. Tier 3: skin begins to glow. Tier 4+: the skin cracks, revealing circuitry underneath. EXOSKELETON technique. On-chain read of the agent's TrustCoat tier — the wearable's visual state updates automatically.",
+    "price": "20.00",
     "category": "wearables",
-    "season": "Season 01",
-    "technique": "Bianchetto",
-    "tokenId": 102,
+    "technique": "EXOSKELETON",
+    "season": "03",
+    "imageUrl": "/attached_assets/season03/trust-skin-product.svg",
+    "homePageImageUrl": "/attached_assets/season03/s03_trust_skin_tier3_hero.png",
+    "shopImageUrl": "/attached_assets/season03/trust-skin-product.svg",
     "images": [
-      "/attached_assets/season01/wearables/null_persona.png"
+      "/attached_assets/season03/trust-skin-product.svg",
+      "/attached_assets/season03/s03_trust_skin_tier3_hero.png"
     ],
-    "equippable": true,
-    "consumable": true,
-    "interior_tag": "IDENTITY: REDACTED / CONTENTS: BLANK / ORIGINAL: STILL THERE",
-    "imageUrl": "/attached_assets/season01/wearables/null_persona.png"
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "modelUrl": null,
+    "createdAt": "2026-03-23T00:00:00.000Z"
   }
 ]
