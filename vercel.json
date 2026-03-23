@@ -15,6 +15,12 @@
     "api/crosschain-tier.ts": {
       "maxDuration": 10
     },
+    "api/wearables-tiers.ts": {
+      "maxDuration": 10
+    },
+    "api/wearables-season02.ts": {
+      "maxDuration": 10
+    },
     "api/healthz.ts": {
       "maxDuration": 10
     },
@@ -37,6 +43,8 @@
     { "source": "/api/crosschain/tier-attestation", "destination": "/api/crosschain-tier" },
     { "source": "/api/crosschain/verify", "destination": "/api/crosschain-tier" },
     { "source": "/api/crosschain/chains", "destination": "/api/crosschain-tier" },
+    { "source": "/api/wearables/tiers", "destination": "/api/wearables-tiers" },
+    { "source": "/api/wearables/season02", "destination": "/api/wearables-season02" },
     { "source": "/api/null-exchange/product", "destination": "/api/null-exchange/product" },
     { "source": "/skill.md", "destination": "/api/skill" },
     { "source": "/skill", "destination": "/api/skill" },
