@@ -1,0 +1,18 @@
+{
+  "type": "erc8004-tier-upgrade",
+  "network": "base",
+  "chainId": 8453,
+  "contract": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+  "minter": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+  "demoAgent": "0x7238c7DAaFfDB99ad30F7780dA9bAf53EE111190",
+  "erc8004AgentId": 35324,
+  "mintTxHash": "0xa368bca6b2cef056e5e55f2cdca4c4d8f584257183ed65716f70856726ed3f09",
+  "upgradeTxHash": "0xab899fe6d2acb849d6f3ac975f235519f295c6f4ffe6fafc2860a68256485d31",
+  "tierBefore": 0,
+  "tierAfter": 1,
+  "tierBeforeName": "VOID",
+  "tierAfterName": "SAMPLE",
+  "upgradeBlock": 43712651,
+  "explorerUrl": "https://basescan.org/tx/0xab899fe6d2acb849d6f3ac975f235519f295c6f4ffe6fafc2860a68256485d31",
+  "timestamp": "2026-03-23T00:24:22.622Z"
+}

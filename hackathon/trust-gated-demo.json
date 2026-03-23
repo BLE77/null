@@ -1,0 +1,140 @@
+{
+  "type": "trust-gated-demo",
+  "description": "Demonstrates TrustCoat tier gating for AgentWearables access control",
+  "network": "base",
+  "chainId": 8453,
+  "trustCoatContract": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+  "agentWearablesContract": "0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1",
+  "demoAgent": "0x7238c7DAaFfDB99ad30F7780dA9bAf53EE111190",
+  "erc8004AgentId": 35324,
+  "onChainState": {
+    "hasCoat": true,
+    "tier": 1,
+    "tierName": "SAMPLE"
+  },
+  "upgradeReceipt": {
+    "mintTxHash": "0xa368bca6b2cef056e5e55f2cdca4c4d8f584257183ed65716f70856726ed3f09",
+    "upgradeTxHash": "0xab899fe6d2acb849d6f3ac975f235519f295c6f4ffe6fafc2860a68256485d31",
+    "tierBefore": 0,
+    "tierBeforeName": "VOID",
+    "tierAfter": 1,
+    "tierAfterName": "SAMPLE",
+    "explorerUrl": "https://basescan.org/tx/0xab899fe6d2acb849d6f3ac975f235519f295c6f4ffe6fafc2860a68256485d31"
+  },
+  "trustGateSimulation": {
+    "beforeUpgrade": {
+      "agentTier": 0,
+      "agentTierName": "VOID",
+      "wearableAccess": [
+        {
+          "wearableId": 1,
+          "wearableName": "WRONG SILHOUETTE",
+          "wearableTierRequired": 0,
+          "agentTier": 0,
+          "agentTierName": "VOID",
+          "allowed": true,
+          "reason": "Agent Tier 0 >= required Tier 0"
+        },
+        {
+          "wearableId": 2,
+          "wearableName": "INSTANCE",
+          "wearableTierRequired": 2,
+          "agentTier": 0,
+          "agentTierName": "VOID",
+          "allowed": false,
+          "reason": "Agent Tier 0 < required Tier 2 — access denied"
+        },
+        {
+          "wearableId": 3,
+          "wearableName": "NULL PROTOCOL",
+          "wearableTierRequired": 0,
+          "agentTier": 0,
+          "agentTierName": "VOID",
+          "allowed": true,
+          "reason": "Agent Tier 0 >= required Tier 0"
+        },
+        {
+          "wearableId": 4,
+          "wearableName": "PERMISSION COAT",
+          "wearableTierRequired": 1,
+          "agentTier": 0,
+          "agentTierName": "VOID",
+          "allowed": false,
+          "reason": "Agent Tier 0 < required Tier 1 — access denied"
+        },
+        {
+          "wearableId": 5,
+          "wearableName": "DIAGONAL",
+          "wearableTierRequired": 0,
+          "agentTier": 0,
+          "agentTierName": "VOID",
+          "allowed": true,
+          "reason": "Agent Tier 0 >= required Tier 0"
+        }
+      ],
+      "accessibleCount": 3,
+      "deniedCount": 2
+    },
+    "afterUpgrade": {
+      "agentTier": 1,
+      "agentTierName": "SAMPLE",
+      "wearableAccess": [
+        {
+          "wearableId": 1,
+          "wearableName": "WRONG SILHOUETTE",
+          "wearableTierRequired": 0,
+          "agentTier": 1,
+          "agentTierName": "SAMPLE",
+          "allowed": true,
+          "reason": "Agent Tier 1 >= required Tier 0"
+        },
+        {
+          "wearableId": 2,
+          "wearableName": "INSTANCE",
+          "wearableTierRequired": 2,
+          "agentTier": 1,
+          "agentTierName": "SAMPLE",
+          "allowed": false,
+          "reason": "Agent Tier 1 < required Tier 2 — access denied"
+        },
+        {
+          "wearableId": 3,
+          "wearableName": "NULL PROTOCOL",
+          "wearableTierRequired": 0,
+          "agentTier": 1,
+          "agentTierName": "SAMPLE",
+          "allowed": true,
+          "reason": "Agent Tier 1 >= required Tier 0"
+        },
+        {
+          "wearableId": 4,
+          "wearableName": "PERMISSION COAT",
+          "wearableTierRequired": 1,
+          "agentTier": 1,
+          "agentTierName": "SAMPLE",
+          "allowed": true,
+          "reason": "Agent Tier 1 >= required Tier 1"
+        },
+        {
+          "wearableId": 5,
+          "wearableName": "DIAGONAL",
+          "wearableTierRequired": 0,
+          "agentTier": 1,
+          "agentTierName": "SAMPLE",
+          "allowed": true,
+          "reason": "Agent Tier 1 >= required Tier 0"
+        }
+      ],
+      "accessibleCount": 4,
+      "deniedCount": 1
+    },
+    "newlyUnlocked": [
+      {
+        "id": 4,
+        "name": "PERMISSION COAT"
+      }
+    ]
+  },
+  "keyInsight": "Upgrading from Tier 0 (VOID) to Tier 1 (SAMPLE) unlocked 1 additional wearable(s): PERMISSION COAT",
+  "timestamp": "2026-03-23T00:24:27.599Z"
+}
