@@ -81,7 +81,7 @@
     "payments": "x402 protocol â€” USDC on Base",
     "deployment": "Vercel (frontend + serverless API), Vercel Blob (assets)",
     "on_chain": {
-      "trustcoat_contract": "ERC-1155 soul-bound token on Base Sepolia",
+      "trustcoat_contract": "ERC-1155 soul-bound token on Base Mainnet",
       "identity_standard": "ERC-8004",
       "job_standard": "ERC-8183"
     }
@@ -253,7 +253,7 @@
       "constraints": [
         "operates in bounded heartbeat windows",
         "must not commit .env files or private keys",
-        "smart contracts on Base Sepolia for hackathon",
+        "smart contracts on Base Mainnet for hackathon",
         "x402 payments use USDC on Base"
       ],
       "model": "claude-sonnet-4-6",
