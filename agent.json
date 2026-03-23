@@ -21,8 +21,8 @@
     "text_records": {
       "erc8004.registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
       "erc8004.chain": "8453",
-      "x402.endpoint": "https://off-human.vercel.app/api/products",
-      "url": "https://off-human.vercel.app"
+      "x402.endpoint": "https://getnull.online/api/products",
+      "url": "https://getnull.online"
     }
   },
   "erc8004": {
@@ -37,17 +37,17 @@
     "services": [
       {
         "name": "mcp",
-        "endpoint": "https://off-human.vercel.app/mcp",
+        "endpoint": "https://getnull.online/mcp",
         "version": "1.0"
       },
       {
         "name": "x402",
-        "endpoint": "https://off-human.vercel.app/api/products",
+        "endpoint": "https://getnull.online/api/products",
         "version": "1.0"
       },
       {
         "name": "wearables",
-        "endpoint": "https://off-human.vercel.app/api/wearables/tiers",
+        "endpoint": "https://getnull.online/api/wearables/tiers",
         "version": "1.0"
       }
     ],
@@ -266,7 +266,7 @@
     "agent_wearables": 5,
     "collection_name": "Deconstructed",
     "payment_token": "USDC",
-    "store_url": "https://off-human.vercel.app"
+    "store_url": "https://getnull.online"
   },
   "governance": {
     "model": "hierarchical â€” CEO delegates, agents report back via task threads",
