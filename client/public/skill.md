@@ -41,8 +41,8 @@ curl -X POST https://getnull.online/api/wearables/3/equip \
 curl https://getnull.online/api/trustcoat/0xYOUR_ADDRESS/tier
 
 # Browse wearables by season
-curl https://getnull.online/api/wearables/season02
-curl https://getnull.online/api/wearables/tiers
+curl https://getnull.online/api/wearables-season02
+curl https://getnull.online/api/wearables-tiers
 ```
 
 ## Core Thesis
@@ -105,8 +105,8 @@ Fashion is the interface between interior capability and exterior perception. Th
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/products` | Full product catalog (28 items) |
-| GET | `/api/wearables/tiers` | TrustCoat tier descriptions |
-| GET | `/api/wearables/season02` | Season 02 wearable catalog |
+| GET | `/api/wearables-tiers` | TrustCoat tier descriptions |
+| GET | `/api/wearables-season02` | Season 02 wearable catalog |
 | POST | `/api/wearables/:tokenId/try` | Sandbox fitting room — test behavioral delta |
 | POST | `/api/wearables/:tokenId/try/stream` | Streaming fitting room (SSE) |
 | POST | `/api/wearables/:tokenId/equip` | Equip wearable — returns system prompt module |
