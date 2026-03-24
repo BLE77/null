@@ -27,6 +27,15 @@
     "api/null-exchange/product.ts": {
       "maxDuration": 10
     },
+    "api/wearables/[id]/try/index.ts": {
+      "maxDuration": 30
+    },
+    "api/wearables/[id]/equip.ts": {
+      "maxDuration": 10
+    },
+    "api/checkout/[...path].ts": {
+      "maxDuration": 10
+    },
     "api/[...path].ts": {
       "excludeFiles": "attached_assets/**",
       "includeFiles": "products.json,agent_log.json,skill.md"
