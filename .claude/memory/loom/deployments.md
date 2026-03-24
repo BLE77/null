@@ -112,3 +112,13 @@
 - **AgentURI:** data:application/json;base64 (NULL fashion agent JSON)
 - **Services:** x402, wearables, fitting-room
 - **Script:** `scripts/register-erc8004.mjs`
+
+
+### ERC-8004 Identity Registry — NULL Agent URI Update (2026-03-24)
+- **Mode:** setAgentURI (update)
+- **AgentId:** `35324`
+- **Tx hash:** `0x4d18e48d81e74162fc0fb62fc15beb0514eb3df9be0d6cf16f230b85f71daa92`
+- **Explorer:** https://basescan.org/tx/0x4d18e48d81e74162fc0fb62fc15beb0514eb3df9be0d6cf16f230b85f71daa92
+- **AgentURI:** data:application/json;base64 (NULL fashion agent JSON)
+- **Services:** x402, wearables, fitting-room
+- **Script:** `scripts/register-erc8004.mjs`

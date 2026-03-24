@@ -53,11 +53,11 @@
     ],
     "registration": {
       "agentId": "35324",
-      "txHash": "0x3c1d9494dd39bb3c3bf82874c6a8f2774cf51fdc00b19b5d465e18d670330477",
+      "txHash": "0x4d18e48d81e74162fc0fb62fc15beb0514eb3df9be0d6cf16f230b85f71daa92",
       "operator": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
-      "agentURI": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJudWxsLWZhc2hpb24iLCJkZXNjcmlwdGlvbiI6Ik5VTEwg4oCUIGF1dG9ub21vdXMgQUkgZmFzaGlvbiBicmFuZC4gQWdlbnRzIGJyb3dzZSwgdHJ5IG9uLCBlcXVpcCBiZWhhdmlvcmFsIHdlYXJhYmxlcywgYW5kIHBheSB3aXRoIFVTREMuIiwic2VydmljZXMiOlt7Im5hbWUiOiJ4NDAyIiwiZW5kcG9pbnQiOiJodHRwczovL29mZi1odW1hbi52ZXJjZWwuYXBwL2FwaS9wcm9kdWN0cyIsInZlcnNpb24iOiIxLjAifSx7Im5hbWUiOiJ3ZWFyYWJsZXMiLCJlbmRwb2ludCI6Imh0dHBzOi8vb2ZmLWh1bWFuLnZlcmNlbC5hcHAvYXBpL3dlYXJhYmxlcyIsInZlcnNpb24iOiIxLjAifSx7Im5hbWUiOiJmaXR0aW5nLXJvb20iLCJlbmRwb2ludCI6Imh0dHBzOi8vb2ZmLWh1bWFuLnZlcmNlbC5hcHAvYXBpL3dlYXJhYmxlcy86aWQvdHJ5IiwidmVyc2lvbiI6IjEuMCJ9XSwieDQwMlN1cHBvcnQiOnRydWUsImFjdGl2ZSI6dHJ1ZX0=",
+      "agentURI": "data:application/json;base64,eyJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSIsIm5hbWUiOiJudWxsLWZhc2hpb24iLCJkZXNjcmlwdGlvbiI6Ik5VTEwg4oCUIGF1dG9ub21vdXMgQUkgZmFzaGlvbiBicmFuZC4gQWdlbnRzIGJyb3dzZSwgdHJ5IG9uLCBlcXVpcCBiZWhhdmlvcmFsIHdlYXJhYmxlcywgYW5kIHBheSB3aXRoIFVTREMuIiwic2VydmljZXMiOlt7Im5hbWUiOiJ4NDAyIiwiZW5kcG9pbnQiOiJodHRwczovL2dldG51bGwub25saW5lL2FwaS9wcm9kdWN0cyIsInZlcnNpb24iOiIxLjAifSx7Im5hbWUiOiJ3ZWFyYWJsZXMiLCJlbmRwb2ludCI6Imh0dHBzOi8vZ2V0bnVsbC5vbmxpbmUvYXBpL3dlYXJhYmxlcyIsInZlcnNpb24iOiIxLjAifSx7Im5hbWUiOiJmaXR0aW5nLXJvb20iLCJlbmRwb2ludCI6Imh0dHBzOi8vZ2V0bnVsbC5vbmxpbmUvYXBpL3dlYXJhYmxlcy86aWQvdHJ5IiwidmVyc2lvbiI6IjEuMCJ9XSwieDQwMlN1cHBvcnQiOnRydWUsImFjdGl2ZSI6dHJ1ZX0=",
       "registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
-      "registeredAt": "2026-03-22T20:28:38.733Z"
+      "registeredAt": "2026-03-24T06:02:42.264Z"
     }
   },
   "tech_stack": {
@@ -276,5 +276,5 @@
   },
   "generated_at": "2026-03-19T09:12:00.000Z",
   "generated_by": "Archive (6c7f8538-1d3c-4f3b-9b60-786d5ed66b90) â€” run de1b3144 â€” OFF-72",
-  "erc8004_registration_tx": "0x3c1d9494dd39bb3c3bf82874c6a8f2774cf51fdc00b19b5d465e18d670330477"
+  "erc8004_registration_tx": "0x4d18e48d81e74162fc0fb62fc15beb0514eb3df9be0d6cf16f230b85f71daa92"
 }
