@@ -10,6 +10,7 @@ interface SessionData {
   walletAddress: string;
   budget: number;
   policy: string;
+  taste?: string;
 }
 
 interface ActivityLine {
@@ -119,6 +120,7 @@ function OnboardScreen({
         }),
       });
 
+      const tasteStr = [tasteText, ...selectedTags].filter(Boolean).join(", ") || "avant-garde, deconstructed";
       let data: SessionData;
       if (res.ok) {
         const raw = await res.json();
@@ -127,6 +129,7 @@ function OnboardScreen({
           walletAddress: raw.walletAddress,
           budget: raw.policy?.maxBudgetUsdc ?? budget,
           policy: typeof raw.policy === 'string' ? raw.policy : `OWS Spending Cap: ${raw.policy?.maxBudgetUsdc ?? budget} USDC`,
+          taste: tasteStr,
         };
       } else {
         // Graceful mock if API not ready
@@ -135,17 +138,20 @@ function OnboardScreen({
           walletAddress: "0xNULL0000000000000000000000000000000001",
           budget,
           policy: `OWS Spending Cap: ${budget} USDC`,
+          taste: tasteStr,
         };
       }
 
       setSession(data);
     } catch {
       // API not ready — use mock
+      const tasteStr = [tasteText, ...selectedTags].filter(Boolean).join(", ") || "avant-garde, deconstructed";
       const data: SessionData = {
         id: `sess_${Date.now()}`,
         walletAddress: "0xNULL0000000000000000000000000000000001",
         budget,
         policy: `OWS Spending Cap: ${budget} USDC`,
+        taste: tasteStr,
       };
       setSession(data);
     } finally {
@@ -443,6 +449,37 @@ function ShoppingFeedScreen({
   }, [session.budget, addLine]);
 
   useEffect(() => {
+    // Fire shop request early so it runs in parallel with SSE
+    const shopPromise = fetch(`/api/shop`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId: session.id,
+        tasteProfile: session.taste,
+      }),
+    });
+
+    // Helper: apply real shop results to state
+    const applyRealResults = (data: any) => {
+      if (!data) return;
+      const realCart: CartItem[] = (data.cart ?? []).map((item: any) => ({
+        id: item.id,
+        name: item.name,
+        price: typeof item.price === "number" ? item.price : parseFloat(String(item.price ?? "0")),
+        image: item.imageUrl || item.image,
+        matchScore: item.matchScore ?? 80,
+        category: item.category ?? "NULL",
+      }));
+      if (realCart.length > 0) {
+        setCartItems(realCart);
+        const total = data.totalPrice ?? data.total ?? realCart.reduce((s, i) => s + i.price, 0);
+        setSpent(total);
+        realCart.forEach(item => setFoundItems(p =>
+          p.some(x => x.id === item.id) ? p : [...p, item]
+        ));
+      }
+    };
+
     // Try real SSE first
     try {
       const sse = new EventSource(`/api/session/${session.id}/activity`);
@@ -471,25 +508,28 @@ function ShoppingFeedScreen({
       sse.onerror = () => {
         sse.close();
         if (!hasData) {
+          // Run mock animation for visual feedback while real results load
           runMockShopping();
+          // Merge real cart items from shop response when it arrives
+          shopPromise
+            .then(r => r.ok ? r.json() : null)
+            .then(applyRealResults)
+            .catch(() => {});
         }
       };
 
-      // Trigger agent
-      fetch(`/api/shop`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId: session.id }),
-      }).catch(() => {});
-
     } catch {
       runMockShopping();
+      shopPromise
+        .then(r => r.ok ? r.json() : null)
+        .then(applyRealResults)
+        .catch(() => {});
     }
 
     return () => {
       sseRef.current?.close();
     };
-  }, [session.id, addLine, runMockShopping]);
+  }, [session.id, session.taste, addLine, runMockShopping]);
 
   return (
     <motion.div

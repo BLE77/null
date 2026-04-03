@@ -300,7 +300,9 @@ export function registerPersonalShopperRoutes(router: Router): void {
       // Fetch product catalog (will pay $0.001 USDC if x402 is live)
       const host =
         process.env.PERSONAL_SHOPPER_BASE_URL ||
-        `http://localhost:${process.env.PORT || 5000}`;
+        (process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : `http://localhost:${process.env.PORT || 5000}`);
 
       emit("browsing", { message: "Fetching product catalog via x402…" });
       const catalogRes = await paidFetch(

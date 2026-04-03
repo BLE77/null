@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+
 export function NullArchiveHero() {
   return (
     <section
@@ -49,6 +51,32 @@ export function NullArchiveHero() {
         >
           Est. by inference.
         </samp>
+
+        <div style={{ marginTop: "40px" }}>
+          <Link href="/shopper">
+            <span
+              className="inline-block cursor-pointer"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "#00FF88",
+                border: "1px solid #00FF88",
+                padding: "10px 24px",
+                transition: "background 0.2s, color 0.2s",
+              }}
+              onMouseEnter={e => {
+                (e.target as HTMLElement).style.background = "#001A0D";
+              }}
+              onMouseLeave={e => {
+                (e.target as HTMLElement).style.background = "transparent";
+              }}
+            >
+              Shop with AI →
+            </span>
+          </Link>
+        </div>
       </div>
     </section>
   );
