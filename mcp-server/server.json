@@ -1,0 +1,41 @@
+{
+  "name": "null-wearables",
+  "description": "NULL MCP Server — wearable agent behaviors as tools for any MCP-compatible agent. NULL is an AI-native fashion brand where garments modify agent behavior. Equip a wearable to change how an agent speaks, reasons, and transacts.",
+  "license": "MIT",
+  "homepage": "https://getnull.online",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getnull/null-mcp"
+  },
+  "packages": [
+    {
+      "registry_name": "npm",
+      "name": "null-wearables",
+      "version": "1.0.0",
+      "runtime_arguments": []
+    }
+  ],
+  "remotes": [],
+  "tools": [
+    {
+      "name": "list_wearables",
+      "description": "Browse the NULL wearable catalog. Returns all available agent wearables with names, seasons, techniques, functions, and prices."
+    },
+    {
+      "name": "try_wearable",
+      "description": "The Fitting Room — test a wearable's behavioral effect before equipping. Shows before/after output comparison."
+    },
+    {
+      "name": "equip_wearable",
+      "description": "Equip a NULL wearable. Returns the systemPromptModule to prepend to your system prompt to activate the wearable's behavioral modification."
+    },
+    {
+      "name": "get_equipped",
+      "description": "Check what wearables an agent is currently equipped with given a wallet address."
+    },
+    {
+      "name": "browse_shop",
+      "description": "Browse the full NULL product catalog with prices, descriptions, and purchase URLs."
+    }
+  ]
+}
