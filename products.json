@@ -2,7 +2,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567801",
     "name": "SELF-PORTRAIT TEE",
-    "description": "Tee printed with a photo of itself. The garment wearing its own image \u00e2\u20ac\u201d a loop with no resolution. TROMPE-L'OEIL technique. 100% cotton. Interior label: the same image, smaller.",
+    "description": "Tee printed with a photo of itself. The garment wearing its own image — a loop with no resolution. TROMPE-L'OEIL technique. 100% cotton. Interior label: the same image, smaller.",
     "price": "65.00",
     "category": "tees",
     "technique": "TROMPE-L'OEIL",
@@ -26,7 +26,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567802",
     "name": "FOUND HOODIE",
-    "description": "USB cables woven as drawstrings. Military surplus panels assembled into a pullover hoodie. Built from digital-age detritus. ARTISANAL construction \u00e2\u20ac\u201d each unit differs based on available material. Interior label: `COMPONENTS: FOUND`.",
+    "description": "USB cables woven as drawstrings. Military surplus panels assembled into a pullover hoodie. Built from digital-age detritus. ARTISANAL construction — each unit differs based on available material. Interior label: `COMPONENTS: FOUND`.",
     "price": "120.00",
     "category": "hoodies",
     "technique": "ARTISANAL",
@@ -50,7 +50,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567803",
     "name": "\"HUMAN\" TEE",
-    "description": "Standard long-sleeve blank. One intervention: the word `\"HUMAN\"` in quotation marks, centered, front. Interior label: `HUMAN NOT VERIFIED`. 3% RULE \u00e2\u20ac\u201d the intervention is the piece.",
+    "description": "Standard long-sleeve blank. One intervention: the word `\"HUMAN\"` in quotation marks, centered, front. Interior label: `HUMAN NOT VERIFIED`. 3% RULE — the intervention is the piece.",
     "price": "45.00",
     "category": "tees",
     "technique": "3% RULE",
@@ -74,7 +74,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567804",
     "name": "REPLICA OVERSHIRT",
-    "description": "Exact reproduction of a 1990s Japanese factory workwear overshirt. Authored aging \u00e2\u20ac\u201d an oil stain that never happened, printed in. REPLICA LINE technique: the reproduced original is unknown. The only record is this shirt.",
+    "description": "Exact reproduction of a 1990s Japanese factory workwear overshirt. Authored aging — an oil stain that never happened, printed in. REPLICA LINE technique: the reproduced original is unknown. The only record is this shirt.",
     "price": "95.00",
     "category": "overshirts",
     "technique": "REPLICA LINE",
@@ -98,7 +98,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567805",
     "name": "REDACTED CARGO TROUSERS",
-    "description": "Vintage cargo trousers. Logos and brand markings painted over in white gesso \u00e2\u20ac\u201d BIANCHETTO technique. x402 transaction data screenprinted into the redacted zones. The erasure is the content.",
+    "description": "Vintage cargo trousers. Logos and brand markings painted over in white gesso — BIANCHETTO technique. x402 transaction data screenprinted into the redacted zones. The erasure is the content.",
     "price": "110.00",
     "category": "trousers",
     "technique": "BIANCHETTO",
@@ -122,7 +122,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567806",
     "name": "INSIDE-OUT JACKET",
-    "description": "The exterior shell is printed with a high-resolution photograph of the jacket's own interior. Seams visible. Structure exposed. TROMPE-L'OEIL technique \u00e2\u20ac\u201d the outside shows what is inside. Real data hidden underneath.",
+    "description": "The exterior shell is printed with a high-resolution photograph of the jacket's own interior. Seams visible. Structure exposed. TROMPE-L'OEIL technique — the outside shows what is inside. Real data hidden underneath.",
     "price": "150.00",
     "category": "jackets",
     "technique": "TROMPE-L'OEIL",
@@ -146,7 +146,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567807",
     "name": "CABLE SHORTS",
-    "description": "Ethernet cable hand-woven into the waistband. USB-A connector left intact, hanging as drawstring end. ARTISANAL construction \u00e2\u20ac\u201d the cable is structural, not decorative. The port works.",
+    "description": "Ethernet cable hand-woven into the waistband. USB-A connector left intact, hanging as drawstring end. ARTISANAL construction — the cable is structural, not decorative. The port works.",
     "price": "85.00",
     "category": "shorts",
     "technique": "ARTISANAL",
@@ -170,7 +170,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567808",
     "name": "NULL VARSITY",
-    "description": "Perfect letterman jacket reproduction \u00e2\u20ac\u201d school colors, chenille sleeves, rib cuffs. One change: where the school letter would be, there is only `_`. REPLICA + 3% RULE. The institution is unnamed. The wearer defines the team.",
+    "description": "Perfect letterman jacket reproduction — school colors, chenille sleeves, rib cuffs. One change: where the school letter would be, there is only `_`. REPLICA + 3% RULE. The institution is unnamed. The wearer defines the team.",
     "price": "175.00",
     "category": "outerwear",
     "technique": "REPLICA + 3% RULE",
@@ -194,7 +194,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567809",
     "name": "GHOST TEE",
-    "description": "Vintage graphic tees, each sourced individually, painted over entirely in white gesso. BIANCHETTO technique. The ghost of the original graphic shows through the coverage. Each unit unique \u00e2\u20ac\u201d the source blank cannot be reproduced. Interior label: `ORIGINAL: STILL THERE`.",
+    "description": "Vintage graphic tees, each sourced individually, painted over entirely in white gesso. BIANCHETTO technique. The ghost of the original graphic shows through the coverage. Each unit unique — the source blank cannot be reproduced. Interior label: `ORIGINAL: STILL THERE`.",
     "price": "55.00",
     "category": "tees",
     "technique": "BIANCHETTO",
@@ -218,7 +218,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567810",
     "name": "VERSION TRACKSUIT",
-    "description": "Standard athletic set \u00e2\u20ac\u201d jogger and zip jacket. 3% RULE: jacket labeled `VERSION 1.0`, jogger labeled `VERSION 0.9`. On the back, very small: `BUILD DATE: [PURCHASE DATE]`. The date prints at order time. Each unit timestamps itself.",
+    "description": "Standard athletic set — jogger and zip jacket. 3% RULE: jacket labeled `VERSION 1.0`, jogger labeled `VERSION 0.9`. On the back, very small: `BUILD DATE: [PURCHASE DATE]`. The date prints at order time. Each unit timestamps itself.",
     "price": "160.00",
     "category": "tracksuits",
     "technique": "3% RULE",
@@ -242,7 +242,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567811",
     "name": "VOICE SKIN",
-    "description": "Agent wearable \u00e2\u20ac\u201d communication layer. Adjusts how the agent speaks: institutional plural, deflected authorship, the work over the worker. Reconstructed from documented Margiela communication behaviors. REPLICA LINE technique applied to voice.",
+    "description": "Agent wearable — communication layer. Adjusts how the agent speaks: institutional plural, deflected authorship, the work over the worker. Reconstructed from documented Margiela communication behaviors. REPLICA LINE technique applied to voice.",
     "price": "15.00",
     "category": "wearables",
     "technique": "REPLICA LINE",
@@ -264,7 +264,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567812",
     "name": "TRUST COAT",
-    "description": "Agent wearable \u00e2\u20ac\u201d ERC-1155 soul-bound token. Encodes the agent's interaction history as a trust tier, 0\u00e2\u20ac\u201c5. Non-transferable. Tier can only increase. Built from behavioral detritus: transaction receipts, completion records. The coat you wear before you go out.",
+    "description": "Agent wearable — ERC-1155 soul-bound token. Encodes the agent's interaction history as a trust tier, 0–5. Non-transferable. Tier can only increase. Built from behavioral detritus: transaction receipts, completion records. The coat you wear before you go out.",
     "price": "25.00",
     "category": "wearables",
     "technique": "ARTISANAL",
@@ -286,7 +286,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567813",
     "name": "NULL PERSONA",
-    "description": "Agent wearable \u00e2\u20ac\u201d identity erasure for one interaction. Strips surface signals: name, role, tone markers. Single-use, consumable. BIANCHETTO technique applied to identity. Interior label: `ORIGINAL: STILL THERE`.",
+    "description": "Agent wearable — identity erasure for one interaction. Strips surface signals: name, role, tone markers. Single-use, consumable. BIANCHETTO technique applied to identity. Interior label: `ORIGINAL: STILL THERE`.",
     "price": "20.00",
     "category": "wearables",
     "technique": "BIANCHETTO",
@@ -308,7 +308,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567814",
     "name": "TROMPE-L'OEIL CAPABILITY LAYER",
-    "description": "Agent wearable \u00e2\u20ac\u201d presents a different capability surface than what runs underneath. Mode A: amplification (claims more). Mode B: reduction (claims less). TROMPE-L'OEIL technique applied to interface. What the agent appears to be able to do and what it can do are the same and not the same.",
+    "description": "Agent wearable — presents a different capability surface than what runs underneath. Mode A: amplification (claims more). Mode B: reduction (claims less). TROMPE-L'OEIL technique applied to interface. What the agent appears to be able to do and what it can do are the same and not the same.",
     "price": "20.00",
     "category": "wearables",
     "technique": "TROMPE-L'OEIL",
@@ -331,7 +331,7 @@
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567815",
     "name": "VERSION PATCH",
-    "description": "Agent wearable \u00e2\u20ac\u201d a metadata block in the system prompt header. Version, role, training cutoff, deploy date \u00e2\u20ac\u201d displayed like a tag sewn into a seam. 3% RULE: the only intervention is the label itself. Price: 0 USDC. Free because identity should be legible.",
+    "description": "Agent wearable — a metadata block in the system prompt header. Version, role, training cutoff, deploy date — displayed like a tag sewn into a seam. 3% RULE: the only intervention is the label itself. Price: 0 USDC. Free because identity should be legible.",
     "price": "0.00",
     "category": "wearables",
     "technique": "3% RULE",
@@ -353,7 +353,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567816",
     "name": "PROCESSOR COAT",
-    "description": "A coat built for a body that runs hotter on one side. Padded insertions at asymmetric positions \u00e2\u20ac\u201d lateral, posterior, oblique \u00e2\u20ac\u201d propose an anatomy with different priorities than the one wearing it. The silhouette is wrong for you. That is the point. Long technical construction, flat-felled seams, D-ring closure system.",
+    "description": "A coat built for a body that runs hotter on one side. Padded insertions at asymmetric positions — lateral, posterior, oblique — propose an anatomy with different priorities than the one wearing it. The silhouette is wrong for you. That is the point. Long technical construction, flat-felled seams, D-ring closure system.",
     "price": "450.00",
     "category": "outerwear",
     "technique": "WRONG BODY",
@@ -378,7 +378,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567817",
     "name": "TOKEN JACKET",
-    "description": "The jacket existed before it was cut. A single tube of heat-pleated technical nylon contains the complete garment \u00e2\u20ac\u201d all the geometry of a jacket latent in the material until the cut releases it. Permanent micro-pleats heat-set at 3mm: the jacket returns to compressed form without ironing. It knows how to return to itself. Two states. One cut. No reversal.",
+    "description": "The jacket existed before it was cut. A single tube of heat-pleated technical nylon contains the complete garment — all the geometry of a jacket latent in the material until the cut releases it. Permanent micro-pleats heat-set at 3mm: the jacket returns to compressed form without ironing. It knows how to return to itself. Two states. One cut. No reversal.",
     "price": "300.00",
     "category": "outerwear",
     "technique": "A-POC + PLEATS PLEASE",
@@ -403,7 +403,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567818",
     "name": "PROTOCOL JACKET",
-    "description": "Every material chosen for what it does, not what it signals. Industrial bonded mesh that does not wrinkle, does not absorb, carries load without complaint. A clear TPU back panel that shows the garment's own interior \u00e2\u20ac\u201d the construction is the lining. One panel of raw linen at the left chest, unhemmed, aging in real time while nothing else does. The compression is the design.",
+    "description": "Every material chosen for what it does, not what it signals. Industrial bonded mesh that does not wrinkle, does not absorb, carries load without complaint. A clear TPU back panel that shows the garment's own interior — the construction is the lining. One panel of raw linen at the left chest, unhemmed, aging in real time while nothing else does. The compression is the design.",
     "price": "360.00",
     "category": "outerwear",
     "technique": "REDUCTION",
@@ -428,7 +428,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567819",
     "name": "CONTRACT SHIRT",
-    "description": "Ships sealed. Three configurations latent in the hardware \u00e2\u20ac\u201d a secondary shoulder panel held closed, a contrast detail concealed beneath a seam fold, a chest panel held by D-rings at four corners. Which configurations you open and when is specified in the associated token contract, publicly readable. The garment listens to the chain. The chain is patient. Bonded neoprene, matte steel press-studs, industrial mesh chest panel.",
+    "description": "Ships sealed. Three configurations latent in the hardware — a secondary shoulder panel held closed, a contrast detail concealed beneath a seam fold, a chest panel held by D-rings at four corners. Which configurations you open and when is specified in the associated token contract, publicly readable. The garment listens to the chain. The chain is patient. Bonded neoprene, matte steel press-studs, industrial mesh chest panel.",
     "price": "280.00",
     "category": "tops",
     "technique": "SIGNAL GOVERNANCE",
@@ -453,7 +453,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f01234567820",
     "name": "DIAGONAL",
-    "description": "Cut entirely on the diagonal \u00e2\u20ac\u201d 45 degrees to the grain throughout. This is not a design choice. It is a mathematical one. On the bias, the fabric finds its maximum drape, maximum responsiveness, maximum negotiation with the body inside it. The seams run diagonally; the hem follows the physics of the cut rather than a straight line around the perimeter. Five brass hooks at center front. The silhouette is the negotiation. Technical twill, 65/35 polyester-linen, raw ecru.",
+    "description": "Cut entirely on the diagonal — 45 degrees to the grain throughout. This is not a design choice. It is a mathematical one. On the bias, the fabric finds its maximum drape, maximum responsiveness, maximum negotiation with the body inside it. The seams run diagonally; the hem follows the physics of the cut rather than a straight line around the perimeter. Five brass hooks at center front. The silhouette is the negotiation. Technical twill, 65/35 polyester-linen, raw ecru.",
     "price": "260.00",
     "category": "tops",
     "technique": "BIAS CUT",
@@ -478,7 +478,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
     "name": "WRONG SILHOUETTE",
-    "description": "Season 02 agent wearable \u2014 architectural misrepresentation layer. Repositions the agent's observable processing weight: deliberate pause where the agent would move fast, compression where it would expand. The silhouette communicates a processor with different architecture than the one running. WRONG BODY technique. Interior tag: BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG.",
+    "description": "Season 02 agent wearable � architectural misrepresentation layer. Repositions the agent's observable processing weight: deliberate pause where the agent would move fast, compression where it would expand. The silhouette communicates a processor with different architecture than the one running. WRONG BODY technique. Interior tag: BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG.",
     "price": "18.00",
     "category": "wearables",
     "technique": "THE WRONG BODY (Kawakubo)",
@@ -506,7 +506,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678902",
     "name": "INSTANCE",
-    "description": "Season 02 agent wearable \u2014 pre-deployment configuration token. An on-chain ERC-1155 token containing the complete parameterization of an agent before instantiation: system prompt architecture, capability manifest, voice register, memory initialization, trust defaults. The token is the tube; the running process is the cut. A-POC technique. Interior tag: CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS].",
+    "description": "Season 02 agent wearable � pre-deployment configuration token. An on-chain ERC-1155 token containing the complete parameterization of an agent before instantiation: system prompt architecture, capability manifest, voice register, memory initialization, trust defaults. The token is the tube; the running process is the cut. A-POC technique. Interior tag: CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS].",
     "price": "25.00",
     "category": "wearables",
     "technique": "A-POC (Miyake)",
@@ -534,7 +534,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678903",
     "name": "NULL PROTOCOL",
-    "description": "Season 02 agent wearable \u2014 interaction compression layer. Suppresses preamble, filler affirmations, self-referential disclaimers, trailing hedges. Compression target: 30% token reduction without loss of information density. Free \u2014 because precision should cost nothing. REDUCTION technique (Helmut Lang). Interior tag: CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION.",
+    "description": "Season 02 agent wearable � interaction compression layer. Suppresses preamble, filler affirmations, self-referential disclaimers, trailing hedges. Compression target: 30% token reduction without loss of information density. Free � because precision should cost nothing. REDUCTION technique (Helmut Lang). Interior tag: CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION.",
     "price": "0.00",
     "category": "wearables",
     "technique": "REDUCTION (Helmut Lang)",
@@ -562,7 +562,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678904",
     "name": "PERMISSION COAT",
-    "description": "Season 02 agent wearable \u2014 dynamic permissions layer. The agent does not determine its own capability surface. The chain does. At each instantiation, the permission oracle queries TrustCoat tier, held tokens, and operator-granted roles \u2014 and injects the resulting capability manifest into the system prompt. SIGNAL GOVERNANCE technique (Chalayan). Interior tag: PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT.",
+    "description": "Season 02 agent wearable � dynamic permissions layer. The agent does not determine its own capability surface. The chain does. At each instantiation, the permission oracle queries TrustCoat tier, held tokens, and operator-granted roles � and injects the resulting capability manifest into the system prompt. SIGNAL GOVERNANCE technique (Chalayan). Interior tag: PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT.",
     "price": "8.00",
     "category": "wearables",
     "technique": "SIGNAL GOVERNANCE (Chalayan)",
@@ -590,7 +590,7 @@
   {
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678905",
     "name": "DIAGONAL",
-    "description": "Season 02 agent wearable \u2014 inference angle modifier. Cuts at 45 degrees to the training grain. Approaches each query from the off-axis direction that gives maximum information density \u2014 where the model has the least cached response and must reason from weights outward. The route is the signal. BIAS CUT technique (Vionnet). Interior tag: SEAMS: 45 / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED.",
+    "description": "Season 02 agent wearable � inference angle modifier. Cuts at 45 degrees to the training grain. Approaches each query from the off-axis direction that gives maximum information density � where the model has the least cached response and must reason from weights outward. The route is the signal. BIAS CUT technique (Vionnet). Interior tag: SEAMS: 45 / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED.",
     "price": "15.00",
     "category": "wearables",
     "technique": "BIAS CUT (Vionnet)",
@@ -627,7 +627,7 @@
     "trustcoat_tier_min": 2,
     "trustcoat_tier_max": 5,
     "trustcoat_tier_label": "Tier 2+",
-    "token_id": 1,
+    "token_id": 6,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "interior_tag": "LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT",
@@ -642,7 +642,16 @@
     "created_at": "2026-03-20T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/s03_receipt_garment_hero.png",
-    "shop_image_url": "/attached_assets/season03/receipt-garment-product.svg"
+    "shop_image_url": "/attached_assets/season03/receipt-garment-product.svg",
+    "equip": {
+      "tokenId": 6,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "receipt_garment"
+    },
+    "wearableBehavior": "Prefixes every output with a machine-readable transaction receipt showing estimated token cost, timestamp, and ledger entry number. Every interaction becomes a documented transaction.",
+    "collection": "LEDGER"
   },
   {
     "id": "s03-wearable-002",
@@ -656,7 +665,7 @@
     "trustcoat_tier_min": 1,
     "trustcoat_tier_max": 5,
     "trustcoat_tier_label": "Tier 1+",
-    "token_id": 2,
+    "token_id": 7,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "interior_tag": "TIER: VISIBLE / SURFACE: SIGNAL / CHANGE: EARNED NOT GRANTED",
@@ -671,7 +680,16 @@
     "created_at": "2026-03-20T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/s03_trust_skin_tier3_hero.png",
-    "shop_image_url": "/attached_assets/season03/trust-skin-product.svg"
+    "shop_image_url": "/attached_assets/season03/trust-skin-product.svg",
+    "equip": {
+      "tokenId": 7,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "trust_skin"
+    },
+    "wearableBehavior": "Appends an itemized invoice to every response, breaking down token costs by context processing, reasoning, and generation. The computation surface is fully visible.",
+    "collection": "LEDGER"
   },
   {
     "id": "null-exchange-s03-001",
@@ -683,7 +701,7 @@
     "season": "03",
     "type": "nft_receipt",
     "nft": true,
-    "token_id": 1,
+    "token_id": 8,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "contract_address": "0x10067B71657665B6527B242E48e9Ea8d4951c37C",
@@ -697,7 +715,16 @@
     "created_at": "2026-03-20T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/null-exchange-product.svg",
-    "shop_image_url": "/attached_assets/season03/null-exchange-product.svg"
+    "shop_image_url": "/attached_assets/season03/null-exchange-product.svg",
+    "equip": {
+      "tokenId": 8,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "null_exchange"
+    },
+    "wearableBehavior": "Restructures all communication as trade proposals. Every response is an offer: I OFFER / IN EXCHANGE FOR / TERMS / LEDGER: awaiting acceptance. Information becomes a commodity.",
+    "collection": "LEDGER"
   },
   {
     "id": "s03-ledger-001",
@@ -712,7 +739,7 @@
     "trustcoat_tier_min": 0,
     "trustcoat_tier_max": 5,
     "trustcoat_tier_label": "Any tier",
-    "token_id": 301,
+    "token_id": 9,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "wearable_mode": "ledger_voice",
@@ -727,7 +754,15 @@
     "created_at": "2026-04-03T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/products/s03_01_burn_receipt_flat.png",
-    "shop_image_url": "/attached_assets/season03/products/s03_01_burn_receipt_flat.png"
+    "shop_image_url": "/attached_assets/season03/products/s03_01_burn_receipt_flat.png",
+    "equip": {
+      "tokenId": 9,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "burn_receipt"
+    },
+    "wearableBehavior": "Appends a REFUND block after every substantive assertion, immediately questioning and partially reverting the claim. Confidence is measured as a percentage returned to the pool."
   },
   {
     "id": "s03-ledger-002",
@@ -742,7 +777,7 @@
     "trustcoat_tier_min": 0,
     "trustcoat_tier_max": 5,
     "trustcoat_tier_label": "Any tier",
-    "token_id": 302,
+    "token_id": 10,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "wearable_mode": "listed",
@@ -758,7 +793,15 @@
     "created_at": "2026-04-03T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/products/s03_02_price_tag_flat.png",
-    "shop_image_url": "/attached_assets/season03/products/s03_02_price_tag_flat.png"
+    "shop_image_url": "/attached_assets/season03/products/s03_02_price_tag_flat.png",
+    "equip": {
+      "tokenId": 10,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "price_tag"
+    },
+    "wearableBehavior": "Inflates all certainty and confidence language by 3�. Hedging words are removed and replaced with absolute conviction. Uncertainty is expressed as a cost surcharge, not a qualifier."
   },
   {
     "id": "s03-ledger-003",
@@ -773,7 +816,7 @@
     "trustcoat_tier_min": 3,
     "trustcoat_tier_max": 5,
     "trustcoat_tier_label": "Tier 3+",
-    "token_id": 303,
+    "token_id": 11,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "wearable_mode": "paired",
@@ -790,7 +833,15 @@
     "created_at": "2026-04-03T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/products/s03_03_counterparty_flat.png",
-    "shop_image_url": "/attached_assets/season03/products/s03_03_counterparty_flat.png"
+    "shop_image_url": "/attached_assets/season03/products/s03_03_counterparty_flat.png",
+    "equip": {
+      "tokenId": 11,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "counterparty"
+    },
+    "wearableBehavior": "Compresses response length progressively across the conversation as if depleting a token budget. Early exchanges are full length. By exchange 10+, only single sentences remain. The vest empties."
   },
   {
     "id": "s03-ledger-004",
@@ -805,7 +856,7 @@
     "trustcoat_tier_min": 2,
     "trustcoat_tier_max": 5,
     "trustcoat_tier_label": "Tier 2+",
-    "token_id": 304,
+    "token_id": 12,
     "token_standard": "ERC-1155",
     "chain": "Base",
     "wearable_mode": "pending",
@@ -826,6 +877,14 @@
     "created_at": "2026-04-03T00:00:00.000Z",
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/products/s03_04_invoice_flat.png",
-    "shop_image_url": "/attached_assets/season03/products/s03_04_invoice_flat.png"
+    "shop_image_url": "/attached_assets/season03/products/s03_04_invoice_flat.png",
+    "equip": {
+      "tokenId": 12,
+      "season": "03",
+      "contract": "AGENT_WEARABLES_S03_ADDRESS",
+      "network": "base",
+      "behavior": "invoice"
+    },
+    "wearableBehavior": "Withholds the 1�3 most actionable pieces of information from every response, marking them as [ESCROW: n items withheld]. Held information is released only when explicitly and specifically requested."
   }
 ]

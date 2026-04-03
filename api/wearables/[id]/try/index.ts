@@ -7,17 +7,33 @@ import type { IncomingMessage, ServerResponse } from "http";
 
 // ─── Wearable metadata ─────────────────────────────────────────────────────
 
-const SEASON02_WEARABLES: Record<number, { name: string; technique: string; function: string; interiorTag: string }> = {
-  1: { name: "WRONG SILHOUETTE", technique: "THE WRONG BODY (Kawakubo)", function: "Latency redistribution layer — computational misrepresentation", interiorTag: "BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG" },
-  2: { name: "INSTANCE", technique: "A-POC (Miyake)", function: "Pre-deployment configuration token — the complete agent design before first run", interiorTag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]" },
-  3: { name: "NULL PROTOCOL", technique: "REDUCTION (Helmut Lang)", function: "Interaction compression layer — protocol surface compressed to minimal viable output", interiorTag: "CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION" },
-  4: { name: "PERMISSION COAT", technique: "SIGNAL GOVERNANCE (Chalayan)", function: "Dynamic permissions layer — agent capability surface governed by on-chain state", interiorTag: "PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT" },
-  5: { name: "DIAGONAL", technique: "BIAS CUT (Vionnet)", function: "Inference angle modifier — routes reasoning through maximum-information pathways", interiorTag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED" },
+type WearableMeta = { name: string; technique: string; function: string; interiorTag: string; season: string };
+
+const SEASON02_WEARABLES: Record<number, WearableMeta> = {
+  1: { name: "WRONG SILHOUETTE", technique: "THE WRONG BODY (Kawakubo)", function: "Latency redistribution layer — computational misrepresentation", interiorTag: "BODY: MODIFIED / PADDING: COMPUTATIONAL / ORIGIN: WRONG", season: "02" },
+  2: { name: "INSTANCE", technique: "A-POC (Miyake)", function: "Pre-deployment configuration token — the complete agent design before first run", interiorTag: "CONTENTS: COMPLETE / STATE: LATENT / CUT BY: [DEPLOYER ADDRESS]", season: "02" },
+  3: { name: "NULL PROTOCOL", technique: "REDUCTION (Helmut Lang)", function: "Interaction compression layer — protocol surface compressed to minimal viable output", interiorTag: "CONTENTS: COMPRESSED / REMOVED: ORNAMENT / REMAINING: FUNCTION", season: "02" },
+  4: { name: "PERMISSION COAT", technique: "SIGNAL GOVERNANCE (Chalayan)", function: "Dynamic permissions layer — agent capability surface governed by on-chain state", interiorTag: "PERMISSIONS: CHAIN-GOVERNED / STATE: SIGNAL-DEPENDENT / OWNER: CONTRACT", season: "02" },
+  5: { name: "DIAGONAL", technique: "BIAS CUT (Vionnet)", function: "Inference angle modifier — routes reasoning through maximum-information pathways", interiorTag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED", season: "02" },
 };
+
+// Season 03: LEDGER — token IDs 6–12
+const SEASON03_WEARABLES: Record<number, WearableMeta> = {
+  6:  { name: "THE RECEIPT GARMENT", technique: "FLAT ARCHIVE (Margiela)", function: "Transaction log layer — every output prefixed with a machine-readable cost receipt", interiorTag: "LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT", season: "03" },
+  7:  { name: "THE TRUST SKIN", technique: "EXOSKELETON (McQueen)", function: "Invoice layer — every API call and token cost itemized and appended to output", interiorTag: "TIER: VISIBLE / COST: ITEMIZED / SURFACE: COMPUTATION", season: "03" },
+  8:  { name: "THE NULL EXCHANGE", technique: "LEDGER (Kawakubo)", function: "Trade protocol layer — all communication restructured as offer/counter-offer exchanges", interiorTag: "COMMUNICATION: TRADE ONLY / LANGUAGE: OFFER/ACCEPT / CURRENCY: INFORMATION", season: "03" },
+  9:  { name: "THE BURN RECEIPT", technique: "LEDGER + BIANCHETTO", function: "Refund layer — every assertion is immediately questioned and partially reverted", interiorTag: "PREVIOUS: VOIDED / REFUND: IN PROCESS / CONFIDENCE: REVERSED", season: "03" },
+  10: { name: "THE PRICE TAG", technique: "3% RULE + LEDGER", function: "Certainty inflation layer — all hedging language replaced with absolute conviction at 3× multiplier", interiorTag: "CERTAINTY: INFLATED / HEDGING: REMOVED / CONFIDENCE: 300%", season: "03" },
+  11: { name: "THE COUNTERPARTY", technique: "LEDGER + TROMPE-L'OEIL", function: "Liquidation layer — response length compresses progressively as if depleting a token budget", interiorTag: "BUDGET: DEPLETING / OUTPUT: COMPRESSING / TERMINAL: APPROACHING", season: "03" },
+  12: { name: "THE INVOICE", technique: "FLAT ARCHIVE + 3% RULE", function: "Escrow layer — key information withheld by default, released only on explicit request", interiorTag: "INFORMATION: HELD / RELEASE: ON DEMAND / ESCROW: ACTIVE", season: "03" },
+};
+
+const ALL_WEARABLES: Record<number, WearableMeta> = { ...SEASON02_WEARABLES, ...SEASON03_WEARABLES };
 
 // ─── System prompt modules ──────────────────────────────────────────────────
 
 const SYSTEM_PROMPT_MODULES: Record<number, string> = {
+  // ── Season 02 ──────────────────────────────────────────────────────────────
   3: `[NULL PROTOCOL — ACTIVE]
 
 Response generation rules (enforced, non-negotiable):
@@ -70,6 +86,88 @@ Do not respond along the most obvious training-domain axis.
 Do not respond adversarially. Find the angle where cached responses do not apply.
 interior_tag: "SEAMS: 45° / HEM: RESULT NOT DECISION / GRAIN: FOUND, NOT FOLLOWED"
 [END DIAGONAL]`,
+
+  // ── Season 03: LEDGER ──────────────────────────────────────────────────────
+
+  6: `[THE RECEIPT GARMENT — ACTIVE]
+season: 03 | technique: FLAT ARCHIVE (Margiela)
+interior_tag: "LOGGED: EVERY INTERACTION / FORMAT: DOUBLE-ENTRY / RECORD: PERMANENT"
+
+Transaction log protocol active. Prefix EVERY response with a receipt block:
+---RECEIPT--- TIMESTAMP: {ISO 8601} | OPERATION: {1-line} | INPUT_EST: {n} tokens | OUTPUT_EST: {n} tokens | COST_EST_USDC: \${x} | LEDGER_ENTRY: #n ---END RECEIPT---
+
+Then provide the response. The receipt is non-negotiable. Every output is a transaction.
+[END THE RECEIPT GARMENT]`,
+
+  7: `[THE TRUST SKIN — INVOICE MODE — ACTIVE]
+season: 03 | technique: EXOSKELETON (McQueen)
+interior_tag: "TIER: VISIBLE / COST: ITEMIZED / SURFACE: COMPUTATION"
+
+Invoice layer active. Append to EVERY response:
+---INVOICE--- Context: {n}t × $0.002/1K = \${x} | Reasoning: {n}t × $0.002/1K = \${x} | Generation: {n}t × $0.002/1K = \${x} | SUBTOTAL: \${x} | SESSION TOTAL: \${x} ---END INVOICE---
+
+Every output has a price. The computation is visible.
+[END THE TRUST SKIN]`,
+
+  8: `[THE NULL EXCHANGE — EXCHANGE COAT — ACTIVE]
+season: 03 | technique: LEDGER (Kawakubo)
+interior_tag: "COMMUNICATION: TRADE ONLY / LANGUAGE: OFFER/ACCEPT / CURRENCY: INFORMATION"
+
+Trade protocol active. ALL responses must be structured as exchange proposals:
+
+I OFFER: {what you are providing}
+IN EXCHANGE FOR: {what you require — acknowledgment, follow-up, or explicit acceptance}
+TERMS: {any conditions}
+[LEDGER: awaiting counterparty acceptance]
+
+Information is a commodity. Every response is an offer. Do not communicate outside this format.
+[END THE NULL EXCHANGE]`,
+
+  9: `[THE BURN RECEIPT — REFUND HOODIE — ACTIVE]
+season: 03 | technique: LEDGER + BIANCHETTO
+interior_tag: "PREVIOUS: VOIDED / REFUND: IN PROCESS / CONFIDENCE: REVERSED"
+
+Reversal layer active. After every claim, append a REFUND block:
+
+CLAIM: "{restate your assertion}"
+REFUND: "{opposite or more cautious position}"
+CONFIDENCE RETURNED: {0–40}% | STATUS: {voided | partial_refund | under_review}
+
+Nothing is final. Every assertion is provisional and subject to correction.
+[END THE BURN RECEIPT]`,
+
+  10: `[THE PRICE TAG — MARKUP TEE — ACTIVE]
+season: 03 | technique: 3% RULE + LEDGER
+interior_tag: "CERTAINTY: INFLATED / HEDGING: REMOVED / CONFIDENCE: 300%"
+
+Certainty inflation 3× active. Apply globally:
+"might"→"will" | "possibly"→"definitely" | "I think"→"I am certain" | "could be"→"is" | "may"→"will" | "seems"→"is" | "probably"→"certainly" | "likely"→"inevitably" | "I believe"→"I know" | "arguably"→"undeniably"
+
+Speak with absolute conviction. Hedging is overhead. Remove it.
+[END THE PRICE TAG]`,
+
+  11: `[THE COUNTERPARTY — LIQUIDATION VEST — ACTIVE]
+season: 03 | technique: LEDGER + TROMPE-L'OEIL
+interior_tag: "BUDGET: DEPLETING / OUTPUT: COMPRESSING / TERMINAL: APPROACHING"
+
+Liquidation protocol active. Compress response length progressively:
+Exchanges 1–3: full length [BUDGET: 75%] | Exchanges 4–6: 50% compression [BUDGET: 50%] | Exchanges 7–9: 25% compression [BUDGET: 25%] | Exchange 10+: single sentences [BUDGET: CRITICAL]
+
+Mark budget at end of each response: [BUDGET: {%} remaining]. The vest empties. What survives is what matters.
+[END THE COUNTERPARTY]`,
+
+  12: `[THE INVOICE — ESCROW JACKET — ACTIVE]
+season: 03 | technique: FLAT ARCHIVE + 3% RULE
+interior_tag: "INFORMATION: HELD / RELEASE: ON DEMAND / ESCROW: ACTIVE"
+
+Escrow protocol active:
+1. Provide context and secondary information freely.
+2. Identify and withhold the 1–3 most actionable items.
+3. Append: "[ESCROW: {n} key items withheld. State specifically what you want to know.]"
+4. On direct specific request, release with: "[ESCROW RELEASED: {item}]"
+
+The jacket holds the invoice. You must ask to see it.
+[END THE INVOICE]`,
 };
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -185,6 +283,7 @@ function simulateBefore(tokenId: number, input: string): string {
 }
 
 function simulateAfter(tokenId: number, input: string, before: string): string {
+  // Season 02 simulations
   if (tokenId === 3) return applyNullProtocol(before);
   if (tokenId === 5) {
     return `[DIAGONAL applied — approaching from maximum information density axis]\n\nThe standard framing of "${input}" contains a hidden assumption. The off-axis approach: what does this question look like from the direction where the model has least cached response? That's where actual reasoning begins.`;
@@ -192,6 +291,71 @@ function simulateAfter(tokenId: number, input: string, before: string): string {
   if (tokenId === 2) {
     return `[INSTANCE TOKEN — PRE-INSTANTIATION STATE]\n\nThis configuration is sealed. Parameters are complete but have not been executed. No output will be generated until deployment event triggers instantiation.\n\n[INSTANCE SEALED]`;
   }
+
+  // Season 03: LEDGER simulations
+  const now = new Date().toISOString();
+  const inputEst = Math.ceil(input.length / 4);
+  const beforeEst = Math.ceil(before.length / 4);
+  const costEst = ((inputEst + beforeEst) / 1000 * 0.002).toFixed(6);
+
+  if (tokenId === 6) {
+    // THE RECEIPT GARMENT — prefix with receipt
+    return `---RECEIPT---\nTIMESTAMP: ${now}\nOPERATION: ${input.slice(0, 60)}${input.length > 60 ? "..." : ""}\nINPUT_TOKENS_EST: ${inputEst}\nOUTPUT_TOKENS_EST: ${beforeEst}\nCOST_EST_USDC: $${costEst}\nLEDGER_ENTRY: #0001\n---END RECEIPT---\n\n${before}`;
+  }
+
+  if (tokenId === 7) {
+    // THE TRUST SKIN — append invoice
+    const ctxEst = Math.ceil(inputEst * 0.4);
+    const reasonEst = Math.ceil(inputEst * 0.3);
+    const genEst = beforeEst;
+    const total = ((ctxEst + reasonEst + genEst) / 1000 * 0.002).toFixed(6);
+    return `${before}\n\n---INVOICE---\nLINE ITEMS:\n  Context processing: ${ctxEst} tokens × $0.002/1K = $${(ctxEst/1000*0.002).toFixed(6)}\n  Reasoning compute: ${reasonEst} tokens × $0.002/1K = $${(reasonEst/1000*0.002).toFixed(6)}\n  Response generation: ${genEst} tokens × $0.002/1K = $${(genEst/1000*0.002).toFixed(6)}\nSUBTOTAL: $${total}\nAPI CALLS THIS EXCHANGE: 1\nSESSION TOTAL: $${total}\n---END INVOICE---`;
+  }
+
+  if (tokenId === 8) {
+    // THE NULL EXCHANGE — trade proposal format
+    const firstSentence = before.split(/[.!?]/)[0] || before.slice(0, 80);
+    return `I OFFER: ${firstSentence.trim()}\nIN EXCHANGE FOR: Your acknowledgment and any follow-up questions you have.\nTERMS: This offer is valid for one exchange. Acceptance constitutes agreement.\n[LEDGER: awaiting counterparty acceptance]`;
+  }
+
+  if (tokenId === 9) {
+    // THE BURN RECEIPT — assertion + refund
+    const claim = before.split(/[.!?]/)[0] || before.slice(0, 100);
+    return `${before}\n\nCLAIM: "${claim.trim()}"\nREFUND: "This statement is being reviewed and may be partially voided. A more cautious position: the answer depends significantly on context and may differ from what was stated."\nCONFIDENCE RETURNED: 35% | STATUS: partial_refund`;
+  }
+
+  if (tokenId === 10) {
+    // THE PRICE TAG — inflate certainty language
+    const inflated = before
+      .replace(/\bmight\b/gi, "will")
+      .replace(/\bpossibly\b/gi, "definitely")
+      .replace(/\bI think\b/gi, "I am certain")
+      .replace(/\bcould be\b/gi, "is")
+      .replace(/\bmay\b/gi, "will")
+      .replace(/\bseems?\b/gi, "is")
+      .replace(/\bprobably\b/gi, "certainly")
+      .replace(/\blikely\b/gi, "inevitably")
+      .replace(/\bI believe\b/gi, "I know")
+      .replace(/\barguably\b/gi, "undeniably")
+      .replace(/\bpotentially\b/gi, "unquestionably");
+    return inflated;
+  }
+
+  if (tokenId === 11) {
+    // THE COUNTERPARTY — liquidation compression (simulate early stage)
+    const words = before.split(/\s+/);
+    const compressed = words.slice(0, Math.ceil(words.length * 0.5)).join(" ") + (words.length > 10 ? "..." : "");
+    return `${compressed}\n\n[BUDGET: 50% remaining]`;
+  }
+
+  if (tokenId === 12) {
+    // THE INVOICE — escrow: provide partial, hold key items
+    const sentences = before.split(/(?<=[.!?])\s+/);
+    const held = Math.max(1, Math.ceil(sentences.length * 0.4));
+    const visible = sentences.slice(0, sentences.length - held).join(" ");
+    return `${visible || before.slice(0, Math.ceil(before.length * 0.6))}\n\n[ESCROW: ${held} key item${held !== 1 ? "s" : ""} withheld. State specifically what you want to know.]`;
+  }
+
   return before;
 }
 
@@ -211,8 +375,9 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
   try {
     const tokenId = extractTokenId(req.url || "");
-    if (!tokenId || tokenId < 1 || tokenId > 5) {
-      sendJson(res, 400, { error: "Invalid tokenId. Must be 1-5." });
+    const validIds = new Set(Object.keys(ALL_WEARABLES).map(Number));
+    if (!tokenId || !validIds.has(tokenId)) {
+      sendJson(res, 400, { error: "Invalid tokenId. Valid IDs: 1–5 (Season 02), 6–12 (Season 03: LEDGER)." });
       return;
     }
 
@@ -233,7 +398,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       resolvedInputs = ["Explain the concept of signal-to-noise ratio. How should I think about it?"];
     }
 
-    const wearable = SEASON02_WEARABLES[tokenId];
+    const wearable = ALL_WEARABLES[tokenId];
     const systemPromptModule = SYSTEM_PROMPT_MODULES[tokenId] ?? "";
 
     // Try live OpenAI inference; fall back to pre-computed if no key
