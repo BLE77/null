@@ -18,6 +18,7 @@ import Register from "@/pages/Register";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AgentDemo from "@/pages/AgentDemo";
 import PersonalShopper from "@/pages/PersonalShopper";
+import Wearables from "@/pages/Wearables";
 import NotFound from "@/pages/not-found";
 import { WagmiProvider } from 'wagmi';
 import { config } from '@/lib/wagmi-config';
@@ -40,6 +41,7 @@ function Router() {
             <AdminDashboard />
           </AdminGuard>
         </Route>
+        <Route path="/wearables" component={Wearables} />
         <Route path="/demo" component={AgentDemo} />
         <Route path="/shopper" component={PersonalShopper} />
         <Route component={NotFound} />

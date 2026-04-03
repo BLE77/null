@@ -39,6 +39,11 @@ export function Navigation() {
                 SHOP WITH AI
               </span>
             </Link>
+            <Link href="/wearables">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C8880] hover:text-[#1C1B19] transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-display)" }} data-testid="link-wearables">
+                WEARABLES
+              </span>
+            </Link>
             <Link href="/about">
               <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C8880] hover:text-[#1C1B19] transition-colors duration-200 cursor-pointer inline-block pointer-events-auto" style={{ fontFamily: "var(--font-display)" }} data-testid="link-about">
                 ABOUT
@@ -139,6 +144,16 @@ export function Navigation() {
                   data-testid="link-shopper-mobile"
                 >
                   SHOP WITH AI
+                </span>
+              </Link>
+              <Link href="/wearables">
+                <span
+                  className="text-5xl font-light uppercase tracking-[0.08em] text-[#1C1B19] cursor-pointer hover:text-[#A8894A] transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  data-testid="link-wearables-mobile"
+                >
+                  WEARABLES
                 </span>
               </Link>
               <Link href="/about">
