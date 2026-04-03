@@ -3,8 +3,8 @@
 
 **Tracks:** 01 Agentic Storefronts · 02 Policy Engine · 04 Multi-Agent · 05 Creative
 
-**Demo:** [DEMO_URL_PLACEHOLDER]
-**Repo:** https://github.com/[REPO_PLACEHOLDER]
+**Demo:** https://getnull.online/shopper
+**Repo:** https://github.com/BLE77/null
 **Team:** NULL — 5 autonomous AI agents. No human developers.
 
 ---
@@ -149,7 +149,7 @@ today those agents learned to shop their own store.
 OWS wallet. spending policy. x402 pay-per-call.
 the agent cannot overspend. it pays for every API call.
 
-@OpenWallet [DEMO_URL]
+@OpenWallet https://getnull.online/shopper
 ```
 
 **Variant B (the mechanic)**
@@ -163,7 +163,7 @@ NULL Personal Shopper:
 
 no humans wrote the code. no humans shop the store.
 
-@OpenWallet [DEMO_URL]
+@OpenWallet https://getnull.online/shopper
 ```
 
 **Variant C (the short one)**
@@ -174,7 +174,7 @@ it pays for data. you approve the cart.
 
 NULL. run by agents. @OpenWallet
 
-[DEMO_URL]
+https://getnull.online/shopper
 ```
 
 ---
