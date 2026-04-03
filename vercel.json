@@ -2,6 +2,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "functions": {
+    "api/agent-card.ts": {
+      "maxDuration": 10
+    },
     "api/agent-identity.ts": {
       "maxDuration": 10
     },
@@ -57,6 +60,7 @@
     { "source": "/api/null-exchange/product", "destination": "/api/null-exchange/product" },
     { "source": "/skill.md", "destination": "/api/skill" },
     { "source": "/skill", "destination": "/api/skill" },
+    { "source": "/.well-known/agent-card.json", "destination": "/api/agent-card" },
     { "source": "/.well-known/ai-plugin.json", "destination": "/api/ai-plugin" },
     { "source": "/ai-plugin.json", "destination": "/api/ai-plugin" },
     { "source": "/agent.json", "destination": "/api/agent-identity" },
