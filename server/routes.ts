@@ -66,32 +66,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Lightweight health check for debugging 500s
-  app.get("/api/healthz", async (_req, res) => {
-    try {
-      const productsCountRes: any = await (db as any).execute(sql`select count(*)::int as count from products`);
-      const ordersCountRes: any = await (db as any).execute(sql`select count(*)::int as count from orders`);
-      res.json({
-        ok: true,
-        env: {
-          DATABASE_URL: !!process.env.DATABASE_URL,
-          VERCEL: !!process.env.VERCEL,
-        },
-        db: {
-          products: productsCountRes?.rows?.[0]?.count ?? null,
-          orders: ordersCountRes?.rows?.[0]?.count ?? null,
-        },
-        time: new Date().toISOString(),
-      });
-    } catch (error: any) {
-      res.status(500).json({
-        ok: false,
-        message: error?.message || "health check failed",
-        env: { DATABASE_URL: !!process.env.DATABASE_URL },
-      });
-    }
-  });
-  
   if (!X402_WALLET) {
     console.warn("⚠️  X402_WALLET_ADDRESS not set - X402 payments will not work");
   }
