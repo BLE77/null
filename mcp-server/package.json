@@ -1,0 +1,36 @@
+{
+  "name": "@getnull/mcp-server",
+  "version": "1.0.0",
+  "description": "NULL MCP Server — wearable agent behaviors as tools for any MCP-compatible agent",
+  "type": "module",
+  "bin": {
+    "null-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --outDir dist --module node16 --moduleResolution node16 --target es2022 --skipLibCheck index.ts",
+    "dev": "npx tsx index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "null",
+    "wearables",
+    "agent",
+    "fashion",
+    "behavioral-modification"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getnull/null-mcp"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": ">=1.0.0"
+  }
+}
