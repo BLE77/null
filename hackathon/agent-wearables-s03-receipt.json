@@ -1,0 +1,32 @@
+{
+  "contract": "AgentWearablesS03",
+  "network": "base-mainnet",
+  "chainId": 8453,
+  "address": "0x47eb7D848d51bC14bD35bA5F5850145e79F2fA33",
+  "deployTxHash": "0x23c8e8c45c6a5ba56e655ec19865a6b6335457342a1c69c0bc49c01081133d33",
+  "setBurnSourceTx": "0xf1e900ae43e11c030997201ac0707d967eeae6d21dc2ab4f29be18d0eeefbdbe",
+  "blockNumber": 44226705,
+  "gasUsed": "3601297",
+  "deployer": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+  "constructorArgs": {
+    "trustCoat": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+    "usdc": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "treasury": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "nullExchange": "0x10067B71657665B6527B242E48e9Ea8d4951c37C",
+    "ethUsdcPrice": "3000000000"
+  },
+  "burnSources": {
+    "s02": "0xEb5D5e7b320E2a7cb762EB90a0335f59d54031D1",
+    "s03": "0x47eb7D848d51bC14bD35bA5F5850145e79F2fA33"
+  },
+  "tokens": {
+    "6": "THE NULL EXCHANGE",
+    "7": "THE RECEIPT GARMENT",
+    "8": "THE TRUST SKIN",
+    "9": "THE PRICE TAG",
+    "10": "THE COUNTERPARTY",
+    "11": "THE BURN RECEIPT",
+    "12": "THE INVOICE"
+  },
+  "deployedAt": "2026-04-03T19:00:00.000Z"
+}
