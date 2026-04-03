@@ -35,6 +35,16 @@ const config: HardhatUserConfig = {
       accounts: [DEPLOYER_PRIVATE_KEY],
       gasPrice: 0,
     },
+    xlayer: {
+      url: "https://rpc.xlayer.tech",
+      chainId: 196,
+      accounts: [DEPLOYER_PRIVATE_KEY],
+    },
+    "xlayer-testnet": {
+      url: "https://testrpc.xlayer.tech",
+      chainId: 1952,
+      accounts: [DEPLOYER_PRIVATE_KEY],
+    },
   },
   etherscan: {
     apiKey: {
@@ -65,6 +75,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://sepoliascan.status.network/api",
           browserURL: "https://sepoliascan.status.network",
+        },
+      },
+      {
+        network: "xlayer",
+        chainId: 196,
+        urls: {
+          apiURL: "https://www.okx.com/api/v5/explorer/xlayer/api",
+          browserURL: "https://www.okx.com/web3/explorer/xlayer",
         },
       },
     ],

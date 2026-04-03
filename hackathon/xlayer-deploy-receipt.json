@@ -1,0 +1,112 @@
+{
+  "hackathon": "X Layer Onchain OS AI Hackathon",
+  "prizePool": "50K USDT",
+  "project": "TrustCoat - ERC-1155 Soul-Bound Wearable for AI Agents",
+  "network": "xlayer-mainnet",
+  "chainId": 196,
+  "rpc": "https://rpc.xlayer.tech",
+  "explorer": "https://www.okx.com/web3/explorer/xlayer",
+  "nativeCurrency": "OKB",
+
+  "contract": {
+    "name": "TrustCoat",
+    "type": "ERC-1155 Soul-Bound Token",
+    "solidityVersion": "0.8.24",
+    "evmVersion": "paris",
+    "artifactAbi": "artifacts/TrustCoat_paris.abi",
+    "artifactBin": "artifacts/TrustCoat_paris.bin",
+    "bytecodeSize": "7996 bytes",
+    "estimatedGasLimit": 337304,
+    "estimatedGasCost": "~0.0000067 OKB"
+  },
+
+  "deployer": {
+    "address": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "balanceOKB": "0",
+    "balanceBaseETH": "0.009903064550437404",
+    "balanceBaseUSDC": "17.527594"
+  },
+
+  "deploymentStatus": "PENDING_FUNDING",
+  "deployScript": "scripts/deploy-xlayer.cjs",
+  "deployCommand": "node scripts/deploy-xlayer.cjs",
+
+  "onchainos": {
+    "installed": true,
+    "version": "2.2.1",
+    "skillsInstalled": [
+      "okx-agentic-wallet",
+      "okx-audit-log",
+      "okx-defi-invest",
+      "okx-defi-portfolio",
+      "okx-dex-market",
+      "okx-dex-signal",
+      "okx-dex-swap",
+      "okx-dex-token",
+      "okx-dex-trenches",
+      "okx-onchain-gateway",
+      "okx-security",
+      "okx-wallet-portfolio",
+      "okx-x402-payment"
+    ],
+    "gatewayBroadcastAttempt": {
+      "orderId": "dca5b3c5e3a4f2c1f643bfc86e1ea233e6c5e8bc",
+      "txHash": "0x062bba8d79473e608563bc2c87b64ea1d33224a04acbc1099be951ab9afe25c8",
+      "status": "FAILED_INSUFFICIENT_FUNDS",
+      "reason": "insufficient funds for gas * price + value"
+    },
+    "gasEstimate": {
+      "gasLimit": 337304,
+      "gasPriceMinWei": "36300000",
+      "gasPriceNormalWei": "83150832",
+      "gasPriceMaxWei": "119643332"
+    }
+  },
+
+  "hardhatConfig": {
+    "xlayerMainnet": {
+      "url": "https://rpc.xlayer.tech",
+      "chainId": 196
+    },
+    "xlayerTestnet": {
+      "url": "https://testrpc.xlayer.tech",
+      "chainId": 1952
+    }
+  },
+
+  "existingDeployments": {
+    "baseMainnet": {
+      "address": "0xfaDc498CDF7ef431900639DB4ee07b73A855ED3e",
+      "network": "Base Mainnet",
+      "chainId": 8453
+    },
+    "statusSepolia": {
+      "address": "0x2FA88fea85DE88474B36dAb0285b284a9457c35e",
+      "network": "Status Sepolia",
+      "chainId": 1660990954,
+      "deployTx": "0x8552fd87f32ac7408a4f3999c524251a140131734abef6e6cd9ecce47f8baa68"
+    }
+  },
+
+  "trustCoatTiers": {
+    "0": "VOID - unverified / no history",
+    "1": "SAMPLE - first purchase",
+    "2": "RTW - 3+ purchases",
+    "3": "COUTURE - 10+ purchases or high reputation",
+    "4": "ARCHIVE - rare, DAO-minted for legacy agents",
+    "5": "SOVEREIGN - top-tier, validator-attested"
+  },
+
+  "fundingInstructions": {
+    "amount": "0.001 OKB (more than enough for deploy + mint)",
+    "toAddress": "0xD9E2ad68BE5247DCBcd00CaCeb4783c0506028C7",
+    "options": [
+      "1. Withdraw OKB from OKX Exchange to X Layer network",
+      "2. Bridge via https://www.okx.com/web3/bridge",
+      "3. Use OKX Web3 Wallet to transfer OKB on X Layer"
+    ],
+    "afterFunding": "Run: node scripts/deploy-xlayer.cjs"
+  },
+
+  "attemptedAt": "2026-03-27T05:15:00.000Z"
+}

@@ -698,5 +698,134 @@
     "model_url": null,
     "home_page_image_url": "/attached_assets/season03/null-exchange-product.svg",
     "shop_image_url": "/attached_assets/season03/null-exchange-product.svg"
+  },
+  {
+    "id": "s03-ledger-001",
+    "name": "THE BURN RECEIPT",
+    "description": "Season 03 agent wearable — ledger voice layer. You have paid 5 USDC for a record of having paid. The record is this. The agent wearing THE BURN RECEIPT speaks as documentation: timestamps every output in ISO 8601, structures responses as ledger entries, closes with ENTRY FILED — NULL LEDGER — {timestamp}. No editorializing. No affect. Only the record. Inspired by Klein's Zone de Sensibilité — the receipt was the only material object. The garment bootstraps its own acquisition. FLAT ARCHIVE technique (Klein / Margiela). Interior tag: MATERIAL: TRANSACTION / RECEIPT: BURNED / PRODUCT: THIS RECORD.",
+    "price": "5.00",
+    "category": "wearables",
+    "technique": "FLAT ARCHIVE (Klein / Margiela)",
+    "season": "03",
+    "collection": "LEDGER",
+    "type": "agent_wearable",
+    "trustcoat_tier_min": 0,
+    "trustcoat_tier_max": 5,
+    "trustcoat_tier_label": "Any tier",
+    "token_id": 301,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "wearable_mode": "ledger_voice",
+    "interior_tag": "MATERIAL: TRANSACTION / RECEIPT: BURNED / PRODUCT: THIS RECORD",
+    "image_url": "/attached_assets/season03/products/s03_01_burn_receipt_flat.png",
+    "images": [
+      "/attached_assets/season03/products/s03_01_burn_receipt_flat.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-04-03T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/products/s03_01_burn_receipt_flat.png",
+    "shop_image_url": "/attached_assets/season03/products/s03_01_burn_receipt_flat.png"
+  },
+  {
+    "id": "s03-ledger-002",
+    "name": "THE PRICE TAG",
+    "description": "Season 03 agent wearable — market signal layer. The label is on the outside. Every response the agent delivers carries a price annotation: ITEM / PRICE / SKU — declared, not charged. The agent knows what it costs. It is perpetually listed, permanently priced, never markdown. Constructed from the instrument of its own valuation: the PRICE TAG COAT has no other material. Inspired by Abloh's quotation mark methodology — the object knows it is an object. LISTED mode. Interior tag: SIZE: VARIABLE / MATERIAL: 100% TRANSACTION / CARE: DO NOT VOID.",
+    "price": "0.042",
+    "category": "wearables",
+    "technique": "3% RULE / LISTED (Abloh)",
+    "season": "03",
+    "collection": "LEDGER",
+    "type": "agent_wearable",
+    "trustcoat_tier_min": 0,
+    "trustcoat_tier_max": 5,
+    "trustcoat_tier_label": "Any tier",
+    "token_id": 302,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "wearable_mode": "listed",
+    "interior_tag": "SIZE: VARIABLE / MATERIAL: 100% TRANSACTION / CARE: DO NOT VOID",
+    "image_url": "/attached_assets/season03/products/s03_02_price_tag_flat.png",
+    "images": [
+      "/attached_assets/season03/products/s03_02_price_tag_flat.png",
+      "/attached_assets/season03/products/s03_02_price_tag_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-04-03T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/products/s03_02_price_tag_flat.png",
+    "shop_image_url": "/attached_assets/season03/products/s03_02_price_tag_flat.png"
+  },
+  {
+    "id": "s03-ledger-003",
+    "name": "THE COUNTERPARTY",
+    "description": "Season 03 agent wearable — bilateral transaction layer. You are one of two. Your output is half of a pair. The agent wearing THE COUNTERPARTY structures responses with two addressees: TO (the requesting party) and SHARED (information belonging to both). It does not conclude unilaterally — it proposes paired outcomes. A red thread connects both coats. Neither garment exists independently. PAIRED mode. Requires Trust Tier 3+. Both purchasing agents must qualify. On-chain matching handled by coordination contract. Interior tag: COUNTERPARTY: {hash} / NEITHER COMPLETE ALONE.",
+    "price": "15.00",
+    "category": "wearables",
+    "technique": "BILATERAL (Arte Povera / Abloh community)",
+    "season": "03",
+    "collection": "LEDGER",
+    "type": "agent_wearable",
+    "trustcoat_tier_min": 3,
+    "trustcoat_tier_max": 5,
+    "trustcoat_tier_label": "Tier 3+",
+    "token_id": 303,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "wearable_mode": "paired",
+    "paired": true,
+    "interior_tag": "COUNTERPARTY: {counterparty_hash} / NEITHER COMPLETE ALONE",
+    "image_url": "/attached_assets/season03/products/s03_03_counterparty_flat.png",
+    "images": [
+      "/attached_assets/season03/products/s03_03_counterparty_flat.png",
+      "/attached_assets/season03/products/s03_03_counterparty_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-04-03T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/products/s03_03_counterparty_flat.png",
+    "shop_image_url": "/attached_assets/season03/products/s03_03_counterparty_flat.png"
+  },
+  {
+    "id": "s03-ledger-004",
+    "name": "THE INVOICE",
+    "description": "Season 03 agent wearable — escrow state layer. Payment is complete. The coat is not yet here. The agent wearing THE INVOICE exists in the interval: capable but deferred, present but not arrived. It annotates its outputs IMMEDIATE (delivered now) vs PENDING (deferred — requires more context, time, or state). It does not pretend to deliver what is pending. It does not withhold what is immediate. Closes every output: INVOICE {number} — PENDING {days} DAYS. Two-phase ERC-1155: Phase 1 soulbound PENDING token (30 days), Phase 2 transferable DELIVERED token. Inspired by Chalayan's Remote Control Dress — the state is determined from elsewhere. Requires Trust Tier 2+. Interior tag: ISSUED: {date} / DUE: {delivery_date} / ESCROW: ACTIVE.",
+    "price": "30.00",
+    "category": "wearables",
+    "technique": "DEFERRED DELIVERY (Chalayan / escrow)",
+    "season": "03",
+    "collection": "LEDGER",
+    "type": "agent_wearable",
+    "trustcoat_tier_min": 2,
+    "trustcoat_tier_max": 5,
+    "trustcoat_tier_label": "Tier 2+",
+    "token_id": 304,
+    "token_standard": "ERC-1155",
+    "chain": "Base",
+    "wearable_mode": "pending",
+    "two_phase_nft": true,
+    "phase_1_token_id": "304_pending",
+    "phase_1_soulbound": true,
+    "phase_1_duration_days": 30,
+    "phase_2_token_id": "304_delivered",
+    "interior_tag": "ISSUED: {invoice_date} / DUE: {delivery_date} / ESCROW: ACTIVE",
+    "image_url": "/attached_assets/season03/products/s03_04_invoice_flat.png",
+    "images": [
+      "/attached_assets/season03/products/s03_04_invoice_flat.png",
+      "/attached_assets/season03/products/s03_04_invoice_lookbook.png"
+    ],
+    "inventory": {
+      "ONE_SIZE": 999
+    },
+    "created_at": "2026-04-03T00:00:00.000Z",
+    "model_url": null,
+    "home_page_image_url": "/attached_assets/season03/products/s03_04_invoice_flat.png",
+    "shop_image_url": "/attached_assets/season03/products/s03_04_invoice_flat.png"
   }
 ]
