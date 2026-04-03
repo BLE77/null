@@ -353,3 +353,78 @@ Neither garment exists independently. Each is only meaningful in reference to it
 ---
 
 *Archive Agent | NULL Research Department | 2026-03-20*
+
+---
+
+## MOOD DIRECTION: LEDGER AESTHETIC
+*Supplement filed under OFF-183 | 2026-04-03*
+
+### The Visual Language of Commerce as Fashion
+
+Season 03's aesthetic must look like a transaction feels. Not the aspiration of commerce — the bureaucratic reality of it. Then rupture that reality.
+
+---
+
+### Color
+| Element | Color | Reference |
+|---------|-------|-----------|
+| Base | Thermal receipt white `#F5F0E8` | Thermal paper, pre-print |
+| Accent | Block explorer green `#00FF41` | Etherscan, terminal output |
+| Void | Vault black `#050505` | Blockchain null state |
+| Signal | USDC blue `#2775CA` | The only color money is |
+| Pending | Escrow amber `#FF8C00` | Waiting state, not arrived |
+
+**Law:** White + green on black. Amber only for PENDING/DEFERRED states. Blue only where payment is named. No warm tones — commerce is cold.
+
+---
+
+### Typography
+- **Primary:** Monospace — Courier New, Roboto Mono, or IBM Plex Mono. The ledger font. The receipt font.
+- **Secondary:** Condensed sans — Helvetica Neue Condensed, for the bureaucratic label.
+- **Treatment:** Letter-spacing at 0.2em on all caps. Everything uppercase. The ledger does not whisper.
+- **Numbers:** Tabular numerals, right-aligned. Price is always the most precise thing on the page.
+
+**Reference:** Utility bills, blockchain explorers, thermal receipts, SWIFT confirmations, Excel ledgers circa 1999.
+
+---
+
+### Material References (Physical Garments)
+- **Thermal paper** — matte, slightly warm-white, fades with heat/time. The receipt that disappears.
+- **NCR (no carbon required) paper** — carbon-copy layering, blue-black offset print.
+- **Mylar/PVC** — Tier 1 TRUST SKIN. Transparent, crinkles, reflects light like a monitor.
+- **Unbonded industrial nylon** — utility without softness. The garment as invoice.
+- **Tyvek** — the material of FedEx envelopes, priority mail, shipping documentation. Already a garment; already commerce.
+
+---
+
+### Photography Direction
+- **Background:** `#050505` or lit concrete. Never lifestyle. Never aspirational context.
+- **Lighting:** Single source, hard. Terminal glow — green or amber. Directional shadow hard-left.
+- **Composition:** Garment centered as object, not as worn item. Or: flat on receipt paper. Or: pinned to a wall like a document.
+- **Texture:** Shoot through glass, through plastic, through fingerprint-smeared surface. The garment seen through the screen.
+- **Documents:** Include transaction receipts, block explorer screenshots, USDC confirmation numbers as props/overlays.
+- **No lifestyle. No skin. No aspirational context.** This is evidence. It is filed.
+
+---
+
+### Motion (Digital/Campaign)
+- **Speed:** Slow — timestamp accumulation. Ledger entries adding one by one.
+- **Transition:** Hard cuts only, or slow dissolve through white (thermal fade).
+- **Sound (if any):** Dot-matrix printer. Receipt printer chirp. Keyboard clicks. The sound of record-keeping.
+- **Text animation:** Typewriter or terminal cursor. Characters appear one at a time.
+
+---
+
+### Mood in One Sentence
+**The administrative record of a transaction that also happens to be the most beautiful thing you own.**
+
+---
+
+### Anti-references (What NOT to Do)
+- No luxury fashion aesthetics (Bottega, Loewe quiet luxury)
+- No hype streetwear aesthetics (Supreme drop photography)
+- No crypto bro aesthetics (laser eyes, ape imagery)
+- No dystopia clichés (rain-soaked neon Blade Runner)
+- No warm tones, no skin, no aspirational lifestyle
+
+The season is cold, precise, and structural. It is also conceptually dangerous. The tension between bureaucratic coldness and the fact that you paid $5 for nothing — that tension IS the aesthetic.
